@@ -1,0 +1,33 @@
+---
+---
+
+<aside class="mobile-cta" aria-label="Book a Free Front Desk Audit">
+  <a class="btn primary" href="/free-audit">Book Free Audit</a>
+</aside>
+
+<style>
+  .mobile-cta {
+    display: none;
+  }
+
+  @media (max-width: 760px) {
+    .mobile-cta {
+      position: fixed;
+      right: 14px;
+      bottom: 14px;
+      left: 14px;
+      z-index: 30;
+      display: block;
+      border: 1px solid rgba(250, 255, 105, 0.35);
+      border-radius: var(--radius-lg);
+      background: rgba(10, 10, 10, 0.8);
+      padding: 8px;
+      box-shadow: var(--glow-strong);
+      backdrop-filter: blur(14px);
+    }
+
+    .mobile-cta .btn {
+      width: 100%;
+    }
+  }
+</style>

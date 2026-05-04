@@ -1,0 +1,109 @@
+---
+const videos = [
+  {
+    slug: "home-hero-front-desk-system",
+    title: "More Booked Jobs. Less Chasing. No Tech Headaches.",
+    text: "A 3-minute overview of the front-desk system, the main problem, and the five-step mechanism.",
+  },
+  {
+    slug: "home-good-jobs-slipping",
+    title: "Good Jobs Are Slipping Through The Cracks",
+    text: "How missed calls, slow replies, and forgotten quote follow-up leak opportunities.",
+  },
+  {
+    slug: "home-front-desk-reframe",
+    title: "You May Not Need More Leads First",
+    text: "The reframe behind fixing enquiry handling before adding more lead volume.",
+  },
+  {
+    slug: "home-five-step-flow",
+    title: "Capture → Respond → Qualify → Book → Follow Up",
+    text: "A visual walkthrough of the core process behind the system.",
+  },
+  {
+    slug: "home-system-modules",
+    title: "What The System Can Include",
+    text: "A quick tour of missed-call saver, instant response, quote forms, follow-up, pipeline, and growth layers.",
+  },
+  {
+    slug: "home-audit-and-packages",
+    title: "Audit And Package Fit",
+    text: "How the Free Front Desk Audit leads into the right package recommendation.",
+  },
+];
+---
+
+<section class="section band" id="homepage-videos">
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow">Animated explainers</p>
+      <h2>See The Front Desk System In Motion</h2>
+      <p class="lead">These animated project previews explain the major homepage sections using the same black and electric-yellow visual system as the website.</p>
+    </div>
+    <div class="video-grid">
+      {videos.map((video) => (
+        <article class="card video-card">
+          <div class="video-frame">
+            <iframe
+              title={video.title}
+              src={`/videos/home/${video.slug}/index.html`}
+              loading="lazy"
+              allow="autoplay"
+            ></iframe>
+          </div>
+          <div class="video-copy">
+            <h3>{video.title}</h3>
+            <p>{video.text}</p>
+            <a class="btn secondary" href={`/videos/home/${video.slug}/index.html`} target="_blank" rel="noreferrer">Open Project Preview</a>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .video-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px;
+  }
+
+  .video-card {
+    display: grid;
+    gap: 18px;
+    padding: 16px;
+  }
+
+  .video-frame {
+    overflow: hidden;
+    border: 1px solid rgba(250, 255, 105, 0.28);
+    border-radius: var(--radius-lg);
+    background: var(--canvas);
+    aspect-ratio: 16 / 9;
+    box-shadow: var(--glow);
+  }
+
+  iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    transform-origin: 0 0;
+  }
+
+  .video-copy {
+    display: grid;
+    gap: 12px;
+    padding: 0 4px 4px;
+  }
+
+  h3 {
+    font-size: 23px;
+  }
+
+  @media (max-width: 920px) {
+    .video-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

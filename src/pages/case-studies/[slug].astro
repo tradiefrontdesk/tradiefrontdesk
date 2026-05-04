@@ -1,0 +1,79 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import CTASection from "@/components/CTASection.astro";
+import SectionVideo from "@/components/SectionVideo.astro";
+import { caseStudies } from "@/data/site";
+
+export function getStaticPaths() {
+  return caseStudies.map((study) => ({
+    params: { slug: study.slug },
+    props: { study },
+  }));
+}
+
+const { study } = Astro.props;
+---
+
+<BaseLayout title={`${study.business} Case Study | Tradie Front Desk System`} description={`${study.business} case study showing the system installed and reported outcome using careful, legal-safe proof language.`}>
+  <section class="hero section">
+    <div class="container split video-split">
+      <div>
+        <p class="eyebrow">Case Study</p>
+        <h1>{study.headline}</h1>
+        <p class="lead">{study.result}</p>
+        <div class="button-row">
+          <a class="btn primary" href="/free-audit">Book a Free Front Desk Audit</a>
+          <a class="btn secondary" href="/case-studies">View All Case Studies</a>
+        </div>
+      </div>
+      <SectionVideo id="CaseStudyDetailVideo" featured />
+    </div>
+  </section>
+
+  <section class="section band">
+    <div class="container grid four">
+      <div class="card"><p class="eyebrow">Business</p><h3>{study.business}</h3></div>
+      <div class="card"><p class="eyebrow">Industry</p><h3>{study.industry}</h3></div>
+      <div class="card"><p class="eyebrow">Location</p><h3>{study.location}</h3></div>
+      <div class="card"><p class="eyebrow">Reported outcome</p><h3>{study.reported}</h3></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container split">
+      <div class="section-head">
+        <p class="eyebrow">Starting point</p>
+        <h2>The Starting Point</h2>
+        <p class="lead">{study.snapshot}</p>
+        <p>The business needed a more organised digital front door, clearer enquiry capture, stronger follow-up, and a more professional customer journey.</p>
+      </div>
+      <div class="card">
+        <h3>The System Installed</h3>
+        <ul class="list">{study.system.map((item) => <li>{item}</li>)}</ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section band">
+    <div class="container grid two">
+      <div class="card">
+        <h2>The Result</h2>
+        <p>{study.result}</p>
+      </div>
+      <div class="card">
+        <h2>Why It Worked</h2>
+        <p>The business was no longer relying only on manual admin or word of mouth. The system created a clearer digital front door, captured enquiries, routed customers into a process, followed up, and helped build trust through reviews or better organisation.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container card">
+      <h2>What Other Business Owners Can Learn</h2>
+      <p class="lead">More enquiries are useful, but only when the business has a system to capture, respond, follow up, and convert them.</p>
+      <p class="fineprint">Case studies and examples are provided for illustration only. Results are not guaranteed and may not be typical. Outcomes depend on the business, market, offer, implementation, and client follow-through.</p>
+    </div>
+  </section>
+
+  <CTASection title="Want To Find Where Your Business Is Leaking Enquiries?" text="Book a Free Front Desk Audit and we will map your current enquiry process." />
+</BaseLayout>

@@ -1,0 +1,91 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Hero from "@/components/Hero.astro";
+import AuditForm from "@/components/AuditForm.astro";
+import FAQ from "@/components/FAQ.astro";
+import CTASection from "@/components/CTASection.astro";
+import SectionVideo from "@/components/SectionVideo.astro";
+
+const auditChecks = [
+  "What happens when someone calls",
+  "What happens when you miss a call",
+  "How website enquiries are handled",
+  "Whether customers get an instant reply",
+  "Whether quote requests collect enough detail",
+  "Whether leads and quotes are followed up",
+  "Whether open opportunities are tracked",
+  "Whether old leads and reviews are being used",
+];
+
+const auditFaqs: [string, string][] = [
+  ["Is the audit really free?", "Yes. The audit is a practical review of your enquiry process. If we believe the system can help, we will explain the recommended next step."],
+  ["Is this a sales pitch?", "The audit is designed to identify actual enquiry leaks. If the system is not a good fit, we will say so."],
+  ["Do I need to prepare anything?", "It helps if you know where your enquiries come from, what happens when calls are missed, and how quotes are followed up."],
+  ["How long does it take?", "A normal audit call takes around 30-45 minutes depending on the business."],
+  ["Will you tell me to run ads?", "Not necessarily. We usually recommend fixing enquiry capture and follow-up before adding more campaigns."],
+];
+---
+
+<BaseLayout title="Free Tradie Front Desk Audit | Find Missed Enquiry Leaks" description="Book a free audit to find where your trade business may be losing jobs from missed calls, slow replies, poor follow-up, and messy enquiry handling.">
+  <Hero title="Are Missed Calls, Slow Replies, And Forgotten Follow-Ups Costing You Jobs?" text="Book a Free Tradie Front Desk Audit and see where your business may be leaking job opportunities before you spend more money on leads or ads." primary="Book My Free Audit" videoId="AuditHeroVideo" />
+
+  <section class="section band">
+    <div class="container split">
+      <div class="section-head">
+        <p class="eyebrow">The audit</p>
+        <h2>Most Tradies Do Not Have A Lead Problem First. They Have A Follow-Up Problem.</h2>
+        <p class="lead">You might already be getting calls, quote requests, referrals, website enquiries, and old customers coming back.</p>
+        <p>If those enquiries are missed, answered late, poorly followed up, or tracked in your head, good jobs can slip through the cracks.</p>
+      </div>
+      <div class="stacked-panel">
+        <SectionVideo id="AuditChecksVideo" />
+        <div class="card">
+          <h3>What You Will Walk Away With</h3>
+          <ul class="list">
+            <li>A clear view of what is working</li>
+            <li>A list of where enquiries may be leaking</li>
+            <li>The highest-priority fixes</li>
+            <li>A recommendation on whether a front-desk system makes sense</li>
+            <li>The best package fit if you decide to move ahead</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container grid two">
+      <div>
+        <div class="section-head">
+          <p class="eyebrow">What we review</p>
+          <h2>What The Audit Checks</h2>
+        </div>
+        <ul class="list">{auditChecks.map((item) => <li>{item}</li>)}</ul>
+      </div>
+      <div class="card">
+        <h3>This Audit Is For Trade Businesses That Want Better Enquiry Handling</h3>
+        <ul class="list">
+          <li>You miss calls while working</li>
+          <li>You get website enquiries but follow-up is slow</li>
+          <li>You send quotes but do not always follow up</li>
+          <li>You track leads manually</li>
+          <li>You want more booked jobs but less chasing</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section band" id="audit-form">
+    <div class="container split">
+      <div class="section-head">
+        <p class="eyebrow">Book your audit</p>
+        <h2>Book Your Free Front Desk Audit</h2>
+        <p class="lead">Tell us where your enquiries currently come from and what feels messy. The form is ready for a GoHighLevel or webhook connection later.</p>
+      </div>
+      <AuditForm />
+    </div>
+  </section>
+
+  <FAQ items={auditFaqs} />
+  <CTASection title="Find The Leaks Before You Spend More On Leads" text="Book your Free Front Desk Audit and get a clear view of how your business handles enquiries from first contact to booked job." cta="Book My Free Audit" href="#audit-form" />
+</BaseLayout>

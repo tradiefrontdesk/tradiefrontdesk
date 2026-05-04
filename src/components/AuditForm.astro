@@ -1,0 +1,48 @@
+---
+const problems = [
+  "Missing calls",
+  "Slow replies",
+  "Poor follow-up",
+  "Quotes not being followed up",
+  "Not enough enquiries",
+  "Enquiries are scattered everywhere",
+  "Not sure",
+];
+---
+
+<form class="card form-card" data-form="audit">
+  <div class="form-grid">
+    <label>Name<input name="name" autocomplete="name" required /></label>
+    <label>Business name<input name="businessName" autocomplete="organization" required /></label>
+    <label>Phone<input name="phone" type="tel" autocomplete="tel" required /></label>
+    <label>Email<input name="email" type="email" autocomplete="email" required /></label>
+    <label>Website<input name="website" type="url" placeholder="https://" /></label>
+    <label>Trade/service type<input name="tradeType" placeholder="Plumbing, roofing, electrical..." required /></label>
+    <label>Service area<input name="serviceArea" required /></label>
+    <label>
+      Biggest enquiry problem
+      <select name="biggestProblem" required>
+        <option value="">Select one</option>
+        {problems.map((problem) => <option>{problem}</option>)}
+      </select>
+    </label>
+  </div>
+  <label>Preferred audit time/message<textarea name="preferredTime" placeholder="Tell us when suits and what you want us to review."></textarea></label>
+  <button class="btn primary" type="submit">Book My Free Audit</button>
+  <p class="fineprint" data-status>We will use these details to review your enquiry process and respond about the audit.</p>
+</form>
+
+<script>
+  document.querySelectorAll<HTMLFormElement>('[data-form="audit"]').forEach((form) => {
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const data = Object.fromEntries(new FormData(form));
+      console.info("Audit request payload ready for CRM/webhook:", data);
+      // Connect GoHighLevel or another CRM webhook here.
+      // await fetch("YOUR_WEBHOOK_URL", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(data) });
+      const status = form.querySelector<HTMLElement>("[data-status]");
+      if (status) status.textContent = "Thanks. Your audit request is ready to send once the CRM/webhook is connected.";
+      form.reset();
+    });
+  });
+</script>

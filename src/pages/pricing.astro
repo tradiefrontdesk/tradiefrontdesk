@@ -1,0 +1,80 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Hero from "@/components/Hero.astro";
+import PackageCards from "@/components/PackageCards.astro";
+import CTASection from "@/components/CTASection.astro";
+import FAQ from "@/components/FAQ.astro";
+import SectionVideo from "@/components/SectionVideo.astro";
+
+const factors = ["Number of services", "Number of locations or service areas", "Number of enquiry channels", "Whether campaigns are included", "Whether AI phone support is included", "Whether old lead reactivation is included", "Whether website work is needed", "Whether integrations are required"];
+
+const rows = [
+  ["Front Desk Audit", "Basic", "Detailed", "Detailed + Growth Review"],
+  ["Enquiry Capture", "Yes", "Yes", "Yes"],
+  ["Missed Call Saver", "Yes", "Yes", "Yes"],
+  ["Quote Request Form", "Basic", "Advanced", "Advanced"],
+  ["Lead Qualification", "Basic", "Advanced", "Advanced"],
+  ["Callback / Booking Flow", "Basic", "Yes", "Yes"],
+  ["Quote Follow-Up", "Optional / Basic", "Yes", "Yes"],
+  ["Review Automation", "Add-on", "Add-on", "Included / Optional"],
+  ["Old Lead Reactivation", "Add-on", "Add-on", "Included / Optional"],
+  ["Local Campaigns", "No", "Add-on", "Included / Optional"],
+  ["Recommended Setup", "$997-$1,500", "$1,500-$2,500", "$2,500-$5,000"],
+  ["Recommended Monthly", "$297-$497", "$750-$1,500", "$1,500-$3,000"],
+];
+---
+
+<BaseLayout title="Tradie Front Desk System Packages & Pricing" description="View package options for the Tradie Front Desk System, including Front Desk Starter, Booked Jobs System, and Managed Growth System.">
+  <Hero title="Packages Built Around Your Enquiry Process" text="Whether you need basic missed-call recovery or a fully managed growth system, we start by finding the biggest leaks in your current front-desk process." primary="Book a Free Audit" videoId="PricingHeroVideo" />
+  <section class="section band">
+    <div class="container split video-split">
+      <div class="section-head">
+        <p class="eyebrow">Pricing philosophy</p>
+        <h2>This Is Not Cheap Software. It Is A Managed Business System.</h2>
+        <p class="lead">The setup fee covers building the system around your services, locations, job rules, messages, forms, pipeline, and follow-up process. The monthly fee keeps the system live, monitored, supported, and improved.</p>
+      </div>
+      <SectionVideo id="PricingPackagesVideo" />
+    </div>
+  </section>
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">Packages</p>
+        <h2>Choose The Right Starting Point</h2>
+        <p class="lead">Pricing depends on final scope. Booked Jobs System is the flagship package for most growing trade businesses.</p>
+      </div>
+      <PackageCards />
+      <p class="fineprint" style="margin-top: 18px;">Pricing ranges are starting points and depend on scope, package inclusions, usage, integrations, campaign needs, and service complexity. Ad spend is separate for campaign packages.</p>
+    </div>
+  </section>
+  <section class="section band">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">Comparison</p>
+        <h2>Package Comparison</h2>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Feature / Service</th><th>Front Desk Starter</th><th>Booked Jobs System</th><th>Managed Growth System</th></tr></thead>
+          <tbody>{rows.map((row) => <tr>{row.map((cell) => <td>{cell}</td>)}</tr>)}</tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container grid two">
+      <div class="card">
+        <h2>What Affects Your Setup</h2>
+        <ul class="list">{factors.map((factor) => <li>{factor}</li>)}</ul>
+      </div>
+      <div class="card">
+        <p class="eyebrow">Guarantee</p>
+        <h2>Front Desk Launch Guarantee</h2>
+        <p>Once we have your business details, services, access, and approvals, we build, test, and launch your agreed core front-desk system. If something in the agreed core setup is not working, we fix it.</p>
+        <p class="fineprint">We do not guarantee exact job numbers because results depend on your market, pricing, services, availability, reputation, and customer demand.</p>
+      </div>
+    </div>
+  </section>
+  <FAQ />
+  <CTASection title="Not Sure Which Package Fits?" text="Book a Free Front Desk Audit and we will recommend the right starting point based on your current enquiry process." cta="Book My Free Audit" />
+</BaseLayout>

@@ -1,0 +1,52 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Hero from "@/components/Hero.astro";
+import ContactForm from "@/components/ContactForm.astro";
+import FAQ from "@/components/FAQ.astro";
+import SectionVideo from "@/components/SectionVideo.astro";
+---
+
+<BaseLayout title="Contact The Tradie Front Desk System" description="Contact The Tradie Front Desk System to book a free audit or ask about enquiry capture, missed-call recovery, follow-up, and booking systems for tradies.">
+  <Hero title="Let's Find Where Your Enquiries Are Leaking" text="Book a Free Front Desk Audit or send us a message and we will help you work out the best next step." primary="Book Free Audit" primaryHref="/free-audit" secondary="Send Message" secondaryHref="#contact-form" videoId="ContactHeroVideo" />
+  <section class="section band">
+    <div class="container split video-split">
+      <div class="grid two">
+        <article class="card">
+          <h2>Book Audit</h2>
+          <p>Best if you want us to review your current enquiry process and recommend the right system.</p>
+          <a class="btn primary" href="/free-audit">Book Free Audit</a>
+        </article>
+        <article class="card">
+          <h2>General Enquiry</h2>
+          <p>Best if you have a question before booking or want to ask about scope, pricing, or fit.</p>
+          <a class="btn secondary" href="#contact-form">Send Message</a>
+        </article>
+      </div>
+      <SectionVideo id="ContactNextStepsVideo" />
+    </div>
+  </section>
+  <section class="section" id="contact-form">
+    <div class="container split">
+      <div class="section-head">
+        <p class="eyebrow">Contact</p>
+        <h2>Send Us A Message</h2>
+        <p class="lead">The form is clean and accessible now, with the webhook connection point commented in the component for later GoHighLevel integration.</p>
+      </div>
+      <ContactForm />
+    </div>
+  </section>
+  <section class="section band">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">Next steps</p>
+        <h2>What Happens After You Reach Out</h2>
+      </div>
+      <div class="grid four">
+        {["We review your message or booking request", "We ask any key questions if needed", "We map your current enquiry process", "We recommend the best next step"].map((step, index) => (
+          <article class="card"><span class="pill yellow">Step {index + 1}</span><h3>{step}</h3></article>
+        ))}
+      </div>
+    </div>
+  </section>
+  <FAQ title="Contact Questions" />
+</BaseLayout>

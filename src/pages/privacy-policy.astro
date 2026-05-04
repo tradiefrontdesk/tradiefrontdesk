@@ -1,0 +1,60 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import SectionVideo from "@/components/SectionVideo.astro";
+---
+
+<BaseLayout title="Privacy Policy | The Tradie Front Desk System" description="Privacy Policy for The Tradie Front Desk System website, including form data, booking requests, cookies, third-party tools, and user rights.">
+  <section class="section">
+    <div class="container split video-split legal-hero">
+      <div>
+        <p class="eyebrow">Legal</p>
+        <h1>Privacy Policy</h1>
+        <p class="lead">This page explains how The Tradie Front Desk System by System Pros AI may collect and use information submitted through this website.</p>
+      </div>
+      <SectionVideo id="PrivacyPolicyVideo" />
+    </div>
+    <div class="container legal">
+
+      <h2>Information We Collect</h2>
+      <p>We may collect information you provide through contact forms, audit forms, booking requests, emails, or phone calls. This may include your name, business name, phone number, email address, website, trade or service type, service area, enquiry problem, preferred audit time, and message content.</p>
+
+      <h2>How We Use Information</h2>
+      <p>We use submitted information to respond to enquiries, review your front-desk process, prepare audit conversations, recommend suitable next steps, deliver agreed services, and improve website and service communication.</p>
+
+      <h2>Forms And Booking Requests</h2>
+      <p>Website forms are designed to make future CRM or webhook connection straightforward. When connected, form submissions may be sent to GoHighLevel or another approved CRM, booking, email, SMS, or notification tool.</p>
+
+      <h2>Cookies And Tracking</h2>
+      <p>The website may use cookies or analytics tools to understand page visits, form activity, CTA clicks, and website performance. Tracking should be configured responsibly and in line with applicable laws.</p>
+
+      <h2>Third-Party Tools</h2>
+      <p>The system may use third-party tools such as CRM platforms, phone/SMS providers, email providers, analytics tools, booking systems, advertising platforms, hosting providers, and AI tools where relevant to website operation or service delivery.</p>
+
+      <h2>Data Storage And Security</h2>
+      <p>We aim to handle submitted information responsibly. No online system can be guaranteed completely secure, and third-party platform terms may also apply.</p>
+
+      <h2>Your Rights</h2>
+      <p>You may contact us to ask what information we hold about you, request corrections, request deletion where appropriate, or ask not to receive further communication.</p>
+
+      <h2>Contact</h2>
+      <p>Use the contact page to ask privacy questions or request changes to submitted information.</p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .legal {
+    max-width: 900px;
+    display: grid;
+    gap: 22px;
+  }
+
+  .legal-hero {
+    margin-bottom: 48px;
+  }
+
+  h2 {
+    margin-top: 28px;
+    font-size: 32px;
+  }
+</style>

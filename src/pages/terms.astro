@@ -1,0 +1,76 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import SectionVideo from "@/components/SectionVideo.astro";
+import { disclaimer } from "@/data/site";
+---
+
+<BaseLayout title="Terms & Conditions | The Tradie Front Desk System" description="Terms and conditions for The Tradie Front Desk System, including service scope, guarantees, responsibilities, pricing, cancellation, platforms, AI terms, and results disclaimers.">
+  <section class="section">
+    <div class="container split video-split legal-hero">
+      <div>
+        <p class="eyebrow">Legal</p>
+        <h1>Terms & Conditions</h1>
+        <p class="lead">These plain-English terms summarise the website and service principles for The Tradie Front Desk System by System Pros AI. They are not a substitute for lawyer-drafted advice or a signed service agreement.</p>
+      </div>
+      <SectionVideo id="TermsVideo" />
+    </div>
+    <div class="container legal">
+
+      <h2>Service Description</h2>
+      <p>The Tradie Front Desk System is a managed enquiry, follow-up, and booking-support system for trade and service businesses. It may include forms, calendars, SMS, email, phone systems, CRM tools, AI assistants, website widgets, campaigns, review requests, and related tools depending on the package purchased.</p>
+
+      <h2>What The Service Is Not</h2>
+      <p>The service is not a guaranteed job-generation service, guaranteed revenue service, pay-per-lead service, full receptionist service unless agreed, full advertising agency service unless campaigns are included, full website rebuild unless included, full SEO campaign unless included, or a replacement for client judgement and follow-through.</p>
+
+      <h2>Results Disclaimer</h2>
+      <p>{disclaimer}</p>
+
+      <h2>Front Desk Launch Guarantee</h2>
+      <p>Once we have your required business details, access, and approvals, we will build, test, and launch the agreed core front-desk system. If something in the agreed core setup is not working as specified, we will fix it.</p>
+      <p>The guarantee covers the agreed system build, workflows, forms, customer messages, pipeline setup, notifications, internal testing, launch support, and fixing agreed setup issues. It does not cover exact job numbers, revenue, profit, leads, bookings, ad results, Google rankings, customer decisions, client response speed, client pricing, availability, service quality, reputation, platform outages, client-caused delays, or features outside purchased scope.</p>
+
+      <h2>Package Scope</h2>
+      <p>The exact scope depends on the package purchased: Front Desk Starter, Booked Jobs System, or Managed Growth System. Optional add-ons are included only when listed in a proposal or agreement. If it is not included in the package or proposal, it is not included.</p>
+
+      <h2>Client Responsibilities</h2>
+      <p>Clients must provide accurate business details, services, service areas, business rules, communication preferences, required access, review links, old lead lists where relevant, ad account access where campaigns are included, timely approvals, and feedback.</p>
+      <p>The client must continue to deliver quality service, respond to qualified opportunities, call customers back when required, provide quotes professionally, honour bookings, update us about business changes, and maintain required platform access.</p>
+
+      <h2>Pricing, Usage Costs, And Ad Spend</h2>
+      <p>Setup fees cover strategy, build, configuration, messaging, workflow setup, pipeline setup, testing, and launch preparation. Monthly fees cover ongoing system management, support, monitoring, platform/service access, and optimisation according to the package.</p>
+      <p>SMS, calls, AI voice, phone numbers, email, WhatsApp, ad spend, hosting, domains, and third-party tools may be included, passed through, or billed separately depending on the written scope. Ad spend is separate from management fees unless clearly stated.</p>
+
+      <h2>Support And Change Requests</h2>
+      <p>Monthly management includes reasonable system support and small adjustments. Larger changes, new builds, advanced integrations, new campaigns, major workflow changes, excessive support, or unusually high usage may be quoted or billed separately.</p>
+
+      <h2>Third-Party Platforms</h2>
+      <p>The system may rely on GoHighLevel, Google, Meta, Twilio or phone providers, email providers, AI providers, domain/hosting providers, calendar tools, payment tools, review platforms, and other tools. We are not responsible for outages, policy changes, pricing changes, account suspensions, deliverability issues, or technical changes caused by third-party platforms.</p>
+
+      <h2>Data And Ownership</h2>
+      <p>Customer contact data collected for your business belongs to your business, subject to applicable platform terms, legal requirements, and payment status. Our pre-existing templates, workflows, systems, frameworks, prompts, automation structures, and methods remain our intellectual property unless otherwise agreed.</p>
+
+      <h2>AI Terms</h2>
+      <p>AI tools may assist with enquiry handling, summaries, or customer communication, but they are not perfect and may require monitoring, guardrails, and human oversight. AI should not make risky promises, give exact pricing unless approved, diagnose complex issues, handle emergencies without escalation, or replace human judgement entirely.</p>
+
+      <h2>Cancellation</h2>
+      <p>After any minimum term, cancellation generally requires written notice according to the agreement. Setup fees are generally non-refundable once work has started because they cover strategy, build, configuration, and implementation work already performed.</p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .legal {
+    max-width: 930px;
+    display: grid;
+    gap: 22px;
+  }
+
+  .legal-hero {
+    margin-bottom: 48px;
+  }
+
+  h2 {
+    margin-top: 28px;
+    font-size: 32px;
+  }
+</style>

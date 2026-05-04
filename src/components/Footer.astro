@@ -1,0 +1,86 @@
+---
+import { disclaimer } from "@/data/site";
+---
+
+<footer class="footer">
+  <div class="container footer-grid">
+    <div class="brand-col">
+      <h2>The Tradie Front Desk System</h2>
+      <p>A managed enquiry, follow-up, and booking system for tradies who want more booked jobs, less chasing, and no tech headaches.</p>
+      <p class="fineprint">{disclaimer}</p>
+    </div>
+    <div>
+      <h3>Pages</h3>
+      <a href="/">Home</a>
+      <a href="/how-it-works">How It Works</a>
+      <a href="/whats-included">What's Included</a>
+      <a href="/why-were-different">Why Different</a>
+      <a href="/pricing">Pricing</a>
+      <a href="/case-studies">Case Studies</a>
+    </div>
+    <div>
+      <h3>System</h3>
+      <a href="/whats-included">Missed Call Saver</a>
+      <a href="/whats-included">Instant Enquiry Response</a>
+      <a href="/whats-included">Follow-Up Engine</a>
+      <a href="/whats-included">Job Pipeline</a>
+      <a href="/free-audit">Free Front Desk Audit</a>
+    </div>
+    <div>
+      <h3>Legal</h3>
+      <a href="/privacy-policy">Privacy Policy</a>
+      <a href="/terms">Terms & Conditions</a>
+      <a href="/contact">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    border-top: 1px solid var(--hairline);
+    background: var(--canvas);
+    padding: 64px 0 84px;
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1.5fr repeat(3, 0.7fr);
+    gap: 36px;
+  }
+
+  h2 {
+    margin-bottom: 16px;
+    font-size: 28px;
+  }
+
+  h3 {
+    margin-bottom: 14px;
+    font-size: 15px;
+  }
+
+  a {
+    display: block;
+    margin: 9px 0;
+    color: var(--muted);
+    font-size: 14px;
+  }
+
+  a:hover {
+    color: var(--ink);
+  }
+
+  .brand-col {
+    display: grid;
+    gap: 16px;
+  }
+
+  @media (max-width: 900px) {
+    .footer-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .brand-col {
+      grid-column: 1 / -1;
+    }
+  }
+</style>

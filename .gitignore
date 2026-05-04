@@ -1,0 +1,28 @@
+# Dependencies
+node_modules/
+
+# Astro / build output
+.astro/
+dist/
+
+# Generated video/still output
+out/
+
+# Old generated HyperFrames prototypes kept locally as reference only
+public/videos/home/
+video-projects/home/
+
+# Environment and local machine files
+.env
+.env.*
+.DS_Store
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Editor files
+.vscode/
+.idea/

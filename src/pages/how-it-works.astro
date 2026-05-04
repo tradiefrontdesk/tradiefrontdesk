@@ -1,0 +1,92 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Hero from "@/components/Hero.astro";
+import ProcessSteps from "@/components/ProcessSteps.astro";
+import CTASection from "@/components/CTASection.astro";
+import SectionVideo from "@/components/SectionVideo.astro";
+import { processSteps } from "@/data/site";
+
+const scenarios = [
+  ["Missed call", "You miss the call while on-site. The customer calls another business.", "The system sends an instant text, asks what they need, and notifies you when they reply."],
+  ["Website quote request", "The form lands in your inbox and waits until you have time.", "The customer gets an instant reply, the enquiry enters your pipeline, and follow-up starts if needed."],
+  ["Quote sent", "You send a quote and hope they get back to you.", "The system follows up politely and reminds the customer to ask questions or move forward."],
+  ["Old lead", "Old enquiries sit forgotten.", "The system can recontact old leads and past customers to find new opportunities."],
+];
+---
+
+<BaseLayout title="How The Tradie Front Desk System Works" description="See how the Tradie Front Desk System captures enquiries, responds instantly, qualifies customers, helps book quote requests, and follows up automatically.">
+  <Hero title="How The Tradie Front Desk System Works" text="A simple five-step system that helps trade businesses capture enquiries, respond faster, follow up consistently, and turn more quote requests into booked jobs." videoId="HowItWorksHeroVideo" />
+  <ProcessSteps title="The System Is Built Around One Simple Flow" text="Every module supports the same goal: make sure every enquiry has a clear next step." />
+
+  <section class="section">
+    <div class="container">
+      <div class="grid">
+        {processSteps.map((step, index) => (
+          <article class="card split">
+            <div>
+              <p class="eyebrow">Step {index + 1}</p>
+              <h2>{step.title}</h2>
+              <p class="lead">{step.text}</p>
+            </div>
+            <ul class="list">
+              {(index === 0 ? ["Missed calls", "Website quote forms", "Contact forms", "Customer messages", "Old customer lists"] :
+                index === 1 ? ["Missed-call text-back", "New enquiry SMS", "Email acknowledgement", "Approved message templates"] :
+                index === 2 ? ["Service needed", "Job location", "Urgency", "Photos", "Preferred callback time"] :
+                index === 3 ? ["Callback requested", "Quote appointment requested", "Site visit requested", "Owner review required"] :
+                ["No-response follow-up", "Quote follow-up", "Old lead reactivation", "Review requests"]).map((item) => <li>{item}</li>)}
+            </ul>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section band">
+    <div class="container split video-split">
+      <div>
+        <div class="section-head">
+          <p class="eyebrow">Real-life scenarios</p>
+          <h2>What This Looks Like In Real Life</h2>
+        </div>
+        <div class="grid two">
+          {scenarios.map(([title, before, after]) => (
+            <article class="card">
+              <h3>{title}</h3>
+              <p><strong>Before:</strong> {before}</p>
+              <p><strong>After:</strong> {after}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+      <SectionVideo id="HowItWorksScenarioVideo" />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container grid two">
+      <div class="card">
+        <h2>What You See As The Owner</h2>
+        <ul class="list">
+          <li>New enquiries</li>
+          <li>Missed calls recovered</li>
+          <li>Customer replies</li>
+          <li>Callback requests</li>
+          <li>Quotes needing follow-up</li>
+          <li>Won/lost opportunities</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h2>What Your Customer Experiences</h2>
+        <ul class="list">
+          <li>Faster acknowledgement</li>
+          <li>Clear next step</li>
+          <li>Easy replies</li>
+          <li>Helpful reminders</li>
+          <li>Professional communication</li>
+          <li>Less waiting</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+  <CTASection title="Want To See Where Your Current Process Is Leaking?" text="Book a Free Front Desk Audit and we will map your enquiry process from first contact to follow-up." cta="Book My Free Audit" />
+</BaseLayout>

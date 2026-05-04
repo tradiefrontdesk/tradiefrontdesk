@@ -1,0 +1,44 @@
+---
+interface Props {
+  study: {
+    slug: string;
+    business: string;
+    shortHeadline: string;
+    industry: string;
+    snapshot: string;
+    reported: string;
+  };
+}
+
+const { study } = Astro.props;
+---
+
+<article class="card case-card">
+  <span class="pill">{study.industry}</span>
+  <h3>{study.business}</h3>
+  <p class="headline">{study.shortHeadline}</p>
+  <p>{study.snapshot}</p>
+  <p class="reported">{study.reported}</p>
+  <a class="btn secondary" href={`/case-studies/${study.slug}`}>Read Case Study</a>
+</article>
+
+<style>
+  .case-card {
+    display: grid;
+    gap: 16px;
+    min-height: 100%;
+  }
+
+  .headline {
+    color: var(--ink);
+    font-size: 20px;
+    font-weight: 750;
+  }
+
+  .reported {
+    border-left: 3px solid var(--primary);
+    padding-left: 14px;
+    color: var(--body-strong);
+    text-shadow: 0 0 18px rgba(250, 255, 105, 0.08);
+  }
+</style>

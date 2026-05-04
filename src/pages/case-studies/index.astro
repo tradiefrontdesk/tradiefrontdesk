@@ -1,0 +1,45 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Hero from "@/components/Hero.astro";
+import CaseStudyCard from "@/components/CaseStudyCard.astro";
+import CTASection from "@/components/CTASection.astro";
+import SectionVideo from "@/components/SectionVideo.astro";
+import { caseStudies } from "@/data/site";
+---
+
+<BaseLayout title="Tradie Front Desk System Case Studies" description="Read practical case studies showing enquiry systems, websites, CRM, reviews, campaigns, and follow-up systems that helped support business growth.">
+  <Hero title="Proof Without The Hype" text="These case studies show how practical digital and front-desk systems helped support real service businesses. Case studies are examples only and outcomes depend on the business, market, offer, implementation, and follow-through." primary="Book a Free Front Desk Audit" videoId="CaseStudiesHeroVideo" />
+  <section class="section">
+    <div class="container grid three">
+      {caseStudies.map((study) => <CaseStudyCard study={study} />)}
+    </div>
+  </section>
+  <section class="section band">
+    <div class="container">
+      <div class="split video-split package-video-head">
+        <div class="section-head">
+          <p class="eyebrow">Proof map</p>
+          <h2>Starting Point, System Installed, Reported Outcome</h2>
+          <p class="lead">The useful part of each example is the process: what was broken, what was installed, and what changed for that business.</p>
+        </div>
+        <SectionVideo id="CaseStudyProofVideo" />
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Business</th><th>Starting Point</th><th>System Installed</th><th>Reported Outcome</th></tr></thead>
+          <tbody>
+            {caseStudies.map((study) => (
+              <tr>
+                <td>{study.business}</td>
+                <td>{study.snapshot}</td>
+                <td>{study.system.join(", ")}</td>
+                <td>{study.reported}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+  <CTASection title="Want To Find Where Your Business Is Leaking Enquiries?" text="Book a Free Front Desk Audit and we will review your current enquiry process." />
+</BaseLayout>

@@ -1,0 +1,94 @@
+---
+import ProductVideoPlayer from "@/components/ProductVideoPlayer";
+import { videoById, type VideoId } from "@/remotion/data/homeVideos";
+
+interface Props {
+  eyebrow?: string;
+  title: string;
+  text: string;
+  primary?: string;
+  primaryHref?: string;
+  secondary?: string;
+  secondaryHref?: string;
+  bullets?: string[];
+  videoId?: VideoId | false;
+}
+
+const { eyebrow, title, text, primary = "Book a Free Front Desk Audit", primaryHref = "/free-audit", secondary, secondaryHref = "/how-it-works", bullets = [], videoId = "HomeHeroVideo" } = Astro.props;
+const heroVideo = videoId ? videoById[videoId] : null;
+---
+
+<section class="hero section">
+  <div class="container split">
+    <div class="hero-copy">
+      {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+      <h1>{title}</h1>
+      <p class="lead">{text}</p>
+      <div class="button-row">
+        <a class="btn primary" href={primaryHref}>{primary}</a>
+        {secondary && <a class="btn secondary" href={secondaryHref}>{secondary}</a>}
+      </div>
+      {bullets.length > 0 && (
+        <ul class="hero-bullets">
+          {bullets.map((bullet) => <li>{bullet}</li>)}
+        </ul>
+      )}
+    </div>
+    <div class="hero-panel">
+      {heroVideo && (
+        <ProductVideoPlayer
+          id={heroVideo.id}
+          title={heroVideo.title}
+          description={heroVideo.description}
+          bare
+          featured
+          autoplay
+          client:load
+        />
+      )}
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    padding-top: 104px;
+  }
+
+  .hero-copy {
+    display: grid;
+    gap: 24px;
+  }
+
+  .hero-bullets {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px 16px;
+    margin: 8px 0 0;
+    padding: 0;
+    list-style: none;
+    color: var(--body-strong);
+    font-size: 15px;
+  }
+
+  .hero-bullets li::before {
+    content: "✓";
+    color: var(--primary);
+    font-weight: 800;
+    margin-right: 8px;
+  }
+
+  .hero-panel {
+    min-width: 0;
+  }
+
+  .hero-panel :global(.product-video) {
+    padding: 14px;
+  }
+
+  @media (max-width: 720px) {
+    .hero-bullets {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

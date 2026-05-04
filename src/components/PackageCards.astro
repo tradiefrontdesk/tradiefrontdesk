@@ -1,0 +1,102 @@
+---
+import { packages } from "@/data/site";
+---
+
+<div class="package-grid">
+  {packages.map((pkg) => (
+    <article class={`package card ${pkg.featured ? "featured" : ""}`}>
+      <div class="package-top">
+        <span class={`pill ${pkg.featured ? "yellow" : ""}`}>{pkg.badge}</span>
+        <h3>{pkg.name}</h3>
+        <p class="price">{pkg.price}</p>
+        <p>{pkg.bestFor}</p>
+      </div>
+      <div>
+        <h4>Includes</h4>
+        <ul class="list">
+          {pkg.includes.map((item) => <li>{item}</li>)}
+        </ul>
+      </div>
+      <div>
+        <h4>Not included by default</h4>
+        <ul class="mini-list">
+          {pkg.excludes.map((item) => <li>{item}</li>)}
+        </ul>
+      </div>
+      <a class={`btn ${pkg.featured ? "primary" : "secondary"}`} href="/free-audit">{pkg.cta}</a>
+    </article>
+  ))}
+</div>
+
+<style>
+  .package-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+    align-items: stretch;
+  }
+
+  .package {
+    position: relative;
+    display: grid;
+    gap: 24px;
+  }
+
+  .featured {
+    border-color: var(--primary);
+    background:
+      radial-gradient(circle at 50% 0, rgba(250, 255, 105, 0.2), transparent 42%),
+      linear-gradient(180deg, rgba(250, 255, 105, 0.08), transparent 28%),
+      var(--surface-card);
+    box-shadow: var(--glow-strong);
+    transform: translateY(-10px);
+  }
+
+  .featured::before {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    pointer-events: none;
+    border-radius: inherit;
+    background: linear-gradient(135deg, rgba(250, 255, 105, 0.7), transparent 24%, transparent 72%, rgba(250, 255, 105, 0.32));
+    opacity: 0.32;
+  }
+
+  .package-top {
+    display: grid;
+    gap: 14px;
+  }
+
+  h3 {
+    font-size: 28px;
+  }
+
+  h4 {
+    margin: 0 0 12px;
+    color: var(--ink);
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+  }
+
+  .price {
+    color: var(--primary);
+    font-size: 20px;
+    font-weight: 800;
+  }
+
+  .mini-list {
+    display: grid;
+    gap: 8px;
+    margin: 0;
+    padding-left: 18px;
+    color: var(--muted);
+    font-size: 14px;
+  }
+
+  @media (max-width: 980px) {
+    .package-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

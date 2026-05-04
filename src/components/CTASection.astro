@@ -1,0 +1,58 @@
+---
+interface Props {
+  title: string;
+  text: string;
+  cta?: string;
+  href?: string;
+}
+
+const { title, text, cta = "Book a Free Front Desk Audit", href = "/free-audit" } = Astro.props;
+---
+
+<section class="section tight">
+  <div class="container">
+    <div class="cta card yellow">
+      <div>
+        <p class="eyebrow">Free Front Desk Audit</p>
+        <h2>{title}</h2>
+        <p>{text}</p>
+      </div>
+      <a class="btn secondary" href={href}>{cta}</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 24px;
+    align-items: end;
+    padding: 48px;
+  }
+
+  .eyebrow {
+    color: var(--on-primary);
+  }
+
+  .eyebrow::before {
+    background: var(--on-primary);
+  }
+
+  h2 {
+    margin-bottom: 14px;
+  }
+
+  .btn.secondary {
+    border-color: rgba(10, 10, 10, 0.2);
+    background: var(--on-primary);
+    color: var(--primary);
+  }
+
+  @media (max-width: 780px) {
+    .cta {
+      grid-template-columns: 1fr;
+      padding: 30px;
+    }
+  }
+</style>

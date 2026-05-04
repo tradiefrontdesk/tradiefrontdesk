@@ -1,0 +1,125 @@
+---
+import ProductVideoPlayer from "@/components/ProductVideoPlayer";
+import { homeVideoSpecs } from "@/remotion/data/homeVideos";
+
+const [featured, ...secondaryVideos] = homeVideoSpecs;
+---
+
+<section class="section band remotion-videos" id="homepage-videos">
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow">Animated explainers</p>
+      <h2>See The Front Desk System In Motion</h2>
+      <p class="lead">Native Remotion players showing how the system captures enquiries, tightens follow-up, and keeps job opportunities visible.</p>
+    </div>
+
+    <div class="remotion-video-grid">
+      <ProductVideoPlayer
+        id={featured.id}
+        title={featured.title}
+        description={featured.description}
+        featured
+        client:visible
+      />
+
+      <div class="remotion-video-grid__secondary">
+        {secondaryVideos.map((video) => (
+          <ProductVideoPlayer
+            id={video.id}
+            title={video.title}
+            description={video.description}
+            client:visible
+          />
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .remotion-videos {
+    overflow: hidden;
+  }
+
+  .remotion-video-grid {
+    display: grid;
+    gap: 22px;
+  }
+
+  .remotion-video-grid__secondary {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px;
+  }
+
+  :global(.product-video) {
+    position: relative;
+    overflow: hidden;
+    display: grid;
+    gap: 18px;
+    border: 1px solid rgba(250, 255, 105, 0.22);
+    border-radius: var(--radius-lg);
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.045), transparent 34%),
+      var(--surface-card);
+    padding: 16px;
+    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.28);
+  }
+
+  :global(.product-video--featured) {
+    grid-template-columns: minmax(0, 1.42fr) minmax(300px, 0.58fr);
+    align-items: center;
+    padding: 18px;
+    border-color: rgba(250, 255, 105, 0.48);
+    box-shadow: var(--glow-strong);
+  }
+
+  :global(.product-video__frame) {
+    overflow: hidden;
+    border: 1px solid rgba(250, 255, 105, 0.32);
+    border-radius: var(--radius-lg);
+    background: var(--canvas);
+    aspect-ratio: 16 / 9;
+    box-shadow: var(--glow);
+  }
+
+  :global(.product-video__copy) {
+    display: grid;
+    gap: 11px;
+    padding: 2px 4px 4px;
+  }
+
+  :global(.product-video--featured .product-video__copy) {
+    padding: 12px 12px 12px 2px;
+  }
+
+  :global(.product-video__kicker) {
+    margin: 0;
+    color: var(--primary);
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+  }
+
+  :global(.product-video h3) {
+    font-size: clamp(21px, 2.1vw, 30px);
+    line-height: 1.12;
+    letter-spacing: 0;
+  }
+
+  :global(.product-video p) {
+    color: var(--body);
+  }
+
+  :global(.product-video--featured h3) {
+    font-size: clamp(28px, 3vw, 42px);
+  }
+
+  @media (max-width: 980px) {
+    :global(.product-video--featured),
+    .remotion-video-grid__secondary {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
