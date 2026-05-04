@@ -1951,11 +1951,10 @@ The strongest recommendation logic is:
 
 This document should be used with:
 
-- `perfect-offer.md`
-- `product-system.md`
-- `front-desk-audit.md`
-- `sales-script.md`
-- `objection-handling.md`
-- `onboarding-delivery.md`
+- `perfect_offer.md`
+- `product_system.md`
+- `front_desk_audit.md`
+- `sales_script.md`
+- `objection_handling.md`
+- `onboarding_delivery.md`
 - `website.md`
-

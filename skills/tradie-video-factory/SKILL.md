@@ -1,6 +1,6 @@
 ---
 name: tradie-video-factory
-description: Create branded HyperFrames explainer video projects from Tradie Front Desk website pages. Use when Codex needs to read an Astro page or site section, identify 4-6 video opportunities, write legal-safe explainer scripts, generate ElevenLabs narration when environment variables are configured, produce numbered transcripts, and scaffold editable HyperFrames HTML animation projects using the site's DESIGN.md visual identity.
+description: Create branded HyperFrames explainer video projects from Tradie Front Desk website pages. Use when Codex needs to read an Astro page or site section, identify 4-6 video opportunities, write legal-safe explainer scripts, generate ElevenLabs narration when environment variables are configured, produce numbered transcripts, and scaffold editable HyperFrames HTML animation projects using the site's about-tradie-front-desk/DESIGN.md visual identity.
 ---
 
 # Tradie Video Factory
@@ -11,10 +11,10 @@ Use this skill to turn pages from The Tradie Front Desk System website into bran
 
 Read these before creating any video:
 
-1. `DESIGN.md` for visual identity. Use black canvas, electric yellow, Inter, dark cards, glowing borders, SVG line motion, and practical non-generic visuals.
+1. `about-tradie-front-desk/DESIGN.md` for visual identity. Use black canvas, electric yellow, Inter, dark cards, glowing borders, SVG line motion, and practical non-generic visuals.
 2. The target Astro page, usually `src/pages/<page>.astro`.
 3. `src/data/site.ts` for reusable packages, modules, process steps, FAQs, disclaimers, and case studies.
-4. `terms_scope_and_guarantee.md` when proof, pricing, or results language appears.
+4. `about-tradie-front-desk/terms_scope_and_guarantee.md` when proof, pricing, or results language appears.
 
 ## Claims Rules
 
