@@ -1,6 +1,8 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import CTASection from "@/components/CTASection.astro";
+import HeroMarquee from "@/components/HeroMarquee.astro";
+import HeroText from "@/components/ui/hero-shutter-text";
 import SectionVideo from "@/components/SectionVideo.astro";
 import { caseStudies } from "@/data/site";
 
@@ -12,6 +14,7 @@ export function getStaticPaths() {
 }
 
 const { study } = Astro.props;
+const heroMarqueeItems = [study.business, study.industry, study.location, "Starting Point", "Installed System", "Reported Outcome", "Example Only", "Context Matters"];
 ---
 
 <BaseLayout title={`${study.business} Case Study | Tradie Front Desk System`} description={`${study.business} case study showing the system installed and reported outcome using careful, legal-safe proof language.`}>
@@ -19,7 +22,7 @@ const { study } = Astro.props;
     <div class="container split video-split">
       <div>
         <p class="eyebrow">Case Study</p>
-        <h1>{study.headline}</h1>
+        <HeroText text={study.headline} client:load />
         <p class="lead">{study.result}</p>
         <div class="button-row">
           <a class="btn primary" href="/free-audit">Book a Free Front Desk Audit</a>
@@ -29,6 +32,8 @@ const { study } = Astro.props;
       <SectionVideo id="CaseStudyDetailVideo" featured />
     </div>
   </section>
+
+  <HeroMarquee eyebrow="Case study snapshot" items={heroMarqueeItems} />
 
   <section class="section band">
     <div class="container grid four">

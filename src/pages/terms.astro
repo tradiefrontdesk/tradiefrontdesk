@@ -1,7 +1,11 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import HeroMarquee from "@/components/HeroMarquee.astro";
+import HeroText from "@/components/ui/hero-shutter-text";
 import SectionVideo from "@/components/SectionVideo.astro";
 import { disclaimer } from "@/data/site";
+
+const heroMarqueeItems = ["Service Scope", "Client Duties", "Launch Support", "Package Scope", "Usage Costs", "Third-Party Limits", "AI Guardrails", "Results Disclaimer"];
 ---
 
 <BaseLayout title="Terms & Conditions | The Tradie Front Desk System" description="Terms and conditions for The Tradie Front Desk System, including service scope, guarantees, responsibilities, pricing, cancellation, platforms, AI terms, and results disclaimers.">
@@ -9,11 +13,12 @@ import { disclaimer } from "@/data/site";
     <div class="container split video-split legal-hero">
       <div>
         <p class="eyebrow">Legal</p>
-        <h1>Terms & Conditions</h1>
+        <HeroText text="Terms & Conditions" client:load />
         <p class="lead">These plain-English terms summarise the website and service principles for The Tradie Front Desk System by System Pros AI. They are not a substitute for lawyer-drafted advice or a signed service agreement.</p>
       </div>
       <SectionVideo id="TermsVideo" />
     </div>
+    <HeroMarquee eyebrow="Terms path" items={heroMarqueeItems} />
     <div class="container legal">
 
       <h2>Service Description</h2>

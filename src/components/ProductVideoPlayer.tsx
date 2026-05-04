@@ -9,6 +9,7 @@ import { HomeHeroVideo } from "@/remotion/compositions/HomeHeroVideo";
 import { HomeModulesVideo } from "@/remotion/compositions/HomeModulesVideo";
 import { HomeProblemVideo } from "@/remotion/compositions/HomeProblemVideo";
 import { HomeReframeVideo } from "@/remotion/compositions/HomeReframeVideo";
+import { HomeRealBusinessPaymentVideo } from "@/remotion/compositions/HomeRealBusinessPaymentVideo";
 import { StoryVideo } from "@/remotion/compositions/StoryVideo";
 
 type ProductVideoPlayerProps = {
@@ -27,6 +28,7 @@ const components = {
   HomeFiveStepVideo,
   HomeModulesVideo,
   HomeAuditPackagesVideo,
+  HomeRealBusinessPaymentVideo,
 };
 
 export default class ProductVideoPlayer extends PureComponent<ProductVideoPlayerProps> {

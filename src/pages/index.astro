@@ -7,6 +7,7 @@ import PackageCards from "@/components/PackageCards.astro";
 import CaseStudyCard from "@/components/CaseStudyCard.astro";
 import CTASection from "@/components/CTASection.astro";
 import FAQ from "@/components/FAQ.astro";
+import HeroMarquee from "@/components/HeroMarquee.astro";
 import SectionVideo from "@/components/SectionVideo.astro";
 import { caseStudies, modules } from "@/data/site";
 
@@ -23,6 +24,8 @@ const problemItems = [
   { title: "Quotes go cold", text: "Quotes get sent, then follow-up depends on memory." },
   { title: "Opportunities scatter", text: "Phone, email, texts, notes, and old leads never become one clear pipeline." },
 ];
+
+const heroMarqueeItems = ["Missed Calls", "Instant Replies", "Quote Requests", "Job Details", "Follow-Up", "Pipeline", "Owner Alerts", "Booked Jobs System"];
 ---
 
 <BaseLayout title="Tradie Front Desk System | More Booked Jobs, Less Chasing" description="A managed front-desk system for tradies that captures enquiries, responds instantly, follows up automatically, and helps turn quote requests into booked jobs.">
@@ -34,6 +37,8 @@ const problemItems = [
     secondaryHref="/how-it-works"
     bullets={["Catch missed calls before they go cold", "Reply to new enquiries instantly", "Follow up without chasing manually", "Organise every opportunity in one simple pipeline", "Add local campaigns only when you are ready"]}
   />
+
+  <HeroMarquee eyebrow="System flow" items={heroMarqueeItems} />
 
   <FeatureGrid eyebrow="Clear position" title="Not shared leads. Not just ads. Not more software." items={trustItems} columns="four" />
 
@@ -143,6 +148,15 @@ const problemItems = [
         <p class="eyebrow">Proof</p>
         <h2>Systems That Help Support Real Businesses</h2>
         <p class="lead">Case studies are examples only. Results depend on the business, market, offer, implementation, and follow-through.</p>
+      </div>
+      <div class="split video-split proof-system-feature">
+        <div class="card soft">
+          <p class="eyebrow">Payment system example</p>
+          <h3>From Checkout To Customer Follow-Up</h3>
+          <p>A payment page is only one part of the system. The useful layer is what happens around it: customer records, subscriptions, reminders, follow-up, and owner visibility.</p>
+          <p class="fineprint">Visual example inspired by a real checkout flow. It does not claim guaranteed revenue, bookings, or customer results.</p>
+        </div>
+        <SectionVideo id="HomeRealBusinessPaymentVideo" />
       </div>
       <div class="grid three">
         {caseStudies.map((study) => <CaseStudyCard study={study} />)}

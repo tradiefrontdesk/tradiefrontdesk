@@ -6,6 +6,7 @@ import { HomeHeroVideo } from "./compositions/HomeHeroVideo";
 import { HomeModulesVideo } from "./compositions/HomeModulesVideo";
 import { HomeProblemVideo } from "./compositions/HomeProblemVideo";
 import { HomeReframeVideo } from "./compositions/HomeReframeVideo";
+import { HomeRealBusinessPaymentVideo } from "./compositions/HomeRealBusinessPaymentVideo";
 import { StoryVideo } from "./compositions/StoryVideo";
 
 const components = {
@@ -15,6 +16,7 @@ const components = {
   HomeFiveStepVideo,
   HomeModulesVideo,
   HomeAuditPackagesVideo,
+  HomeRealBusinessPaymentVideo,
 };
 
 export const RemotionRoot = () => (

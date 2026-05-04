@@ -1,4 +1,5 @@
 ---
+import HeroText from "@/components/ui/hero-shutter-text";
 import ProductVideoPlayer from "@/components/ProductVideoPlayer";
 import { videoById, type VideoId } from "@/remotion/data/homeVideos";
 
@@ -22,7 +23,7 @@ const heroVideo = videoId ? videoById[videoId] : null;
   <div class="container split">
     <div class="hero-copy">
       {eyebrow && <p class="eyebrow">{eyebrow}</p>}
-      <h1>{title}</h1>
+      <HeroText text={title} client:load />
       <p class="lead">{text}</p>
       <div class="button-row">
         <a class="btn primary" href={primaryHref}>{primary}</a>

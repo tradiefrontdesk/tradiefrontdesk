@@ -3,6 +3,7 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 import Hero from "@/components/Hero.astro";
 import ProcessSteps from "@/components/ProcessSteps.astro";
 import CTASection from "@/components/CTASection.astro";
+import HeroMarquee from "@/components/HeroMarquee.astro";
 import SectionVideo from "@/components/SectionVideo.astro";
 import { processSteps } from "@/data/site";
 
@@ -12,10 +13,13 @@ const scenarios = [
   ["Quote sent", "You send a quote and hope they get back to you.", "The system follows up politely and reminds the customer to ask questions or move forward."],
   ["Old lead", "Old enquiries sit forgotten.", "The system can recontact old leads and past customers to find new opportunities."],
 ];
+
+const heroMarqueeItems = ["Capture", "Respond", "Qualify", "Book", "Follow Up", "Owner Alert", "Pipeline", "Next Action"];
 ---
 
 <BaseLayout title="How The Tradie Front Desk System Works" description="See how the Tradie Front Desk System captures enquiries, responds instantly, qualifies customers, helps book quote requests, and follows up automatically.">
   <Hero title="How The Tradie Front Desk System Works" text="A simple five-step system that helps trade businesses capture enquiries, respond faster, follow up consistently, and turn more quote requests into booked jobs." videoId="HowItWorksHeroVideo" />
+  <HeroMarquee eyebrow="Five-step enquiry path" items={heroMarqueeItems} />
   <ProcessSteps title="The System Is Built Around One Simple Flow" text="Every module supports the same goal: make sure every enquiry has a clear next step." />
 
   <section class="section">

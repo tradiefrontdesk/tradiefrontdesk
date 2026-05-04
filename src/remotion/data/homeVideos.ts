@@ -4,7 +4,8 @@ export type HomeVideoId =
   | "HomeReframeVideo"
   | "HomeFiveStepVideo"
   | "HomeModulesVideo"
-  | "HomeAuditPackagesVideo";
+  | "HomeAuditPackagesVideo"
+  | "HomeRealBusinessPaymentVideo";
 
 export type StoryVideoId =
   | "HowItWorksHeroVideo"
@@ -28,6 +29,7 @@ export type StoryVideoId =
 export type VideoId = HomeVideoId | StoryVideoId;
 
 export type StoryVideoConfig = {
+  variant: "flow" | "modules" | "pricing" | "comparison" | "audit" | "contact" | "proof" | "legal";
   label: string;
   cta: string;
   beats: string[];
@@ -73,6 +75,12 @@ export const homeVideoSpecs = [
     description: "How the audit surfaces leaks and points toward the right managed system scope.",
     durationInFrames: 360,
   },
+  {
+    id: "HomeRealBusinessPaymentVideo",
+    title: "Systems That Support Real Businesses",
+    description: "A graphic subscription and customer-system flow inspired by a real checkout experience.",
+    durationInFrames: 420,
+  },
 ] as const satisfies readonly {
   id: HomeVideoId;
   title: string;
@@ -87,6 +95,7 @@ export const storyVideoSpecs = [
     description: "A square story showing the five-step enquiry path from first contact to follow-up.",
     durationInFrames: 900,
     story: {
+      variant: "flow",
       label: "How it works",
       cta: "A clear next step for every enquiry",
       beats: [
@@ -107,6 +116,7 @@ export const storyVideoSpecs = [
     description: "Missed calls, quote requests, sent quotes, and old leads moving into a managed process.",
     durationInFrames: 360,
     story: {
+      variant: "flow",
       label: "Scenario flow",
       cta: "Before and after the front desk",
       beats: ["A missed call should not become a lost opportunity.", "The system replies, qualifies, and creates the next action."],
@@ -121,6 +131,7 @@ export const storyVideoSpecs = [
     description: "A system map of the core modules included in the front-desk build.",
     durationInFrames: 900,
     story: {
+      variant: "modules",
       label: "Included system",
       cta: "Modules connected around the enquiry",
       beats: [
@@ -141,6 +152,7 @@ export const storyVideoSpecs = [
     description: "A square module grid showing the pieces that can be included.",
     durationInFrames: 360,
     story: {
+      variant: "modules",
       label: "Module map",
       cta: "Build the right pieces first",
       beats: ["Core modules protect current opportunities.", "Optional layers can create more volume later."],
@@ -155,6 +167,7 @@ export const storyVideoSpecs = [
     description: "A square animation showing package fit based on enquiry-process complexity.",
     durationInFrames: 900,
     story: {
+      variant: "pricing",
       label: "Pricing fit",
       cta: "Package follows process scope",
       beats: [
@@ -175,6 +188,7 @@ export const storyVideoSpecs = [
     description: "Package tiers moving from starter to booked jobs to managed growth.",
     durationInFrames: 360,
     story: {
+      variant: "pricing",
       label: "Package comparison",
       cta: "Choose the right starting point",
       beats: ["The package is based on what needs fixing.", "Booked Jobs System is the flagship fit for active enquiry handling."],
@@ -189,6 +203,7 @@ export const storyVideoSpecs = [
     description: "A square comparison of lead sellers, ads, CRM software, and a managed front-desk system.",
     durationInFrames: 900,
     story: {
+      variant: "comparison",
       label: "Different approach",
       cta: "Fix the system behind the enquiry",
       beats: [
@@ -209,6 +224,7 @@ export const storyVideoSpecs = [
     description: "Old-way cards moving into a managed enquiry process.",
     durationInFrames: 360,
     story: {
+      variant: "comparison",
       label: "Old way vs system",
       cta: "Hope is not a system",
       beats: ["The old way leaves too much to chance.", "The front desk turns loose actions into a managed process."],
@@ -223,6 +239,7 @@ export const storyVideoSpecs = [
     description: "A square audit animation showing leaks being found before more lead spend.",
     durationInFrames: 900,
     story: {
+      variant: "audit",
       label: "Free audit",
       cta: "Find the leaks first",
       beats: [
@@ -243,6 +260,7 @@ export const storyVideoSpecs = [
     description: "The audit checklist becoming a leak score and next-step plan.",
     durationInFrames: 360,
     story: {
+      variant: "audit",
       label: "Audit checklist",
       cta: "Calls, replies, follow-up, pipeline",
       beats: ["The audit checks the path from first contact to follow-up.", "The output is a clearer list of what to fix first."],
@@ -257,6 +275,7 @@ export const storyVideoSpecs = [
     description: "A square contact animation showing audit and general enquiry paths.",
     durationInFrames: 900,
     story: {
+      variant: "contact",
       label: "Contact path",
       cta: "Choose the right next step",
       beats: [
@@ -277,6 +296,7 @@ export const storyVideoSpecs = [
     description: "A visual next-step sequence after a message or audit request.",
     durationInFrames: 360,
     story: {
+      variant: "contact",
       label: "Next steps",
       cta: "Review, map, recommend",
       beats: ["A message starts a short discovery path.", "The best next step depends on the current enquiry process."],
@@ -291,6 +311,7 @@ export const storyVideoSpecs = [
     description: "A square proof animation showing examples without hype or guarantees.",
     durationInFrames: 900,
     story: {
+      variant: "proof",
       label: "Proof without hype",
       cta: "Examples, not guarantees",
       beats: [
@@ -311,6 +332,7 @@ export const storyVideoSpecs = [
     description: "A graphic table of starting point, system installed, and reported outcome.",
     durationInFrames: 360,
     story: {
+      variant: "proof",
       label: "Case study map",
       cta: "Starting point to system",
       beats: ["Each case starts with a practical business gap.", "The system installed is what connects the story."],
@@ -325,6 +347,7 @@ export const storyVideoSpecs = [
     description: "A square visual path for an individual case study.",
     durationInFrames: 360,
     story: {
+      variant: "proof",
       label: "Case study detail",
       cta: "Snapshot, system, result",
       beats: ["Start with the business problem.", "Then show the system that supported the outcome."],
@@ -339,6 +362,7 @@ export const storyVideoSpecs = [
     description: "A square legal animation showing submitted data moving through responsible handling.",
     durationInFrames: 360,
     story: {
+      variant: "legal",
       label: "Privacy path",
       cta: "Collect, use, protect, respond",
       beats: ["Forms collect business contact details and enquiry context.", "Information is used to respond, review, deliver, and improve responsibly."],
@@ -353,6 +377,7 @@ export const storyVideoSpecs = [
     description: "A square legal animation showing service scope, responsibilities, and safe claims.",
     durationInFrames: 360,
     story: {
+      variant: "legal",
       label: "Terms path",
       cta: "Scope, launch, support, limits",
       beats: ["The service is a managed front-desk system, not a guaranteed outcome promise.", "Scope, client responsibilities, support, and third-party limits need to stay clear."],

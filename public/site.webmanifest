@@ -1,0 +1,17 @@
+{
+  "name": "Tradie Front Desk System",
+  "short_name": "Tradie Front Desk",
+  "description": "A managed enquiry, follow-up, and booking-support system for trade businesses.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0a0a",
+  "theme_color": "#faff69",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "64x64",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

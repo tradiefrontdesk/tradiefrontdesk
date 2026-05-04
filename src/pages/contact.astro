@@ -3,11 +3,15 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 import Hero from "@/components/Hero.astro";
 import ContactForm from "@/components/ContactForm.astro";
 import FAQ from "@/components/FAQ.astro";
+import HeroMarquee from "@/components/HeroMarquee.astro";
 import SectionVideo from "@/components/SectionVideo.astro";
+
+const heroMarqueeItems = ["Book Audit", "Send Message", "Review Request", "Key Questions", "Map Process", "Recommend Next Step", "Scope Fit", "Clear Reply"];
 ---
 
 <BaseLayout title="Contact The Tradie Front Desk System" description="Contact The Tradie Front Desk System to book a free audit or ask about enquiry capture, missed-call recovery, follow-up, and booking systems for tradies.">
   <Hero title="Let's Find Where Your Enquiries Are Leaking" text="Book a Free Front Desk Audit or send us a message and we will help you work out the best next step." primary="Book Free Audit" primaryHref="/free-audit" secondary="Send Message" secondaryHref="#contact-form" videoId="ContactHeroVideo" />
+  <HeroMarquee eyebrow="Contact path" items={heroMarqueeItems} />
   <section class="section band">
     <div class="container split video-split">
       <div class="grid two">

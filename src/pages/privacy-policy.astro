@@ -1,6 +1,10 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import HeroMarquee from "@/components/HeroMarquee.astro";
+import HeroText from "@/components/ui/hero-shutter-text";
 import SectionVideo from "@/components/SectionVideo.astro";
+
+const heroMarqueeItems = ["Form Details", "Business Contact", "Booking Requests", "Approved Tools", "Responsible Use", "Data Storage", "User Rights", "Contact Changes"];
 ---
 
 <BaseLayout title="Privacy Policy | The Tradie Front Desk System" description="Privacy Policy for The Tradie Front Desk System website, including form data, booking requests, cookies, third-party tools, and user rights.">
@@ -8,11 +12,12 @@ import SectionVideo from "@/components/SectionVideo.astro";
     <div class="container split video-split legal-hero">
       <div>
         <p class="eyebrow">Legal</p>
-        <h1>Privacy Policy</h1>
+        <HeroText text="Privacy Policy" client:load />
         <p class="lead">This page explains how The Tradie Front Desk System by System Pros AI may collect and use information submitted through this website.</p>
       </div>
       <SectionVideo id="PrivacyPolicyVideo" />
     </div>
+    <HeroMarquee eyebrow="Privacy path" items={heroMarqueeItems} />
     <div class="container legal">
 
       <h2>Information We Collect</h2>

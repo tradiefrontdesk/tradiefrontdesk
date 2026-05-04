@@ -4,15 +4,18 @@ import Hero from "@/components/Hero.astro";
 import FeatureGrid from "@/components/FeatureGrid.astro";
 import PackageCards from "@/components/PackageCards.astro";
 import CTASection from "@/components/CTASection.astro";
+import HeroMarquee from "@/components/HeroMarquee.astro";
 import SectionVideo from "@/components/SectionVideo.astro";
 import { modules } from "@/data/site";
 
 const coreModules = modules.slice(0, 10).map(([title, text]) => ({ title, text }));
 const optionalModules = modules.slice(10).map(([title, text]) => ({ title, text }));
+const heroMarqueeItems = ["Missed Call Saver", "Instant Response", "Quote Form", "Lead Qualification", "Callback Flow", "Follow-Up Engine", "Job Pipeline", "Review Builder"];
 ---
 
 <BaseLayout title="What's Included In The Tradie Front Desk System" description="See the modules included in the Tradie Front Desk System, including missed-call text-back, enquiry response, follow-up, job pipeline, review requests, and optional campaigns.">
   <Hero title="Everything You Need To Handle Enquiries Better" text="The Tradie Front Desk System gives your business the tools and managed setup to capture enquiries, reply faster, follow up, and keep job opportunities organised." secondary="View Packages" secondaryHref="/pricing" videoId="IncludedHeroVideo" />
+  <HeroMarquee eyebrow="Included modules" items={heroMarqueeItems} />
   <section class="section band">
     <div class="container split video-split">
       <div class="section-head">

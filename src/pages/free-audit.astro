@@ -4,6 +4,7 @@ import Hero from "@/components/Hero.astro";
 import AuditForm from "@/components/AuditForm.astro";
 import FAQ from "@/components/FAQ.astro";
 import CTASection from "@/components/CTASection.astro";
+import HeroMarquee from "@/components/HeroMarquee.astro";
 import SectionVideo from "@/components/SectionVideo.astro";
 
 const auditChecks = [
@@ -24,10 +25,13 @@ const auditFaqs: [string, string][] = [
   ["How long does it take?", "A normal audit call takes around 30-45 minutes depending on the business."],
   ["Will you tell me to run ads?", "Not necessarily. We usually recommend fixing enquiry capture and follow-up before adding more campaigns."],
 ];
+
+const heroMarqueeItems = ["Missed Calls", "Slow Replies", "Quote Follow-Up", "Website Enquiries", "Leak List", "Priority Fixes", "Package Fit", "Next Step"];
 ---
 
 <BaseLayout title="Free Tradie Front Desk Audit | Find Missed Enquiry Leaks" description="Book a free audit to find where your trade business may be losing jobs from missed calls, slow replies, poor follow-up, and messy enquiry handling.">
   <Hero title="Are Missed Calls, Slow Replies, And Forgotten Follow-Ups Costing You Jobs?" text="Book a Free Tradie Front Desk Audit and see where your business may be leaking job opportunities before you spend more money on leads or ads." primary="Book My Free Audit" videoId="AuditHeroVideo" />
+  <HeroMarquee eyebrow="Audit focus" items={heroMarqueeItems} />
 
   <section class="section band">
     <div class="container split">

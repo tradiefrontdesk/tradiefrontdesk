@@ -1,0 +1,21 @@
+---
+import HeroMarqueePlayer from "@/components/HeroMarqueePlayer";
+
+type Props = {
+  eyebrow?: string;
+  items: string[];
+};
+
+const { eyebrow = "Front desk focus", items } = Astro.props;
+---
+
+<section class="hero-marquee-band" aria-label={eyebrow}>
+  <div class="container">
+    <div class="hero-marquee-shell">
+      <p class="eyebrow">{eyebrow}</p>
+      <div class="hero-marquee-frame">
+        <HeroMarqueePlayer items={items} client:visible />
+      </div>
+    </div>
+  </div>
+</section>

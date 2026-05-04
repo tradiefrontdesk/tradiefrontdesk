@@ -4,6 +4,7 @@ import Hero from "@/components/Hero.astro";
 import PackageCards from "@/components/PackageCards.astro";
 import CTASection from "@/components/CTASection.astro";
 import FAQ from "@/components/FAQ.astro";
+import HeroMarquee from "@/components/HeroMarquee.astro";
 import SectionVideo from "@/components/SectionVideo.astro";
 
 const factors = ["Number of services", "Number of locations or service areas", "Number of enquiry channels", "Whether campaigns are included", "Whether AI phone support is included", "Whether old lead reactivation is included", "Whether website work is needed", "Whether integrations are required"];
@@ -22,10 +23,13 @@ const rows = [
   ["Recommended Setup", "$997-$1,500", "$1,500-$2,500", "$2,500-$5,000"],
   ["Recommended Monthly", "$297-$497", "$750-$1,500", "$1,500-$3,000"],
 ];
+
+const heroMarqueeItems = ["Front Desk Starter", "Booked Jobs System", "Managed Growth", "Setup Scope", "Monthly Support", "Add-Ons", "Usage Costs", "Audit Fit"];
 ---
 
 <BaseLayout title="Tradie Front Desk System Packages & Pricing" description="View package options for the Tradie Front Desk System, including Front Desk Starter, Booked Jobs System, and Managed Growth System.">
   <Hero title="Packages Built Around Your Enquiry Process" text="Whether you need basic missed-call recovery or a fully managed growth system, we start by finding the biggest leaks in your current front-desk process." primary="Book a Free Audit" videoId="PricingHeroVideo" />
+  <HeroMarquee eyebrow="Package fit" items={heroMarqueeItems} />
   <section class="section band">
     <div class="container split video-split">
       <div class="section-head">

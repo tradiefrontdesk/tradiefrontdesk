@@ -3,12 +3,16 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 import Hero from "@/components/Hero.astro";
 import CaseStudyCard from "@/components/CaseStudyCard.astro";
 import CTASection from "@/components/CTASection.astro";
+import HeroMarquee from "@/components/HeroMarquee.astro";
 import SectionVideo from "@/components/SectionVideo.astro";
 import { caseStudies } from "@/data/site";
+
+const heroMarqueeItems = ["Starting Point", "System Installed", "Reported Outcome", "Context Matters", "No Guarantees", "Process Lessons", "Implementation", "Follow-Through"];
 ---
 
 <BaseLayout title="Tradie Front Desk System Case Studies" description="Read practical case studies showing enquiry systems, websites, CRM, reviews, campaigns, and follow-up systems that helped support business growth.">
   <Hero title="Proof Without The Hype" text="These case studies show how practical digital and front-desk systems helped support real service businesses. Case studies are examples only and outcomes depend on the business, market, offer, implementation, and follow-through." primary="Book a Free Front Desk Audit" videoId="CaseStudiesHeroVideo" />
+  <HeroMarquee eyebrow="Proof map" items={heroMarqueeItems} />
   <section class="section">
     <div class="container grid three">
       {caseStudies.map((study) => <CaseStudyCard study={study} />)}
