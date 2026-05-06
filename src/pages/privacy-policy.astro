@@ -3,63 +3,383 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 import HeroMarquee from "@/components/HeroMarquee.astro";
 import HeroText from "@/components/ui/hero-shutter-text";
 import SectionVideo from "@/components/SectionVideo.astro";
+import { brand, contactDetails, legalDetails } from "@/data/site";
 
-const heroMarqueeItems = ["Form Details", "Business Contact", "Booking Requests", "Approved Tools", "Responsible Use", "Data Storage", "User Rights", "Contact Changes"];
+const heroMarqueeItems = [
+  "Forms",
+  "Audit Requests",
+  "CRM Data",
+  "SMS & Calls",
+  "AI Tools",
+  "Cookies",
+  "Third-Party Platforms",
+  "Access & Correction",
+];
+
+const collectedInfo = [
+  "Name, business name, role, trade or service type, website, service area, phone number, email address, and preferred contact details.",
+  "Audit form answers, enquiry problems, service needs, package interest, budget context, message content, preferred call times, and notes from sales or support conversations.",
+  "Client onboarding information such as services offered, business hours, urgent job rules, good-fit and bad-fit job criteria, team contacts, notification preferences, and access requirements.",
+  "Client customer data where a client provides it or where the system captures it on the client's behalf, including names, phone numbers, emails, job locations, service requests, photos, messages, call notes, quote status, booking status, and follow-up history.",
+  "Technical and usage data such as IP address, browser type, device type, pages visited, referral source, form activity, cookie identifiers, analytics events, and basic security logs.",
+  "Payment, invoice, subscription, and billing status information where services are purchased. Full payment card details are usually handled by third-party payment providers rather than stored by us.",
+];
+
+const useCases = [
+  "Respond to enquiries, book audit calls, prepare front-desk reviews, and recommend practical next steps.",
+  "Onboard clients, map their enquiry process, build workflows, configure CRM tools, prepare approved messages, and launch the agreed system.",
+  "Send customer-facing messages, owner alerts, follow-ups, callback requests, review requests, and campaign communications where authorised.",
+  "Provide support, troubleshoot workflows, monitor system activity, improve message quality, manage billing, and keep service records.",
+  "Connect forms, calendars, SMS, email, phone, AI, advertising, analytics, hosting, CRM, payment, and notification tools needed to operate the service.",
+  "Comply with law, enforce agreements, prevent fraud, protect systems, resolve disputes, and maintain business records.",
+];
+
+const sharedWith = [
+  "CRM and automation platforms such as GoHighLevel or comparable providers.",
+  "Phone, SMS, email, WhatsApp, call recording, and notification providers.",
+  "AI providers used for enquiry handling, summaries, classification, message drafting, or phone detail capture.",
+  "Calendar, form, website hosting, analytics, security, email, storage, payment, accounting, and document tools.",
+  "Advertising and review platforms such as Google, Meta, and review systems where a client has authorised that work.",
+  "Professional advisers, support contractors, or service providers who need access to help operate the business or deliver the agreed service.",
+  "Authorities, regulators, courts, or other parties where required by law or needed to protect legal rights.",
+];
+
+const rights = [
+  "Ask what personal information we hold about you.",
+  "Ask us to correct inaccurate or outdated information.",
+  "Ask us to delete information where deletion is legally and technically appropriate.",
+  "Opt out of marketing or non-essential follow-up messages.",
+  "Withdraw consent where we rely on consent, subject to legal, contractual, platform, and record-keeping limits.",
+  "Raise a privacy concern or complaint using the contact details below.",
+];
+
+const securityMeasures = [
+  "Limit access to people and tools that need it for delivery, support, billing, or legal reasons.",
+  "Use established third-party platforms with their own security and privacy controls.",
+  "Review workflows, forms, and message routing before launch where we manage the build.",
+  "Encourage clients to keep passwords secure, maintain account access, and remove access that is no longer needed.",
+];
 ---
 
-<BaseLayout title="Privacy Policy | The Tradie Front Desk System" description="Privacy Policy for The Tradie Front Desk System website, including form data, booking requests, cookies, third-party tools, and user rights.">
+<BaseLayout title="Privacy Policy | Tradie Front Desk" description="Privacy Policy for Tradie Front Desk, covering website forms, audit requests, CRM data, client customer data, third-party tools, AI, cookies, data rights, and contact details.">
   <section class="section">
     <div class="container split video-split legal-hero">
       <div>
         <p class="eyebrow">Legal</p>
         <HeroText text="Privacy Policy" client:load />
-        <p class="lead">This page explains how The Tradie Front Desk System by System Pros AI may collect and use information submitted through this website.</p>
+        <p class="lead">This policy explains how we collect, use, share, store, and protect information through this website and through the managed front-desk systems we build for trade businesses.</p>
       </div>
       <SectionVideo id="PrivacyPolicyVideo" />
     </div>
+
     <HeroMarquee eyebrow="Privacy path" items={heroMarqueeItems} />
-    <div class="container legal">
 
-      <h2>Information We Collect</h2>
-      <p>We may collect information you provide through contact forms, audit forms, booking requests, emails, or phone calls. This may include your name, business name, phone number, email address, website, trade or service type, service area, enquiry problem, preferred audit time, and message content.</p>
+    <div class="container legal-shell">
+      <aside class="legal-meta card">
+        <div>
+          <span>Effective date</span>
+          <strong>{legalDetails.effectiveDate}</strong>
+        </div>
+        <div>
+          <span>Brand</span>
+          <strong>{brand.name}</strong>
+        </div>
+        <div>
+          <span>Designed by</span>
+          <strong>{legalDetails.providerLabel}</strong>
+        </div>
+        <div>
+          <span>Privacy contact</span>
+          <a href={`mailto:${contactDetails.email}`}>{contactDetails.email}</a>
+        </div>
+      </aside>
 
-      <h2>How We Use Information</h2>
-      <p>We use submitted information to respond to enquiries, review your front-desk process, prepare audit conversations, recommend suitable next steps, deliver agreed services, and improve website and service communication.</p>
+      <article class="legal">
+        <section class="legal-card">
+          <p class="eyebrow">Overview</p>
+          <h2>1. Who We Are</h2>
+          <p>{brand.fullName} is a managed enquiry, follow-up, and booking-support system for trade and service businesses. It is designed by {legalDetails.providerLabel}.</p>
+          <p>References to <strong>we</strong>, <strong>us</strong>, and <strong>our</strong> mean the relevant provider entity identified in your proposal, invoice, checkout page, statement of work, or service agreement. If you are a customer of one of our clients, we may handle your information on that client's behalf as part of the front-desk system we manage for them.</p>
+        </section>
 
-      <h2>Forms And Booking Requests</h2>
-      <p>Website forms are designed to make future CRM or webhook connection straightforward. When connected, form submissions may be sent to GoHighLevel or another approved CRM, booking, email, SMS, or notification tool.</p>
+        <section class="legal-card">
+          <p class="eyebrow">Scope</p>
+          <h2>2. What This Policy Covers</h2>
+          <p>This policy covers information collected through this website, audit forms, contact forms, booking requests, emails, calls, SMS messages, CRM tools, automation workflows, AI-assisted tools, and related platforms used to deliver the service.</p>
+          <p>Client websites, client businesses, third-party platforms, payment providers, ad platforms, review platforms, and AI providers may also have their own privacy policies and terms.</p>
+        </section>
 
-      <h2>Cookies And Tracking</h2>
-      <p>The website may use cookies or analytics tools to understand page visits, form activity, CTA clicks, and website performance. Tracking should be configured responsibly and in line with applicable laws.</p>
+        <section class="legal-card">
+          <p class="eyebrow">Collection</p>
+          <h2>3. Information We May Collect</h2>
+          <ul class="legal-list">
+            {collectedInfo.map((item) => <li>{item}</li>)}
+          </ul>
+        </section>
 
-      <h2>Third-Party Tools</h2>
-      <p>The system may use third-party tools such as CRM platforms, phone/SMS providers, email providers, analytics tools, booking systems, advertising platforms, hosting providers, and AI tools where relevant to website operation or service delivery.</p>
+        <section class="legal-card">
+          <p class="eyebrow">Sources</p>
+          <h2>4. How We Collect Information</h2>
+          <p>We may collect information when you submit a form, book a call, email us, call us, send a message, buy a service, complete onboarding, give us platform access, provide a customer list, connect a website form, or use a front-desk system we manage.</p>
+          <p>We may also receive information from client CRM accounts, connected phone/SMS/email tools, advertising platforms, review platforms, analytics tools, payment tools, and other approved third-party systems.</p>
+        </section>
 
-      <h2>Data Storage And Security</h2>
-      <p>We aim to handle submitted information responsibly. No online system can be guaranteed completely secure, and third-party platform terms may also apply.</p>
+        <section class="legal-card">
+          <p class="eyebrow">Use</p>
+          <h2>5. How We Use Information</h2>
+          <ul class="legal-list">
+            {useCases.map((item) => <li>{item}</li>)}
+          </ul>
+          <p>Where applicable, we may rely on consent, contract performance, legitimate business interests, legal obligations, client instructions, or another lawful basis available in the relevant jurisdiction.</p>
+        </section>
 
-      <h2>Your Rights</h2>
-      <p>You may contact us to ask what information we hold about you, request corrections, request deletion where appropriate, or ask not to receive further communication.</p>
+        <section class="legal-card warning">
+          <p class="eyebrow">Client Data</p>
+          <h2>6. Client Customer Data</h2>
+          <p>When a trade business client uses our service, their customer contact data belongs to that client, subject to applicable law, platform terms, payment status, and the written agreement. We use that data to deliver the agreed service, such as enquiry capture, customer replies, quote follow-up, owner alerts, review requests, and pipeline management.</p>
+          <p>The client is responsible for confirming that customer lists, old leads, past quotes, and reactivation lists can legally and appropriately be contacted. Contacts who opt out, unsubscribe, or request no further messages must not be contacted through automated campaigns unless legally permitted.</p>
+        </section>
 
-      <h2>Contact</h2>
-      <p>Use the contact page to ask privacy questions or request changes to submitted information.</p>
+        <section class="legal-card">
+          <p class="eyebrow">Sharing</p>
+          <h2>7. Who We May Share Information With</h2>
+          <p>We do not sell personal information as a data broker. We may share information with trusted providers where needed to operate the website, deliver services, manage accounts, or comply with law.</p>
+          <ul class="legal-list">
+            {sharedWith.map((item) => <li>{item}</li>)}
+          </ul>
+        </section>
+
+        <section class="legal-card">
+          <p class="eyebrow">Countries</p>
+          <h2>8. International Processing</h2>
+          <p>We may work with clients, providers, and tools in New Zealand, Australia, the United States, and other countries. Your information may be processed, stored, or accessed outside your country, depending on the tools and service setup.</p>
+          <p>Where required, we will take reasonable steps to use appropriate safeguards for cross-border handling. Some third-party tools may process information under their own privacy terms and security frameworks.</p>
+        </section>
+
+        <section class="legal-card">
+          <p class="eyebrow">AI</p>
+          <h2>9. AI-Assisted Tools</h2>
+          <p>AI tools may assist with enquiry handling, summaries, classification, message drafting, website chat, or phone detail capture. AI output can be wrong or incomplete and may require human monitoring and correction.</p>
+          <p>AI-assisted workflows should not be used to make risky promises, give exact prices unless approved, confirm complex jobs, handle emergencies without escalation, provide professional technical advice, or replace human judgement.</p>
+        </section>
+
+        <section class="legal-card">
+          <p class="eyebrow">Cookies</p>
+          <h2>10. Cookies, Analytics, And Tracking</h2>
+          <p>This website may use cookies, pixels, analytics, and similar technologies to understand page visits, form activity, referral sources, CTA clicks, website performance, and marketing effectiveness. These tools may collect technical data such as browser type, device information, IP address, pages visited, and event activity.</p>
+          <p>You can usually control cookies through your browser settings. Blocking cookies may affect some website functions or measurement accuracy.</p>
+        </section>
+
+        <section class="legal-card">
+          <p class="eyebrow">Communication</p>
+          <h2>11. Email, SMS, Calls, And Opt-Outs</h2>
+          <p>If you contact us, book an audit, or become a client, we may contact you about your enquiry, audit, proposal, onboarding, service delivery, billing, support, or relevant business updates.</p>
+          <p>If you receive marketing or non-essential follow-up, you can ask us to stop. Some transactional, service, billing, security, or legal communications may still be required.</p>
+        </section>
+
+        <section class="legal-card">
+          <p class="eyebrow">Retention</p>
+          <h2>12. How Long We Keep Information</h2>
+          <p>We keep information only as long as reasonably needed for the purpose collected, service delivery, billing, support, legal compliance, dispute resolution, backups, security, and business records. Retention periods may vary depending on the type of information, the relevant client agreement, the platform used, and legal requirements.</p>
+          <p>When information is no longer needed, we may delete, archive, de-identify, or securely retain it where deletion is not technically or legally practical.</p>
+        </section>
+
+        <section class="legal-card">
+          <p class="eyebrow">Security</p>
+          <h2>13. Security</h2>
+          <p>We aim to handle information responsibly and use practical safeguards, but no online system can be guaranteed completely secure.</p>
+          <ul class="legal-list">
+            {securityMeasures.map((item) => <li>{item}</li>)}
+          </ul>
+          <p>You should not send passwords, payment card numbers, highly sensitive personal information, or emergency details through ordinary website forms unless specifically requested through an appropriate secure process.</p>
+        </section>
+
+        <section class="legal-card">
+          <p class="eyebrow">Rights</p>
+          <h2>14. Your Privacy Rights</h2>
+          <p>Depending on your location and relationship with us or our client, you may have privacy rights under laws such as New Zealand's Privacy Act 2020, Australia's Privacy Act and Australian Privacy Principles, US privacy and consumer protection rules, UK GDPR, EU GDPR, or other applicable laws.</p>
+          <ul class="legal-list">
+            {rights.map((item) => <li>{item}</li>)}
+          </ul>
+          <p>If you are a customer of one of our trade business clients, we may need to refer your request to that client or work with them to respond.</p>
+        </section>
+
+        <section class="legal-card">
+          <p class="eyebrow">Children</p>
+          <h2>15. Children</h2>
+          <p>This website and service are intended for trade businesses and business decision-makers. We do not intentionally target children or collect children's information through this website. If you believe a child has provided personal information, contact us so we can review it.</p>
+        </section>
+
+        <section class="legal-card">
+          <p class="eyebrow">Changes</p>
+          <h2>16. Policy Updates</h2>
+          <p>We may update this Privacy Policy as the website, service, tools, business structure, or legal requirements change. The effective date at the top of this page shows when this version took effect.</p>
+        </section>
+
+        <section class="legal-card">
+          <p class="eyebrow">Contact</p>
+          <h2>17. Privacy Contact</h2>
+          <p>For privacy requests, corrections, opt-outs, or questions about this policy, contact us at <a href={`mailto:${contactDetails.email}`}>{contactDetails.email}</a>.</p>
+          <div class="contact-strip">
+            {contactDetails.phones.map((phone) => (
+              phone.available ? (
+                <a href={phone.href}>
+                  <span>{phone.region}</span>
+                  <strong>{phone.value}</strong>
+                </a>
+              ) : (
+                <div>
+                  <span>{phone.region}</span>
+                  <strong>{phone.value}</strong>
+                </div>
+              )
+            ))}
+          </div>
+        </section>
+      </article>
     </div>
   </section>
 </BaseLayout>
 
 <style>
-  .legal {
-    max-width: 900px;
-    display: grid;
-    gap: 22px;
-  }
-
   .legal-hero {
     margin-bottom: 48px;
   }
 
-  h2 {
-    margin-top: 28px;
-    font-size: 32px;
+  .legal-shell {
+    display: grid;
+    grid-template-columns: 300px minmax(0, 1fr);
+    gap: 28px;
+    align-items: start;
+  }
+
+  .legal-meta {
+    position: sticky;
+    top: 94px;
+    display: grid;
+    gap: 18px;
+  }
+
+  .legal-meta div {
+    display: grid;
+    gap: 5px;
+  }
+
+  .legal-meta span,
+  .contact-strip span {
+    color: var(--primary);
+    font-size: 11px;
+    font-weight: 850;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .legal-meta strong,
+  .legal-meta a,
+  .contact-strip strong {
+    color: var(--ink);
+    font-size: 15px;
+    font-weight: 750;
+    line-height: 1.25;
+    overflow-wrap: anywhere;
+  }
+
+  .legal {
+    display: grid;
+    gap: 18px;
+  }
+
+  .legal-card {
+    display: grid;
+    gap: 16px;
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius-lg);
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.44), transparent 44%),
+      var(--surface-card);
+    padding: clamp(22px, 3vw, 34px);
+    box-shadow: 0 20px 70px rgba(37, 35, 32, 0.07);
+  }
+
+  .legal-card.warning {
+    border-color: rgba(204, 120, 92, 0.35);
+    background:
+      linear-gradient(135deg, rgba(204, 120, 92, 0.12), transparent 46%),
+      var(--surface-card);
+  }
+
+  .legal-card h2 {
+    font-size: clamp(30px, 3vw, 44px);
+  }
+
+  .legal-card p,
+  .legal-card li {
+    color: var(--body);
+  }
+
+  .legal-card a {
+    color: var(--primary-active);
+    font-weight: 800;
+  }
+
+  .legal-list {
+    display: grid;
+    gap: 10px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .legal-list li {
+    position: relative;
+    padding-left: 25px;
+  }
+
+  .legal-list li::before {
+    content: "";
+    position: absolute;
+    top: 0.7em;
+    left: 0;
+    width: 9px;
+    height: 9px;
+    border: 2px solid var(--primary);
+    border-radius: 3px;
+  }
+
+  .contact-strip {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .contact-strip a,
+  .contact-strip div {
+    display: grid;
+    gap: 5px;
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius-md);
+    background: rgba(250, 249, 245, 0.62);
+    padding: 14px;
+  }
+
+  @media (max-width: 980px) {
+    .legal-shell {
+      grid-template-columns: 1fr;
+    }
+
+    .legal-meta {
+      position: static;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .contact-strip {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 680px) {
+    .legal-meta {
+      grid-template-columns: 1fr;
+    }
   }
 </style>

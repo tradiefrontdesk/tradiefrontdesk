@@ -41,8 +41,8 @@ const SmallCard = ({ children, active = true, style }: { children: ReactNode; ac
   <SquareCard
     style={{
       padding: 15,
-      borderColor: active ? "rgba(250,255,105,.42)" : "rgba(255,255,255,.14)",
-      boxShadow: active ? "0 18px 56px rgba(0,0,0,.34), 0 0 30px rgba(250,255,105,.16)" : "0 18px 44px rgba(0,0,0,.28)",
+      borderColor: active ? "rgba(204,120,92,.42)" : "rgba(255,255,255,.14)",
+      boxShadow: active ? "0 18px 56px rgba(0,0,0,.34), 0 0 30px rgba(204,120,92,.16)" : "0 18px 44px rgba(0,0,0,.28)",
       ...style,
     }}
   >
@@ -56,24 +56,31 @@ const FlowVisual = ({ story }: { story: StoryVideoConfig }) => {
   const progress = clamp(frame, [12, durationInFrames - 24], [0, 1]);
   const active = Math.min(story.nodes.length - 1, Math.floor(progress * story.nodes.length));
   const pulse = 1 + Math.sin(frame / 8) * 0.06;
+  const points = [
+    { x: 80, y: 202 },
+    { x: 245, y: 146 },
+    { x: 410, y: 202 },
+    { x: 575, y: 146 },
+    { x: 742, y: 202 },
+  ];
+  const linePath = `M${points[0].x} ${points[0].y} C132 138 192 132 ${points[1].x} ${points[1].y} S346 268 ${points[2].x} ${points[2].y} S512 82 ${points[3].x} ${points[3].y} S684 270 ${points[4].x} ${points[4].y}`;
 
   return (
     <SquareCard style={{ padding: 22 }}>
       <svg viewBox="0 0 820 390" style={{ display: "block", width: "100%", height: 390, overflow: "visible" }}>
-        <path d="M80 188 C185 70 282 292 390 188 S612 82 742 188" fill="none" stroke="rgba(255,255,255,.12)" strokeWidth="12" strokeLinecap="round" />
+        <path d={linePath} fill="none" stroke="rgba(255,255,255,.12)" strokeWidth="12" strokeLinecap="round" />
         <path
-          d="M80 188 C185 70 282 292 390 188 S612 82 742 188"
+          d={linePath}
           fill="none"
           stroke={colors.primary}
           strokeWidth="12"
           strokeLinecap="round"
           strokeDasharray="900"
           strokeDashoffset={900 - progress * 900}
-          style={{ filter: "drop-shadow(0 0 18px rgba(250,255,105,.65))" }}
+          style={{ filter: "drop-shadow(0 0 18px rgba(204,120,92,.65))" }}
         />
         {story.nodes.map((node, index) => {
-          const x = 80 + index * 165;
-          const y = index % 2 ? 112 : 188;
+          const { x, y } = points[index] ?? points[points.length - 1];
           const isActive = index <= active;
           const scale = isActive && index === active ? pulse : 1;
           return (
@@ -109,7 +116,7 @@ const ModulesVisual = ({ story }: { story: StoryVideoConfig }) => {
   return (
     <SquareCard style={{ padding: 20 }}>
       <svg viewBox="0 0 760 430" style={{ display: "block", width: "100%", height: 430 }}>
-        <circle cx="380" cy="216" r={84 + Math.sin(frame / 14) * 5} fill="rgba(250,255,105,.09)" stroke="rgba(250,255,105,.42)" strokeWidth="3" />
+        <circle cx="380" cy="216" r={84 + Math.sin(frame / 14) * 5} fill="rgba(204,120,92,.09)" stroke="rgba(204,120,92,.42)" strokeWidth="3" />
         <text x="380" y="203" fill={colors.primary} textAnchor="middle" fontSize="24" fontWeight="950">
           ENQUIRY
         </text>
@@ -121,13 +128,13 @@ const ModulesVisual = ({ story }: { story: StoryVideoConfig }) => {
           const active = reveal > 0.8;
           return (
             <g key={`${x}-${y}`} opacity={reveal}>
-              <line x1="380" y1="216" x2={x + 80} y2={y + 46} stroke={active ? "rgba(250,255,105,.6)" : "rgba(255,255,255,.13)"} strokeWidth="4" />
+              <line x1="380" y1="216" x2={x + 80} y2={y + 46} stroke={active ? "rgba(204,120,92,.6)" : "rgba(255,255,255,.13)"} strokeWidth="4" />
               <rect x={x} y={y} width="160" height="92" rx="14" fill={colors.surfaceCard} stroke={active ? colors.primary : "rgba(255,255,255,.16)"} strokeWidth="2" />
               <circle cx={x + 24} cy={y + 26} r="8" fill={active ? colors.primary : colors.elevated} />
               <text x={x + 44} y={y + 34} fill={colors.text} fontSize="19" fontWeight="900">
                 {moduleNames[index]}
               </text>
-              <rect x={x + 18} y={y + 58} width={95 * pop} height="7" rx="4" fill="rgba(250,255,105,.52)" />
+              <rect x={x + 18} y={y + 58} width={95 * pop} height="7" rx="4" fill="rgba(204,120,92,.52)" />
             </g>
           );
         })}
@@ -191,7 +198,7 @@ const ComparisonVisual = ({ story }: { story: StoryVideoConfig }) => {
         <div style={{ color: colors.primary, fontSize: 18, fontWeight: 950, textTransform: "uppercase" }}>Front desk</div>
         <div style={{ display: "grid", gap: 14, marginTop: 20 }}>
           {systemItems.map((item, index) => (
-            <div key={item} style={{ opacity: clamp(frame - 80 - index * 18, [0, 20], [0, 1]), padding: 14, borderRadius: 12, background: "rgba(250,255,105,.09)", color: colors.text, fontSize: 21, fontWeight: 900 }}>
+            <div key={item} style={{ opacity: clamp(frame - 80 - index * 18, [0, 20], [0, 1]), padding: 14, borderRadius: 12, background: "rgba(204,120,92,.09)", color: colors.text, fontSize: 21, fontWeight: 900 }}>
               {item}
             </div>
           ))}
@@ -257,7 +264,7 @@ const ContactVisual = ({ story }: { story: StoryVideoConfig }) => {
           const y = 32 + index * 80;
           return (
             <g key={card} opacity={clamp(frame - 75 - index * 18, [0, 22], [0, 1])}>
-              <rect x={x} y={y} width="270" height="66" rx="15" fill={colors.surfaceCard} stroke={index === 0 ? colors.primary : "rgba(250,255,105,.24)"} strokeWidth="2" />
+              <rect x={x} y={y} width="270" height="66" rx="15" fill={colors.surfaceCard} stroke={index === 0 ? colors.primary : "rgba(204,120,92,.24)"} strokeWidth="2" />
               <circle cx={x + 26} cy={y + 31} r="8" fill={colors.primary} />
               <text x={x + 46} y={y + 39} fill={colors.text} fontSize="21" fontWeight="900">
                 {card}
@@ -282,7 +289,7 @@ const ProofVisual = ({ story }: { story: StoryVideoConfig }) => {
           </div>
         ))}
         {story.cards.slice(0, 4).map((card, index) => (
-          <div key={card} style={{ opacity: clamp(frame - index * 22, [0, 24], [0, 1]), minHeight: 215, padding: 14, borderRadius: 14, border: "1px solid rgba(255,255,255,.13)", background: index === 2 ? "rgba(250,255,105,.1)" : "rgba(255,255,255,.045)" }}>
+          <div key={card} style={{ opacity: clamp(frame - index * 22, [0, 24], [0, 1]), minHeight: 215, padding: 14, borderRadius: 14, border: "1px solid rgba(255,255,255,.13)", background: index === 2 ? "rgba(204,120,92,.1)" : "rgba(255,255,255,.045)" }}>
             <div style={{ color: index === 2 ? colors.primary : colors.text, fontSize: 24, lineHeight: 1.04, fontWeight: 950 }}>{card}</div>
             <div style={{ marginTop: 20, height: 8, width: `${clamp(frame - 70 - index * 16, [0, 40], [25, 100])}%`, borderRadius: 99, background: index === 2 ? colors.primary : "rgba(255,255,255,.22)" }} />
           </div>
@@ -345,9 +352,9 @@ export const StoryVideo = ({ id }: Props) => {
       <div style={{ display: "grid", gap: 18, height: "100%", alignContent: "space-between" }}>
         <StoryBeat story={story} />
         <VariantVisual story={story} />
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 10 }}>
-          {story.nodes.slice(0, 4).map((node, index) => (
-            <SmallCard key={node} active={index <= Math.floor(section(frame, durationInFrames, 0, 1) * 4)} style={{ minHeight: 72, opacity: clamp(frame - index * 12, [0, 18], [0, 1]) }}>
+        <div style={{ display: "grid", gridTemplateColumns: `repeat(${story.nodes.length}, 1fr)`, gap: 10 }}>
+          {story.nodes.map((node, index) => (
+            <SmallCard key={node} active={index <= Math.floor(section(frame, durationInFrames, 0, 1) * story.nodes.length)} style={{ minHeight: 72, opacity: clamp(frame - index * 12, [0, 18], [0, 1]) }}>
               <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
                 <Dot size={10} active />
                 <div style={{ color: colors.text, fontSize: 16, lineHeight: 1.1, fontWeight: 900 }}>{node}</div>

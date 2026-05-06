@@ -67,6 +67,15 @@ export default class ProductVideoPlayer extends PureComponent<ProductVideoPlayer
     return (
       <article className={`${featured ? "product-video product-video--featured" : "product-video"}${bare ? " product-video--bare" : ""}`}>
         <div className="product-video__frame" aria-label={`${title} Remotion video player`}>
+          <div className="product-video__fallback" aria-hidden="true">
+            <p>{spec.title}</p>
+            <div>
+              <span />
+              <span />
+              <span />
+            </div>
+            <small>Graphic system animation</small>
+          </div>
           <Player
             ref={this.playerRef}
             component={Component}
@@ -81,9 +90,11 @@ export default class ProductVideoPlayer extends PureComponent<ProductVideoPlayer
             loop
             acknowledgeRemotionLicense
             style={{
+              position: "relative",
+              zIndex: 1,
               width: "100%",
               aspectRatio: "1 / 1",
-              backgroundColor: "#0a0a0a",
+              backgroundColor: "#181715",
             }}
           />
         </div>

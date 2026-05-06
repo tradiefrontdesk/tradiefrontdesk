@@ -21,13 +21,13 @@ const steps = ["Capture", "Respond", "Qualify", "Book", "Follow Up"];
       </filter>
       <linearGradient id="flow-line" x1="0" x2="1">
         <stop offset="0%" stop-color="#5a5a5a" />
-        <stop offset="50%" stop-color="#faff69" />
+        <stop offset="50%" stop-color="#cc785c" />
         <stop offset="100%" stop-color="#5a5a5a" />
       </linearGradient>
     </defs>
-    <rect x="22" y="22" width="716" height="376" rx="18" fill="#121212" stroke="#2a2a2a" />
+    <rect x="22" y="22" width="716" height="376" rx="18" fill="#181715" stroke="#3b3832" />
     <path class="track" d="M108 215 C210 86 330 338 438 204 S610 112 664 214" fill="none" stroke="url(#flow-line)" stroke-width="3" stroke-dasharray="8 12" />
-    <circle class="pulse" r="9" fill="#faff69" filter="url(#yellow-glow)">
+    <circle class="pulse" r="9" fill="#cc785c" filter="url(#yellow-glow)">
       <animateMotion dur="5.8s" repeatCount="indefinite" path="M108 215 C210 86 330 338 438 204 S610 112 664 214" />
     </circle>
     {steps.map((step, index) => {
@@ -41,9 +41,9 @@ const steps = ["Capture", "Respond", "Qualify", "Book", "Follow Up"];
       const [x, y] = points[index];
       return (
         <g class="node">
-          <rect x={x - 56} y={y - 38} width="112" height="76" rx="12" fill="#1a1a1a" stroke="#3a3a3a" />
-          <circle cx={x} cy={y - 8} r="12" fill="#faff69" />
-          <text x={x} y={y + 24} text-anchor="middle" fill="#ffffff" font-size="15" font-weight="700">{step}</text>
+          <rect x={x - 56} y={y - 38} width="112" height="76" rx="12" fill="#252320" stroke="#4a443d" />
+          <circle cx={x} cy={y - 8} r="12" fill="#cc785c" />
+          <text x={x} y={y + 24} text-anchor="middle" fill="#faf9f5" font-size="15" font-weight="700">{step}</text>
         </g>
       );
     })}
@@ -59,10 +59,10 @@ const steps = ["Capture", "Respond", "Qualify", "Book", "Follow Up"];
   .flow-shell {
     position: relative;
     overflow: hidden;
-    border: 1px solid rgba(250, 255, 105, 0.28);
+    border: 1px solid rgba(204, 120, 92, 0.28);
     border-radius: var(--radius-lg);
     background:
-      radial-gradient(circle at 50% 0, rgba(250, 255, 105, 0.16), transparent 36%),
+      radial-gradient(circle at 50% 0, rgba(204, 120, 92, 0.16), transparent 36%),
       linear-gradient(180deg, var(--surface-card), var(--surface-soft));
     padding: 18px;
     box-shadow: var(--glow-strong);
@@ -72,7 +72,7 @@ const steps = ["Capture", "Respond", "Qualify", "Book", "Follow Up"];
     content: "";
     position: absolute;
     inset: -2px;
-    background: conic-gradient(from 180deg, transparent, rgba(250, 255, 105, 0.45), transparent 28%);
+    background: conic-gradient(from 180deg, transparent, rgba(204, 120, 92, 0.45), transparent 28%);
     animation: spin-glow 7s linear infinite;
     opacity: 0.32;
   }
@@ -82,7 +82,7 @@ const steps = ["Capture", "Respond", "Qualify", "Book", "Follow Up"];
     position: absolute;
     inset: 1px;
     border-radius: calc(var(--radius-lg) - 1px);
-    background: linear-gradient(180deg, rgba(26, 26, 26, 0.74), rgba(18, 18, 18, 0.92));
+    background: linear-gradient(180deg, rgba(24, 23, 21, 0.74), rgba(31, 30, 27, 0.92));
   }
 
   .flow-svg,
@@ -117,7 +117,7 @@ const steps = ["Capture", "Respond", "Qualify", "Book", "Follow Up"];
     gap: 5px;
     border: 1px solid var(--hairline);
     border-radius: var(--radius-md);
-    background: rgba(10, 10, 10, 0.78);
+    background: rgba(24, 23, 21, 0.88);
     padding: 12px;
   }
 
@@ -130,7 +130,7 @@ const steps = ["Capture", "Respond", "Qualify", "Book", "Follow Up"];
   }
 
   .flow-cards strong {
-    color: var(--ink);
+    color: var(--on-dark);
     font-size: 13px;
     line-height: 1.25;
   }

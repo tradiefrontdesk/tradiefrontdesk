@@ -32,7 +32,7 @@ export const VideoShell = ({ label, cta = "Managed front desk system", children 
       <AbsoluteFill
         style={{
           background:
-            "radial-gradient(circle at 15% 12%, rgba(250,255,105,.18), transparent 24%), radial-gradient(circle at 86% 18%, rgba(59,130,246,.11), transparent 22%), linear-gradient(120deg, transparent 0 42%, rgba(250,255,105,.05) 48%, transparent 54% 100%)",
+            "radial-gradient(circle at 15% 12%, rgba(204,120,92,.18), transparent 24%), radial-gradient(circle at 86% 18%, rgba(59,130,246,.11), transparent 22%), linear-gradient(120deg, transparent 0 42%, rgba(204,120,92,.05) 48%, transparent 54% 100%)",
         }}
       />
       <div
@@ -43,7 +43,7 @@ export const VideoShell = ({ label, cta = "Managed front desk system", children 
           left: `${sweep}%`,
           width: 280,
           transform: "skewX(-18deg)",
-          background: "linear-gradient(90deg, transparent, rgba(250,255,105,.12), transparent)",
+          background: "linear-gradient(90deg, transparent, rgba(204,120,92,.12), transparent)",
         }}
       />
       <div
@@ -52,7 +52,7 @@ export const VideoShell = ({ label, cta = "Managed front desk system", children 
           inset: 34,
           border: `1px solid ${colors.hairline}`,
           borderRadius: 24,
-          boxShadow: "inset 0 0 0 1px rgba(250,255,105,.05), 0 0 80px rgba(250,255,105,.08)",
+          boxShadow: "inset 0 0 0 1px rgba(204,120,92,.05), 0 0 80px rgba(204,120,92,.08)",
         }}
       />
       <div
@@ -70,7 +70,7 @@ export const VideoShell = ({ label, cta = "Managed front desk system", children 
           textTransform: "uppercase",
         }}
       >
-        <span style={{ width: 15, height: 15, borderRadius: 99, background: colors.primary, boxShadow: "0 0 22px rgba(250,255,105,.8)" }} />
+        <span style={{ width: 15, height: 15, borderRadius: 99, background: colors.primary, boxShadow: "0 0 22px rgba(204,120,92,.8)" }} />
         {label}
       </div>
       <div style={{ position: "absolute", inset: "112px 58px 102px" }}>{children}</div>
@@ -82,14 +82,14 @@ export const VideoShell = ({ label, cta = "Managed front desk system", children 
           display: "flex",
           alignItems: "center",
           gap: 14,
-          border: "1px solid rgba(250,255,105,.42)",
+          border: "1px solid rgba(204,120,92,.42)",
           borderRadius: 12,
           background: "rgba(18,18,18,.84)",
           padding: "13px 16px",
           color: colors.body,
           fontSize: 16,
           fontWeight: 700,
-          boxShadow: "0 0 34px rgba(250,255,105,.12)",
+          boxShadow: "0 0 34px rgba(204,120,92,.12)",
         }}
       >
         <span style={{ color: colors.primary }}>System Pros AI</span>

@@ -14,7 +14,7 @@ export const HomeAuditPackagesVideo = () => {
       <div style={{ display: "grid", gap: 24 }}>
         <div style={{ color: colors.text, fontSize: 55, lineHeight: 1.04, fontWeight: 950 }}>Find the leaks, then choose the right build.</div>
         <SquareCard style={{ padding: 24, display: "grid", gridTemplateColumns: "250px 1fr", gap: 24, alignItems: "center" }}>
-          <div style={{ width: 220, height: 220, borderRadius: 999, border: "10px solid rgba(250,255,105,.28)", display: "grid", placeItems: "center", boxShadow: "0 0 45px rgba(250,255,105,.18)" }}>
+          <div style={{ width: 220, height: 220, borderRadius: 999, border: "10px solid rgba(204,120,92,.28)", display: "grid", placeItems: "center", boxShadow: "0 0 45px rgba(204,120,92,.18)" }}>
             <div>
               <div style={{ color: colors.primary, fontSize: 66, fontWeight: 950, lineHeight: 1 }}>{score}</div>
               <div style={{ color: colors.body, fontSize: 19, fontWeight: 850 }}>leak score</div>

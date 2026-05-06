@@ -9,7 +9,7 @@ const clamp = (frame: number, input: [number, number], output: [number, number])
 
 const Check = ({ x, y, show }: { x: number; y: number; show: number }) => (
   <g opacity={show}>
-    <circle cx={x} cy={y} r="18" fill={colors.primary} filter="drop-shadow(0 0 16px rgba(250,255,105,.65))" />
+    <circle cx={x} cy={y} r="18" fill={colors.primary} filter="drop-shadow(0 0 16px rgba(204,120,92,.65))" />
     <path d={`M${x - 8} ${y} L${x - 1} ${y + 7} L${x + 10} ${y - 8}`} fill="none" stroke={colors.canvas} strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" />
   </g>
 );
@@ -49,8 +49,8 @@ export const HomeRealBusinessPaymentVideo = () => {
         <svg viewBox="0 0 964 560" style={{ position: "absolute", inset: "118px 0 0", width: "100%", height: 520, overflow: "visible" }}>
           <defs>
             <linearGradient id="payGlow" x1="0" x2="1">
-              <stop offset="0" stopColor="rgba(250,255,105,.16)" />
-              <stop offset="1" stopColor="rgba(250,255,105,.02)" />
+              <stop offset="0" stopColor="rgba(204,120,92,.16)" />
+              <stop offset="1" stopColor="rgba(204,120,92,.02)" />
             </linearGradient>
           </defs>
 
@@ -61,13 +61,13 @@ export const HomeRealBusinessPaymentVideo = () => {
           </g>
 
           <g transform={`translate(${(1 - checkout) * -42} ${(1 - checkout) * 24}) scale(${0.92 + checkout * 0.08})`} opacity={checkout}>
-            <rect x="46" y="26" width="380" height="456" rx="26" fill={colors.surfaceCard} stroke="rgba(250,255,105,.42)" strokeWidth="3" filter="drop-shadow(0 24px 48px rgba(0,0,0,.38))" />
+            <rect x="46" y="26" width="380" height="456" rx="26" fill={colors.surfaceCard} stroke="rgba(204,120,92,.42)" strokeWidth="3" filter="drop-shadow(0 24px 48px rgba(0,0,0,.38))" />
             <rect x="46" y="26" width="380" height="86" rx="26" fill="url(#payGlow)" />
             <text x="82" y="78" fill={colors.primary} fontSize="24" fontWeight="950">
               RECURRING PRODUCT
             </text>
             <text x="82" y="144" fill={colors.text} fontSize="34" fontWeight="950">
-              The Ash Counselling
+              Your Electrical
             </text>
             <text x="82" y="190" fill={colors.primary} fontSize="38" fontWeight="950">
               $249 / month
@@ -93,14 +93,14 @@ export const HomeRealBusinessPaymentVideo = () => {
           </g>
 
           <path d="M426 254 C500 254 492 248 560 248" stroke="rgba(255,255,255,.13)" strokeWidth="9" strokeLinecap="round" fill="none" />
-          <path d="M426 254 C500 254 492 248 560 248" stroke={colors.primary} strokeWidth="9" strokeLinecap="round" fill="none" strokeDasharray="142" strokeDashoffset={142 - systemLine * 142} filter="drop-shadow(0 0 15px rgba(250,255,105,.72))" />
+          <path d="M426 254 C500 254 492 248 560 248" stroke={colors.primary} strokeWidth="9" strokeLinecap="round" fill="none" strokeDasharray="142" strokeDashoffset={142 - systemLine * 142} filter="drop-shadow(0 0 15px rgba(204,120,92,.72))" />
 
           {nodes.map(([label, x, y], index) => {
             const reveal = clamp(frame - 160 - index * 22, [0, 24], [0, 1]);
             const active = reveal > 0.72;
             return (
               <g key={label} opacity={reveal} transform={`translate(${x} ${y}) scale(${active ? pulse : 1})`}>
-                <circle r="54" fill={active ? "rgba(250,255,105,.14)" : colors.surfaceCard} stroke={active ? colors.primary : "rgba(255,255,255,.16)"} strokeWidth="3" />
+                <circle r="54" fill={active ? "rgba(204,120,92,.14)" : colors.surfaceCard} stroke={active ? colors.primary : "rgba(255,255,255,.16)"} strokeWidth="3" />
                 <circle r="13" fill={active ? colors.primary : colors.elevated} />
                 <text y="82" fill={active ? colors.primary : colors.body} fontSize="19" fontWeight="950" textAnchor="middle">
                   {label}
@@ -117,7 +117,7 @@ export const HomeRealBusinessPaymentVideo = () => {
           <Check x={872} y={248} show={clamp(frame - 250, [0, 18], [0, 1])} />
 
           <g opacity={clamp(frame - 278, [0, 24], [0, 1])}>
-            <rect x="536" y="410" width="374" height="76" rx="18" fill={colors.surfaceCard} stroke="rgba(250,255,105,.38)" />
+            <rect x="536" y="410" width="374" height="76" rx="18" fill={colors.surfaceCard} stroke="rgba(204,120,92,.38)" />
             <text x="564" y="438" fill={colors.text} fontSize="22" fontWeight="950">
               Payment captured.
             </text>
@@ -129,7 +129,7 @@ export const HomeRealBusinessPaymentVideo = () => {
             </text>
           </g>
 
-          <rect x={sweep * 8 - 160} y="0" width="120" height="520" fill="rgba(250,255,105,.08)" transform="skewX(-18)" opacity="0.8" />
+          <rect x={sweep * 8 - 160} y="0" width="120" height="520" fill="rgba(204,120,92,.08)" transform="skewX(-18)" opacity="0.8" />
         </svg>
       </div>
     </VideoShell>

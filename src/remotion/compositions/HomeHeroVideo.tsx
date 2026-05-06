@@ -33,7 +33,7 @@ export const HomeHeroVideo = () => {
                     display: "grid",
                     placeItems: "center",
                     border: `3px solid ${index <= step ? colors.primary : colors.hairline}`,
-                    background: index <= step ? "rgba(250,255,105,.14)" : colors.surfaceSoft,
+                    background: index <= step ? "rgba(204,120,92,.14)" : colors.surfaceSoft,
                     color: index <= step ? colors.primary : colors.body,
                     fontSize: 25,
                     fontWeight: 950,

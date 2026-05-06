@@ -19,7 +19,7 @@ export const PipelineBoard = () => {
               const local = frame - columnIndex * 20 - cardIndex * 10;
               const opacity = interpolate(local, [0, 18], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
               return (
-                <div key={card} style={{ minHeight: 88, border: "1px solid rgba(250,255,105,.24)", borderRadius: 16, background: colors.surfaceCard, padding: 18, opacity, transform: `translateY(${interpolate(opacity, [0, 1], [18, 0])}px)` }}>
+                <div key={card} style={{ minHeight: 88, border: "1px solid rgba(204,120,92,.24)", borderRadius: 16, background: colors.surfaceCard, padding: 18, opacity, transform: `translateY(${interpolate(opacity, [0, 1], [18, 0])}px)` }}>
                   <div style={{ color: colors.text, fontSize: 26, fontWeight: 800 }}>{card}</div>
                   <div style={{ color: colors.body, fontSize: 19, marginTop: 8 }}>Owner can see the next action.</div>
                 </div>

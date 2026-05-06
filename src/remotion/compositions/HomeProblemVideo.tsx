@@ -11,6 +11,13 @@ const breakpoints = [
   { label: "Scattered note", detail: "no clear pipeline", x: 760, y: 332, delay: 138 },
 ];
 
+const opportunityPath =
+  `M92 164 C112 184 136 203 ${breakpoints[0].x} ${breakpoints[0].y} ` +
+  `C238 206 282 306 ${breakpoints[1].x} ${breakpoints[1].y} ` +
+  `C456 278 504 214 ${breakpoints[2].x} ${breakpoints[2].y} ` +
+  `C668 246 692 336 ${breakpoints[3].x} ${breakpoints[3].y} ` +
+  "C804 330 834 304 862 290";
+
 export const HomeProblemVideo = () => {
   const frame = useCurrentFrame();
   const titleIndex = Math.min(3, Math.floor(frame / 90));
@@ -44,7 +51,7 @@ export const HomeProblemVideo = () => {
             </linearGradient>
           </defs>
 
-          <rect x="32" y="30" width="900" height="612" rx="28" fill="rgba(18,18,18,.76)" stroke="rgba(250,255,105,.22)" />
+          <rect x="32" y="30" width="900" height="612" rx="28" fill="rgba(18,18,18,.76)" stroke="rgba(204,120,92,.22)" />
 
           <text x="70" y="86" fill={colors.primary} fontSize="23" fontWeight="950">
             Incoming opportunities
@@ -53,15 +60,15 @@ export const HomeProblemVideo = () => {
             Lost in the cracks
           </text>
 
-          <path d="M92 164 C210 92 284 316 382 252 S520 112 620 184 S764 402 862 290" fill="none" stroke="rgba(255,255,255,.14)" strokeWidth="10" strokeLinecap="round" />
+          <path d={opportunityPath} fill="none" stroke="rgba(255,255,255,.14)" strokeWidth="10" strokeLinecap="round" />
           <path
-            d="M92 164 C210 92 284 316 382 252 S520 112 620 184 S764 402 862 290"
+            d={opportunityPath}
             fill="none"
             stroke="url(#problemFade)"
             strokeWidth="10"
             strokeLinecap="round"
-            strokeDasharray="960"
-            strokeDashoffset={960 - pathProgress * 960}
+            strokeDasharray="1040"
+            strokeDashoffset={1040 - pathProgress * 1040}
             filter="url(#problemGlow)"
           />
 
@@ -75,7 +82,7 @@ export const HomeProblemVideo = () => {
                 <circle cx={point.x} cy={point.y} r={22 + crack * 4} fill="rgba(10,10,10,.94)" stroke={isCracked ? colors.error : colors.primary} strokeWidth="5" filter="url(#problemGlow)" />
                 <circle cx={point.x} cy={point.y + dropY} r="10" fill={crack > 0.08 ? colors.error : colors.primary} opacity={crack} />
                 <path d={`M${point.x - 16} ${point.y + 34} L${point.x - 3} ${point.y + 60} L${point.x - 20} ${point.y + 86}`} stroke={colors.error} strokeWidth="5" strokeLinecap="round" opacity={crack} />
-                <rect x={point.x - 96} y={point.y + 42} width="192" height="74" rx="15" fill="rgba(26,26,26,.96)" stroke={isCracked ? "rgba(239,68,68,.48)" : "rgba(250,255,105,.28)"} />
+                <rect x={point.x - 96} y={point.y + 42} width="192" height="74" rx="15" fill="rgba(26,26,26,.96)" stroke={isCracked ? "rgba(239,68,68,.48)" : "rgba(204,120,92,.28)"} />
                 <text x={point.x} y={point.y + 73} textAnchor="middle" fill={colors.text} fontSize="21" fontWeight="950">
                   {point.label}
                 </text>
@@ -99,7 +106,7 @@ export const HomeProblemVideo = () => {
           </g>
 
           <g opacity={interpolate(frame, [270, 332], [0, 1], clamp)}>
-            <rect x="132" y="606" width="700" height="46" rx="15" fill="rgba(250,255,105,.12)" stroke="rgba(250,255,105,.36)" />
+            <rect x="132" y="606" width="700" height="46" rx="15" fill="rgba(204,120,92,.12)" stroke="rgba(204,120,92,.36)" />
             <text x="482" y="636" textAnchor="middle" fill={colors.primary} fontSize="23" fontWeight="950">
               The work may be good. The enquiry process is what breaks.
             </text>

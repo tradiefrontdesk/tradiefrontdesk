@@ -23,7 +23,7 @@ export const HomeFiveStepVideo = () => {
                     <Dot active={isActive} size={34} />
                     {index < steps.length - 1 ? <div style={{ height: 28, width: 4, background: isActive ? colors.primary : colors.hairline }} /> : null}
                   </div>
-                  <div style={{ borderRadius: 16, padding: 17, background: isActive ? "rgba(250,255,105,.12)" : colors.surfaceSoft, border: `1px solid ${isActive ? "rgba(250,255,105,.38)" : "rgba(255,255,255,.1)"}` }}>
+                  <div style={{ borderRadius: 16, padding: 17, background: isActive ? "rgba(204,120,92,.12)" : colors.surfaceSoft, border: `1px solid ${isActive ? "rgba(204,120,92,.38)" : "rgba(255,255,255,.1)"}` }}>
                     <div style={{ color: isActive ? colors.primary : colors.text, fontSize: 32, fontWeight: 950 }}>{step}</div>
                   </div>
                 </div>

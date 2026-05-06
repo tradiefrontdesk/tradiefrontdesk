@@ -52,7 +52,7 @@ export const HomeReframeVideo = () => {
             </filter>
           </defs>
 
-          <rect x="34" y="34" width="896" height="610" rx="26" fill="rgba(18,18,18,.72)" stroke="rgba(250,255,105,.22)" />
+          <rect x="34" y="34" width="896" height="610" rx="26" fill="rgba(18,18,18,.72)" stroke="rgba(204,120,92,.22)" />
 
           <text x="70" y="92" fill={colors.body} fontSize="24" fontWeight="850">
             More enquiry volume
@@ -113,8 +113,8 @@ export const HomeReframeVideo = () => {
           </g>
 
           <g transform={`translate(262 218) scale(${interpolate(systemScale, [0, 1], [0.72, 1], clamp)})`} opacity={interpolate(systemScale, [0, 1], [0, 1], clamp)}>
-            <rect x="0" y="0" width="440" height="286" rx="24" fill="rgba(10,10,10,.94)" stroke="rgba(250,255,105,.62)" strokeWidth="2" filter="url(#reframeGlow)" />
-            <rect x="24" y="28" width="392" height="52" rx="14" fill="rgba(250,255,105,.12)" stroke="rgba(250,255,105,.32)" />
+            <rect x="0" y="0" width="440" height="286" rx="24" fill="rgba(10,10,10,.94)" stroke="rgba(204,120,92,.62)" strokeWidth="2" filter="url(#reframeGlow)" />
+            <rect x="24" y="28" width="392" height="52" rx="14" fill="rgba(204,120,92,.12)" stroke="rgba(204,120,92,.32)" />
             <text x="42" y="62" fill={colors.primary} fontSize="22" fontWeight="950">
               Front Desk Layer
             </text>
@@ -138,14 +138,14 @@ export const HomeReframeVideo = () => {
             <path d="M46 132 H352" stroke="rgba(255,255,255,.16)" strokeWidth="5" strokeLinecap="round" />
             <path d="M46 132 H352" stroke={colors.primary} strokeWidth="5" strokeLinecap="round" strokeDasharray="306" strokeDashoffset={306 - flowProgress * 306} />
 
-            <rect x="34" y="220" width="372" height="38" rx="11" fill="rgba(250,255,105,.10)" stroke="rgba(250,255,105,.24)" />
+            <rect x="34" y="220" width="372" height="38" rx="11" fill="rgba(204,120,92,.10)" stroke="rgba(204,120,92,.24)" />
             <text x="54" y="245" fill={colors.text} fontSize="19" fontWeight="850">
               capture existing enquiries before buying more attention
             </text>
           </g>
 
           <g opacity={interpolate(frame, [246, 306], [0, 1], clamp)}>
-            <rect x="104" y="560" width="756" height="50" rx="16" fill="rgba(250,255,105,.12)" stroke="rgba(250,255,105,.42)" />
+            <rect x="104" y="560" width="756" height="50" rx="16" fill="rgba(204,120,92,.12)" stroke="rgba(204,120,92,.42)" />
             <text x="482" y="592" textAnchor="middle" fill={colors.primary} fontSize="25" fontWeight="950">
               More leads work better after the front desk stops leaking.
             </text>

@@ -1,15 +1,14 @@
 ---
-import { navItems } from "@/data/site";
+import { brand, navItems } from "@/data/site";
 ---
 
 <header class="site-header">
   <div class="container nav">
     <a class="brand" href="/" aria-label="Tradie Front Desk home">
-      <span class="mark">TFD</span>
-      <span>
-        <strong>Tradie Front Desk</strong>
-        <small>by System Pros AI</small>
+      <span class="mark">
+        <img src={brand.logo} alt="" width="36" height="36" loading="eager" />
       </span>
+      <strong>{brand.name}</strong>
     </a>
     <nav aria-label="Primary navigation">
       {navItems.map((item) => <a href={item.href}>{item.label}</a>)}
@@ -24,7 +23,7 @@ import { navItems } from "@/data/site";
     top: 0;
     z-index: 20;
     border-bottom: 1px solid var(--hairline);
-    background: rgba(10, 10, 10, 0.9);
+    background: rgba(250, 249, 245, 0.88);
     backdrop-filter: blur(16px);
   }
 
@@ -39,36 +38,31 @@ import { navItems } from "@/data/site";
   .brand {
     display: inline-flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
     color: var(--ink);
     min-width: max-content;
   }
 
   .mark {
     display: grid;
-    width: 42px;
-    height: 42px;
+    width: 34px;
+    height: 34px;
+    flex: 0 0 auto;
     place-items: center;
+    overflow: hidden;
     border-radius: 8px;
-    background: var(--primary);
-    color: var(--on-primary);
-    font-size: 13px;
-    font-weight: 850;
   }
 
-  .brand strong,
-  .brand small {
-    display: block;
+  .mark img {
+    width: 34px;
+    height: 34px;
+    object-fit: contain;
   }
 
   .brand strong {
-    font-size: 15px;
+    font-size: 17px;
+    font-weight: 850;
     line-height: 1.1;
-  }
-
-  .brand small {
-    color: var(--muted);
-    font-size: 12px;
   }
 
   nav {
@@ -80,7 +74,7 @@ import { navItems } from "@/data/site";
   nav a {
     color: var(--body);
     font-size: 14px;
-    font-weight: 600;
+    font-weight: 500;
   }
 
   nav a:hover {
@@ -100,10 +94,6 @@ import { navItems } from "@/data/site";
   @media (max-width: 520px) {
     .nav {
       min-height: 64px;
-    }
-
-    .brand small {
-      display: none;
     }
 
     .nav-cta {

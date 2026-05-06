@@ -5,6 +5,7 @@ import ContactForm from "@/components/ContactForm.astro";
 import FAQ from "@/components/FAQ.astro";
 import HeroMarquee from "@/components/HeroMarquee.astro";
 import SectionVideo from "@/components/SectionVideo.astro";
+import { contactDetails } from "@/data/site";
 
 const heroMarqueeItems = ["Book Audit", "Send Message", "Review Request", "Key Questions", "Map Process", "Recommend Next Step", "Scope Fit", "Clear Reply"];
 ---
@@ -35,6 +36,25 @@ const heroMarqueeItems = ["Book Audit", "Send Message", "Review Request", "Key Q
         <p class="eyebrow">Contact</p>
         <h2>Send Us A Message</h2>
         <p class="lead">The form is clean and accessible now, with the webhook connection point commented in the component for later GoHighLevel integration.</p>
+        <div class="contact-direct">
+          <a href={`mailto:${contactDetails.email}`}>
+            <span>Email</span>
+            <strong>{contactDetails.email}</strong>
+          </a>
+          {contactDetails.phones.map((phone) => (
+            phone.available ? (
+              <a href={phone.href}>
+                <span>{phone.region}</span>
+                <strong>{phone.value}</strong>
+              </a>
+            ) : (
+              <div>
+                <span>{phone.region}</span>
+                <strong>{phone.value}</strong>
+              </div>
+            )
+          ))}
+        </div>
       </div>
       <ContactForm />
     </div>
@@ -54,3 +74,47 @@ const heroMarqueeItems = ["Book Audit", "Send Message", "Review Request", "Key Q
   </section>
   <FAQ title="Contact Questions" />
 </BaseLayout>
+
+<style>
+  .contact-direct {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    margin-top: 4px;
+  }
+
+  .contact-direct a,
+  .contact-direct div {
+    display: grid;
+    gap: 4px;
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius-md);
+    background: var(--surface-soft);
+    padding: 14px;
+  }
+
+  .contact-direct span {
+    color: var(--primary);
+    font-size: 11px;
+    font-weight: 850;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .contact-direct strong {
+    color: var(--ink);
+    font-size: 14px;
+    line-height: 1.2;
+    overflow-wrap: anywhere;
+  }
+
+  .contact-direct div strong {
+    color: var(--muted);
+  }
+
+  @media (max-width: 640px) {
+    .contact-direct {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -8,6 +8,29 @@ export const navItems = [
   { href: "/contact", label: "Contact" },
 ];
 
+export const brand = {
+  name: "Tradie Front Desk",
+  fullName: "The Tradie Front Desk System",
+  byline: "by System Pros AI",
+  logo: "/tradie-front-desk-logo.png",
+};
+
+export const contactDetails = {
+  email: "tradie@tradiefrontdesk.ai",
+  phones: [
+    { region: "New Zealand", value: "+64212550493", href: "tel:+64212550493", available: true },
+    { region: "Australia", value: "Australian number coming soon", href: "", available: false },
+    { region: "United States", value: "USA number coming soon", href: "", available: false },
+  ],
+};
+
+export const legalDetails = {
+  effectiveDate: "7 May 2026",
+  providerLabel: "System Pros AI, The AI and Automation Agency LTD, and Altcutm LLC",
+  providerEntities: ["System Pros AI", "The AI and Automation Agency LTD", "Altcutm LLC"],
+  contactEmail: contactDetails.email,
+};
+
 export const disclaimer =
   "The Tradie Front Desk System helps improve enquiry capture, response, follow-up, and organisation. Results depend on your market, services, pricing, availability, reputation, customer demand, ad budget, and follow-through. We do not guarantee exact job numbers, revenue, profit, rankings, leads, bookings, or reviews.";
 

@@ -15,9 +15,9 @@ const MarqueeScene = ({ items }: HeroMarqueePlayerProps) => (
     speed={1}
     fontSize={78}
     fontWeight={900}
-    background="#0a0a0a"
-    fadeColor="#0a0a0a"
-    color="#faff69"
+    background="#181715"
+    fadeColor="#181715"
+    color="#cc785c"
   />
 );
 
@@ -39,7 +39,7 @@ export default function HeroMarqueePlayer({ items }: HeroMarqueePlayerProps) {
       style={{
         width: "100%",
         height: "100%",
-        backgroundColor: "#0a0a0a",
+        backgroundColor: "#181715",
       }}
     />
   );

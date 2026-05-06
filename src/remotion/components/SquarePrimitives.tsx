@@ -21,10 +21,10 @@ export const BeatText = ({ beats }: { beats: string[] }) => {
 export const SquareCard = ({ children, style }: { children: ReactNode; style?: React.CSSProperties }) => (
   <div
     style={{
-      border: "1px solid rgba(250,255,105,.32)",
+      border: "1px solid rgba(204,120,92,.32)",
       borderRadius: 18,
       background: "linear-gradient(180deg, rgba(255,255,255,.055), rgba(255,255,255,.01)), rgba(26,26,26,.92)",
-      boxShadow: "0 22px 70px rgba(0,0,0,.3), 0 0 34px rgba(250,255,105,.12)",
+      boxShadow: "0 22px 70px rgba(0,0,0,.3), 0 0 34px rgba(204,120,92,.12)",
       ...style,
     }}
   >
@@ -42,7 +42,7 @@ export const GrowingLine = ({ delay = 0, vertical = false }: { delay?: number; v
         height: vertical ? `${progress * 100}%` : 5,
         borderRadius: 99,
         background: colors.primary,
-        boxShadow: "0 0 26px rgba(250,255,105,.75)",
+        boxShadow: "0 0 26px rgba(204,120,92,.75)",
       }}
     />
   );
@@ -55,7 +55,7 @@ export const Dot = ({ active = true, size = 18 }: { active?: boolean; size?: num
       height: size,
       borderRadius: 99,
       background: active ? colors.primary : colors.elevated,
-      boxShadow: active ? "0 0 22px rgba(250,255,105,.72)" : "none",
+      boxShadow: active ? "0 0 22px rgba(204,120,92,.72)" : "none",
       border: active ? "none" : "1px solid rgba(255,255,255,.15)",
     }}
   />
