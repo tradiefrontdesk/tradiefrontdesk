@@ -21,10 +21,10 @@ export const BeatText = ({ beats }: { beats: string[] }) => {
 export const SquareCard = ({ children, style }: { children: ReactNode; style?: React.CSSProperties }) => (
   <div
     style={{
-      border: "1px solid rgba(204,120,92,.32)",
-      borderRadius: 18,
-      background: "linear-gradient(180deg, rgba(255,255,255,.055), rgba(255,255,255,.01)), rgba(26,26,26,.92)",
-      boxShadow: "0 22px 70px rgba(0,0,0,.3), 0 0 34px rgba(204,120,92,.12)",
+      border: `4px solid ${colors.primary}`,
+      borderRadius: 0,
+      background: "linear-gradient(180deg, rgba(255,255,255,.055), rgba(255,255,255,.01)), rgba(18,18,18,.96)",
+      boxShadow: `10px 10px 0 ${colors.pink}, 0 22px 70px rgba(0,0,0,.34)`,
       ...style,
     }}
   >
@@ -55,8 +55,8 @@ export const Dot = ({ active = true, size = 18 }: { active?: boolean; size?: num
       height: size,
       borderRadius: 99,
       background: active ? colors.primary : colors.elevated,
-      boxShadow: active ? "0 0 22px rgba(204,120,92,.72)" : "none",
-      border: active ? "none" : "1px solid rgba(255,255,255,.15)",
+      boxShadow: active ? "0 0 22px rgba(255,217,0,.72)" : "none",
+      border: `3px solid ${active ? "#050505" : "rgba(255,255,255,.22)"}`,
     }}
   />
 );

@@ -1,0 +1,37 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Hero from "@/components/Hero.astro";
+import CTASection from "@/components/CTASection.astro";
+import HeroMarquee from "@/components/HeroMarquee.astro";
+import SectionVideo from "@/components/SectionVideo.astro";
+import { tradePages } from "@/data/site";
+
+const page = tradePages.electricians;
+const examples = [...page.examples];
+---
+
+<BaseLayout title="Electrical Front Desk System | Tradie Front Desk" description="Stop losing electrical jobs from missed calls, slow replies, urgent fault calls, and forgotten quote follow-up.">
+  <Hero eyebrow={page.eyebrow} title={page.title} text={page.text} primary={page.cta} primaryHref="/free-audit" secondary="View Pricing" secondaryHref="/pricing" videoId="HowItWorksScenarioVideo" />
+  <HeroMarquee eyebrow="Electrical enquiry examples" items={examples} />
+  <section class="section band">
+    <div class="container split video-split">
+      <div class="section-head">
+        <p class="eyebrow">Example flow</p>
+        <h2>{page.flow}</h2>
+        <p class="lead">If your phone rings while you are on the tools, the system helps make sure the job does not vanish before you can respond.</p>
+      </div>
+      <SectionVideo id="HowItWorksScenarioVideo" />
+    </div>
+  </section>
+  <section class="section">
+    <div class="container grid two">
+      {page.examples.map((item) => <article class="card"><h3>{item}</h3><p>Capture the enquiry, respond fast, collect enough detail, and move the customer toward a clear next step.</p></article>)}
+    </div>
+  </section>
+  <section class="section band">
+    <div class="container grid two">
+      {page.objections.map((item) => <article class="card"><h3>Owner control</h3><p>{item}</p></article>)}
+    </div>
+  </section>
+  <CTASection title="Book A Free Electrical Front Desk Audit" text="We will review missed calls, urgent handoff rules, quote requests, and follow-up for your electrical business." cta={page.cta} />
+</BaseLayout>

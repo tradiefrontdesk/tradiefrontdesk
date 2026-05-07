@@ -1,0 +1,41 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Hero from "@/components/Hero.astro";
+import FeatureGrid from "@/components/FeatureGrid.astro";
+import PackageCards from "@/components/PackageCards.astro";
+import CTASection from "@/components/CTASection.astro";
+import HeroMarquee from "@/components/HeroMarquee.astro";
+import SectionVideo from "@/components/SectionVideo.astro";
+import { modules } from "@/data/site";
+
+const coreModules = modules.slice(0, 10).map(([title, text]) => ({ title, text }));
+const optionalModules = modules.slice(10).map(([title, text]) => ({ title, text }));
+const heroMarqueeItems = ["Missed Call Saver", "Instant Response", "Quote Form", "Lead Qualification", "Callback Flow", "Follow-Up Engine", "Job Pipeline", "Review Builder"];
+---
+
+<BaseLayout title="What's Included In The Tradie Front Desk System" description="See the modules included in the Tradie Front Desk System, including missed-call text-back, enquiry response, follow-up, job pipeline, review requests, and optional campaigns.">
+  <Hero title="Everything You Need To Handle Enquiries Better" text="The Tradie Front Desk System gives your business the tools and managed setup to capture enquiries, reply faster, follow up, and keep job opportunities organised." secondary="View Packages" secondaryHref="/pricing" videoId="IncludedHeroVideo" />
+  <HeroMarquee eyebrow="Included modules" items={heroMarqueeItems} />
+  <section class="section band">
+    <div class="container split video-split">
+      <div class="section-head">
+        <p class="eyebrow">Core system</p>
+        <h2>Built Around The Full Enquiry Journey</h2>
+        <p class="lead">The system is not one random feature. From the first call or quote request through to follow-up and pipeline tracking, each module helps prevent opportunities from slipping through the cracks.</p>
+      </div>
+      <SectionVideo id="IncludedModulesVideo" />
+    </div>
+  </section>
+  <FeatureGrid eyebrow="Core modules" title="Front Desk System Modules" items={coreModules} columns="three" />
+  <FeatureGrid eyebrow="Optional growth layers" title="Add Growth Layers When You Are Ready" text="Once the front-desk system is in place, additional modules can help create more opportunities or improve conversion." items={optionalModules} columns="four" />
+  <section class="section band">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">Package comparison</p>
+        <h2>Packages Built Around Where Your Business Is Now</h2>
+      </div>
+      <PackageCards />
+    </div>
+  </section>
+  <CTASection title="Book An Audit To Find The Right Package" text="We will review your enquiry process and recommend the best starting point." />
+</BaseLayout>

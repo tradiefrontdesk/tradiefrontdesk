@@ -1,7 +1,6 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import HeroMarquee from "@/components/HeroMarquee.astro";
-import HeroText from "@/components/ui/hero-shutter-text";
 import SectionVideo from "@/components/SectionVideo.astro";
 import { brand, contactDetails, disclaimer, legalDetails } from "@/data/site";
 
@@ -72,7 +71,7 @@ const thirdPartyPlatforms = ["GoHighLevel or other CRM tools", "Google", "Meta",
     <div class="container split video-split legal-hero">
       <div>
         <p class="eyebrow">Legal</p>
-        <HeroText text="Terms & Conditions" client:load />
+        <h1>Terms & Conditions</h1>
         <p class="lead">These terms explain how the website and managed front-desk services work. They are written for clarity and sit alongside any proposal, invoice, order form, statement of work, or signed service agreement.</p>
       </div>
       <SectionVideo id="TermsVideo" />

@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Tradie Front Desk">
+  <rect width="64" height="64" rx="14" fill="#faf9f5"/>
+  <path d="M12 15h40v8H36v26h-8V23H12z" fill="#cc785c"/>
+  <path d="M15 38h18c7 0 12-4 12-11 0-2-.4-4-1.3-5.7h8.5c.8 2 1.2 4.1 1.2 6.5 0 12-8.2 19.2-21 19.2H15z" fill="#141413"/>
+  <circle cx="50" cy="14" r="5" fill="#cc785c"/>
+</svg>

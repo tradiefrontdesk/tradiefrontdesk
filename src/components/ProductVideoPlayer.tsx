@@ -94,7 +94,7 @@ export default class ProductVideoPlayer extends PureComponent<ProductVideoPlayer
               zIndex: 1,
               width: "100%",
               aspectRatio: "1 / 1",
-              backgroundColor: "#181715",
+              backgroundColor: "#050505",
             }}
           />
         </div>

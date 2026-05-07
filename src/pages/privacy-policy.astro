@@ -1,7 +1,6 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import HeroMarquee from "@/components/HeroMarquee.astro";
-import HeroText from "@/components/ui/hero-shutter-text";
 import SectionVideo from "@/components/SectionVideo.astro";
 import { brand, contactDetails, legalDetails } from "@/data/site";
 
@@ -66,7 +65,7 @@ const securityMeasures = [
     <div class="container split video-split legal-hero">
       <div>
         <p class="eyebrow">Legal</p>
-        <HeroText text="Privacy Policy" client:load />
+        <h1>Privacy Policy</h1>
         <p class="lead">This policy explains how we collect, use, share, store, and protect information through this website and through the managed front-desk systems we build for trade businesses.</p>
       </div>
       <SectionVideo id="PrivacyPolicyVideo" />

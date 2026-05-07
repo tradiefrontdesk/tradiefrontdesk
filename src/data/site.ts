@@ -1,10 +1,17 @@
 export const navItems = [
   { href: "/", label: "Home" },
-  { href: "/how-it-works", label: "How It Works" },
+  { href: "/how-it-works", label: "The System" },
+  { href: "/pricing", label: "Pricing" },
+  { href: "/case-studies", label: "Proof" },
+  { href: "/free-audit", label: "Claim Audit" },
+];
+
+export const footerLinks = [
   { href: "/whats-included", label: "What's Included" },
   { href: "/why-were-different", label: "Why Different" },
-  { href: "/pricing", label: "Pricing" },
-  { href: "/case-studies", label: "Case Studies" },
+  { href: "/electricians", label: "Electricians" },
+  { href: "/plumbers-drainage", label: "Plumbers / Drainage" },
+  { href: "/roofers", label: "Roofers" },
   { href: "/contact", label: "Contact" },
 ];
 
@@ -19,8 +26,8 @@ export const contactDetails = {
   email: "tradie@tradiefrontdesk.ai",
   phones: [
     { region: "New Zealand", value: "+64212550493", href: "tel:+64212550493", available: true },
-    { region: "Australia", value: "Australian number coming soon", href: "", available: false },
-    { region: "United States", value: "USA number coming soon", href: "", available: false },
+    { region: "Australia", value: "+61 2 3821 3526", href: "tel:+61238213526", available: true },
+    { region: "United States", value: "+1 877-320-7259", href: "tel:+18773207259", available: true },
   ],
 };
 
@@ -32,99 +39,118 @@ export const legalDetails = {
 };
 
 export const disclaimer =
-  "The Tradie Front Desk System helps improve enquiry capture, response, follow-up, and organisation. Results depend on your market, services, pricing, availability, reputation, customer demand, ad budget, and follow-through. We do not guarantee exact job numbers, revenue, profit, rankings, leads, bookings, or reviews.";
+  "Tradie Front Desk helps improve enquiry capture, response, follow-up, and organisation. Results depend on your market, services, pricing, availability, reputation, customer demand, ad budget, and follow-through. We do not guarantee exact job numbers, revenue, profit, rankings, leads, bookings, or reviews.";
 
+export const corePromise = "More booked jobs. Less chasing. No tech headaches.";
+export const heroPromise = "Good jobs are calling. Stop letting them slip away.";
 export const mechanism = ["Capture", "Respond", "Qualify", "Book", "Follow Up"];
+
+export const trustItems = [
+  ["Missed-call recovery", "If you miss a call while on-site, the system can text back and keep the enquiry alive."],
+  ["Fast enquiry replies", "Website forms, messages, and campaign enquiries can get a prompt response."],
+  ["Quote follow-up", "Sent quotes get professional follow-up instead of relying on memory."],
+  ["Quote/site-visit booking", "Good-fit customers move toward a callback, quote, site visit, or booking."],
+  ["Clear owner handoff", "You stay in control of pricing, promises, job acceptance, and final decisions."],
+];
 
 export const processSteps = [
   {
     title: "Capture",
-    text: "Calls, missed calls, forms, quote requests, campaign leads, and messages are captured into one process.",
+    text: "Calls, missed calls, forms, texts, social messages, Google messages, old leads, and campaign enquiries enter one process.",
   },
   {
     title: "Respond",
-    text: "Customers get a fast acknowledgement so they know you received their enquiry, even when you are busy.",
+    text: "Customers get a fast, professional reply instead of silence while you are on the tools.",
   },
   {
     title: "Qualify",
-    text: "The system asks for useful details like job type, location, urgency, photos, and preferred callback time.",
+    text: "The system collects job type, location, urgency, photos, service area fit, and the next best step.",
   },
   {
     title: "Book",
-    text: "Good-fit enquiries move toward a callback, quote request, site visit, or next step while you stay in control.",
+    text: "Interested customers are moved toward a callback, quote request, site visit, or booking while you stay in control.",
   },
   {
     title: "Follow Up",
-    text: "If customers go quiet, the system follows up so opportunities do not depend on your memory.",
+    text: "Quiet leads, sent quotes, old leads, and review requests are followed up without manual chasing.",
   },
 ];
 
 export const modules = [
-  ["Missed Call Saver", "Catch missed calls before they go cold with an instant text-back."],
-  ["Instant Enquiry Response", "Website forms and quote requests get an immediate acknowledgement."],
-  ["Quote Request Form", "Collect job type, location, urgency, photos, and preferred callback time."],
-  ["Lead Qualification Flow", "Ask the right questions to identify good-fit jobs and urgent enquiries."],
-  ["Booking or Callback System", "Move customers toward a callback, quote, or site visit without losing control."],
-  ["Follow-Up Engine", "Follow up with customers who do not reply, book, or move forward."],
-  ["Quote Follow-Up", "Stop sending quotes and hoping by checking in after quotes are sent."],
-  ["Simple Job Pipeline", "Track new enquiries, callbacks, quoted jobs, follow-ups, won jobs, and lost jobs."],
-  ["Owner Notifications", "Know when a new enquiry, customer reply, urgent job, or follow-up needs action."],
-  ["Customer Database", "Store enquiries, customers, quotes, and past contacts for future follow-up."],
-  ["Optional Local Campaigns", "Feed more quote requests into the system when you are ready for volume."],
-  ["Optional AI Phone Assistant", "Capture details after hours or when you cannot answer, with owner review."],
-  ["Optional Review Builder", "Ask happy customers for Google reviews after completed jobs."],
-  ["Optional Old Lead Reactivation", "Recontact old enquiries, past quotes, and previous customers."],
+  ["Missed Call Saver", "If you miss a call, the system can text the customer back and keep the enquiry alive."],
+  ["Instant Enquiry Reply", "Website forms, campaign leads, and messages can get a fast response before the customer moves on."],
+  ["Quote Request Form", "Collect job type, location, urgency, photos, and preferred callback time upfront."],
+  ["Job Qualification Flow", "Ask the right questions so serious jobs are easier to spot and route."],
+  ["Callback / Site Visit Booking", "Move customers toward a callback, site visit, quote, or booking."],
+  ["Follow-Up Engine", "Follow up when customers go quiet, without relying on your memory."],
+  ["Quote Follow-Up", "Stop sending quotes and hoping. Follow-up happens professionally."],
+  ["Simple Opportunity Pipeline", "See new enquiries, callbacks, quoted jobs, follow-ups, won jobs, and lost jobs."],
+  ["Old Lead Reactivation", "Optional add-on: re-contact dormant hot quotes and past customers to find hidden jobs."],
+  ["Review Request Flow", "Ask happy customers for Google reviews after completed jobs."],
+  ["Optional AI Phone", "Capture details when you cannot answer, using approved scripts and clear handoff rules."],
+  ["Local Campaign Booster", "Optional add-on after the front-desk system is ready to handle new enquiries."],
+  ["Website Enquiry Upgrade", "Turn your website into a clearer path from visitor to quote request."],
 ];
 
 export const packages = [
   {
     name: "Front Desk Starter",
-    badge: "Practical first system",
-    price: "From $997 setup + $297/month",
-    bestFor: "Smaller trade businesses that need basic enquiry capture and missed-call recovery.",
+    badge: "Leak fixing",
+    price: "From $1,500 setup + $497/month",
+    bestFor: "Smaller trade businesses that mainly need missed-call recovery, fast replies, and simple follow-up.",
     includes: [
-      "Missed Call Saver",
-      "Basic quote/contact form",
+      "Basic Front Desk Audit",
+      "Missed-call text-back",
       "Instant enquiry response",
-      "Basic follow-up",
-      "Simple job pipeline",
+      "Basic quote/contact form",
+      "Simple follow-up",
+      "Simple opportunity pipeline",
       "Owner notifications",
-      "Monthly system check",
+      "Launch testing",
+      "Basic monthly system check",
     ],
-    excludes: ["Managed ad campaigns", "Advanced quote follow-up", "AI phone assistant unless added"],
+    excludes: ["Ads", "AI phone", "Advanced reactivation", "Complex integrations"],
     cta: "Check If Starter Fits",
   },
   {
     name: "Booked Jobs System",
-    badge: "Most Popular",
+    badge: "Flagship",
     featured: true,
-    price: "From $1,500 setup + $750/month",
-    bestFor: "Growing trade businesses that want better qualification, follow-up, and booking support.",
+    price: "From $2,500 setup + $1,200/month",
+    bestFor: "Established tradies that need enquiries captured, qualified, booked, followed up, and tracked.",
     includes: [
-      "Everything in Starter",
-      "Advanced quote request form",
-      "Lead qualification flow",
-      "Callback or booking process",
+      "Detailed Front Desk Audit",
+      "Enquiry capture across key channels",
+      "Missed-call recovery",
+      "Instant SMS/email response",
+      "Quote request form",
+      "Job qualification questions",
+      "Callback, quote, or site-visit booking flow",
       "Quote follow-up sequence",
-      "Pipeline automation",
-      "Monthly optimisation",
+      "No-response follow-up",
+      "Simple job opportunity pipeline",
+      "Owner notifications",
+      "Monthly management",
+      "Monthly reporting summary",
     ],
-    excludes: ["Paid campaign management unless added", "Full old lead reactivation unless added", "Large custom integrations"],
+    excludes: ["Paid campaigns unless added", "Full old lead reactivation unless added", "AI phone unless selected"],
     cta: "Book Audit For This Package",
   },
   {
     name: "Managed Growth System",
-    badge: "For active growth",
-    price: "From $2,500 setup + $1,500/month + ad spend",
-    bestFor: "Established trade businesses ready for more enquiries and managed growth.",
+    badge: "Expansion",
+    price: "From $4,000 setup + $2,000/month + ad spend",
+    bestFor: "Growth-focused trade businesses ready to add more opportunities once the front desk is working.",
     includes: [
       "Everything in Booked Jobs System",
-      "Local campaign setup and management",
-      "Old lead reactivation",
-      "Review request automation",
-      "Optional AI phone assistant",
-      "Campaign-to-pipeline tracking",
-      "Monthly growth review",
+      "Local campaign booster when listed",
+      "Old lead reactivation when listed",
+      "Past customer campaign when listed",
+      "Review growth system",
+      "Website enquiry upgrade",
+      "AI phone or AI messaging if selected",
+      "Advanced reporting",
+      "Monthly optimisation",
     ],
     excludes: ["Ad spend", "Guaranteed lead cost or job numbers", "Unlimited campaigns or creative"],
     cta: "Apply For Managed Growth",
@@ -132,49 +158,96 @@ export const packages = [
 ];
 
 export const faqs = [
-  ["Is this just a lead generation service?", "No. We do not sell shared leads. The system helps your business capture, respond to, follow up with, and organise its own enquiries. If you need more enquiry volume, campaigns can be added as a growth layer."],
-  ["Do I have to run ads myself?", "No. The core system focuses on enquiry capture, response, follow-up, and booking. If ads are included, they are managed as part of the service."],
-  ["Is AI required?", "No. AI phone support is optional. Many businesses start with missed-call text-back, enquiry replies, follow-up messages, and pipeline tracking."],
-  ["Can the system book jobs automatically?", "It can, but many trade businesses prefer a callback or quote request process first. We can set it up so you stay in control and review enquiries before confirming jobs."],
-  ["What if I already use a job management system?", "That is fine. Many job systems manage work after the job is accepted. This system focuses on the enquiry stage before the job is booked."],
-  ["Can you guarantee more jobs?", "We do not guarantee exact job numbers because results depend on your market, services, pricing, availability, reputation, demand, and follow-through. We guarantee the agreed system will be built, tested, and launched properly."],
+  ["Is this just lead generation?", "No. The core system is about handling your own enquiries properly. Campaigns can be added later if you need more volume."],
+  ["Do I have to run ads?", "No. Ads are optional and usually make sense only after your front-desk process can handle new enquiries quickly."],
+  ["Is AI required?", "No. AI is optional and controlled. The system can start with approved SMS, email, forms, missed-call replies, and follow-up."],
+  ["Can it book jobs automatically?", "It can help book callbacks, quote requests, site visits, or appointments depending on your rules. You stay in control of job acceptance and promises."],
+  ["What if I already use job software?", "Tradie Front Desk focuses on enquiry capture, response, follow-up, and booking. It can sit alongside job management software when that connection is listed in the proposal."],
+  ["Can you guarantee more jobs?", "We guarantee the agreed system gets built, tested, launched, and fixed if proposal-listed parts are not working. We do not guarantee exact job numbers, revenue, or customer behaviour."],
+  ["What do you need from me?", "Business details, services, service areas, access, approved messages, and timely feedback during setup."],
 ];
 
-export const caseStudies = [
+export const proofMetrics = [
+  ["Calls caught", "Missed-call replies and owner handoffs."],
+  ["Replies sent", "Fast customer responses across forms, calls, and messages."],
+  ["Follow-ups completed", "No-response, quote, and old lead follow-up activity."],
+  ["Bookings created", "Callbacks, quote requests, site visits, or next steps."],
+  ["Reviews requested", "Genuine review requests after completed jobs."],
+];
+
+export const proofExamples = [
   {
-    slug: "ka-plumbing",
-    business: "KA Plumbing Limited",
-    headline: "How KA Plumbing Built A Serious Digital Enquiry System From A One-Person Plumbing Business",
-    shortHeadline: "From one-person plumbing business to a full digital enquiry system",
-    industry: "Plumbing",
-    location: "Auckland",
-    snapshot: "21-year-old founder, early-stage one-person Auckland plumbing business.",
-    system: ["32-page SEO lead-generation website", "Emergency-focused service positioning", "Chat widget capability", "Call/SMS handling", "24-hour support/enquiry flow", "CRM", "Review growth system"],
-    result: "The system helped create the digital infrastructure KA Plumbing needed to grow from a one-person operation into a more serious plumbing business with stronger enquiry handling, review growth, and the ability to hire.",
-    reported: "Supported profit growth, hiring an employee, and stronger enquiry handling.",
+    slug: "missed-call-flow",
+    business: "Missed Call Flow",
+    headline: "A Missed Call Becomes A Reply And Owner Handoff",
+    shortHeadline: "Missed call to next action",
+    industry: "Demo workflow",
+    location: "Trade business example",
+    snapshot: "The owner is on-site and cannot answer. The customer is likely to call the next tradie.",
+    system: ["Missed-call text-back", "Urgency question", "Job detail capture", "Owner notification", "Pipeline stage"],
+    result: "The customer gets a fast response and the owner sees a clear next action instead of finding a loose missed call later.",
+    reported: "Operational example only. Results depend on market, response speed, and follow-through.",
   },
   {
-    slug: "hair-by-melissa",
-    business: "Hair By Melissa",
-    headline: "How Hair By Melissa Built A Profitable Salon From Zero Digital Presence",
-    shortHeadline: "From no digital presence to a profitable first financial year",
-    industry: "Hair salon / hair services",
-    location: "New Zealand",
-    snapshot: "Solo salon owner who started with no meaningful digital presence.",
-    system: ["32-page SEO lead-generation system", "AI website", "AI phone support", "Service-specific calendar", "Ads", "Review system", "Booking and enquiry flow"],
-    result: "The digital system helped support Hair By Melissa's launch from zero digital presence into a profitable first financial year, with reported revenue of $143,000.",
-    reported: "Reported first financial year revenue of $143,000.",
+    slug: "quote-follow-up-flow",
+    business: "Quote Follow-Up Flow",
+    headline: "Sent Quotes Stop Depending On Memory",
+    shortHeadline: "Quote sent to follow-up",
+    industry: "Demo workflow",
+    location: "Quote-based trades",
+    snapshot: "A quote has been sent, but the customer goes quiet and no one remembers to check in.",
+    system: ["Quote stage", "Approved follow-up message", "Reply routing", "Owner alert", "Won/lost tracking"],
+    result: "The quote gets a professional follow-up and the opportunity remains visible until there is an outcome.",
+    reported: "Proof asset to show process, not guaranteed customer behaviour.",
   },
   {
-    slug: "superior-taekwondo",
-    business: "Superior Taekwondo",
-    headline: "How Superior Taekwondo Built A Real Business From A Small Hall-Based Club",
-    shortHeadline: "From local hall classes to a structured monthly revenue system",
-    industry: "Sports club / martial arts",
-    location: "New Zealand",
-    snapshot: "Small hall-based sports club led by a sole coach.",
-    system: ["Lead-generation website", "AI website agent", "Review system", "CRM pipeline", "Contact management", "Subscription system", "Member enquiry flow"],
-    result: "The system helped Superior Taekwondo move from a small hall-based club toward a structured business with digital enquiry handling, reviews, contact management, subscriptions, and approximately $1,100 in monthly recurring revenue.",
-    reported: "Supported growth to approximately $1,100 MRR.",
+    slug: "old-lead-reactivation-flow",
+    business: "Old Lead Reactivation Flow",
+    headline: "Dormant Hot Quotes And Past Customers Get Re-Checked",
+    shortHeadline: "Old lead to active pipeline",
+    industry: "Demo workflow",
+    location: "Local service businesses",
+    snapshot: "Old enquiries, past quotes, and previous customers sit untouched in a list.",
+    system: ["List review", "Approved check-in message", "Reply routing", "Callback booking", "Pipeline tagging"],
+    result: "Interested replies are routed back into the front-desk pipeline for owner review.",
+    reported: "List legality, quality, timing, and customer demand affect results.",
   },
 ];
+
+export const caseStudies = proofExamples;
+
+export const tradePages = {
+  electricians: {
+    path: "/electricians",
+    eyebrow: "Electricians wanted",
+    title: "Electrical Jobs Are Calling. Catch Them Before They Go Cold.",
+    text: "Catch urgent fault calls, switchboard quotes, EV charger enquiries, and upgrade requests before they go cold.",
+    cta: "Book a Free Electrical Front Desk Audit",
+    examples: ["Urgent fault calls", "Switchboard upgrade quotes", "Heat pump enquiries", "EV charger enquiries", "Safety check follow-up"],
+    flow: "Missed fault call -> text-back -> urgent handoff or callback booked",
+    objections: ["Works alongside ServiceM8, Tradify, Fergus, Simpro, or similar when listed in the proposal.", "Urgent jobs route by rule and risky promises stay under owner control."],
+    videoId: "ElectriciansHeroVideo",
+  },
+  plumbersDrainage: {
+    path: "/plumbers-drainage",
+    eyebrow: "Plumbers wanted",
+    title: "Urgent Plumbing Calls Need A Fast Front Desk.",
+    text: "Handle after-hours leaks, blocked drain enquiries, missed calls, quote follow-up, and old customer reactivation with a clearer front-desk process.",
+    cta: "Book a Free Plumbing Front Desk Audit",
+    examples: ["After-hours leak", "Blocked drain enquiry", "Missed call during a job", "Quote request follow-up", "Old customer reactivation"],
+    flow: "7:30pm leak call -> text-back + triage -> owner/on-call alert or next-morning callback",
+    objections: ["Urgent jobs are routed by rule.", "High-risk requests are not promised by automation."],
+    videoId: "PlumbersHeroVideo",
+  },
+  roofers: {
+    path: "/roofers",
+    eyebrow: "Roofers wanted",
+    title: "Roofing Enquiries Are Too Valuable To Leave Sitting.",
+    text: "Protect reroofing enquiries, roof repair requests, site inspection bookings, quote follow-up, and weather-delay communication.",
+    cta: "Book a Free Roofing Front Desk Audit",
+    examples: ["Reroofing enquiry", "Roof repair request", "Site inspection booking", "Quote follow-up", "Weather-delay communication"],
+    flow: "Roof inspection request -> fast reply -> measure-up/site visit booked -> quote follow-up",
+    objections: ["Not shared leads; the system protects response speed, inspection booking, and quote follow-up.", "Serious inspection requests stay visible until the owner decides the next step."],
+    videoId: "RoofersHeroVideo",
+  },
+} as const;

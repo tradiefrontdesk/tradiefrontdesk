@@ -4,10 +4,10 @@ import { colors } from "../components/theme";
 import { VideoShell } from "../components/VideoShell";
 
 const beats = [
-  "A new enquiry comes in while you are on the tools.",
-  "The front desk captures it before it gets forgotten.",
-  "The customer gets a fast response and the right questions.",
-  "The owner sees a clear next action, not another loose note.",
+  "A good enquiry comes in while you are on the tools.",
+  "Before: missed calls, loose forms, cold quotes.",
+  "After: fast reply, job details, owner handoff.",
+  "The customer gets a clear next step before they move on.",
   "Capture. Respond. Qualify. Book. Follow up.",
 ];
 
@@ -33,8 +33,8 @@ export const HomeHeroVideo = () => {
                     display: "grid",
                     placeItems: "center",
                     border: `3px solid ${index <= step ? colors.primary : colors.hairline}`,
-                    background: index <= step ? "rgba(204,120,92,.14)" : colors.surfaceSoft,
-                    color: index <= step ? colors.primary : colors.body,
+                    background: index <= step ? colors.primary : colors.surfaceSoft,
+                    color: index <= step ? colors.canvas : colors.body,
                     fontSize: 25,
                     fontWeight: 950,
                     transform: `scale(${index === step ? pulse : 1})`,
@@ -52,19 +52,19 @@ export const HomeHeroVideo = () => {
           </div>
 
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 18, marginTop: 28 }}>
-            {["Missed call saved", "Quote request sorted", "Follow-up visible", "Owner alerted"].map((text, index) => {
+            {["Missed call caught", "Quote request replied", "Follow-up scheduled", "Owner handoff clear"].map((text, index) => {
               const opacity = interpolate(frame - index * 34, [0, 18], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
               return (
-                <div key={text} style={{ display: "flex", alignItems: "center", gap: 12, opacity, border: "1px solid rgba(255,255,255,.11)", borderRadius: 14, padding: 14, background: colors.surfaceSoft }}>
+                <div key={text} style={{ display: "flex", alignItems: "center", gap: 12, opacity, border: `3px solid ${colors.primary}`, borderRadius: 0, padding: 14, background: colors.surfaceSoft }}>
                   <Dot size={14} />
-                  <span style={{ color: colors.body, fontSize: 19, fontWeight: 800 }}>{text}</span>
+                  <span style={{ color: colors.text, fontSize: 19, fontWeight: 900 }}>{text}</span>
                 </div>
               );
             })}
           </div>
         </SquareCard>
 
-        <div style={{ color: colors.primary, fontSize: 22, fontWeight: 900 }}>More booked jobs needs a better front desk process first.</div>
+        <div style={{ color: colors.primary, fontSize: 22, fontWeight: 900, textShadow: "2px 2px 0 #050505" }}>Stop losing jobs from missed calls and slow follow-up.</div>
       </div>
     </VideoShell>
   );

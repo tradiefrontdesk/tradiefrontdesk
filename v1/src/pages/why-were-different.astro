@@ -1,0 +1,53 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Hero from "@/components/Hero.astro";
+import CTASection from "@/components/CTASection.astro";
+import HeroMarquee from "@/components/HeroMarquee.astro";
+import SectionVideo from "@/components/SectionVideo.astro";
+
+const comparisons: Array<[string, string[], string[]]> = [
+  ["Lead sellers", ["Sell names and numbers", "Leads may be shared", "You still chase manually"], ["Captures your own enquiries", "Builds your customer database", "Follows up and organises opportunities"]],
+  ["Ad agencies", ["Focus on clicks, leads, or campaigns", "May not fix follow-up", "Can create more admin"], ["Focuses on the full enquiry journey", "Captures calls and forms", "Can add campaigns only when ready"]],
+  ["CRM software", ["Stores contacts", "Needs setup and management", "Often gets abandoned"], ["Built and managed for you", "Triggers follow-up", "Notifies you when action is needed"]],
+  ["AI agencies", ["Lead with technology", "Can feel confusing", "May overcomplicate the process"], ["Leads with practical outcomes", "Uses smart tools only where useful", "Keeps the owner in control"]],
+  ["Hiring admin", ["Can be expensive", "Still needs systems", "May not automate follow-up"], ["Supports your team or acts as a first layer", "Handles missed-call replies", "Tracks enquiries"]],
+];
+
+const heroMarqueeItems = ["Not Shared Leads", "Not Just Ads", "Not More Software", "Own Enquiries", "Managed Setup", "Pipeline Visibility", "Follow-Up", "Owner Control"];
+---
+
+<BaseLayout title="Why The Tradie Front Desk System Is Different" description="See how the Tradie Front Desk System differs from lead sellers, ad agencies, CRM software, AI tools, and hiring admin.">
+  <Hero title="Not Shared Leads. Not Just Ads. Not More Software." text="We build the system behind the enquiry: capture, response, qualification, booking, follow-up, and pipeline visibility." videoId="DifferentHeroVideo" />
+  <HeroMarquee eyebrow="Different approach" items={heroMarqueeItems} />
+  <section class="section band">
+    <div class="container split video-split">
+      <div class="section-head">
+        <p class="eyebrow">The old way</p>
+        <h2>The Old Way Leaves Too Much To Chance</h2>
+        <p class="lead">Buy leads, run ads, answer calls when you can, send quotes, and hope customers get back to you. But hope is not a system.</p>
+        <p>If calls are missed, forms sit in email, and quotes are not followed up, good opportunities can disappear even when the marketing worked.</p>
+      </div>
+      <SectionVideo id="DifferentComparisonVideo" />
+    </div>
+  </section>
+  <section class="section">
+    <div class="container grid">
+      {comparisons.map(([name, other, ours]) => (
+        <article class="card comparison">
+          <h2>Different From {name}</h2>
+          <div class="grid two">
+            <div>
+              <h3>{name}</h3>
+              <ul class="list">{other.map((item) => <li>{item}</li>)}</ul>
+            </div>
+            <div>
+              <h3>Tradie Front Desk System</h3>
+              <ul class="list">{ours.map((item) => <li>{item}</li>)}</ul>
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+  <CTASection title="Fix The Front Desk First" text="Before chasing more leads, make sure calls, forms, quote requests, missed calls, follow-ups, and pipeline stages are connected." cta="Find Your Enquiry Leaks" />
+</BaseLayout>

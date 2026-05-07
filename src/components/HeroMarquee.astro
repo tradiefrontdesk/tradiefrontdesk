@@ -14,7 +14,7 @@ const { eyebrow = "Front desk focus", items } = Astro.props;
     <div class="hero-marquee-shell">
       <p class="eyebrow">{eyebrow}</p>
       <div class="hero-marquee-frame">
-        <HeroMarqueePlayer items={items} client:visible />
+        <HeroMarqueePlayer items={items} client:load />
       </div>
     </div>
   </div>

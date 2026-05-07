@@ -1,0 +1,291 @@
+---
+import { brand, contactDetails, disclaimer, footerLinks, navItems } from "@/data/site";
+---
+
+<footer class="footer">
+  <div class="container footer-shell">
+    <div class="footer-hero">
+      <div class="footer-brand">
+        <span class="footer-logo">
+          <img src={brand.logo} alt="" width="72" height="72" loading="eager" />
+        </span>
+        <div>
+          <p class="eyebrow">Front desk system for tradies</p>
+          <h2>{brand.name}</h2>
+          <p>A managed front-desk system for trade businesses that want fewer missed calls, faster replies, better follow-up, and less manual chasing.</p>
+        </div>
+      </div>
+      <div class="footer-cta">
+        <a class="btn primary" href="/free-audit">Book Free Audit</a>
+        <a class="btn secondary" href={`mailto:${contactDetails.email}`}>Email Us</a>
+      </div>
+    </div>
+
+    <div class="contact-panel" aria-label="Contact details">
+      <a class="contact-main" href={`mailto:${contactDetails.email}`}>
+        <span>Email</span>
+        <strong>{contactDetails.email}</strong>
+      </a>
+      {contactDetails.phones.map((phone) => (
+        phone.available ? (
+          <a class="contact-main" href={phone.href}>
+            <span>{phone.region}</span>
+            <strong>{phone.value}</strong>
+          </a>
+        ) : (
+          <div class="contact-main muted-contact">
+            <span>{phone.region}</span>
+            <strong>{phone.value}</strong>
+          </div>
+        )
+      ))}
+    </div>
+
+    <div class="footer-grid">
+      <div class="brand-col">
+        <h3>What We Build</h3>
+        <p>Systems for missed calls, instant enquiry replies, quote requests, quote follow-up, owner handoffs, and simple opportunity pipelines.</p>
+        <p class="fineprint">{disclaimer}</p>
+      </div>
+      <div>
+        <h3>Main Pages</h3>
+        {navItems.map((item) => <a href={item.href}>{item.label}</a>)}
+      </div>
+      <div>
+        <h3>Deeper Links</h3>
+        {footerLinks.map((item) => <a href={item.href}>{item.label}</a>)}
+      </div>
+      <div>
+        <h3>Legal</h3>
+        <a href="/privacy-policy">Privacy Policy</a>
+        <a href="/terms">Terms & Conditions</a>
+        <a href="/contact">Contact</a>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>{brand.name} {brand.byline}</span>
+      <span>New Zealand first. Australia and USA contact numbers coming soon.</span>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    border-top: 1px solid var(--hairline);
+    background:
+      radial-gradient(circle at 12% 8%, rgba(204, 120, 92, 0.14), transparent 32%),
+      linear-gradient(180deg, var(--surface-soft), var(--canvas));
+    padding: 72px 0 88px;
+  }
+
+  .footer-shell {
+    display: grid;
+    gap: 28px;
+  }
+
+  .footer-hero {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 28px;
+    border: 1px solid rgba(204, 120, 92, 0.22);
+    border-radius: 18px;
+    background:
+      linear-gradient(135deg, rgba(255, 255, 255, 0.42), transparent 44%),
+      var(--surface-card);
+    padding: clamp(22px, 4vw, 38px);
+    box-shadow: 0 28px 92px rgba(37, 35, 32, 0.1);
+  }
+
+  .footer-brand {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    max-width: 760px;
+  }
+
+  .footer-logo {
+    display: grid;
+    width: 76px;
+    height: 76px;
+    flex: 0 0 auto;
+    place-items: center;
+    overflow: hidden;
+    border: 1px solid rgba(204, 120, 92, 0.24);
+    border-radius: 22px;
+    background:
+      radial-gradient(circle at 35% 18%, rgba(204, 120, 92, 0.18), transparent 50%),
+      var(--canvas);
+  }
+
+  .footer-logo img {
+    width: 72px;
+    height: 72px;
+    object-fit: contain;
+  }
+
+  .footer-brand .eyebrow {
+    margin-bottom: 10px;
+  }
+
+  .footer-brand h2 {
+    max-width: 680px;
+    margin-bottom: 12px;
+    font-size: clamp(32px, 4.6vw, 58px);
+  }
+
+  .footer-brand p:not(.eyebrow) {
+    max-width: 640px;
+    color: var(--body-strong);
+    font-size: 17px;
+  }
+
+  .footer-cta {
+    display: grid;
+    gap: 10px;
+    min-width: 180px;
+  }
+
+  .contact-panel {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 14px;
+  }
+
+  .contact-main {
+    display: grid;
+    gap: 6px;
+    min-height: 96px;
+    align-content: center;
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius-lg);
+    background: rgba(250, 249, 245, 0.7);
+    padding: 18px;
+    box-shadow: 0 16px 48px rgba(37, 35, 32, 0.06);
+  }
+
+  .contact-main span {
+    color: var(--primary);
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 1.1px;
+    text-transform: uppercase;
+  }
+
+  .contact-main strong {
+    color: var(--ink);
+    font-size: clamp(14px, 1.5vw, 18px);
+    line-height: 1.2;
+    overflow-wrap: anywhere;
+  }
+
+  .muted-contact strong {
+    color: var(--muted);
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1.35fr repeat(3, 0.7fr);
+    gap: 36px;
+    padding-top: 26px;
+  }
+
+  h3 {
+    margin-bottom: 14px;
+    color: var(--ink);
+    font-size: 16px;
+  }
+
+  a {
+    display: block;
+    margin: 9px 0;
+    color: var(--muted);
+    font-size: 14px;
+  }
+
+  a:hover {
+    color: var(--ink);
+  }
+
+  .brand-col {
+    display: grid;
+    gap: 16px;
+  }
+
+  .brand-col p {
+    color: var(--body);
+  }
+
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    gap: 18px;
+    border-top: 1px solid var(--hairline);
+    padding-top: 22px;
+    color: var(--muted);
+    font-size: 13px;
+  }
+
+  .footer-bottom span:first-child {
+    color: var(--ink);
+    font-weight: 800;
+  }
+
+  @media (max-width: 1040px) {
+    .footer-hero {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+
+    .footer-cta {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      width: 100%;
+    }
+
+    .contact-panel {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 900px) {
+    .footer-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .brand-col {
+      grid-column: 1 / -1;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .footer {
+      padding-bottom: 112px;
+    }
+
+    .footer-brand {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+
+    .footer-logo {
+      width: 72px;
+      height: 72px;
+    }
+
+    .footer-logo img {
+      width: 68px;
+      height: 68px;
+    }
+
+    .footer-cta,
+    .contact-panel,
+    .footer-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .footer-bottom {
+      flex-direction: column;
+    }
+  }
+</style>

@@ -1,0 +1,155 @@
+---
+interface Props {
+  compact?: boolean;
+}
+
+const { compact = false } = Astro.props;
+const steps = ["Capture", "Respond", "Qualify", "Book", "Follow Up"];
+---
+
+<div class={`flow-shell ${compact ? "compact" : ""}`} aria-label="Animated enquiry flow diagram">
+  <svg class="flow-svg" viewBox="0 0 760 420" role="img" aria-labelledby="flow-title">
+    <title id="flow-title">Customer enquiry moving through the Tradie Front Desk System</title>
+    <defs>
+      <filter id="yellow-glow" x="-50%" y="-50%" width="200%" height="200%">
+        <feGaussianBlur stdDeviation="7" result="blur" />
+        <feColorMatrix in="blur" type="matrix" values="1 0 0 0 0.98 0 1 0 0 1 0 0 1 0 0.41 0 0 0 0.8 0" />
+        <feMerge>
+          <feMergeNode />
+          <feMergeNode in="SourceGraphic" />
+        </feMerge>
+      </filter>
+      <linearGradient id="flow-line" x1="0" x2="1">
+        <stop offset="0%" stop-color="#5a5a5a" />
+        <stop offset="50%" stop-color="#cc785c" />
+        <stop offset="100%" stop-color="#5a5a5a" />
+      </linearGradient>
+    </defs>
+    <rect x="22" y="22" width="716" height="376" rx="18" fill="#181715" stroke="#3b3832" />
+    <path class="track" d="M108 215 C210 86 330 338 438 204 S610 112 664 214" fill="none" stroke="url(#flow-line)" stroke-width="3" stroke-dasharray="8 12" />
+    <circle class="pulse" r="9" fill="#cc785c" filter="url(#yellow-glow)">
+      <animateMotion dur="5.8s" repeatCount="indefinite" path="M108 215 C210 86 330 338 438 204 S610 112 664 214" />
+    </circle>
+    {steps.map((step, index) => {
+      const points = [
+        [92, 184],
+        [236, 108],
+        [372, 266],
+        [520, 126],
+        [642, 184],
+      ];
+      const [x, y] = points[index];
+      return (
+        <g class="node">
+          <rect x={x - 56} y={y - 38} width="112" height="76" rx="12" fill="#252320" stroke="#4a443d" />
+          <circle cx={x} cy={y - 8} r="12" fill="#cc785c" />
+          <text x={x} y={y + 24} text-anchor="middle" fill="#faf9f5" font-size="15" font-weight="700">{step}</text>
+        </g>
+      );
+    })}
+  </svg>
+  <div class="flow-cards">
+    <div><span>Incoming</span><strong>Missed call or quote request</strong></div>
+    <div><span>System action</span><strong>Reply, qualify, notify, follow up</strong></div>
+    <div><span>Owner sees</span><strong>Clear next step in the pipeline</strong></div>
+  </div>
+</div>
+
+<style>
+  .flow-shell {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(204, 120, 92, 0.28);
+    border-radius: var(--radius-lg);
+    background:
+      radial-gradient(circle at 50% 0, rgba(204, 120, 92, 0.16), transparent 36%),
+      linear-gradient(180deg, var(--surface-card), var(--surface-soft));
+    padding: 18px;
+    box-shadow: var(--glow-strong);
+  }
+
+  .flow-shell::before {
+    content: "";
+    position: absolute;
+    inset: -2px;
+    background: conic-gradient(from 180deg, transparent, rgba(204, 120, 92, 0.45), transparent 28%);
+    animation: spin-glow 7s linear infinite;
+    opacity: 0.32;
+  }
+
+  .flow-shell::after {
+    content: "";
+    position: absolute;
+    inset: 1px;
+    border-radius: calc(var(--radius-lg) - 1px);
+    background: linear-gradient(180deg, rgba(24, 23, 21, 0.74), rgba(31, 30, 27, 0.92));
+  }
+
+  .flow-svg,
+  .flow-cards {
+    position: relative;
+    z-index: 1;
+  }
+
+  .flow-svg {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .track {
+    animation: dash 22s linear infinite;
+  }
+
+  .node {
+    filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.38));
+  }
+
+  .flow-cards {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+    margin-top: 12px;
+  }
+
+  .flow-cards div {
+    display: grid;
+    gap: 5px;
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius-md);
+    background: rgba(24, 23, 21, 0.88);
+    padding: 12px;
+  }
+
+  .flow-cards span {
+    color: var(--primary);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1.1px;
+    text-transform: uppercase;
+  }
+
+  .flow-cards strong {
+    color: var(--on-dark);
+    font-size: 13px;
+    line-height: 1.25;
+  }
+
+  .compact .flow-cards {
+    grid-template-columns: 1fr;
+  }
+
+  @keyframes dash {
+    to { stroke-dashoffset: -360; }
+  }
+
+  @keyframes spin-glow {
+    to { transform: rotate(360deg); }
+  }
+
+  @media (max-width: 720px) {
+    .flow-cards {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -7,6 +7,7 @@ dist/
 
 # Generated video/still output
 out/
+v1/out/
 
 # Old generated HyperFrames prototypes kept locally as reference only
 public/videos/home/
@@ -16,6 +17,7 @@ video-projects/home/
 .env
 .env.*
 .DS_Store
+v1/.DS_Store
 
 # Logs
 npm-debug.log*

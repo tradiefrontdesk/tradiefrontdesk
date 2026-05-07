@@ -1,7 +1,6 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import Hero from "@/components/Hero.astro";
-import FeatureGrid from "@/components/FeatureGrid.astro";
 import ProcessSteps from "@/components/ProcessSteps.astro";
 import PackageCards from "@/components/PackageCards.astro";
 import CaseStudyCard from "@/components/CaseStudyCard.astro";
@@ -9,86 +8,84 @@ import CTASection from "@/components/CTASection.astro";
 import FAQ from "@/components/FAQ.astro";
 import HeroMarquee from "@/components/HeroMarquee.astro";
 import SectionVideo from "@/components/SectionVideo.astro";
-import { caseStudies, modules } from "@/data/site";
+import { caseStudies, corePromise, modules, proofMetrics, trustItems } from "@/data/site";
 
-const trustItems = [
-  { title: "Not Shared Leads", text: "Capture and convert your own enquiries instead of renting names and numbers from lead sellers." },
-  { title: "Not Just Ads", text: "Campaigns can be added later, but the core system fixes what happens after someone contacts you." },
-  { title: "Not More Software", text: "We build and manage the system so you are not left learning another platform." },
-  { title: "Built For Tradies", text: "Designed around missed calls, quote requests, job details, follow-up, and booking." },
+const heroMarqueeItems = ["Missed Calls", "Slow Replies", "Quote Follow-Up", "Website Forms", "Social Messages", "Old Leads", "Owner Handoff", "Booked Jobs"];
+
+const problemBullets = [
+  "Customers call while you are on the tools.",
+  "Website forms land in email and wait.",
+  "Facebook and Instagram messages get missed.",
+  "Quotes are sent but not followed up.",
+  "Old leads and past customers sit untouched.",
+  "Paid leads go cold because no one replies fast enough.",
 ];
 
-const problemItems = [
-  { title: "Calls get missed", text: "You are on-site, driving, or quoting when the phone rings." },
-  { title: "Enquiries sit waiting", text: "Website forms and messages can sit in an inbox until you have time." },
-  { title: "Quotes go cold", text: "Quotes get sent, then follow-up depends on memory." },
-  { title: "Opportunities scatter", text: "Phone, email, texts, notes, and old leads never become one clear pipeline." },
+const practicalFixes = [
+  ["Missed call", "The customer gets a fast text-back instead of silence."],
+  ["Website quote request", "The enquiry gets an instant reply and a clear next step."],
+  ["Urgent callout", "The system can route urgent jobs to the owner or on-call number when that rule is included."],
+  ["Sent quote", "The customer gets followed up without you relying on memory."],
+  ["Old lead", "Dormant hot quotes and past customers can be re-contacted after the core system is working."],
 ];
 
-const heroMarqueeItems = ["Missed Calls", "Instant Replies", "Quote Requests", "Job Details", "Follow-Up", "Pipeline", "Owner Alerts", "Booked Jobs System"];
+const beforeAfter = [
+  ["Before", "Customer calls. The call is missed. The owner thinks, I will call back later. The customer calls another tradie. The opportunity is gone."],
+  ["After", "Customer calls. Missed-call reply goes out. Job details are collected. Owner gets notified. Callback or site visit is booked. Follow-up happens if they go quiet."],
+];
+
+const differentItems = [
+  ["Lead sellers", "Sell names and numbers, often shared or low-quality.", "Tradie Front Desk protects the response speed, follow-up, and booking process."],
+  ["Ad agencies", "Focus on clicks, forms, and reports.", "Tradie Front Desk fixes what happens after the enquiry comes in."],
+  ["CRM software", "Gives you another login to manage.", "Tradie Front Desk builds and manages the process for you."],
+  ["AI agencies", "Lead with robots and automation.", "Tradie Front Desk uses technology only where it helps response, follow-up, and customer experience."],
+];
 ---
 
-<BaseLayout title="Tradie Front Desk System | More Booked Jobs, Less Chasing" description="A managed front-desk system for tradies that captures enquiries, responds instantly, follows up automatically, and helps turn quote requests into booked jobs.">
+<BaseLayout title="Tradie Front Desk | Stop Losing Good Jobs From Missed Calls" description="Tradie Front Desk installs and manages a front-desk system for tradies that captures enquiries, replies fast, follows up, and helps turn quote requests into booked jobs.">
   <Hero
-    eyebrow="Front desk system for tradies"
-    title="More Booked Jobs. Less Chasing. No Tech Headaches."
-    text="We install and manage a smart front-desk system for tradies that captures enquiries, responds instantly, follows up automatically, and helps turn quote requests into booked jobs while you stay focused on the work."
-    secondary="See How It Works"
+    eyebrow="Local trade jobs wanted"
+    title="Good Jobs Are Calling. Stop Letting Them Slip Away."
+    text="Tradie Front Desk installs and manages the front-desk system that catches missed calls, replies fast, follows up quotes, and keeps good opportunities visible while you stay on the tools."
+    primary="Claim My Free Audit"
+    primaryHref="/free-audit"
+    secondary="See The System"
     secondaryHref="/how-it-works"
-    bullets={["Catch missed calls before they go cold", "Reply to new enquiries instantly", "Follow up without chasing manually", "Organise every opportunity in one simple pipeline", "Add local campaigns only when you are ready"]}
+    bullets={["Catch missed calls before they go cold", "Reply before the customer calls the next tradie", "Follow up quotes without chasing manually", "One front-desk process for every opportunity"]}
   />
 
-  <HeroMarquee eyebrow="System flow" items={heroMarqueeItems} />
+  <HeroMarquee eyebrow="Built around real enquiry leaks" items={heroMarqueeItems} />
 
-  <FeatureGrid eyebrow="Clear position" title="Not shared leads. Not just ads. Not more software." items={trustItems} columns="four" />
+  <section class="section tight">
+    <div class="container">
+      <p class="trust-line">Not shared leads. Not just ads. Not another CRM. A practical front-desk system built for tradies.</p>
+      <div class="grid five trust-grid">
+        {trustItems.map(([title, text]) => (
+          <article class="card compact">
+            <h3>{title}</h3>
+            <p>{text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
 
   <section class="section band">
     <div class="container split video-split">
       <div>
         <div class="section-head">
-          <p class="eyebrow">The problem</p>
-          <h2>Good Jobs Are Slipping Through The Cracks</h2>
-          <p class="lead">Most tradies do not lose jobs because they are bad at the work. They lose jobs because the enquiry process breaks down when things get busy.</p>
+          <p class="eyebrow">The reframe</p>
+          <h2>You May Not Have A Lead Problem First</h2>
+          <p class="lead">You may have a missed-call, slow-reply, and follow-up problem.</p>
+          <p>Most tradies are told they need more leads. But if calls are missed, quote requests sit too long, and old enquiries are never followed up, more leads just create more admin.</p>
         </div>
-        <div class="grid two">
-          {problemItems.map((item) => (
-            <div class="card soft">
-              <h3>{item.title}</h3>
-              <p>{item.text}</p>
-            </div>
-          ))}
+        <ul class="list">{problemBullets.map((item) => <li>{item}</li>)}</ul>
+        <div class="button-row top-gap">
+          <a class="btn primary" href="/free-audit">Find My Enquiry Leaks</a>
+          <a class="btn secondary" href="/pricing">View Packages</a>
         </div>
       </div>
       <SectionVideo id="HomeProblemVideo" />
-    </div>
-  </section>
-
-  <section class="section band">
-    <div class="container split video-split">
-      <div class="section-head">
-        <p class="eyebrow">The reframe</p>
-        <h2>Your Trade Business Needs A Front Desk System</h2>
-        <p class="lead">You may not have a lead problem first. You may have a missed-call, slow-reply, and follow-up problem.</p>
-        <p>Before spending more money getting enquiries, make sure your business can capture, respond to, qualify, book, and follow up with the enquiries it already receives.</p>
-        <div class="button-row">
-          <a class="btn primary" href="/free-audit">Check Where You're Losing Jobs</a>
-          <a class="btn secondary" href="/whats-included">View What's Included</a>
-        </div>
-      </div>
-      <SectionVideo id="HomeReframeVideo" />
-    </div>
-  </section>
-
-  <ProcessSteps title="How The System Works" />
-
-  <section class="section band">
-    <div class="container split video-split">
-      <SectionVideo id="HomeFiveStepVideo" />
-      <div class="section-head">
-        <p class="eyebrow">The mechanism</p>
-        <h2>The Five-Step Flow Is The Core</h2>
-        <p class="lead">Capture, respond, qualify, book, and follow up gives every enquiry a clearer path from first contact to next action.</p>
-      </div>
     </div>
   </section>
 
@@ -96,15 +93,72 @@ const heroMarqueeItems = ["Missed Calls", "Instant Replies", "Quote Requests", "
     <div class="container split video-split">
       <div>
         <div class="section-head">
-          <p class="eyebrow">Modules</p>
-          <h2>What Your Front Desk System Can Include</h2>
+          <p class="eyebrow">Practical fixes</p>
+          <h2>What This Fixes In The Real World</h2>
+          <p class="lead">The system does not replace your judgement. It makes sure the opportunity does not disappear before you get to it.</p>
+        </div>
+        <div class="grid two">
+          {practicalFixes.map(([title, text]) => (
+            <article class="card">
+              <h3>{title}</h3>
+              <p>{text}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+      <SectionVideo id="HomeReframeVideo" />
+    </div>
+  </section>
+
+  <section class="section band">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">Before and after</p>
+        <h2>What Happens When A Customer Enquires?</h2>
+      </div>
+      <div class="grid two">
+        {beforeAfter.map(([title, text]) => (
+          <article class={`card ${title === "After" ? "highlight" : ""}`}>
+            <p class="eyebrow">{title}</p>
+            <h3>{title === "Before" ? "Loose enquiry handling" : "Managed front-desk process"}</h3>
+            <p>{text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container split video-split">
+      <SectionVideo id="HomeFiveStepVideo" />
+      <div class="section-head">
+        <p class="eyebrow">Urgent triage</p>
+        <h2>Urgent Jobs Need A Different Path</h2>
+        <p class="lead">An emergency leak, electrical fault, or urgent roof issue should not be handled like a normal quote request.</p>
+        <ul class="list">
+          <li>Emergency callouts can route to the owner or on-call number when included.</li>
+          <li>After-hours quote requests can get an instant reply and callback or site-visit path.</li>
+          <li>High-risk, safety, or pricing-sensitive requests never get risky promises from automation.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <ProcessSteps title="The Front Desk Flow" text="Every module supports the same goal: make sure every enquiry has a clear next step." />
+
+  <section class="section">
+    <div class="container split video-split">
+      <div>
+        <div class="section-head">
+          <p class="eyebrow">What it handles</p>
+          <h2>What Your Front Desk Can Handle</h2>
         </div>
         <div class="grid two">
           {modules.slice(0, 8).map(([title, text]) => (
-            <div class="card">
+            <article class="card">
               <h3>{title}</h3>
               <p>{text}</p>
-            </div>
+            </article>
           ))}
         </div>
       </div>
@@ -112,67 +166,79 @@ const heroMarqueeItems = ["Missed Calls", "Instant Replies", "Quote Requests", "
     </div>
   </section>
 
-  <section class="section">
-    <div class="container split">
+  <section class="section band">
+    <div class="container">
       <div class="section-head">
-        <p class="eyebrow">Who it is for</p>
-        <h2>Built For Busy Trade Businesses</h2>
-        <p class="lead">This fits owners who want better enquiry handling before adding more volume.</p>
+        <p class="eyebrow">Simple to start</p>
+        <h2>Managed For You From Audit To Launch</h2>
+      </div>
+      <div class="grid five launch-grid">
+        {[
+          ["1", "Book a Free Front Desk Audit", "We look at how your enquiries are currently handled."],
+          ["2", "Choose the right setup", "We recommend the package based on your leaks and goals."],
+          ["3", "We build and test", "We connect the agreed channels, messages, follow-up, and owner handoff."],
+          ["4", "Launch and manage", "The system goes live and we monitor, support, and improve it monthly."],
+          ["5", "Add growth when ready", "Reactivation, reviews, campaigns, AI phone, or website upgrades can come later."],
+        ].map(([step, title, text]) => (
+          <article class="card compact launch-card">
+            <span class="stat-number">{step}</span>
+            <h3>{title}</h3>
+            <p>{text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">Why different</p>
+        <h2>Not Shared Leads. Not Just Ads. Not More Software.</h2>
       </div>
       <div class="grid two">
-        <div class="card">
-          <h3>Good fit</h3>
-          <ul class="list">
-            <li>You miss calls while working</li>
-            <li>You send quotes but do not always follow up</li>
-            <li>You want more booked jobs without chasing manually</li>
-            <li>You want to own your customer database</li>
-          </ul>
-        </div>
-        <div class="card">
-          <h3>Not a fit</h3>
-          <ul class="list">
-            <li>You only want cheap shared leads</li>
-            <li>You expect guaranteed jobs with no system</li>
-            <li>You do not want to improve follow-up</li>
-            <li>You have no capacity to take more work</li>
-          </ul>
-        </div>
+        {differentItems.map(([label, oldWay, newWay]) => (
+          <article class="card comparison-card">
+            <p class="eyebrow">{label}</p>
+            <p><strong>Old way:</strong> {oldWay}</p>
+            <p><strong>Tradie Front Desk:</strong> {newWay}</p>
+          </article>
+        ))}
       </div>
     </div>
   </section>
 
   <section class="section band">
     <div class="container">
-      <div class="section-head">
-        <p class="eyebrow">Proof</p>
-        <h2>Systems That Help Support Real Businesses</h2>
-        <p class="lead">Case studies are examples only. Results depend on the business, market, offer, implementation, and follow-through.</p>
-      </div>
-      <div class="split video-split proof-system-feature">
-        <div class="card soft">
-          <p class="eyebrow">Payment system example</p>
-          <h3>From Checkout To Customer Follow-Up</h3>
-          <p>A payment page is only one part of the system. The useful layer is what happens around it: customer records, subscriptions, reminders, follow-up, and owner visibility.</p>
-          <p class="fineprint">Visual example inspired by a real checkout flow. It does not claim guaranteed revenue, bookings, or customer results.</p>
+      <div class="split video-split package-video-head">
+        <div class="section-head">
+          <p class="eyebrow">Proof</p>
+          <h2>See What The System Catches, Sends, And Follows Up</h2>
+          <p class="lead">Proof should show real activity: calls caught, replies sent, follow-ups completed, bookings created, and reviews requested.</p>
         </div>
-        <SectionVideo id="HomeRealBusinessPaymentVideo" />
+        <SectionVideo id="CaseStudyProofVideo" />
       </div>
-      <div class="grid three">
+      <div class="grid five proof-metrics">
+        {proofMetrics.map(([title, text]) => (
+          <article class="card compact">
+            <h3>{title}</h3>
+            <p>{text}</p>
+          </article>
+        ))}
+      </div>
+      <div class="grid three top-gap">
         {caseStudies.map((study) => <CaseStudyCard study={study} />)}
       </div>
     </div>
   </section>
-
-  <CTASection title="Find Out Where Your Business Is Losing Jobs" text="Book a Free Tradie Front Desk Audit and we will review how your business handles calls, quote requests, missed calls, follow-up, and customer enquiries." cta="Book My Free Front Desk Audit" />
 
   <section class="section">
     <div class="container">
       <div class="split video-split package-video-head">
         <div class="section-head">
           <p class="eyebrow">Packages</p>
-          <h2>Start With The System That Matches Your Enquiry Process</h2>
-          <p class="lead">Pricing depends on scope, services, locations, channels, campaigns, and support needs.</p>
+          <h2>Start With The Level That Fits Your Business</h2>
+          <p class="lead">Booked Jobs System is the flagship setup for most established tradies. Starter fixes basic leaks. Managed Growth adds more opportunity volume after the core system is ready.</p>
         </div>
         <SectionVideo id="HomeAuditPackagesVideo" />
       </div>
@@ -180,34 +246,79 @@ const heroMarqueeItems = ["Missed Calls", "Instant Replies", "Quote Requests", "
     </div>
   </section>
 
+  <CTASection title="Find Out Where Your Business Is Losing Jobs" text="In around 20 minutes, the Free Front Desk Audit checks calls, quote requests, messages, old leads, and follow-up so you know what to fix first." cta="Book My Free Audit" />
   <FAQ />
-  <CTASection title="Your Trade Business Needs A Front Desk System, Not More Chaos" text="Book a Free Front Desk Audit and get a clear view of what to fix first." />
+  <CTASection title="Ready To Stop Losing Jobs From Missed Calls And Poor Follow-Up?" text={`${corePromise} Book a Free Front Desk Audit and see where your enquiry process can improve.`} cta="Book a Free Front Desk Audit" />
 </BaseLayout>
 
 <style>
-  .video-split {
-    align-items: center;
+  .trust-line {
+    margin-bottom: 20px;
+    color: var(--body-strong);
+    font-size: clamp(18px, 2vw, 24px);
+    font-weight: 750;
   }
 
-  .video-split .grid.two {
-    gap: 16px;
+  .grid.five {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
   }
 
-  .video-split .card {
+  .compact {
     padding: 22px;
   }
 
-  .video-split .card h3 {
+  .launch-grid {
+    align-items: stretch;
+  }
+
+  .launch-card {
+    display: grid;
+    align-content: start;
+    gap: 22px;
+    padding-top: 30px;
+  }
+
+  .launch-card .stat-number {
+    margin-bottom: 2px;
+  }
+
+  .launch-card h3 {
+    min-height: 2.05em;
+  }
+
+  .compact h3 {
     font-size: 22px;
     margin-bottom: 10px;
+  }
+
+  .top-gap {
+    margin-top: 24px;
+  }
+
+  .highlight {
+    border-color: rgba(204, 120, 92, 0.42);
+    box-shadow: var(--glow-strong);
+  }
+
+  .comparison-card {
+    display: grid;
+    gap: 12px;
   }
 
   .package-video-head {
     margin-bottom: 34px;
   }
 
-  @media (max-width: 920px) {
-    .video-split .grid.two {
+  @media (max-width: 1120px) {
+    .grid.five {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 680px) {
+    .grid.five,
+    .grid.two,
+    .grid.three {
       grid-template-columns: 1fr;
     }
   }

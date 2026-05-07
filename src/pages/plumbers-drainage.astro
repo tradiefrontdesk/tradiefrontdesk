@@ -1,0 +1,37 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Hero from "@/components/Hero.astro";
+import CTASection from "@/components/CTASection.astro";
+import HeroMarquee from "@/components/HeroMarquee.astro";
+import SectionVideo from "@/components/SectionVideo.astro";
+import { tradePages } from "@/data/site";
+
+const page = tradePages.plumbersDrainage;
+const examples = [...page.examples];
+---
+
+<BaseLayout title="Plumbing & Drainage Front Desk System | Tradie Front Desk" description="Catch urgent plumbing calls, book more site visits, and follow up plumbing or drainage quotes without chasing manually.">
+  <Hero eyebrow={page.eyebrow} title={page.title} text={page.text} primary={page.cta} primaryHref="/free-audit" secondary="See How It Works" secondaryHref="/how-it-works" videoId="AuditChecksVideo" />
+  <HeroMarquee eyebrow="Plumbing enquiry examples" items={examples} />
+  <section class="section band">
+    <div class="container split video-split">
+      <div class="section-head">
+        <p class="eyebrow">Example flow</p>
+        <h2>{page.flow}</h2>
+        <p class="lead">Urgent leaks and blocked drains can follow a different path from normal quote requests when that routing is included.</p>
+      </div>
+      <SectionVideo id="AuditChecksVideo" />
+    </div>
+  </section>
+  <section class="section">
+    <div class="container grid two">
+      {page.examples.map((item) => <article class="card"><h3>{item}</h3><p>Reply fast, collect the right details, and route the enquiry to the right handoff or callback path.</p></article>)}
+    </div>
+  </section>
+  <section class="section band">
+    <div class="container grid two">
+      {page.objections.map((item) => <article class="card"><h3>Safe routing</h3><p>{item}</p></article>)}
+    </div>
+  </section>
+  <CTASection title="Book A Free Plumbing Front Desk Audit" text="We will review missed calls, after-hours rules, site-visit booking, quote follow-up, and old customer opportunities." cta={page.cta} />
+</BaseLayout>

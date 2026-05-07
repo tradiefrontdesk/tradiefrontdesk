@@ -17,7 +17,14 @@ export interface PerspectiveMarqueeProps {
   className?: string;
 }
 
-const FONT_FAMILY = "Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif";
+const FONT_FAMILY = "Bangers, Anton, Impact, 'Arial Black', sans-serif";
+const ITEM_STYLES = [
+  { color: "#ffffff", shadow: "#ff2f91" },
+  { color: "#ffd900", shadow: "#e71919" },
+  { color: "#ff2f91", shadow: "#0496ff" },
+  { color: "#0496ff", shadow: "#e71919" },
+  { color: "#20c84b", shadow: "#ff7a00" },
+];
 
 const DEFAULT_ITEMS = ["Capture", "Respond", "Qualify", "Book", "Follow Up", "Pipeline", "Owner Alerts", "Reviews"];
 
@@ -77,22 +84,27 @@ export function PerspectiveMarquee({
             const itemCenter = i * (approxItemWidth / items.length) + approxItemWidth / items.length / 2 + offset;
             const norm = (itemCenter - 640) / 640;
             const distance = Math.min(1, Math.abs(norm));
-            const blurPx = distance * 5;
-            const opacity = 1 - distance * 0.36;
+            const blurPx = distance * 3.2;
+            const opacity = 1 - distance * 0.28;
+            const itemStyle = ITEM_STYLES[i % ITEM_STYLES.length] ?? { color, shadow: "#e71919" };
 
             return (
               <span
-                key={`${item}-${i}`}
+                key={i}
                 style={{
                   display: "inline-block",
                   fontFamily: FONT_FAMILY,
                   fontSize,
                   fontWeight,
-                  color,
+                  color: itemStyle.color,
                   letterSpacing: 0,
+                  lineHeight: 0.9,
                   paddingRight: itemPadding,
                   filter: `blur(${blurPx}px)`,
                   opacity,
+                  textTransform: "uppercase",
+                  textShadow: `3px 3px 0 #050505, -1px -1px 0 #050505, 1px -1px 0 #050505, -1px 1px 0 #050505, 7px 7px 0 ${itemStyle.shadow}`,
+                  WebkitTextStroke: "1px #050505",
                 }}
               >
                 {item}

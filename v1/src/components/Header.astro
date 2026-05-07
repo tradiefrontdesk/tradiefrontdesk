@@ -1,0 +1,105 @@
+---
+import { brand, navItems } from "@/data/site";
+---
+
+<header class="site-header">
+  <div class="container nav">
+    <a class="brand" href="/" aria-label="Tradie Front Desk home">
+      <span class="mark">
+        <img src={brand.logo} alt="" width="36" height="36" loading="eager" />
+      </span>
+      <strong>{brand.name}</strong>
+    </a>
+    <nav aria-label="Primary navigation">
+      {navItems.map((item) => <a href={item.href}>{item.label}</a>)}
+    </nav>
+    <a class="btn primary nav-cta" href="/free-audit">Book Free Audit</a>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    border-bottom: 1px solid var(--hairline);
+    background: rgba(250, 249, 245, 0.88);
+    backdrop-filter: blur(16px);
+  }
+
+  .nav {
+    display: flex;
+    min-height: 72px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+  }
+
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--ink);
+    min-width: max-content;
+  }
+
+  .mark {
+    display: grid;
+    width: 34px;
+    height: 34px;
+    flex: 0 0 auto;
+    place-items: center;
+    overflow: hidden;
+    border-radius: 8px;
+  }
+
+  .mark img {
+    width: 34px;
+    height: 34px;
+    object-fit: contain;
+  }
+
+  .brand strong {
+    font-size: 17px;
+    font-weight: 850;
+    line-height: 1.1;
+  }
+
+  nav {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+  }
+
+  nav a {
+    color: var(--body);
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  nav a:hover {
+    color: var(--ink);
+  }
+
+  .nav-cta {
+    min-width: max-content;
+  }
+
+  @media (max-width: 1040px) {
+    nav {
+      display: none;
+    }
+  }
+
+  @media (max-width: 520px) {
+    .nav {
+      min-height: 64px;
+    }
+
+    .nav-cta {
+      min-height: 38px;
+      padding: 10px 12px;
+      width: auto;
+    }
+  }
+</style>

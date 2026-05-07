@@ -1,0 +1,98 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Hero from "@/components/Hero.astro";
+import AuditForm from "@/components/AuditForm.astro";
+import FAQ from "@/components/FAQ.astro";
+import CTASection from "@/components/CTASection.astro";
+import HeroMarquee from "@/components/HeroMarquee.astro";
+import SectionVideo from "@/components/SectionVideo.astro";
+
+const auditChecks = ["Missed-call handling", "Response speed", "Website enquiry capture", "Quote request clarity", "Booking/callback path", "Quote follow-up", "Old lead database", "Social message handling", "Google message handling", "Review request process", "Pipeline visibility", "Campaign speed-to-lead"];
+const takeaways = ["Front Desk Scorecard", "Leak list", "Priority fixes", "Recommended setup"];
+const auditFaqs: [string, string][] = [
+  ["Is the audit really free?", "Yes. It is a practical review of your enquiry process. If the system is not a good fit, we will say so."],
+  ["Is this a sales pitch?", "The audit identifies actual enquiry leaks first. If a package makes sense, we will explain the recommendation clearly."],
+  ["How long does it take?", "Around 20 minutes for most trade businesses."],
+  ["Do I need to prepare anything?", "No heavy prep. It helps to know where enquiries come from, how missed calls are handled, and how quotes are followed up."],
+  ["Will you tell me to run ads?", "Not necessarily. We usually recommend fixing enquiry capture and follow-up before adding campaigns."],
+  ["Is AI required?", "No. AI is optional and controlled. The base system can run on approved forms, SMS, email, calls, and follow-up."],
+];
+const heroMarqueeItems = ["20 Minute Audit", "Scorecard", "Leak List", "Priority Fixes", "Package Fit", "No Lead Pitch", "No Tech Theatre", "Clear Next Step"];
+---
+
+<BaseLayout title="Free Front Desk Audit | Find Where Your Trade Business Is Losing Jobs" description="Book a Free Front Desk Audit to find where calls, quote requests, messages, old leads, and follow-ups may be leaking in your trade business.">
+  <Hero
+    eyebrow="Free Front Desk Audit"
+    title="Find Out Where Your Trade Business Is Losing Jobs"
+    text="In around 20 minutes, we show where enquiries are leaking, what it may be costing you, and which setup would fix it."
+    primary="Book My Free Audit"
+    primaryHref="#audit-form"
+    secondary="View Pricing"
+    secondaryHref="/pricing"
+    videoId="AuditHeroVideo"
+  />
+  <HeroMarquee eyebrow="Audit outcome" items={heroMarqueeItems} />
+
+  <section class="section band">
+    <div class="container split video-split">
+      <div>
+        <div class="section-head">
+          <p class="eyebrow">What to expect</p>
+          <h2>No Lead Pitch. No Technical Audit Theatre.</h2>
+          <p class="lead">Just a practical review of where your enquiry process can improve.</p>
+        </div>
+        <div class="grid two">
+          {takeaways.map((item) => <article class="card compact"><h3>{item}</h3></article>)}
+        </div>
+      </div>
+      <SectionVideo id="AuditChecksVideo" />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container grid two">
+      <div>
+        <div class="section-head">
+          <p class="eyebrow">What we check</p>
+          <h2>Your Enquiry Leak Checklist</h2>
+          <p class="lead">We review the places where trade businesses most often lose good opportunities.</p>
+        </div>
+        <ul class="list">{auditChecks.map((item) => <li>{item}</li>)}</ul>
+      </div>
+      <article class="card">
+        <h3>Best Fit</h3>
+        <ul class="list">
+          <li>3 to 20 staff</li>
+          <li>Quote-based, urgent-call, or enquiry-heavy trade businesses</li>
+          <li>Owners missing calls while on-site</li>
+          <li>Businesses sending quotes but not always following up</li>
+          <li>Teams that want better enquiry handling before buying more leads</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section class="section band" id="audit-form">
+    <div class="container split">
+      <div class="section-head">
+        <p class="eyebrow">Book your audit</p>
+        <h2>Book Your Free Front Desk Audit</h2>
+        <p class="lead">Tell us where enquiries currently come from and what feels messy. The first step stays short so it is easy to complete.</p>
+      </div>
+      <AuditForm />
+    </div>
+  </section>
+
+  <FAQ items={auditFaqs} />
+  <CTASection title="Find The Leaks Before You Spend More On Leads" text="Book your Free Front Desk Audit and get a clear view of how your business handles enquiries from first contact to follow-up." cta="Book My Free Audit" href="#audit-form" />
+</BaseLayout>
+
+<style>
+  .compact {
+    padding: 22px;
+  }
+
+  .compact h3 {
+    font-size: 23px;
+  }
+</style>

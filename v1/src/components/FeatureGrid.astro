@@ -1,0 +1,79 @@
+---
+interface Item {
+  title: string;
+  text: string;
+}
+
+interface Props {
+  eyebrow?: string;
+  title: string;
+  text?: string;
+  items: Item[];
+  columns?: "two" | "three" | "four";
+}
+
+const { eyebrow, title, text, items, columns = "three" } = Astro.props;
+---
+
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+      <h2>{title}</h2>
+      {text && <p class="lead">{text}</p>}
+    </div>
+    <div class={`grid ${columns}`}>
+      {items.map((item) => (
+        <article class="card feature">
+          <span class="icon" aria-hidden="true">
+            <svg viewBox="0 0 32 32">
+              <path d="M7 20.5V11.5L16 6L25 11.5V20.5L16 26L7 20.5Z" />
+              <path d="M11 16H21" />
+              <path d="M16 11V21" />
+            </svg>
+          </span>
+          <h3>{item.title}</h3>
+          <p>{item.text}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .feature {
+    display: grid;
+    gap: 14px;
+  }
+
+  .feature {
+    min-height: 100%;
+  }
+
+  .icon {
+    display: grid;
+    width: 44px;
+    height: 44px;
+    place-items: center;
+    border-radius: var(--radius-sm);
+    background:
+      radial-gradient(circle, rgba(204, 120, 92, 0.28), transparent 68%),
+      rgba(204, 120, 92, 0.08);
+    color: var(--primary);
+    box-shadow: inset 0 0 0 1px rgba(204, 120, 92, 0.35), 0 0 30px rgba(204, 120, 92, 0.12);
+  }
+
+  svg {
+    width: 24px;
+    height: 24px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  h3 {
+    font-size: 22px;
+  }
+</style>

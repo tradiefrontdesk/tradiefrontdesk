@@ -1,5 +1,5 @@
 ---
-import { brand, contactDetails, disclaimer } from "@/data/site";
+import { brand, contactDetails, disclaimer, footerLinks, navItems } from "@/data/site";
 ---
 
 <footer class="footer">
@@ -11,8 +11,8 @@ import { brand, contactDetails, disclaimer } from "@/data/site";
         </span>
         <div>
           <p class="eyebrow">Front desk system for tradies</p>
-          <h2>{brand.fullName}</h2>
-          <p>A managed enquiry, follow-up, and booking system for trade businesses that want clearer capture, faster response, and less manual chasing.</p>
+          <h2>{brand.name}</h2>
+          <p>A managed front-desk system for trade businesses that want fewer missed calls, faster replies, better follow-up, and less manual chasing.</p>
         </div>
       </div>
       <div class="footer-cta">
@@ -44,25 +44,16 @@ import { brand, contactDetails, disclaimer } from "@/data/site";
     <div class="footer-grid">
       <div class="brand-col">
         <h3>What We Build</h3>
-        <p>Systems for missed calls, instant enquiry replies, quote requests, follow-up, owner notifications, and simple pipelines.</p>
+        <p>Systems for missed calls, instant enquiry replies, quote requests, quote follow-up, owner handoffs, and simple opportunity pipelines.</p>
         <p class="fineprint">{disclaimer}</p>
       </div>
       <div>
-        <h3>Pages</h3>
-        <a href="/">Home</a>
-        <a href="/how-it-works">How It Works</a>
-        <a href="/whats-included">What's Included</a>
-        <a href="/why-were-different">Why Different</a>
-        <a href="/pricing">Pricing</a>
-        <a href="/case-studies">Case Studies</a>
+        <h3>Main Pages</h3>
+        {navItems.map((item) => <a href={item.href}>{item.label}</a>)}
       </div>
       <div>
-        <h3>System</h3>
-        <a href="/whats-included">Missed Call Saver</a>
-        <a href="/whats-included">Instant Enquiry Response</a>
-        <a href="/whats-included">Follow-Up Engine</a>
-        <a href="/whats-included">Job Pipeline</a>
-        <a href="/free-audit">Free Front Desk Audit</a>
+        <h3>Deeper Links</h3>
+        {footerLinks.map((item) => <a href={item.href}>{item.label}</a>)}
       </div>
       <div>
         <h3>Legal</h3>
@@ -74,17 +65,17 @@ import { brand, contactDetails, disclaimer } from "@/data/site";
 
     <div class="footer-bottom">
       <span>{brand.name} {brand.byline}</span>
-      <span>New Zealand first. Australia and USA contact numbers coming soon.</span>
+      <span>Serving trade businesses in New Zealand, Australia, and the United States.</span>
     </div>
   </div>
 </footer>
 
 <style>
   .footer {
-    border-top: 1px solid var(--hairline);
+    border-top: 6px solid var(--ink);
     background:
-      radial-gradient(circle at 12% 8%, rgba(204, 120, 92, 0.14), transparent 32%),
-      linear-gradient(180deg, var(--surface-soft), var(--canvas));
+      radial-gradient(circle at 14px 14px, rgba(255, 255, 255, 0.2) 2px, transparent 2.5px) 0 0 / 28px 28px,
+      linear-gradient(135deg, var(--blue) 0 42%, var(--primary) 42% 100%);
     padding: 72px 0 88px;
   }
 
@@ -98,13 +89,12 @@ import { brand, contactDetails, disclaimer } from "@/data/site";
     align-items: center;
     justify-content: space-between;
     gap: 28px;
-    border: 1px solid rgba(204, 120, 92, 0.22);
-    border-radius: 18px;
+    border: 5px solid var(--ink);
     background:
-      linear-gradient(135deg, rgba(255, 255, 255, 0.42), transparent 44%),
+      radial-gradient(circle at 13px 13px, rgba(5, 5, 5, 0.08) 2px, transparent 2.5px) 0 0 / 26px 26px,
       var(--surface-card);
     padding: clamp(22px, 4vw, 38px);
-    box-shadow: 0 28px 92px rgba(37, 35, 32, 0.1);
+    box-shadow: var(--comic-shadow);
   }
 
   .footer-brand {
@@ -121,11 +111,9 @@ import { brand, contactDetails, disclaimer } from "@/data/site";
     flex: 0 0 auto;
     place-items: center;
     overflow: hidden;
-    border: 1px solid rgba(204, 120, 92, 0.24);
-    border-radius: 22px;
-    background:
-      radial-gradient(circle at 35% 18%, rgba(204, 120, 92, 0.18), transparent 50%),
-      var(--canvas);
+    border: 4px solid var(--ink);
+    background: var(--primary);
+    box-shadow: 5px 5px 0 var(--ink);
   }
 
   .footer-logo img {
@@ -141,7 +129,7 @@ import { brand, contactDetails, disclaimer } from "@/data/site";
   .footer-brand h2 {
     max-width: 680px;
     margin-bottom: 12px;
-    font-size: clamp(32px, 4.6vw, 58px);
+    font-size: clamp(44px, 6vw, 82px);
   }
 
   .footer-brand p:not(.eyebrow) {
@@ -167,15 +155,15 @@ import { brand, contactDetails, disclaimer } from "@/data/site";
     gap: 6px;
     min-height: 96px;
     align-content: center;
-    border: 1px solid var(--hairline);
-    border-radius: var(--radius-lg);
-    background: rgba(250, 249, 245, 0.7);
+    border: 4px solid var(--ink);
+    background: var(--surface-card);
     padding: 18px;
-    box-shadow: 0 16px 48px rgba(37, 35, 32, 0.06);
+    box-shadow: 5px 5px 0 var(--ink);
   }
 
   .contact-main span {
     color: var(--primary);
+    color: var(--red);
     font-size: 12px;
     font-weight: 800;
     letter-spacing: 1.1px;
@@ -203,18 +191,21 @@ import { brand, contactDetails, disclaimer } from "@/data/site";
   h3 {
     margin-bottom: 14px;
     color: var(--ink);
-    font-size: 16px;
+    font-family: var(--font-heavy);
+    font-size: 18px;
+    text-transform: uppercase;
   }
 
   a {
     display: block;
     margin: 9px 0;
-    color: var(--muted);
+    color: var(--ink);
     font-size: 14px;
+    font-weight: 850;
   }
 
   a:hover {
-    color: var(--ink);
+    color: var(--red);
   }
 
   .brand-col {
@@ -230,10 +221,11 @@ import { brand, contactDetails, disclaimer } from "@/data/site";
     display: flex;
     justify-content: space-between;
     gap: 18px;
-    border-top: 1px solid var(--hairline);
+    border-top: 5px solid var(--ink);
     padding-top: 22px;
-    color: var(--muted);
+    color: var(--ink);
     font-size: 13px;
+    font-weight: 850;
   }
 
   .footer-bottom span:first-child {

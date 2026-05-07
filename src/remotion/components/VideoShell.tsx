@@ -24,15 +24,15 @@ export const VideoShell = ({ label, cta = "Managed front desk system", children 
       <AbsoluteFill
         style={{
           backgroundImage:
-            "linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px)",
-          backgroundSize: "72px 72px",
-          opacity: 0.55,
+            "radial-gradient(circle at 14px 14px, rgba(255,217,0,.34) 3px, transparent 3.5px), linear-gradient(rgba(255,255,255,.08) 2px, transparent 2px), linear-gradient(90deg, rgba(255,255,255,.08) 2px, transparent 2px)",
+          backgroundSize: "34px 34px, 86px 86px, 86px 86px",
+          opacity: 0.82,
         }}
       />
       <AbsoluteFill
         style={{
           background:
-            "radial-gradient(circle at 15% 12%, rgba(204,120,92,.18), transparent 24%), radial-gradient(circle at 86% 18%, rgba(59,130,246,.11), transparent 22%), linear-gradient(120deg, transparent 0 42%, rgba(204,120,92,.05) 48%, transparent 54% 100%)",
+            "radial-gradient(circle at 15% 12%, rgba(255,47,145,.24), transparent 24%), radial-gradient(circle at 86% 18%, rgba(4,150,255,.24), transparent 22%), linear-gradient(120deg, transparent 0 42%, rgba(255,217,0,.12) 48%, transparent 54% 100%)",
         }}
       />
       <div
@@ -43,16 +43,15 @@ export const VideoShell = ({ label, cta = "Managed front desk system", children 
           left: `${sweep}%`,
           width: 280,
           transform: "skewX(-18deg)",
-          background: "linear-gradient(90deg, transparent, rgba(204,120,92,.12), transparent)",
+          background: "linear-gradient(90deg, transparent, rgba(255,47,145,.26), transparent)",
         }}
       />
       <div
         style={{
           position: "absolute",
           inset: 34,
-          border: `1px solid ${colors.hairline}`,
-          borderRadius: 24,
-          boxShadow: "inset 0 0 0 1px rgba(204,120,92,.05), 0 0 80px rgba(204,120,92,.08)",
+          border: `10px solid ${colors.primary}`,
+          boxShadow: "inset 0 0 0 5px #050505, 12px 12px 0 rgba(255,47,145,.85)",
         }}
       />
       <div
@@ -66,11 +65,12 @@ export const VideoShell = ({ label, cta = "Managed front desk system", children 
           color: colors.primary,
           fontSize: 18,
           fontWeight: 800,
-          letterSpacing: 2.4,
+          letterSpacing: 1.6,
           textTransform: "uppercase",
+          textShadow: "4px 4px 0 #050505",
         }}
       >
-        <span style={{ width: 15, height: 15, borderRadius: 99, background: colors.primary, boxShadow: "0 0 22px rgba(204,120,92,.8)" }} />
+        <span style={{ width: 18, height: 18, border: "3px solid #050505", borderRadius: 99, background: colors.pink, boxShadow: "4px 4px 0 #050505" }} />
         {label}
       </div>
       <div style={{ position: "absolute", inset: "112px 58px 102px" }}>{children}</div>
@@ -82,17 +82,16 @@ export const VideoShell = ({ label, cta = "Managed front desk system", children 
           display: "flex",
           alignItems: "center",
           gap: 14,
-          border: "1px solid rgba(204,120,92,.42)",
-          borderRadius: 12,
-          background: "rgba(18,18,18,.84)",
+          border: "5px solid #050505",
+          background: colors.primary,
           padding: "13px 16px",
-          color: colors.body,
+          color: "#050505",
           fontSize: 16,
-          fontWeight: 700,
-          boxShadow: "0 0 34px rgba(204,120,92,.12)",
+          fontWeight: 900,
+          boxShadow: "6px 6px 0 #050505",
         }}
       >
-        <span style={{ color: colors.primary }}>System Pros AI</span>
+        <span style={{ color: colors.error }}>System Pros AI</span>
         <span>{cta}</span>
       </div>
     </AbsoluteFill>

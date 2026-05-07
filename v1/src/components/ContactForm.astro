@@ -1,0 +1,31 @@
+---
+---
+
+<form class="card form-card" data-form="contact">
+  <div class="form-grid">
+    <label>Name<input name="name" autocomplete="name" required /></label>
+    <label>Business name<input name="businessName" autocomplete="organization" /></label>
+    <label>Phone<input name="phone" type="tel" autocomplete="tel" /></label>
+    <label>Email<input name="email" type="email" autocomplete="email" required /></label>
+    <label>Website<input name="website" type="url" placeholder="https://" /></label>
+    <label>Trade/service<input name="tradeService" /></label>
+  </div>
+  <label>Message<textarea name="message" required></textarea></label>
+  <button class="btn primary" type="submit">Send Enquiry</button>
+  <p class="fineprint" data-status>Use this form for general questions or booking help.</p>
+</form>
+
+<script>
+  document.querySelectorAll<HTMLFormElement>('[data-form="contact"]').forEach((form) => {
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const data = Object.fromEntries(new FormData(form));
+      console.info("Contact payload ready for CRM/webhook:", data);
+      // Connect GoHighLevel or another CRM webhook here.
+      // await fetch("YOUR_WEBHOOK_URL", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(data) });
+      const status = form.querySelector<HTMLElement>("[data-status]");
+      if (status) status.textContent = "Thanks. Your enquiry is ready to send once the CRM/webhook is connected.";
+      form.reset();
+    });
+  });
+</script>

@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-label="Tradie Front Desk System">
+  <defs>
+    <linearGradient id="grid" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#cc785c" stop-opacity=".18"/>
+      <stop offset=".55" stop-color="#cc785c" stop-opacity=".04"/>
+      <stop offset="1" stop-color="#3b82f6" stop-opacity=".12"/>
+    </linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="14" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <rect width="1200" height="630" fill="#faf9f5"/>
+  <path d="M0 0h1200v630H0z" fill="url(#grid)"/>
+  <g opacity=".28" stroke="#141413" stroke-width="1">
+    <path d="M80 0v630M180 0v630M280 0v630M380 0v630M480 0v630M580 0v630M680 0v630M780 0v630M880 0v630M980 0v630M1080 0v630"/>
+    <path d="M0 75h1200M0 155h1200M0 235h1200M0 315h1200M0 395h1200M0 475h1200M0 555h1200"/>
+  </g>
+  <rect x="64" y="58" width="1072" height="514" rx="28" fill="#faf9f5" stroke="#e6dfd8" stroke-width="2"/>
+  <circle cx="110" cy="108" r="10" fill="#cc785c" filter="url(#glow)"/>
+  <text x="138" y="117" fill="#cc785c" font-family="Inter, Arial, sans-serif" font-size="28" font-weight="800" letter-spacing="4">TRADIE FRONT DESK</text>
+  <text x="92" y="250" fill="#141413" font-family="Inter, Arial, sans-serif" font-size="74" font-weight="900">More Booked Jobs.</text>
+  <text x="92" y="335" fill="#141413" font-family="Inter, Arial, sans-serif" font-size="74" font-weight="900">Less Chasing.</text>
+  <text x="92" y="420" fill="#141413" font-family="Inter, Arial, sans-serif" font-size="74" font-weight="900">No Tech Headaches.</text>
+  <rect x="92" y="470" width="430" height="52" rx="10" fill="#cc785c" filter="url(#glow)"/>
+  <text x="116" y="505" fill="#faf9f5" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="900">Managed enquiry + follow-up system</text>
+  <g transform="translate(780 150)">
+    <rect width="260" height="320" rx="24" fill="#efe9de" stroke="#cc785c" stroke-opacity=".55" stroke-width="3"/>
+    <path d="M48 72h164M48 128h164M48 184h164M48 240h164" stroke="#cc785c" stroke-width="10" stroke-linecap="round" opacity=".9"/>
+    <circle cx="48" cy="72" r="15" fill="#cc785c"/>
+    <circle cx="48" cy="128" r="15" fill="#cc785c"/>
+    <circle cx="48" cy="184" r="15" fill="#cc785c"/>
+    <circle cx="48" cy="240" r="15" fill="#cc785c"/>
+  </g>
+</svg>

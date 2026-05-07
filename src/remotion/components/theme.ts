@@ -1,17 +1,19 @@
 export const colors = {
-  canvas: "#181715",
-  primary: "#cc785c",
-  surfaceCard: "#252320",
-  surfaceSoft: "#1f1e1b",
-  elevated: "#332f2a",
-  text: "#faf9f5",
-  body: "#d9d1c5",
-  muted: "#a09d96",
-  hairline: "#3b3832",
-  success: "#5db872",
-  warning: "#d4a017",
-  error: "#c64545",
-  blue: "#5db8a6",
+  canvas: "#050505",
+  primary: "#ffd900",
+  surfaceCard: "#171717",
+  surfaceSoft: "#242424",
+  elevated: "#161616",
+  text: "#ffffff",
+  body: "#f4f4f4",
+  muted: "#d7d7d7",
+  hairline: "#ffd900",
+  success: "#20c84b",
+  warning: "#ffc400",
+  error: "#e71919",
+  blue: "#0496ff",
+  pink: "#ff2f91",
+  orange: "#ff7a00",
 };
 
-export const fontFamily = "Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif";
+export const fontFamily = "Anton, Impact, Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif";
