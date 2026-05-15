@@ -1,0 +1,97 @@
+---
+interface Props {
+  eyebrow?: string;
+  title?: string;
+  text?: string;
+}
+
+const {
+  eyebrow = "Voice AI",
+  title = "Speak To Us",
+  text = "Ask a quick question about pricing, the front-desk system, or booking your Free Front Desk Audit.",
+} = Astro.props;
+---
+
+<section class="voice-ai-block" aria-label={title}>
+  <div class="voice-ai-card card">
+    <div>
+      <p class="eyebrow">{eyebrow}</p>
+      <h2>{title}</h2>
+      <p>{text}</p>
+    </div>
+    <div class="voice-ai-status">
+      <span></span>
+      <strong>Voice widget ready</strong>
+    </div>
+  </div>
+  <script
+    src="https://widgets.leadconnectorhq.com/loader.js"
+    data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js"
+    data-widget-id="6a06d51c0d64442b0cfed166"
+    is:inline
+  ></script>
+</section>
+
+<style>
+  .voice-ai-block {
+    margin-top: 22px;
+  }
+
+  .voice-ai-card {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 24px;
+    align-items: center;
+    background: var(--surface-card);
+    border-color: var(--ink);
+    box-shadow: 8px 8px 0 var(--hot-pink), 14px 14px 0 var(--blue);
+  }
+
+  h2 {
+    margin-bottom: 10px;
+  }
+
+  p {
+    max-width: 760px;
+    color: var(--body);
+  }
+
+  .voice-ai-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    border: 4px solid var(--ink);
+    background: var(--primary);
+    color: var(--ink);
+    padding: 14px 18px;
+    box-shadow: 5px 5px 0 var(--ink);
+    font-family: var(--font-display);
+    font-size: 18px;
+    font-weight: 950;
+    line-height: 1;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .voice-ai-status span {
+    width: 14px;
+    height: 14px;
+    border: 3px solid var(--ink);
+    border-radius: 999px;
+    background: var(--trust-green);
+    box-shadow: 0 0 0 5px rgba(32, 200, 75, 0.24);
+  }
+
+  @media (max-width: 760px) {
+    .voice-ai-card {
+      grid-template-columns: 1fr;
+      box-shadow: 6px 6px 0 var(--hot-pink), 11px 11px 0 var(--blue);
+    }
+
+    .voice-ai-status {
+      justify-content: center;
+      width: 100%;
+      white-space: normal;
+    }
+  }
+</style>

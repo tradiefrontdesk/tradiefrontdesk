@@ -5,6 +5,7 @@ import ContactForm from "@/components/ContactForm.astro";
 import FAQ from "@/components/FAQ.astro";
 import HeroMarquee from "@/components/HeroMarquee.astro";
 import SectionVideo from "@/components/SectionVideo.astro";
+import VoiceAiEmbed from "@/components/VoiceAiEmbed.astro";
 import { contactDetails } from "@/data/site";
 
 const heroMarqueeItems = ["Book Audit", "Send Message", "Review Request", "Key Questions", "Map Process", "Recommend Next Step", "Scope Fit", "Clear Reply"];
@@ -56,7 +57,10 @@ const heroMarqueeItems = ["Book Audit", "Send Message", "Review Request", "Key Q
           ))}
         </div>
       </div>
-      <ContactForm />
+      <div class="contact-form-stack">
+        <ContactForm />
+        <VoiceAiEmbed text="Prefer to talk it through? Start the voice widget and ask about pricing, fit, or booking your Free Front Desk Audit." />
+      </div>
     </div>
   </section>
   <section class="section band">
@@ -110,6 +114,11 @@ const heroMarqueeItems = ["Book Audit", "Send Message", "Review Request", "Key Q
 
   .contact-direct div strong {
     color: var(--muted);
+  }
+
+  .contact-form-stack {
+    display: grid;
+    gap: 24px;
   }
 
   @media (max-width: 640px) {

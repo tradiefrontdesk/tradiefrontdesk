@@ -8,6 +8,7 @@ import CTASection from "@/components/CTASection.astro";
 import FAQ from "@/components/FAQ.astro";
 import HeroMarquee from "@/components/HeroMarquee.astro";
 import SectionVideo from "@/components/SectionVideo.astro";
+import VoiceAiEmbed from "@/components/VoiceAiEmbed.astro";
 import { caseStudies, corePromise, modules, proofMetrics, trustItems } from "@/data/site";
 
 const heroMarqueeItems = ["Missed Calls", "Slow Replies", "Quote Follow-Up", "Website Forms", "Social Messages", "Old Leads", "Owner Handoff", "Booked Jobs"];
@@ -249,6 +250,11 @@ const differentItems = [
   <CTASection title="Find Out Where Your Business Is Losing Jobs" text="In around 20 minutes, the Free Front Desk Audit checks calls, quote requests, messages, old leads, and follow-up so you know what to fix first." cta="Book My Free Audit" />
   <FAQ />
   <CTASection title="Ready To Stop Losing Jobs From Missed Calls And Poor Follow-Up?" text={`${corePromise} Book a Free Front Desk Audit and see where your enquiry process can improve.`} cta="Book a Free Front Desk Audit" />
+  <section class="section tight voice-home">
+    <div class="container">
+      <VoiceAiEmbed />
+    </div>
+  </section>
 </BaseLayout>
 
 <style>
