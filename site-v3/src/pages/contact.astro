@@ -1,0 +1,21 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import ContactHero from "@/components/contact/ContactHero.astro";
+import ContactSplit from "@/components/contact/ContactSplit.astro";
+import NextSteps from "@/components/contact/NextSteps.astro";
+import CTASection from "@/components/CTASection.astro";
+import { corePromise } from "@/data/site";
+---
+
+<BaseLayout
+  title="Contact"
+  description="Not ready to book the free audit? Message us about your calls, quotes, and follow-up, or reach us directly by phone in NZ, Australia, or the US."
+>
+  <ContactHero />
+  <ContactSplit />
+  <NextSteps />
+  <CTASection
+    title="Ready to go deeper instead?"
+    text={`${corePromise} Book a free audit and we'll map where jobs are slipping — no pressure, no lock-in.`}
+  />
+</BaseLayout>

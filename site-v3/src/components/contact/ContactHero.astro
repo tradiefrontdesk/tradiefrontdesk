@@ -1,0 +1,79 @@
+---
+// ContactHero.astro — Section 1 (dark)
+// Compact interior hero, plain "talk to us" framing (this page is the
+// low-friction path for owners who are not ready to book the audit yet).
+// No video — the interior-hero convention keeps this short, and the split
+// section below is the page's main event. The primary action is scrolling
+// to the form; the audit link carries [data-hero-cta] since it is the
+// element that would otherwise duplicate StickyMobileCTA's own audit link.
+import Reveal from "@/components/motion/Reveal.astro";
+import { brand } from "@/data/site";
+---
+
+<section class="ch band-dark blueprint-grid">
+  <div class="container ch__inner">
+    <p class="mono-label ch__eyebrow">Contact</p>
+
+    <Reveal as="h1" variant="draft" class="ch__title">
+      Not ready for an audit? Talk to us first.
+    </Reveal>
+
+    <p class="ch__lead max-measure">
+      Tell us what's happening with your calls, quotes, and follow-up and
+      we'll reply with a straight answer. If you'd rather skip straight to a
+      full review, the free audit is the faster path.
+    </p>
+
+    <div class="ch__cta">
+      <a class="btn btn-primary" href="#contact-form">Send a message</a>
+      <a class="btn btn-ghost" href="/free-audit" data-hero-cta
+        >Book a Free Front Desk Audit</a
+      >
+    </div>
+
+    <p class="ch__trust">{brand.trustLine}</p>
+  </div>
+</section>
+
+<style>
+  .ch {
+    padding-block: clamp(2.5rem, 6vw, 4.25rem);
+  }
+
+  .ch__inner {
+    max-width: 60ch;
+  }
+
+  .ch__eyebrow {
+    color: var(--marker);
+    margin-bottom: 1.1rem;
+  }
+
+  .ch__title {
+    font-size: clamp(1.9rem, 4.25vw, 2.9rem);
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    color: var(--on-dark);
+    max-width: 20ch;
+  }
+
+  .ch__lead {
+    color: var(--on-dark-body);
+    font-size: 1.0625rem;
+    margin-top: 1.15rem;
+  }
+
+  .ch__cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.85rem;
+    margin-block: 1.65rem 1.25rem;
+  }
+
+  .ch__trust {
+    font-size: 0.875rem;
+    line-height: 1.55;
+    color: var(--on-dark-muted);
+    max-width: 46ch;
+  }
+</style>
