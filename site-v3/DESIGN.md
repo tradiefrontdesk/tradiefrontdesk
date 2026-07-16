@@ -91,7 +91,7 @@ Dark navy bands (hero, proof, final CTA, footer) alternate with cool off-white w
 A restrained-but-committed strategy: navy carries the dark bands, cool off-white carries the light bands, and exactly one saturated color (safety orange) does all the persuading.
 
 ### Primary
-- **Safety Orange / Action** (`oklch(0.68 0.21 38)` ≈ `#FF5A1F`): the single CTA and action color — every primary button, the header/footer "Book Free Audit" button, annotation arrows, active-state accents. Used sparingly by area but always present wherever a visitor can act.
+- **Safety Orange / Action** (`oklch(0.68 0.21 38)` ≈ `#FF5A1F`): the single CTA and action color — every primary button, the header and sticky-mobile-bar "Book Free Audit" buttons, annotation arrows, active-state accents. Used sparingly by area but always present wherever a visitor can act.
 - **Action Hover** (`oklch(0.63 0.21 38)`): the same hue, stepped darker for `:hover`/`:active` states on orange buttons.
 - **On Action** (`oklch(0.18 0.05 38)`): text/icon color sitting on top of the orange fill (near-black, orange-tinted, not pure white — keeps the orange from reading candy-bright).
 
@@ -150,7 +150,7 @@ The system is flat-by-default with tonal layering, not shadow-driven depth. Dark
 
 ### Buttons
 - **Shape:** `--radius-sm` (4px) — sharp, drafted corners, not soft app-style rounding.
-- **Primary:** `background: var(--action)`, `color: var(--on-action)`, padding `0.75rem 1.5rem`, weight 600, no border. This is the only button style that should ever appear more than once per view carrying real weight — it's the "Book a Free Front Desk Audit" button, everywhere.
+- **Primary:** `background: var(--action)`, `color: var(--on-action)`, padding `0.75rem 1.5rem`, weight 600, no border. This is the only button style that should ever appear more than once per view carrying real weight — it's the audit-booking button everywhere it appears ("Book a Free Front Desk Audit" in CTA bands, "Book Free Audit" in the header and sticky mobile bar).
 - **Hover / Focus:** background steps to `--action-hover`; `:active` scales to `0.97` (a press-in, not a lift) — `transform`/`background-color` only, `180ms` ease-out.
 - **Ghost / Secondary:** transparent background, `currentColor` border (`1.5px`) and text, so the same class works unmodified on both dark and light bands; hover tints the background with `color-mix(in oklch, currentColor 12%, transparent)`. Used for the lower-commitment secondary action next to a primary CTA (e.g. "See How It Works" beside "Book a Free Audit").
 
@@ -169,7 +169,7 @@ The system is flat-by-default with tonal layering, not shadow-driven depth. Dark
 
 ### Navigation
 - **Style:** sticky `band-dark` header, `color-mix`-translucent + `backdrop-filter: blur(10px)` while unscrolled, solid `--canvas-dark` with a `--line-dark` bottom border once scrolled past the sentinel.
-- **Typography:** nav links are Inter body weight 500, `0.9375rem`; the primary CTA button and a region-matched phone number (`.mono-label`-adjacent styling) sit in the action cluster at the end of the bar.
+- **Typography:** nav links are Inter body weight 500, `0.9375rem`; the primary CTA button and the NZ phone number (the first entry in `contactDetails.phones`, `.mono-label` styling — all three regional numbers live in the footer) sit in the action cluster at the end of the bar.
 - **Default/hover/active:** links get an underline that scales in from `scaleX(0)` to `scaleX(1)` on hover/focus, `--on-dark-body` → `--on-dark` color shift; no active/current-page state is styled distinctly yet (flag for a future pass once real page routing lands).
 - **Mobile treatment:** collapses to a native `<details>` disclosure panel (no JS framework dependency for open/close) with a blueprint-grid background, staggered link entrance (`45ms` cascade), and full-width primary CTA + phone number stacked at the bottom.
 
