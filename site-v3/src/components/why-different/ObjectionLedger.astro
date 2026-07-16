@@ -1,0 +1,112 @@
+---
+// ObjectionLedger.astro — why-were-different Section 4 (light)
+// The three objections tradies raise about each alternative, answered in
+// voice. Rendered as a bordered ledger of stacked rows (mono tag + quoted
+// objection + answer), not a three-up card grid — a different layout
+// family from both the hero split and the comparison table.
+const objections: Array<{ tag: string; question: string; answer: string }> = [
+  {
+    tag: "Vs. lead sellers",
+    question: "I already get enough leads.",
+    answer:
+      "That's not usually where the problem is. If calls go to voicemail, forms sit in an inbox, and quotes go quiet, more leads mean more slipping through the same gap. Fix the front desk first, then decide if you need more enquiries.",
+  },
+  {
+    tag: "Vs. ad agencies",
+    question: "I've tried agencies before, and it didn't help.",
+    answer:
+      "That's usually because an agency's job stops at the click. Ours starts there. We fix what happens after someone contacts you: the reply, the qualifying questions, the booking, and the follow-up your business was missing.",
+  },
+  {
+    tag: "Vs. DIY apps",
+    question: "What if I already use job software?",
+    answer:
+      "Tradie Front Desk handles enquiry capture, response, follow-up, and booking. It can sit alongside your job software when that connection is listed in the proposal.",
+  },
+];
+---
+
+<section class="obj band-light section">
+  <div class="container">
+    <header class="obj__head">
+      <h2 class="obj__title">The objections we hear before the audit.</h2>
+      <p class="obj__lead max-measure">
+        Three questions almost every tradie asks first. Here's the plain
+        answer to each.
+      </p>
+    </header>
+
+    <ol class="obj__ledger surface-light">
+      {
+        objections.map((item) => (
+          <li class="obj__row">
+            <p class="mono-label obj__tag">{item.tag}</p>
+            <div class="obj__body">
+              <h3 class="obj__q">&ldquo;{item.question}&rdquo;</h3>
+              <p class="obj__a">{item.answer}</p>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>
+
+<style>
+  .obj__head {
+    max-width: 56ch;
+    margin-bottom: clamp(2rem, 4vw, 3rem);
+  }
+  .obj__title {
+    font-size: clamp(1.75rem, 4vw, 2.75rem);
+    letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+  }
+  .obj__lead {
+    color: var(--body);
+    font-size: 1.0625rem;
+  }
+
+  .obj__ledger {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+  }
+
+  .obj__row {
+    display: grid;
+    grid-template-columns: minmax(0, 11rem) minmax(0, 1fr);
+    gap: 1.5rem;
+    padding: clamp(1.5rem, 3vw, 2.25rem) clamp(1.5rem, 3vw, 2.25rem);
+    border-bottom: 1px solid var(--line-light);
+  }
+  .obj__row:last-child {
+    border-bottom: none;
+  }
+
+  .obj__tag {
+    color: var(--muted);
+    padding-top: 0.2rem;
+  }
+
+  .obj__q {
+    font-size: 1.1875rem;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    margin-bottom: 0.6rem;
+  }
+
+  .obj__a {
+    color: var(--body);
+    font-size: 0.9375rem;
+    max-width: 62ch;
+  }
+
+  @media (max-width: 640px) {
+    .obj__row {
+      grid-template-columns: 1fr;
+      gap: 0.6rem;
+    }
+  }
+</style>

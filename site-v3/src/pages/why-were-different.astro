@@ -1,0 +1,22 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Hero from "@/components/why-different/Hero.astro";
+import ComparisonBlueprint from "@/components/why-different/ComparisonBlueprint.astro";
+import CategoryStatement from "@/components/why-different/CategoryStatement.astro";
+import ObjectionLedger from "@/components/why-different/ObjectionLedger.astro";
+import CTASection from "@/components/CTASection.astro";
+---
+
+<BaseLayout
+  title="Why We're Different"
+  description="How Tradie Front Desk compares to lead sellers, ad agencies, and DIY apps, and why a managed front desk helps you keep the jobs you already get."
+>
+  <Hero />
+  <ComparisonBlueprint />
+  <CategoryStatement />
+  <ObjectionLedger />
+  <CTASection
+    title="See exactly where your front desk is leaking."
+    text="We'll show you where calls, quote requests, and follow-ups are slipping through the cracks. No shared leads, no ad spend required, and nothing new to learn."
+  />
+</BaseLayout>
