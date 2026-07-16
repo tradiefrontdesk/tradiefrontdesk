@@ -1,0 +1,80 @@
+---
+import { brand } from "@/data/site";
+
+interface Props {
+  title: string;
+  text: string;
+  cta?: string;
+  href?: string;
+}
+
+const { title, text, cta = "Book a Free Front Desk Audit", href = "/free-audit" } = Astro.props;
+---
+
+<section class="section cta-section band-dark blueprint-grid">
+  <div class="container cta-section__inner">
+    <div class="cta-section__copy">
+      <p class="mono-label cta-section__eyebrow">Free Front Desk Audit</p>
+      <h2>{title}</h2>
+      <p class="cta-section__text">{text}</p>
+    </div>
+    <div class="cta-section__action">
+      <a class="btn btn-primary" href={href}>{cta}</a>
+      <p class="cta-section__trust">{brand.trustLine}</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta-section__inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: end;
+    gap: 2.5rem;
+  }
+
+  .cta-section__eyebrow {
+    color: var(--marker);
+    margin-bottom: 0.75rem;
+  }
+
+  .cta-section__copy h2 {
+    font-size: clamp(1.75rem, 4vw, 2.75rem);
+    margin-bottom: 0.75rem;
+  }
+
+  .cta-section__text {
+    max-width: 56ch;
+    color: var(--on-dark-body);
+  }
+
+  .cta-section__action {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.85rem;
+    flex-shrink: 0;
+  }
+
+  .cta-section__trust {
+    max-width: 32ch;
+    font-size: 0.875rem;
+    line-height: 1.55;
+    color: var(--on-dark-muted);
+    text-align: right;
+  }
+
+  @media (max-width: 780px) {
+    .cta-section__inner {
+      grid-template-columns: 1fr;
+    }
+
+    .cta-section__action {
+      align-items: flex-start;
+    }
+
+    .cta-section__trust {
+      text-align: left;
+    }
+  }
+</style>

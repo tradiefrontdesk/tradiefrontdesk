@@ -1,0 +1,151 @@
+---
+const problems = [
+  "Missing calls",
+  "Slow replies",
+  "Quotes not being followed up",
+  "Poor follow-up",
+  "Urgent jobs not routed clearly",
+  "Website forms sit too long",
+  "Social or Google messages get missed",
+  "Old leads are sitting untouched",
+  "Not enough enquiries",
+  "Enquiries are scattered everywhere",
+  "Not sure",
+];
+---
+
+<form class="form-panel surface-light" data-form="audit">
+  <div class="form-panel__grid">
+    <label class="form-field">
+      <span class="mono-label form-field__label">Name</span>
+      <input class="form-field__input" name="name" autocomplete="name" required />
+    </label>
+    <label class="form-field">
+      <span class="mono-label form-field__label">Business name</span>
+      <input class="form-field__input" name="businessName" autocomplete="organization" required />
+    </label>
+    <label class="form-field">
+      <span class="mono-label form-field__label">Trade</span>
+      <input class="form-field__input" name="trade" placeholder="Electrical, plumbing, roofing..." required />
+    </label>
+    <label class="form-field">
+      <span class="mono-label form-field__label">Location</span>
+      <input class="form-field__input" name="location" autocomplete="address-level2" required />
+    </label>
+    <label class="form-field">
+      <span class="mono-label form-field__label">Website</span>
+      <input class="form-field__input" name="website" type="url" placeholder="https://" />
+    </label>
+    <label class="form-field">
+      <span class="mono-label form-field__label">Phone</span>
+      <input class="form-field__input" name="phone" type="tel" autocomplete="tel" required />
+    </label>
+    <label class="form-field">
+      <span class="mono-label form-field__label">Email</span>
+      <input class="form-field__input" name="email" type="email" autocomplete="email" required />
+    </label>
+    <label class="form-field">
+      <span class="mono-label form-field__label">Biggest enquiry problem</span>
+      <select class="form-field__input" name="biggestProblem" required>
+        <option value="">Select one</option>
+        {problems.map((problem) => <option>{problem}</option>)}
+      </select>
+    </label>
+  </div>
+  <label class="form-field form-field--full">
+    <span class="mono-label form-field__label">Preferred audit time</span>
+    <textarea class="form-field__input" name="preferredTime" placeholder="Tell us when suits and what you want us to review."></textarea>
+  </label>
+  <input type="hidden" name="source" value="free-audit-page" />
+  <button class="btn btn-primary form-panel__submit" type="submit">Book My Free Audit</button>
+  <p class="form-panel__fineprint" data-status>We will use these details to review your enquiry process and respond about the audit.</p>
+</form>
+
+<style>
+  .form-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding: clamp(1.75rem, 4vw, 3rem);
+  }
+
+  .form-panel__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.5rem 2rem;
+  }
+
+  .form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+  }
+
+  .form-field--full {
+    grid-column: 1 / -1;
+  }
+
+  .form-field__label {
+    color: var(--ink);
+  }
+
+  .form-field__input {
+    width: 100%;
+    padding: 0.85rem 1rem;
+    border: 1.5px solid var(--line-light);
+    border-radius: var(--radius-sm);
+    background: var(--surface-light);
+    color: var(--ink);
+    font-size: 0.9375rem;
+    transition: border-color var(--dur-fast) var(--ease-out);
+  }
+
+  .form-field__input::placeholder {
+    color: var(--muted);
+  }
+
+  .form-field__input:hover {
+    border-color: var(--muted);
+  }
+
+  .form-field__input:focus-visible {
+    border-color: var(--action);
+  }
+
+  textarea.form-field__input {
+    min-height: 120px;
+    resize: vertical;
+  }
+
+  .form-panel__submit {
+    align-self: flex-start;
+  }
+
+  .form-panel__fineprint {
+    font-size: 0.875rem;
+    line-height: 1.6;
+    color: var(--muted);
+    max-width: 60ch;
+  }
+
+  @media (max-width: 640px) {
+    .form-panel__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLFormElement>('[data-form="audit"]').forEach((form) => {
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const data = Object.fromEntries(new FormData(form));
+      console.info("Audit request payload ready for CRM/webhook:", data);
+      // Connect GoHighLevel or another CRM webhook here.
+      // await fetch("YOUR_WEBHOOK_URL", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(data) });
+      const status = form.querySelector<HTMLElement>("[data-status]");
+      if (status) status.textContent = "Thanks. Your audit request is ready to send once the CRM/webhook is connected.";
+      form.reset();
+    });
+  });
+</script>

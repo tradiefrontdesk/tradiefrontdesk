@@ -1,0 +1,94 @@
+---
+interface Props {
+  eyebrow?: string;
+  title?: string;
+  text?: string;
+}
+
+const {
+  eyebrow = "Voice AI",
+  title = "Speak To Us",
+  text = "Ask a quick question about pricing, the front-desk system, or booking your Free Front Desk Audit.",
+} = Astro.props;
+---
+
+<section class="voice-ai" aria-label={title}>
+  <div class="voice-ai__card surface-light">
+    <div class="voice-ai__copy">
+      <p class="mono-label voice-ai__eyebrow">{eyebrow}</p>
+      <h2>{title}</h2>
+      <p class="voice-ai__text">{text}</p>
+    </div>
+    <div class="voice-ai__status">
+      <span class="voice-ai__dot" aria-hidden="true"></span>
+      <span class="mono-label">Voice widget ready</span>
+    </div>
+  </div>
+  <script
+    src="https://widgets.leadconnectorhq.com/loader.js"
+    data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js"
+    data-widget-id="6a06d51c0d64442b0cfed166"
+    is:inline
+  ></script>
+</section>
+
+<style>
+  .voice-ai {
+    margin-top: 1.5rem;
+  }
+
+  .voice-ai__card {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 2rem;
+    padding: clamp(1.75rem, 4vw, 2.5rem);
+  }
+
+  .voice-ai__eyebrow {
+    color: var(--muted);
+    margin-bottom: 0.5rem;
+  }
+
+  .voice-ai__copy h2 {
+    margin-bottom: 0.65rem;
+  }
+
+  .voice-ai__text {
+    max-width: 56ch;
+    color: var(--body);
+  }
+
+  .voice-ai__status {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    padding: 0.85rem 1.25rem;
+    border: 1.5px solid var(--line-light);
+    border-radius: var(--radius-md);
+    background: var(--canvas-light);
+    white-space: nowrap;
+  }
+
+  .voice-ai__dot {
+    width: 10px;
+    height: 10px;
+    flex-shrink: 0;
+    border-radius: 999px;
+    /* Success green — no shared token exists for this state yet, so it is
+       scoped locally rather than added as a new global color. */
+    background: oklch(0.72 0.19 148);
+    box-shadow: 0 0 0 4px oklch(0.72 0.19 148 / 0.18);
+  }
+
+  @media (max-width: 640px) {
+    .voice-ai__card {
+      grid-template-columns: 1fr;
+    }
+
+    .voice-ai__status {
+      justify-content: center;
+      width: 100%;
+    }
+  }
+</style>
