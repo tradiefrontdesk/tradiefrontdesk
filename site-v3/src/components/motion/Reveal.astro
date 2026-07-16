@@ -1,0 +1,106 @@
+---
+// src/components/motion/Reveal.astro
+// Scroll-driven reveal wrapper for discrete elements (headings, cards,
+// badges, images) — NOT for `.band` section roots; wrapping a whole band
+// would gate an entire viewport of content on a class-triggered
+// transition, and transitions pause in hidden tabs / headless browsers,
+// which would ship a blank section. Wrap the individual elements inside a
+// band instead.
+//
+// Visibility contract: content renders fully visible by default. A module
+// script (see bottom) arms an element for animation only when
+// IntersectionObserver exists, the user has not requested reduced motion,
+// and the element is not already sitting in the viewport at arm-time.
+// Armed elements are re-revealed the first time they scroll into view, then
+// left alone (reveal-once). Elements that are never armed keep the plain,
+// fully-visible default markup — this is what no-JS, reduced-motion, and
+// already-on-screen-at-load all fall back to.
+//
+// Variants (deliberately distinct, not one uniform fade-up):
+//   draft — rise + slight clip-path reveal. Headings, cards.
+//   stamp — scale(1.04 -> 1) + opacity, snappier duration. Badges, annotations.
+//   fade  — opacity only. Images, video.
+interface Props {
+  variant?: "draft" | "stamp" | "fade";
+  /** Transition delay in seconds, applied only once the element is armed. */
+  delay?: number;
+  /** HTML tag to render. Defaults to "div". */
+  as?: keyof HTMLElementTagNameMap;
+  class?: string;
+}
+
+const { variant = "draft", delay = 0, as = "div", class: className } = Astro.props;
+
+const Tag = as;
+---
+
+<Tag
+  class:list={["reveal", className]}
+  data-reveal
+  data-reveal-variant={variant}
+  style={delay ? `--reveal-delay: ${delay}s` : undefined}
+>
+  <slot />
+</Tag>
+
+<style>
+  .reveal {
+    --reveal-delay: 0s;
+  }
+
+  /* Primed state — only applied once the shared script decides this
+     element is eligible (see data-armed). Until then the element has no
+     opacity/transform rules at all, so it renders exactly like its
+     un-animated content. */
+  .reveal[data-armed="true"] {
+    transition-property: opacity, transform, clip-path;
+    transition-timing-function: var(--ease-out);
+    transition-delay: var(--reveal-delay);
+    transition-duration: var(--dur-slow);
+  }
+
+  .reveal[data-armed="true"][data-reveal-variant="stamp"] {
+    transition-duration: var(--dur-base);
+  }
+
+  .reveal[data-armed="true"][data-revealed="false"] {
+    opacity: 0;
+  }
+
+  .reveal[data-armed="true"][data-revealed="false"][data-reveal-variant="draft"] {
+    transform: translateY(20px);
+    clip-path: inset(0 0 14% 0);
+  }
+
+  .reveal[data-armed="true"][data-revealed="false"][data-reveal-variant="stamp"] {
+    transform: scale(1.04);
+  }
+
+  .reveal[data-revealed="true"] {
+    opacity: 1;
+    transform: none;
+    clip-path: inset(0 0 0% 0);
+  }
+</style>
+
+<script>
+  // Module script — Astro bundles this once per page regardless of how
+  // many <Reveal> instances render, and it runs deferred (after the DOM is
+  // fully parsed), so a single querySelectorAll here reliably picks up
+  // every instance on the page. Do not assume per-instance execution.
+  import { isEligibleForReveal, onFirstInView } from "@/lib/motion";
+
+  function arm(el: Element) {
+    if (el.hasAttribute("data-armed")) return;
+    if (!isEligibleForReveal(el)) return;
+
+    el.setAttribute("data-armed", "true");
+    el.setAttribute("data-revealed", "false");
+
+    onFirstInView(el, () => {
+      el.setAttribute("data-revealed", "true");
+    });
+  }
+
+  document.querySelectorAll("[data-reveal]").forEach(arm);
+</script>

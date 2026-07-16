@@ -1,0 +1,71 @@
+---
+// src/components/motion/DraftPath.astro
+// SVG path that "draws" itself via stroke-dasharray/-offset once it scrolls
+// into view — for blueprint-style annotation lines, underlines, connectors.
+//
+// Visibility contract: the path renders fully drawn (normal stroke, no
+// dasharray) by default. The module script below only converts it to the
+// dash-offset "primed" state when IntersectionObserver exists, the user
+// allows motion, and the path is not already in the viewport — otherwise
+// it stays fully drawn, which is also the reduced-motion / no-JS fallback.
+interface Props {
+  d: string;
+  stroke?: string;
+  strokeWidth?: number;
+  viewBox: string;
+  class?: string;
+}
+
+const { d, stroke = "var(--action)", strokeWidth = 2, viewBox, class: className } = Astro.props;
+---
+
+<svg
+  class:list={["draft-path", className]}
+  viewBox={viewBox}
+  data-draft-path
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <path d={d} stroke={stroke} stroke-width={strokeWidth} data-draft-path-line />
+</svg>
+
+<style>
+  .draft-path {
+    overflow: visible;
+    width: 100%;
+  }
+
+  .draft-path path {
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  /* Transition only kicks in once the script has set explicit dasharray/
+     dashoffset values (data-armed="true") — before that the path has no
+     dash properties at all and simply renders fully drawn. */
+  .draft-path[data-armed="true"] path {
+    transition: stroke-dashoffset var(--dur-slow) var(--ease-out);
+  }
+</style>
+
+<script>
+  import { isEligibleForReveal, onFirstInView } from "@/lib/motion";
+
+  function arm(svg: Element) {
+    if (svg.hasAttribute("data-armed")) return;
+    const path = svg.querySelector<SVGPathElement>("[data-draft-path-line]");
+    if (!path) return;
+    if (!isEligibleForReveal(svg)) return;
+
+    const length = path.getTotalLength();
+    path.style.strokeDasharray = `${length}`;
+    path.style.strokeDashoffset = `${length}`;
+    svg.setAttribute("data-armed", "true");
+
+    onFirstInView(svg, () => {
+      path.style.strokeDashoffset = "0";
+    });
+  }
+
+  document.querySelectorAll("[data-draft-path]").forEach(arm);
+</script>

@@ -1,0 +1,202 @@
+---
+// TEMPORARY — Task 7 QA page only. Exercises every motion primitive
+// (Reveal draft/stamp/fade, DraftPath, StatTick) so the build can be
+// checked visually, including with prefers-reduced-motion emulated in
+// devtools. Not linked from navigation, not part of the real site IA.
+// Keep this file around for controller QA; delete once Task 7 is signed off.
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Reveal from "@/components/motion/Reveal.astro";
+import DraftPath from "@/components/motion/DraftPath.astro";
+import StatTick from "@/components/motion/StatTick";
+---
+
+<BaseLayout title="Dev: Motion" description="Temporary QA page for motion primitives.">
+  <section class="section band-dark">
+    <div class="container">
+      <p class="mono-label">Task 7 QA — temporary page, delete before launch</p>
+      <h1>Motion primitives</h1>
+      <p class="text-muted">
+        Scroll down slowly. Everything below should be visible immediately on load (nothing
+        blank), and only animate once as it crosses into view. Toggle
+        "Emulate CSS prefers-reduced-motion: reduce" in devtools and reload — every animation
+        below should become instant with no movement.
+      </p>
+    </div>
+  </section>
+
+  <section class="section band-light">
+    <div class="container">
+      <h2>Above-the-fold check</h2>
+      <p class="text-muted">
+        This card is in the viewport at load. It must render fully visible immediately —
+        no flash from hidden to visible.
+      </p>
+      <Reveal variant="draft" class="card">
+        <p><strong>draft, already in view at load</strong> — should never flash.</p>
+      </Reveal>
+    </div>
+  </section>
+
+  <section class="section band-light">
+    <div class="container">
+      <h2>Reveal — draft</h2>
+      <p class="text-muted">Rise + slight clip-path reveal. Intended for headings/cards.</p>
+      <div class="grid">
+        <Reveal variant="draft" as="div" class="card">
+          <h3>Card one</h3>
+          <p>draft, no delay</p>
+        </Reveal>
+        <Reveal variant="draft" as="div" class="card" delay={0.1}>
+          <h3>Card two</h3>
+          <p>draft, delay 0.1s</p>
+        </Reveal>
+        <Reveal variant="draft" as="div" class="card" delay={0.2}>
+          <h3>Card three</h3>
+          <p>draft, delay 0.2s</p>
+        </Reveal>
+      </div>
+    </div>
+  </section>
+
+  <section class="section band-dark">
+    <div class="container">
+      <h2>Reveal — stamp</h2>
+      <p class="text-muted">Scale 1.04 → 1 + opacity, snappier duration. Badges/annotations.</p>
+      <div class="badge-row">
+        <Reveal variant="stamp" as="span" class="badge">NEW</Reveal>
+        <Reveal variant="stamp" as="span" class="badge" delay={0.06}>FAST</Reveal>
+        <Reveal variant="stamp" as="span" class="badge" delay={0.12}>LOCAL</Reveal>
+      </div>
+    </div>
+  </section>
+
+  <section class="section band-light">
+    <div class="container">
+      <h2>Reveal — fade</h2>
+      <p class="text-muted">Opacity only. Images/video.</p>
+      <Reveal variant="fade" as="div" class="media-block">
+        <p class="mono-label">placeholder media block</p>
+      </Reveal>
+    </div>
+  </section>
+
+  <section class="section band-dark">
+    <div class="container">
+      <h2>DraftPath</h2>
+      <p class="text-muted">SVG path draws itself on scroll-in via stroke-dashoffset.</p>
+      <DraftPath
+        viewBox="0 0 600 120"
+        d="M10 100 C 150 10, 300 190, 450 40 S 590 20, 590 20"
+        class="draft-path-demo"
+      />
+    </div>
+  </section>
+
+  <section class="section band-light">
+    <div class="container">
+      <h2>StatTick</h2>
+      <p class="text-muted">Counts 0 → value on first view, React island (client:visible).</p>
+      <div class="stat-row">
+        <div class="stat">
+          <span class="stat__value">
+            <StatTick value={38} suffix="%" client:visible />
+          </span>
+          <span class="mono-label">missed calls recovered</span>
+        </div>
+        <div class="stat">
+          <span class="stat__value">
+            <StatTick value={1240} prefix="$" client:visible />
+          </span>
+          <span class="mono-label">avg monthly recovered revenue</span>
+        </div>
+        <div class="stat">
+          <span class="stat__value">
+            <StatTick value={12} suffix=" min" duration={0.8} client:visible />
+          </span>
+          <span class="mono-label">avg response time</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section band-dark">
+    <div class="container">
+      <h2>Bottom spacer</h2>
+      <p class="text-muted">Padding so the sections above can be scrolled fully into and out of view.</p>
+      <div style="height: 40vh;"></div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .grid {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    margin-top: 1.5rem;
+  }
+
+  .card {
+    padding: 1.5rem;
+    border: 1px solid var(--line-light);
+    border-radius: var(--radius-md);
+    background: var(--surface-light);
+  }
+
+  .band-dark .card {
+    border-color: var(--line-dark);
+    background: var(--surface-dark);
+  }
+
+  .badge-row {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+
+  .badge {
+    display: inline-flex;
+    padding: 0.4rem 0.9rem;
+    border-radius: var(--radius-sm);
+    background: var(--action);
+    color: var(--on-action);
+    font-family: var(--font-mono);
+    font-weight: 600;
+    font-size: 0.8125rem;
+    letter-spacing: 0.06em;
+  }
+
+  .media-block {
+    margin-top: 1.5rem;
+    display: grid;
+    place-items: center;
+    height: 220px;
+    border-radius: var(--radius-md);
+    background: var(--surface-dark-2);
+    color: var(--on-dark-muted);
+  }
+
+  .draft-path-demo {
+    margin-top: 1.5rem;
+    max-width: 600px;
+  }
+
+  .stat-row {
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    margin-top: 1.5rem;
+  }
+
+  .stat {
+    display: grid;
+    gap: 0.35rem;
+  }
+
+  .stat__value {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 700;
+    color: var(--ink);
+  }
+</style>
