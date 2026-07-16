@@ -1,0 +1,193 @@
+---
+// LegalSection.astro — one numbered clause of a legal document (privacy
+// policy / terms). Renders a mono-label "Section NN" annotation above the
+// verbatim heading, then the clause body in .prose measure. No Reveal here
+// by design — legal text is not a persuasion surface, it should just be
+// present and readable the instant the page paints.
+//
+// Body content (paragraphs, lists, callouts) is authored directly in the
+// page files so the copy stays literally verbatim; the :global() selectors
+// below style that slotted content consistently without needing every
+// page to redeclare the same rules (the class-forwarding gotcha in
+// page-rules.md is about the `class` prop on a component's own root, not
+// slotted children — slotted markup keeps the authoring page's scope, so
+// :global() here reaches it reliably).
+interface Props {
+  index: number;
+  heading: string;
+}
+
+const { index, heading } = Astro.props;
+const num = String(index).padStart(2, "0");
+---
+
+<section class="legal-section">
+  <p class="mono-label legal-section__num">Section {num}</p>
+  <h2>{heading}</h2>
+  <div class="legal-body prose">
+    <slot />
+  </div>
+</section>
+
+<style>
+  .legal-section {
+    padding-block: clamp(1.75rem, 3.5vw, 2.75rem);
+  }
+
+  .legal-section + .legal-section {
+    border-top: 1px solid var(--line-light);
+  }
+
+  .legal-section__num {
+    color: var(--muted);
+    margin-bottom: 0.75rem;
+  }
+
+  .legal-section h2 {
+    font-size: clamp(1.375rem, 2.4vw, 1.875rem);
+    letter-spacing: -0.015em;
+    color: var(--ink);
+    margin-bottom: 1rem;
+  }
+
+  .legal-body {
+    display: grid;
+    gap: 1rem;
+  }
+
+  /* -------------------------------------------------------------------
+     Slotted-content styles (global — see note above)
+     ------------------------------------------------------------------- */
+
+  :global(.legal-body p),
+  :global(.legal-body li) {
+    color: var(--body);
+    line-height: 1.65;
+  }
+
+  :global(.legal-body strong) {
+    color: var(--ink);
+  }
+
+  :global(.legal-body a) {
+    color: var(--ink);
+    font-weight: 600;
+    text-decoration-color: var(--action);
+    text-decoration-thickness: 1.5px;
+    text-underline-offset: 3px;
+  }
+
+  :global(.legal-body a:hover) {
+    color: var(--action-hover);
+  }
+
+  :global(.legal-list) {
+    display: grid;
+    gap: 0.65rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  :global(.legal-list li) {
+    position: relative;
+    padding-left: 1.35rem;
+  }
+
+  :global(.legal-list li::before) {
+    content: "";
+    position: absolute;
+    top: 0.55em;
+    left: 0;
+    width: 7px;
+    height: 7px;
+    border: 1.5px solid var(--action);
+    border-radius: 2px;
+  }
+
+  :global(.legal-list.legal-list--columns) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 1.5rem;
+  }
+
+  /* Callout — a flagged clause (client data, guarantee scope, disclaimer).
+     Full border + background tint per the design system's rule against
+     colored border-left accent stripes. */
+  :global(.legal-callout) {
+    display: grid;
+    gap: 0.85rem;
+    border: 1px solid var(--line-light);
+    border-radius: var(--radius-md);
+    background: color-mix(in oklch, var(--action) 6%, var(--surface-light));
+    padding: clamp(1.1rem, 2.5vw, 1.5rem);
+  }
+
+  :global(.legal-callout .mono-label) {
+    color: var(--action-hover);
+  }
+
+  /* Comparison artifact — bordered two-column blueprint table, not a card
+     grid, for "covered / not covered" style clauses. */
+  :global(.legal-compare) {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    border: 1px solid var(--line-light);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+  }
+
+  :global(.legal-compare__col) {
+    display: grid;
+    gap: 0.75rem;
+    align-content: start;
+    padding: clamp(1rem, 2.5vw, 1.35rem);
+  }
+
+  :global(.legal-compare__col + .legal-compare__col) {
+    border-left: 1px solid var(--line-light);
+  }
+
+  @media (max-width: 640px) {
+    :global(.legal-compare),
+    :global(.legal-list.legal-list--columns) {
+      grid-template-columns: 1fr;
+    }
+
+    :global(.legal-compare__col + .legal-compare__col) {
+      border-left: none;
+      border-top: 1px solid var(--line-light);
+    }
+  }
+
+  /* Closing contact strip — used on the final "contact" clause of each
+     document; the modest contact pointer that replaces a CTASection here. */
+  :global(.legal-contact-grid) {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.75rem;
+  }
+
+  :global(.legal-contact-grid__item) {
+    display: grid;
+    gap: 0.3rem;
+    border: 1px solid var(--line-light);
+    border-radius: var(--radius-md);
+    padding: 0.85rem 1rem;
+  }
+
+  :global(.legal-contact-grid__item span) {
+    color: var(--action-hover);
+  }
+
+  :global(.legal-contact-grid__item strong) {
+    color: var(--ink);
+    font-size: 0.9375rem;
+    font-weight: 700;
+  }
+
+  @media (max-width: 640px) {
+    :global(.legal-contact-grid) {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

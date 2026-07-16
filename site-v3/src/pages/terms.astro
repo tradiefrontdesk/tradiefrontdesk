@@ -1,0 +1,214 @@
+---
+// terms.astro — legal document page.
+// Design: quiet light-band document page, same anatomy as privacy-policy
+// (see that file's header comment for the full rationale). No video
+// (TermsVideo exists on the old site but is skipped here — see the wave
+// report), no Reveal on the legal text, no CTASection; the final
+// "Questions About These Terms" clause is the modest contact pointer.
+//
+// Copy: ported verbatim from the old root src/pages/terms.astro per this
+// wave's override — the copy-rewrite rules (banned words, voice) do not
+// apply to this body text, including the "AI", "CRM", and "GoHighLevel"
+// mentions the legal text itself makes. Entity names, the effective date,
+// and the disclaimer sentence come from src/data/site.ts.
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import LegalHero from "@/components/legal/LegalHero.astro";
+import LegalSection from "@/components/legal/LegalSection.astro";
+import { brand, contactDetails, disclaimer, legalDetails } from "@/data/site";
+
+const serviceIncludes = [
+  "Enquiry capture from forms, missed calls, messages, landing pages, or connected channels.",
+  "Fast acknowledgement messages through SMS, email, phone, or other approved channels.",
+  "Job detail collection, qualification questions, callback requests, and quote request flows.",
+  "Simple pipeline setup, owner notifications, quote follow-up, and no-response follow-up.",
+  "Optional growth layers such as local campaigns, old lead reactivation, review requests, AI phone support, and website enquiry upgrades where included in writing.",
+];
+
+const notIncluded = [
+  "Guaranteed jobs, leads, bookings, revenue, profit, rankings, review volume, or exact customer response rates.",
+  "A full receptionist service, call centre, job management system replacement, SEO campaign, website rebuild, or advertising agency service unless expressly included.",
+  "Unlimited workflow changes, custom software development, large database cleanup, manual sales calling, or emergency dispatch.",
+  "Legal, financial, tax, medical, safety, or technical trade advice.",
+];
+
+const clientResponsibilities = [
+  "Provide accurate business details, services, service areas, contact details, business hours, urgent job rules, and good-fit or bad-fit job criteria.",
+  "Maintain required platform access, phone numbers, calendars, review links, website access, ad accounts, and payment details where relevant.",
+  "Approve customer-facing messages, AI scripts, workflows, and launch decisions in a timely way.",
+  "Confirm that old customer, lead, or prospect lists can legally and appropriately be contacted before any reactivation or follow-up campaign.",
+  "Respond to real opportunities, honour bookings, deliver quality service, and keep us updated when services, availability, pricing rules, or staff change.",
+];
+
+const providerResponsibilities = [
+  "Build, test, launch, and manage the agreed front-desk system according to the selected package or written scope.",
+  "Use reasonable care when handling client data, customer data, access details, and confidential business information.",
+  "Keep customer-facing automation practical, trade-specific, and aligned with approved business rules.",
+  "Notify the client when scope, usage, third-party costs, or technical limitations require a separate decision or quote.",
+];
+
+const usageCosts = ["SMS", "phone calls", "AI voice minutes", "phone numbers", "email sending", "WhatsApp messaging", "ad spend", "hosting", "domains", "third-party software", "payment processing"];
+
+const guaranteeCovers = [
+  "Agreed forms, workflows, messages, pipeline stages, notifications, testing, and launch support.",
+  "Fixing agreed setup issues where the system does not work as specified in the approved scope.",
+];
+
+const guaranteeDoesNotCover = [
+  "Exact job numbers, revenue, profit, leads, bookings, rankings, ad results, reviews, or customer decisions.",
+  "Client-caused delays, removed access, unpaid invoices, third-party outages, platform policy changes, or items outside the purchased scope.",
+];
+
+const aiLimits = [
+  "AI tools may assist with enquiry handling, summaries, classification, message drafting, website chat, or phone detail capture.",
+  "AI must not be treated as perfect and may require monitoring, guardrails, human review, and adjustment.",
+  "AI should not give exact prices unless approved, confirm complex jobs, make safety decisions, handle emergencies without escalation, provide professional trade advice, or replace human judgement.",
+];
+
+const thirdPartyPlatforms = ["GoHighLevel or other CRM tools", "Google", "Meta", "Twilio or other phone/SMS providers", "email providers", "AI providers", "calendar tools", "payment tools", "hosting/domain providers", "review platforms", "analytics tools"];
+---
+
+<BaseLayout
+  title="Terms of Service"
+  description="Plain-English terms for Tradie Front Desk covering service scope, client responsibilities, payment, the launch guarantee, third-party tools, cancellation, and results disclaimers."
+>
+  <LegalHero
+    title="Terms & Conditions"
+    effectiveDate={legalDetails.effectiveDate}
+    lead="These terms explain how the website and managed front-desk services work. They are written for clarity and sit alongside any proposal, invoice, order form, statement of work, or signed service agreement."
+  />
+
+  <section class="section band-light">
+    <div class="container legal-doc">
+      <LegalSection index={1} heading="1. Who These Terms Apply To">
+        <p>These Terms & Conditions apply when you use this website, submit an enquiry, book an audit, buy a service, receive a proposal, or use any part of {brand.fullName}.</p>
+        <p>{brand.fullName} is a brand and service system designed by {legalDetails.providerLabel}. References to <strong>we</strong>, <strong>us</strong>, <strong>our</strong>, or <strong>Provider</strong> mean the relevant business or entity identified in your proposal, invoice, checkout page, statement of work, or service agreement. If a signed agreement conflicts with these public terms, the signed agreement controls for that client relationship.</p>
+      </LegalSection>
+
+      <LegalSection index={2} heading="2. Website Use">
+        <p>You may use this website to learn about the service, submit a contact form, request a free front-desk audit, or contact us. You must not misuse the website, attempt to interfere with it, submit false information, scrape it unlawfully, copy protected content for commercial use, or use the site in a way that breaches applicable law.</p>
+        <p>Website content is general information only. It is not legal, financial, tax, safety, technical trade, or business advice for your specific circumstances.</p>
+      </LegalSection>
+
+      <LegalSection index={3} heading="3. What We Provide">
+        <p>{brand.fullName} is a managed enquiry, follow-up, and booking-support system for trade and service businesses. It is designed to help capture enquiries, respond faster, qualify jobs, organise opportunities, and follow up with customers.</p>
+        <ul class="legal-list">
+          {serviceIncludes.map((item) => <li>{item}</li>)}
+        </ul>
+        <p>The exact services, modules, deliverables, pricing, minimum term, usage limits, and support level depend on the package or written scope you approve.</p>
+      </LegalSection>
+
+      <LegalSection index={4} heading="4. What We Do Not Provide">
+        <ul class="legal-list">
+          {notIncluded.map((item) => <li>{item}</li>)}
+        </ul>
+        <div class="legal-callout">
+          <p class="mono-label">Disclaimer</p>
+          <p>{disclaimer}</p>
+        </div>
+      </LegalSection>
+
+      <LegalSection index={5} heading="5. Scope, Add-Ons, And Changes">
+        <p>Package names may include Front Desk Starter, Booked Jobs System, Managed Growth System, or custom variations. Optional add-ons are included only when listed in writing. If a feature, workflow, campaign, integration, platform, or service is not included in your package, proposal, or signed agreement, it is not included.</p>
+        <p>Small message updates and reasonable support may be included in monthly management. Larger changes, new funnels, new campaigns, advanced integrations, AI phone redesigns, custom development, extra pages, or major workflow changes may be quoted separately before work begins.</p>
+      </LegalSection>
+
+      <LegalSection index={6} heading="6. Client Responsibilities">
+        <ul class="legal-list">
+          {clientResponsibilities.map((item) => <li>{item}</li>)}
+        </ul>
+        <p>If onboarding information, access, approvals, or feedback are delayed, project timelines may be extended. Monthly billing may still begin according to the agreed terms unless the delay is caused by us.</p>
+      </LegalSection>
+
+      <LegalSection index={7} heading="7. Provider Responsibilities">
+        <ul class="legal-list">
+          {providerResponsibilities.map((item) => <li>{item}</li>)}
+        </ul>
+      </LegalSection>
+
+      <LegalSection index={8} heading="8. Fees, Billing, Usage Costs, And Ad Spend">
+        <p>Setup fees are paid upfront unless otherwise agreed and cover strategy, configuration, build, messaging, workflows, pipeline setup, testing, and launch preparation. Monthly fees cover ongoing management, monitoring, support, platform/service access, and optimisation according to the approved package.</p>
+        <p>Monthly billing may begin when the core system is launched or 30 days after onboarding starts, whichever comes first, unless a written agreement says otherwise or delays are caused by us.</p>
+        <p>Usage-based and third-party costs may be included, passed through, or billed separately depending on the written scope. Examples include {usageCosts.join(", ")}.</p>
+        <p>Ad spend is separate from management fees unless expressly stated. Advertising performance depends on budget, offer, market, creative, competition, landing page, response speed, reputation, sales process, and other factors. We do not guarantee exact ad results, cost per lead, cost per booking, revenue, or profit.</p>
+        <p>If payment is late or fails after a reasonable notice period, services, access, support, workflows, campaigns, or usage-heavy activity may be paused until payment is resolved. We are not responsible for missed enquiries, paused workflows, failed campaigns, or lost opportunities during periods of non-payment or suspended service.</p>
+      </LegalSection>
+
+      <LegalSection index={9} heading="9. Front Desk Launch Guarantee">
+        <p>Once we have your required business details, access, approvals, and payment, we will build, test, and launch the agreed core front-desk system. If something in the agreed core setup is not working as specified, we will fix it.</p>
+        <div class="legal-compare">
+          <div class="legal-compare__col">
+            <p class="mono-label">Covered</p>
+            <ul class="legal-list">
+              {guaranteeCovers.map((item) => <li>{item}</li>)}
+            </ul>
+          </div>
+          <div class="legal-compare__col">
+            <p class="mono-label">Not covered</p>
+            <ul class="legal-list">
+              {guaranteeDoesNotCover.map((item) => <li>{item}</li>)}
+            </ul>
+          </div>
+        </div>
+      </LegalSection>
+
+      <LegalSection index={10} heading="10. Third-Party Tools And Access">
+        <p>The system may rely on third-party platforms. These platforms may change, fail, suspend accounts, alter pricing, update policies, or create deliverability issues outside our control.</p>
+        <ul class="legal-list legal-list--columns">
+          {thirdPartyPlatforms.map((item) => <li>{item}</li>)}
+        </ul>
+        <p>You must provide and maintain required access. If access is removed, restricted, revoked, or changed, some parts of the system may stop working. We are not responsible for interruption caused by missing access, third-party outages, third-party policy changes, or client-controlled account changes.</p>
+      </LegalSection>
+
+      <LegalSection index={11} heading="11. AI And Automation Limits">
+        <ul class="legal-list">
+          {aiLimits.map((item) => <li>{item}</li>)}
+        </ul>
+        <p>The client must notify us if any AI-assisted or automated response appears incorrect, inappropriate, risky, or misaligned with the business.</p>
+      </LegalSection>
+
+      <LegalSection index={12} heading="12. Customer Lists, Reviews, And Messaging Compliance">
+        <p>If you provide customer, lead, prospect, or old quote lists, you are responsible for confirming that those contacts can legally and appropriately be contacted. Contacts who opt out, unsubscribe, or request no further messages must not be contacted through automated campaigns unless legally permitted.</p>
+        <p>Review request systems may help ask suitable customers for genuine reviews, but we do not guarantee review volume, review rating, or customer behaviour. Review requests must follow platform rules and must not request fake reviews or violate review platform policies.</p>
+      </LegalSection>
+
+      <LegalSection index={13} heading="13. Data, Ownership, And Confidentiality">
+        <p>Customer contact data collected for your business belongs to your business, subject to applicable law, platform terms, payment status, and any written agreement. We will use client customer data only for the purpose of delivering the agreed service or as otherwise authorised.</p>
+        <p>Our pre-existing templates, workflows, systems, frameworks, prompts, automation structures, methods, internal documents, strategy material, and implementation logic remain our intellectual property unless a written agreement says otherwise. Client-specific data and approved customer-facing content may be used by the client according to the agreement.</p>
+        <p>Both parties agree to treat confidential business information responsibly and not share it publicly without permission, except where required to deliver the service, use approved suppliers, protect legal rights, or comply with law.</p>
+      </LegalSection>
+
+      <LegalSection index={14} heading="14. Cancellation, Pause, And Data Export">
+        <p>Some packages may require a minimum term due to setup, optimisation, campaign learning, and system management requirements. After any minimum term, either party may cancel with 30 days written notice unless a written agreement says otherwise.</p>
+        <p>Setup fees are generally non-refundable once work has started because they cover strategy, build, configuration, and implementation work already performed. If a client cancels during setup, completed strategy, configuration, build, messaging, or implementation work remains billable.</p>
+        <p>After cancellation, managed workflows, support, platform services, campaign management, phone/SMS services, AI services, and monitoring may stop depending on the setup. Reasonable export options for client-owned contact data may be available where technically possible, legally permitted, and account payments are up to date. Proprietary workflow templates, automation structures, prompts, and internal system assets may not be included unless separately agreed.</p>
+        <p>Service pauses are not automatic and must be approved in writing. Some platform, phone, SMS, AI, and system management costs may continue during a pause.</p>
+      </LegalSection>
+
+      <LegalSection index={15} heading="15. Limitation Of Liability">
+        <p>To the maximum extent permitted by applicable law, we are not liable for indirect, incidental, special, consequential, exemplary, or punitive damages, including lost profit, lost revenue, lost opportunity, loss of goodwill, business interruption, data loss, platform outage loss, ad platform loss, or third-party tool failure.</p>
+        <p>Where liability cannot be excluded, it is limited to the maximum extent permitted by law. For paid services, unless a signed agreement says otherwise, our aggregate liability is limited to the fees paid to us for the affected service during the three months before the event giving rise to the claim.</p>
+        <p>Nothing in these terms excludes rights, remedies, warranties, or guarantees that cannot legally be excluded or limited.</p>
+      </LegalSection>
+
+      <LegalSection index={16} heading="16. Client Indemnity">
+        <p>You agree to indemnify us against claims, losses, costs, liabilities, and expenses arising from inaccurate information you provide, unlawful or inappropriate contact lists, breach of these terms, breach of platform rules, unauthorised account access you cause, client-side service delivery issues, customer disputes about your trade work, or your misuse of the system.</p>
+      </LegalSection>
+
+      <LegalSection index={17} heading="17. Emergency, Safety, Case Studies, And Governing Law">
+        <p>The system may help identify and route urgent enquiries, but it is not an emergency dispatch service. Customers should contact emergency services or appropriate emergency providers where immediate safety risks exist.</p>
+        <p>Case studies, testimonials, and examples are provided for illustration only. Results are not guaranteed and may not be typical. Outcomes depend on the business, market, offer, implementation, and client follow-through.</p>
+        <p>The contracting entity and governing law may be identified in your proposal, invoice, checkout page, or signed agreement. If no contracting entity or governing law is identified, these public website terms are governed by New Zealand law to the extent permitted, without limiting mandatory rights that may apply in another jurisdiction.</p>
+      </LegalSection>
+
+      <LegalSection index={18} heading="18. Questions About These Terms">
+        <p>For questions about these terms, service scope, cancellation, privacy, or data handling, contact us at <a href={`mailto:${contactDetails.email}`}>{contactDetails.email}</a>.</p>
+      </LegalSection>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .legal-doc {
+    max-width: 760px;
+  }
+</style>
