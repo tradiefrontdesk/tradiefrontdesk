@@ -1,0 +1,17 @@
+---
+import TradePage from "@/components/TradePage.astro";
+import { tradePages } from "@/data/site";
+---
+
+<TradePage
+  data={tradePages.roofers}
+  metaTitle="Roofers"
+  metaDescription="A managed front desk for roofers — helps protect reroofing enquiries, inspection bookings, and high-value quote follow-up through weather delays."
+  tradeAdj="roofing"
+  scenarioIntro="You're on a roof all day and the weather sets your schedule. Meanwhile a reroofing enquiry — the kind worth real money — sits unanswered, and Friday's quote goes quiet. Roofing enquiries are too valuable to leave sitting, and too big to lose to a slow reply."
+  exampleNotes={["High-value work captured and answered fast, while the homeowner is still comparing roofers.", "Details and photos requested up front, so you know what you're climbing up to look at.", "Moved toward a booked measure-up or site visit instead of sitting in an inbox.", "Big quotes get chased on a schedule — a reroof decision can take weeks, and follow-up keeps you in it.", "When rain pushes the job, customers hear from you before they have to ask."]}
+  mechanismIntro="An inspection request gets a fast reply while you're still up on a roof. The measure-up or site visit gets booked, and once the quote goes out, follow-up runs until you decide the next step. Weather can move the job — the process keeps hold of it."
+  objectionsIntro="The two questions roofers ask most before the audit, answered plainly."
+  objectionTags={["Shared leads", "While you're up top"]}
+  objectionQuestions={["Is this another site selling my enquiry to three other roofers?", "What happens to a serious enquiry while I'm on a roof all day?"]}
+/>

@@ -1,0 +1,17 @@
+---
+import TradePage from "@/components/TradePage.astro";
+import { tradePages } from "@/data/site";
+---
+
+<TradePage
+  data={tradePages.electricians}
+  metaTitle="Electricians"
+  metaDescription="A managed front desk for electricians — designed to help catch urgent fault calls, switchboard quotes, and EV charger enquiries before they go cold."
+  tradeAdj="electrical"
+  scenarioIntro="You're mid-way through a switchboard upgrade with the mains isolated. The phone rings — a fault call, maybe an EV charger quote. You can't answer, and by knock-off the caller has rung the next sparkie. These are the enquiries the front desk is built to hold onto."
+  exampleNotes={["Answered fast and routed by the urgency rules you approve — not left ringing out to voicemail.", "Captured with the details you need before the site visit, so the quote can go out sooner.", "Qualified while interest is warm — the sizing questions get asked before you call back.", "These often land with whoever answers first. The front desk is designed to help that be you.", "Past customers due for a recheck get a nudge, so repeat work doesn't ride on memory."]}
+  mechanismIntro="A missed fault call gets a text back straight away. Urgent jobs follow the handoff rules you approve; everything else books a callback for when you're off the tools. You decide what counts as urgent — the system keeps the enquiry moving."
+  objectionsIntro="The two questions sparkies ask most before the audit, answered plainly."
+  objectionTags={["Job software", "Urgent callouts"]}
+  objectionQuestions={["What if I already run ServiceM8 or Simpro?", "I can't have anything making promises on a live fault."]}
+/>

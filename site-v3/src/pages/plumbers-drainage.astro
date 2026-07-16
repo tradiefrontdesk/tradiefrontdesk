@@ -1,0 +1,17 @@
+---
+import TradePage from "@/components/TradePage.astro";
+import { tradePages } from "@/data/site";
+---
+
+<TradePage
+  data={tradePages.plumbersDrainage}
+  metaTitle="Plumbers & Drainage"
+  metaDescription="A managed front desk for plumbers and drainage contractors — helps catch after-hours leak calls, blocked-drain enquiries, and chase quiet quotes."
+  tradeAdj="plumbing and drainage"
+  scenarioIntro="A burst pipe doesn't wait for business hours, and a blocked drain won't wait for a voicemail reply. You're under a house with your hands full when the next job calls — and the caller is already looking up the next plumber. These are the enquiries a plumbing front desk has to hold."
+  exampleNotes={["A 7:30pm call gets a fast reply and triage — an on-call alert if it's urgent, a morning callback if it can wait.", "The details collected up front — location, access, how long it's been backing up — before you ring back.", "A text goes back before the caller moves on to the next plumber in the search results.", "The quote you sent Friday gets chased, so it doesn't quietly die in someone's inbox.", "Past customers hear from you again — the cylinder checks and maintenance work that otherwise gets forgotten."]}
+  mechanismIntro="The 7:30pm leak call gets a text back and a triage question. Genuine emergencies alert you or your on-call number by the rules you set; the rest books a next-morning callback. Nothing gets promised on your behalf."
+  objectionsIntro="The two questions plumbers ask most before the audit, answered plainly."
+  objectionTags={["After-hours urgency", "Risky promises"]}
+  objectionQuestions={["A burst pipe can't wait for a callback tomorrow.", "I don't want a machine quoting or promising a fix."]}
+/>

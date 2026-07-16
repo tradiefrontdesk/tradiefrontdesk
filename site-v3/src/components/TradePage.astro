@@ -1,0 +1,413 @@
+---
+// TradePage.astro — shared template for the trade landing pages
+// (electricians / plumbers-drainage / roofers). Owns the full page: compact
+// dark hero -> job-sheet scenario band -> flow mechanism band -> objections
+// ledger -> CTASection close. Thin page wrappers pass a tradePages data
+// object plus per-trade connective copy strings; no markup lives in the
+// wrappers.
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Reveal from "@/components/motion/Reveal.astro";
+import DraftPath from "@/components/motion/DraftPath.astro";
+import HomeVideo from "@/components/home/HomeVideo.astro";
+import CTASection from "@/components/CTASection.astro";
+import { tradePages } from "@/data/site";
+import { videoById, type VideoId } from "@/remotion/data/homeVideos";
+
+type TradeData = (typeof tradePages)[keyof typeof tradePages];
+
+interface Props {
+  data: TradeData;
+  metaTitle: string;
+  metaDescription: string;
+  /** Adjective form for connective copy: "electrical", "plumbing and drainage", "roofing". */
+  tradeAdj: string;
+  scenarioIntro: string;
+  exampleNotes: string[];
+  mechanismIntro: string;
+  objectionsIntro: string;
+  objectionTags: string[];
+  objectionQuestions: string[];
+}
+
+const {
+  data,
+  metaTitle,
+  metaDescription,
+  tradeAdj,
+  scenarioIntro,
+  exampleNotes,
+  mechanismIntro,
+  objectionsIntro,
+  objectionTags,
+  objectionQuestions,
+} = Astro.props as Props;
+
+// Plural noun for the people ("electricians", "plumbers", "roofers") —
+// derived from the eyebrow so the wrappers stay thin.
+const tradeName = data.eyebrow.replace(/^For\s+/i, "");
+// Presentational sentence-casing only — the flow string itself stays the
+// site.ts source of truth.
+const flowSteps = data.flow
+  .split("->")
+  .map((step) => step.trim())
+  .map((step) => step.charAt(0).toUpperCase() + step.slice(1));
+const stepInset = Math.round(100 / (flowSteps.length * 2));
+
+// The trade video ids in site.ts (ElectriciansHeroVideo etc.) are not yet
+// registered as compositions in remotion/data/homeVideos.ts — guard so the
+// page renders correctly today and picks the video up automatically the
+// moment a matching composition is added, instead of crashing on an
+// undefined lookup.
+const hasVideo = Object.prototype.hasOwnProperty.call(videoById, data.videoId);
+const videoId = data.videoId as unknown as VideoId;
+---
+
+<BaseLayout title={metaTitle} description={metaDescription}>
+  <section class="th-hero band-dark blueprint-grid">
+    <div class="container th-hero__inner">
+      <p class="mono-label th-hero__eyebrow">{data.eyebrow}</p>
+      <Reveal as="h1" variant="draft" class="th-hero__title">{data.title}</Reveal>
+      <div class="th-hero__rule" aria-hidden="true">
+        <DraftPath viewBox="0 0 320 8" d="M2 4 L318 4" stroke="var(--action)" strokeWidth={2} />
+      </div>
+      <p class="th-hero__lead max-measure">{data.text}</p>
+      <div class="th-hero__cta">
+        <a class="btn btn-primary" href="/free-audit" data-hero-cta>{data.cta}</a>
+        <a class="btn btn-ghost" href="/how-it-works">See how it works</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="th-jobs band-light section">
+    <div class="container">
+      <header class="th-jobs__head">
+        <p class="mono-label th-jobs__cap">Fig. — the enquiries you can't afford to lose</p>
+        <h2 class="th-jobs__title">The {tradeAdj} enquiries that slip first.</h2>
+        <p class="th-jobs__lead max-measure">{scenarioIntro}</p>
+      </header>
+
+      <ol class="th-jobs__sheet surface-light" aria-label={`${tradeName} enquiry types`}>
+        {
+          data.examples.map((item, i) => (
+            <Reveal as="li" variant="draft" delay={(i % 5) * 0.05} class="th-job">
+              <span class="mono-label th-job__no">Job {String(i + 1).padStart(2, "0")}</span>
+              <div class="th-job__body">
+                <h3 class="th-job__title">{item}</h3>
+                <p class="th-job__note">{exampleNotes[i]}</p>
+              </div>
+            </Reveal>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <section class="th-flow band-dark blueprint-grid section">
+    <div class="container">
+      <header class="th-flow__head">
+        <p class="mono-label th-flow__cap">Fig. — the {tradeAdj} enquiry path</p>
+        <h2 class="th-flow__title">One clear path for every {tradeAdj} enquiry.</h2>
+        <p class="th-flow__lead max-measure">{mechanismIntro}</p>
+      </header>
+
+      <div class="th-flow__flow">
+        <div class="th-flow__rail" style={`left:${stepInset}%; right:${stepInset}%;`} aria-hidden="true">
+          <DraftPath viewBox="0 0 1000 8" d="M4 4 L996 4" stroke="var(--action)" strokeWidth={2} />
+        </div>
+
+        <ol class="th-flow__steps" style={`--step-count: ${flowSteps.length}`}>
+          {
+            flowSteps.map((step, i) => (
+              <Reveal as="li" variant="draft" delay={i * 0.08} class="th-flow__step">
+                <span class="mono-label th-flow__marker">{String(i + 1).padStart(2, "0")}</span>
+                <p class="th-flow__step-text">{step}</p>
+              </Reveal>
+            ))
+          }
+        </ol>
+      </div>
+
+      {
+        hasVideo && (
+          <HomeVideo
+            id={videoId}
+            tone="dark"
+            caption={`How the front desk handles ${tradeAdj} enquiries.`}
+            class="th-flow__media"
+          />
+        )
+      }
+    </div>
+  </section>
+
+  <section class="th-obj band-light section">
+    <div class="container">
+      <header class="th-obj__head">
+        <h2 class="th-obj__title">What {tradeName} ask before they book the audit.</h2>
+        <p class="th-obj__lead max-measure">{objectionsIntro}</p>
+      </header>
+
+      <ol class="th-obj__ledger surface-light">
+        {
+          data.objections.map((answer, i) => (
+            <li class="th-obj__row">
+              <p class="mono-label th-obj__tag">{objectionTags[i]}</p>
+              <div class="th-obj__body">
+                <h3 class="th-obj__q">&ldquo;{objectionQuestions[i]}&rdquo;</h3>
+                <p class="th-obj__a">{answer}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <CTASection
+    title={`See where your ${tradeAdj} enquiries are leaking.`}
+    text={`${data.text} Book a free audit and we'll map where jobs are slipping — no pressure, no lock-in.`}
+    cta={data.cta}
+  />
+</BaseLayout>
+
+<style>
+  /* ---- Hero ---- */
+  .th-hero {
+    position: relative;
+    padding-block: clamp(2.75rem, 6vw, 4.5rem);
+  }
+  .th-hero__inner {
+    max-width: 62ch;
+  }
+  .th-hero__eyebrow {
+    color: var(--marker);
+    margin-bottom: 1.25rem;
+  }
+  .th-hero__title {
+    font-size: clamp(2rem, 4.4vw, 3.25rem);
+    line-height: 1.08;
+    letter-spacing: -0.03em;
+    color: var(--on-dark);
+  }
+  .th-hero__rule {
+    width: min(280px, 60%);
+    margin-block: 1.35rem;
+  }
+  .th-hero__lead {
+    color: var(--on-dark-body);
+    font-size: 1.0625rem;
+  }
+  .th-hero__cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.85rem;
+    margin-top: 2rem;
+  }
+
+  /* ---- Job sheet (scenario band) ---- */
+  .th-jobs__head {
+    max-width: 58ch;
+    margin-bottom: clamp(2rem, 4vw, 3rem);
+  }
+  .th-jobs__cap {
+    color: var(--muted);
+    margin-bottom: 0.85rem;
+  }
+  .th-jobs__title {
+    font-size: clamp(1.75rem, 4vw, 2.75rem);
+    letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+  }
+  .th-jobs__lead {
+    color: var(--body);
+    font-size: 1.0625rem;
+  }
+
+  .th-jobs__sheet {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+  }
+
+  .th-job {
+    display: grid;
+    grid-template-columns: minmax(0, 8rem) minmax(0, 1fr);
+    gap: 1.5rem;
+    padding: clamp(1.25rem, 3vw, 1.75rem) clamp(1.5rem, 3vw, 2.25rem);
+    border-bottom: 1px solid var(--line-light);
+  }
+  .th-job:last-child {
+    border-bottom: none;
+  }
+  .th-job__no {
+    color: var(--ink);
+    padding-top: 0.2rem;
+  }
+  .th-job__title {
+    font-size: 1.125rem;
+    letter-spacing: -0.01em;
+    margin-bottom: 0.4rem;
+  }
+  .th-job__note {
+    color: var(--body);
+    font-size: 0.9375rem;
+    max-width: 60ch;
+  }
+
+  @media (max-width: 640px) {
+    .th-job {
+      grid-template-columns: 1fr;
+      gap: 0.5rem;
+    }
+  }
+
+  /* ---- Flow / mechanism band ---- */
+  .th-flow__head {
+    max-width: 56ch;
+    margin-bottom: clamp(2.5rem, 5vw, 4rem);
+  }
+  .th-flow__cap {
+    color: var(--marker);
+    margin-bottom: 0.85rem;
+  }
+  .th-flow__title {
+    font-size: clamp(1.75rem, 4vw, 2.75rem);
+    letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+  }
+  .th-flow__lead {
+    color: var(--on-dark-body);
+    font-size: 1.0625rem;
+  }
+
+  .th-flow__flow {
+    position: relative;
+  }
+
+  .th-flow__rail {
+    position: absolute;
+    top: 23px;
+    z-index: 0;
+  }
+
+  .th-flow__steps {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(var(--step-count), minmax(0, 1fr));
+    gap: 1.5rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .th-flow__step {
+    display: grid;
+    justify-items: start;
+    gap: 0.65rem;
+  }
+
+  .th-flow__marker {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    border: 1.5px solid var(--action);
+    background: var(--canvas-dark);
+    color: var(--action);
+    font-size: 0.8125rem;
+    font-weight: 600;
+  }
+
+  .th-flow__step-text {
+    color: var(--on-dark-body);
+    font-size: 0.9688rem;
+    max-width: 26ch;
+  }
+
+  .th-flow__media {
+    width: 100%;
+    max-width: 420px;
+    margin-top: clamp(2.5rem, 5vw, 4rem);
+    margin-inline: auto;
+  }
+
+  @media (max-width: 780px) {
+    .th-flow__rail {
+      display: none;
+    }
+    .th-flow__steps {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+    .th-flow__step {
+      grid-template-columns: 46px minmax(0, 1fr);
+      display: grid;
+      align-items: start;
+      column-gap: 1.25rem;
+    }
+    .th-flow__step-text {
+      max-width: none;
+    }
+  }
+
+  /* ---- Objections ledger ---- */
+  .th-obj__head {
+    max-width: 56ch;
+    margin-bottom: clamp(2rem, 4vw, 3rem);
+  }
+  .th-obj__title {
+    font-size: clamp(1.75rem, 4vw, 2.75rem);
+    letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+  }
+  .th-obj__lead {
+    color: var(--body);
+    font-size: 1.0625rem;
+  }
+
+  .th-obj__ledger {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+  }
+
+  .th-obj__row {
+    display: grid;
+    grid-template-columns: minmax(0, 11rem) minmax(0, 1fr);
+    gap: 1.5rem;
+    padding: clamp(1.5rem, 3vw, 2.25rem);
+    border-bottom: 1px solid var(--line-light);
+  }
+  .th-obj__row:last-child {
+    border-bottom: none;
+  }
+
+  .th-obj__tag {
+    color: var(--muted);
+    padding-top: 0.2rem;
+  }
+
+  .th-obj__q {
+    font-size: 1.1875rem;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    margin-bottom: 0.6rem;
+  }
+
+  .th-obj__a {
+    color: var(--body);
+    font-size: 0.9375rem;
+    max-width: 62ch;
+  }
+
+  @media (max-width: 640px) {
+    .th-obj__row {
+      grid-template-columns: 1fr;
+      gap: 0.6rem;
+    }
+  }
+</style>
