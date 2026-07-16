@@ -223,7 +223,7 @@ export const tradePages = {
   electricians: {
     path: "/electricians",
     eyebrow: "For electricians",
-    title: "Electrical Enquiries Do Not Wait. Neither Should Your Front Desk.",
+    title: "Electrical enquiries do not wait. Neither should your front desk.",
     text: "Catch urgent fault calls, switchboard quotes, heat pump enquiries, and EV charger requests before they go cold.",
     cta: "Book a Free Electrical Front Desk Audit",
     examples: ["Urgent fault calls", "Switchboard upgrade quotes", "Heat pump enquiries", "EV charger enquiries", "Safety check follow-up"],
@@ -234,7 +234,7 @@ export const tradePages = {
   plumbersDrainage: {
     path: "/plumbers-drainage",
     eyebrow: "For plumbers",
-    title: "An Urgent Plumbing Call Needs A Fast Front Desk.",
+    title: "An urgent plumbing call needs a fast front desk.",
     text: "Handle after-hours leaks, blocked-drain enquiries, missed calls, quote follow-up, and past-customer reactivation with one clear process.",
     cta: "Book a Free Plumbing Front Desk Audit",
     examples: ["After-hours leak", "Blocked drain enquiry", "Missed call during a job", "Quote request follow-up", "Old customer reactivation"],
@@ -245,7 +245,7 @@ export const tradePages = {
   roofers: {
     path: "/roofers",
     eyebrow: "For roofers",
-    title: "Roofing Enquiries Are Too Valuable To Leave Sitting.",
+    title: "Roofing enquiries are too valuable to leave sitting.",
     text: "Protect reroofing enquiries, repair requests, inspection bookings, quote follow-up, and weather-delay updates.",
     cta: "Book a Free Roofing Front Desk Audit",
     examples: ["Reroofing enquiry", "Roof repair request", "Site inspection booking", "Quote follow-up", "Weather-delay communication"],
