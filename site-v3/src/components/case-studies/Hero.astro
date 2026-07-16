@@ -1,0 +1,110 @@
+---
+// Hero.astro — case-studies index, Section 1 (dark)
+// Compact interior hero (why-were-different's split pattern, not the
+// homepage's full hero): eyebrow, h1, one lead paragraph, primary + ghost
+// CTA, trust line, CaseStudiesHeroVideo as the supporting figure. States
+// the claims-safe framing up front so nothing below reads as a surprise.
+import HomeVideo from "@/components/home/HomeVideo.astro";
+import Reveal from "@/components/motion/Reveal.astro";
+import { brand } from "@/data/site";
+---
+
+<section class="cs-hero band-dark blueprint-grid">
+  <div class="container cs-hero__inner">
+    <div class="cs-hero__copy">
+      <p class="mono-label cs-hero__eyebrow">Proof</p>
+
+      <Reveal as="h1" variant="draft" class="cs-hero__title">
+        Proof, honestly framed.
+      </Reveal>
+
+      <p class="cs-hero__lead max-measure">
+        No guaranteed job counts, no vague growth claims. What you get here is
+        what the system actually tracks — calls caught, replies sent,
+        follow-ups completed — walked through as worked examples, with the
+        limits stated plainly next to every result.
+      </p>
+
+      <div class="cs-hero__cta">
+        <a class="btn btn-primary" href="/free-audit" data-hero-cta
+          >Book a Free Front Desk Audit</a
+        >
+        <a class="btn btn-ghost" href="/pricing">See pricing</a>
+      </div>
+
+      <p class="cs-hero__trust">{brand.trustLine}</p>
+    </div>
+
+    <div class="cs-hero__media">
+      <HomeVideo
+        id="CaseStudiesHeroVideo"
+        tone="dark"
+        caption="Proof without hype — activity tracked, not promised."
+      />
+    </div>
+  </div>
+</section>
+
+<style>
+  .cs-hero {
+    padding-block: clamp(2.5rem, 6vw, 4.5rem);
+  }
+
+  .cs-hero__inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    gap: clamp(2rem, 5vw, 3.5rem);
+    align-items: center;
+  }
+
+  .cs-hero__eyebrow {
+    color: var(--marker);
+    margin-bottom: 1.25rem;
+  }
+
+  .cs-hero__title {
+    font-size: clamp(2rem, 4.4vw, 3.35rem);
+    line-height: 1.08;
+    letter-spacing: -0.03em;
+    color: var(--on-dark);
+    max-width: 14ch;
+  }
+
+  .cs-hero__lead {
+    color: var(--on-dark-body);
+    font-size: 1.0625rem;
+    margin-top: 1.25rem;
+  }
+
+  .cs-hero__cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.85rem;
+    margin-block: 1.75rem 1.25rem;
+  }
+
+  .cs-hero__trust {
+    font-size: 0.875rem;
+    line-height: 1.55;
+    color: var(--on-dark-muted);
+    max-width: 46ch;
+  }
+
+  .cs-hero__media {
+    width: 100%;
+  }
+
+  @media (max-width: 900px) {
+    .cs-hero__inner {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+    .cs-hero__title {
+      max-width: 100%;
+    }
+    .cs-hero__media {
+      max-width: 420px;
+      margin-inline: auto;
+    }
+  }
+</style>

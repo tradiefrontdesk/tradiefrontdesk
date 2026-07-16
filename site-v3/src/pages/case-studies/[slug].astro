@@ -1,0 +1,43 @@
+---
+// case-studies/[slug].astro — Proof detail
+// getStaticPaths reuses the exact slug scheme from the old site's
+// src/pages/case-studies/[slug].astro: one static path per proofExample,
+// keyed on study.slug (site.ts's caseStudies export is a direct alias of
+// proofExamples, so both names resolve to the same three records/slugs).
+// Body renders the full record as a job-sheet artifact: situation -> what
+// was installed (numbered mono list) -> reported outcome (labelled) ->
+// "what this shows" connective paragraph (claims-safe) -> disclaimer ->
+// CTASection.
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import DetailHero from "@/components/case-studies/DetailHero.astro";
+import JobSheet from "@/components/case-studies/JobSheet.astro";
+import WhatThisShows from "@/components/case-studies/WhatThisShows.astro";
+import Disclaimer from "@/components/case-studies/Disclaimer.astro";
+import CTASection from "@/components/CTASection.astro";
+import { proofExamples } from "@/data/site";
+
+export function getStaticPaths() {
+  return proofExamples.map((study) => ({
+    params: { slug: study.slug },
+    props: { study },
+  }));
+}
+
+const { study } = Astro.props;
+
+const description = `${study.business}: ${study.snapshot} Reported outcome, labelled as illustrative, not guaranteed.`.slice(0, 155);
+---
+
+<BaseLayout title={study.business} description={description}>
+  <DetailHero study={study} />
+  <JobSheet study={study} />
+  <WhatThisShows />
+  <Disclaimer
+    eyebrow="Before you read this as a promise"
+    heading="One reported outcome. Not a guarantee for your business."
+  />
+  <CTASection
+    title="Want to find where your business is leaking enquiries?"
+    text="Book a Free Front Desk Audit and we'll map your current enquiry process — no pressure, no lock-in."
+  />
+</BaseLayout>

@@ -1,0 +1,157 @@
+---
+// MetricsBand.astro — case-studies index, Section 2 (light)
+// StatTick counts only real STRUCTURAL facts (category count, worked-example
+// count, step count) — never a promised outcome — matching the rule already
+// established in home/ProofBand.astro. Below the count row, the five
+// proofMetrics render as a bordered ledger (mono index + name + what it
+// means), explicitly labelled as what gets reported, not a result achieved.
+import StatTick from "@/components/motion/StatTick.tsx";
+import Reveal from "@/components/motion/Reveal.astro";
+import { proofMetrics, proofExamples, processSteps } from "@/data/site";
+
+const stats = [
+  { value: proofMetrics.length, label: "categories tracked and reported every month" },
+  { value: proofExamples.length, label: "worked examples you can read in full" },
+  { value: processSteps.length, label: "steps behind every example on this page" },
+];
+---
+
+<section class="mb band-light section">
+  <div class="container">
+    <header class="mb__head">
+      <p class="mono-label mb__cap">What we measure</p>
+      <h2 class="mb__title">Proof means visible activity, not a promised number.</h2>
+      <p class="mb__lead max-measure">
+        The useful evidence isn't a growth claim. It's what the system caught,
+        sent, followed up, booked, and surfaced for the owner to see.
+      </p>
+    </header>
+
+    <dl class="mb__stats">
+      {
+        stats.map((stat, i) => (
+          <Reveal as="div" variant="stamp" delay={i * 0.08} class="mb__stat">
+            <dt class="mb__num">
+              <StatTick client:visible value={stat.value} />
+            </dt>
+            <dd class="mb__stat-label">{stat.label}</dd>
+          </Reveal>
+        ))
+      }
+    </dl>
+
+    <p class="mono-label mb__note">
+      These are the categories every client sees in their monthly report — not a result we're promising you.
+    </p>
+
+    <ol class="mb__ledger surface-light">
+      {
+        proofMetrics.map(([name, text], i) => (
+          <li class="mb__row">
+            <span class="mono-label mb__row-num">{String(i + 1).padStart(2, "0")}</span>
+            <div class="mb__row-body">
+              <h3 class="mb__row-name">{name}</h3>
+              <p class="mb__row-text">{text}</p>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>
+
+<style>
+  .mb__head {
+    max-width: 60ch;
+    margin-bottom: clamp(2rem, 4vw, 3rem);
+  }
+  .mb__cap {
+    color: var(--muted);
+    margin-bottom: 0.85rem;
+  }
+  .mb__title {
+    font-size: clamp(1.75rem, 4vw, 2.75rem);
+    letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+  }
+  .mb__lead {
+    color: var(--body);
+    font-size: 1.0625rem;
+  }
+
+  .mb__stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+    margin: 0 0 1.5rem;
+    padding-block: clamp(1.5rem, 3vw, 2rem);
+    border-block: 1px solid var(--line-light);
+  }
+  .mb__stat {
+    display: grid;
+    gap: 0.4rem;
+  }
+  .mb__num {
+    font-family: var(--font-display);
+    font-variation-settings: "wdth" 125;
+    font-weight: 700;
+    font-size: clamp(2.5rem, 6vw, 3.75rem);
+    line-height: 1;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+  }
+  .mb__stat-label {
+    margin: 0;
+    color: var(--muted);
+    font-size: 0.9375rem;
+    max-width: 22ch;
+  }
+
+  .mb__note {
+    color: var(--muted);
+    margin-bottom: clamp(1.5rem, 3vw, 2.25rem);
+  }
+
+  .mb__ledger {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+  }
+
+  .mb__row {
+    display: grid;
+    grid-template-columns: minmax(0, 3rem) minmax(0, 1fr);
+    gap: 1.25rem;
+    padding: clamp(1.25rem, 2.5vw, 1.65rem) clamp(1.5rem, 3vw, 2rem);
+    border-bottom: 1px solid var(--line-light);
+  }
+  .mb__row:last-child {
+    border-bottom: none;
+  }
+  .mb__row-num {
+    color: var(--muted);
+    padding-top: 0.2rem;
+  }
+  .mb__row-name {
+    font-size: 1.1875rem;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    margin-bottom: 0.35rem;
+  }
+  .mb__row-text {
+    color: var(--body);
+    font-size: 0.9375rem;
+  }
+
+  @media (max-width: 640px) {
+    .mb__stats {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+    .mb__row {
+      grid-template-columns: 1fr;
+      gap: 0.5rem;
+    }
+  }
+</style>

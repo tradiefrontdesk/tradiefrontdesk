@@ -1,0 +1,77 @@
+---
+// WhatThisShows.astro — case-studies [slug], Section 3 (dark)
+// The connective paragraph a job sheet doesn't say for itself: what this
+// one worked example demonstrates about the process, stated without
+// extrapolating to the reader's own numbers. Claims-safe by construction —
+// it only restates the five-step mechanism and points back at the
+// disclaimer that follows, never a new promise.
+import { mechanism } from "@/data/site";
+---
+
+<section class="wts band-dark blueprint-grid section">
+  <div class="container">
+    <p class="mono-label wts__cap">What this shows</p>
+    <h2 class="wts__title">One example of the process. Not a preview of your numbers.</h2>
+    <p class="wts__text max-measure">
+      This is one worked example of the same process every client gets:{" "}
+      {mechanism.join(" → ")}. It shows how the system handles one specific
+      kind of enquiry from first contact to a tracked next step &mdash; it
+      doesn't predict what will happen in your business. Your results depend
+      on your market, your services, your response speed, and your
+      follow-through, the same as anyone's.
+    </p>
+
+    <ol class="wts__mech" aria-label="The core mechanism">
+      {mechanism.map((step, i) => (
+        <li>
+          <span class="mono-label wts__mech-num">{String(i + 1).padStart(2, "0")}</span>
+          <span class="wts__mech-label">{step}</span>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<style>
+  .wts__cap {
+    color: var(--marker);
+    margin-bottom: 0.85rem;
+  }
+  .wts__title {
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+    max-width: 26ch;
+  }
+  .wts__text {
+    color: var(--on-dark-body);
+    font-size: 1.0625rem;
+    margin-bottom: clamp(2rem, 4vw, 2.75rem);
+  }
+
+  .wts__mech {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 1rem;
+  }
+  .wts__mech li {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.55rem 0.9rem;
+    border: 1px solid var(--line-dark);
+    border-radius: var(--radius-sm);
+    background: var(--surface-dark-2);
+  }
+  .wts__mech-num {
+    color: var(--action);
+  }
+  .wts__mech-label {
+    color: var(--on-dark-body);
+    font-weight: 500;
+    font-size: 0.9375rem;
+  }
+</style>

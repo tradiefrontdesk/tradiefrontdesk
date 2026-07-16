@@ -1,0 +1,30 @@
+---
+// case-studies/index.astro — Proof index
+// Compact dark hero ("proof, honestly framed") -> proofMetrics band with
+// StatTick (structural counts, labelled as what gets reported, never a
+// promised outcome) -> the three proofExamples as annotated dossier rows
+// (not equal cards) -> visible disclaimer -> CTASection. Routing for the
+// [slug] detail pages reuses the exact slug scheme from the old site's
+// src/pages/case-studies/[slug].astro (getStaticPaths keyed off
+// study.slug against site.ts's caseStudies/proofExamples).
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Hero from "@/components/case-studies/Hero.astro";
+import MetricsBand from "@/components/case-studies/MetricsBand.astro";
+import Dossier from "@/components/case-studies/Dossier.astro";
+import Disclaimer from "@/components/case-studies/Disclaimer.astro";
+import CTASection from "@/components/CTASection.astro";
+---
+
+<BaseLayout
+  title="Proof & Case Studies"
+  description="Calls caught, replies sent, and follow-ups completed — worked examples of the Tradie Front Desk process, with reported outcomes labelled honestly."
+>
+  <Hero />
+  <MetricsBand />
+  <Dossier />
+  <Disclaimer />
+  <CTASection
+    title="Want to find where your business is leaking enquiries?"
+    text="Book a Free Front Desk Audit and we'll map your current enquiry process — no pressure, no lock-in."
+  />
+</BaseLayout>

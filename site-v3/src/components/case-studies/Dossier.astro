@@ -1,0 +1,219 @@
+---
+// Dossier.astro — case-studies index, Section 3 (dark)
+// The three proofExamples as annotated dossier rows — NOT three equal
+// cards. Each row reads like a case file: tag + location, situation,
+// what was installed (system[] as a numbered mono list), and a clearly
+// bordered "reported outcome" block carrying its own results-vary line.
+// CaseStudyProofVideo sits in the section header as the supporting figure.
+import HomeVideo from "@/components/home/HomeVideo.astro";
+import Reveal from "@/components/motion/Reveal.astro";
+import { proofExamples } from "@/data/site";
+---
+
+<section class="dos band-dark blueprint-grid section">
+  <div class="container">
+    <header class="dos__head">
+      <div class="dos__intro">
+        <p class="mono-label dos__cap">Fig. — worked examples</p>
+        <h2 class="dos__title">Three worked examples, walked through end to end.</h2>
+        <p class="dos__lead max-measure">
+          Each one shows the same shape: the moment a job usually leaks, the
+          system installed to catch it, and the outcome that was reported —
+          labelled honestly, every time.
+        </p>
+      </div>
+      <HomeVideo
+        id="CaseStudyProofVideo"
+        tone="dark"
+        caption="Activity before claims — the case study map."
+        class="dos__media"
+      />
+    </header>
+
+    <ol class="dos__list" aria-label="Worked examples">
+      {
+        proofExamples.map((ex, i) => (
+          <Reveal as="li" variant="draft" delay={i * 0.07} class="dos-row">
+            <div class="dos-row__meta">
+              <span class="mono-label dos-row__tag">Worked example {String(i + 1).padStart(2, "0")}</span>
+              <span class="mono-label dos-row__loc">{ex.location}</span>
+            </div>
+
+            <div class="dos-row__body">
+              <h3 class="dos-row__title">{ex.shortHeadline}</h3>
+
+              <div class="dos-row__field">
+                <p class="mono-label dos-row__label">Situation</p>
+                <p class="dos-row__text">{ex.snapshot}</p>
+              </div>
+
+              <div class="dos-row__field">
+                <p class="mono-label dos-row__label">What was installed</p>
+                <ol class="dos-row__system">
+                  {ex.system.map((item) => (
+                    <li>{item}</li>
+                  ))}
+                </ol>
+              </div>
+
+              <div class="dos-row__outcome">
+                <p class="mono-label dos-row__label">Reported outcome</p>
+                <p class="dos-row__result">{ex.result}</p>
+                <p class="dos-row__note">{ex.reported}</p>
+              </div>
+
+              <a class="dos-row__link" href={`/case-studies/${ex.slug}`}>
+                Read the full breakdown
+                <span aria-hidden="true">&rarr;</span>
+              </a>
+            </div>
+          </Reveal>
+        ))
+      }
+    </ol>
+  </div>
+</section>
+
+<style>
+  .dos__head {
+    display: grid;
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr);
+    gap: clamp(1.75rem, 4vw, 3.25rem);
+    align-items: center;
+    margin-bottom: clamp(2.5rem, 5vw, 3.5rem);
+  }
+  .dos__cap {
+    color: var(--marker);
+    margin-bottom: 0.85rem;
+  }
+  .dos__title {
+    font-size: clamp(1.75rem, 4vw, 2.75rem);
+    letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+  }
+  .dos__lead {
+    color: var(--on-dark-body);
+    font-size: 1.0625rem;
+  }
+  .dos__media {
+    max-width: 380px;
+    justify-self: end;
+    width: 100%;
+  }
+
+  .dos__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  .dos-row {
+    display: grid;
+    grid-template-columns: minmax(0, 12rem) minmax(0, 1fr);
+    gap: clamp(1.25rem, 3vw, 2rem);
+    padding: clamp(1.5rem, 3vw, 2.25rem);
+    background: var(--surface-dark);
+    border: 1px solid var(--line-dark);
+    border-radius: var(--radius-lg);
+  }
+
+  .dos-row__meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .dos-row__tag {
+    color: var(--marker);
+    font-size: 0.6875rem;
+  }
+  .dos-row__loc {
+    color: var(--on-dark-muted);
+  }
+
+  .dos-row__body {
+    display: grid;
+    gap: 1.1rem;
+    align-content: start;
+  }
+  .dos-row__title {
+    font-size: 1.375rem;
+    letter-spacing: -0.01em;
+    color: var(--on-dark);
+  }
+
+  .dos-row__field {
+    display: grid;
+    gap: 0.4rem;
+  }
+  .dos-row__label {
+    color: var(--on-dark-muted);
+  }
+  .dos-row__text {
+    color: var(--on-dark-body);
+    font-size: 0.9375rem;
+  }
+
+  .dos-row__system {
+    margin: 0;
+    padding-left: 1.2rem;
+    display: grid;
+    gap: 0.3rem;
+    color: var(--on-dark-body);
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    letter-spacing: 0.01em;
+  }
+
+  .dos-row__outcome {
+    display: grid;
+    gap: 0.35rem;
+    padding-top: 0.9rem;
+    border-top: 1px solid var(--line-dark);
+  }
+  .dos-row__result {
+    color: var(--on-dark);
+    font-size: 0.9375rem;
+    font-weight: 500;
+  }
+  .dos-row__note {
+    color: var(--on-dark-muted);
+    font-size: 0.75rem;
+    line-height: 1.5;
+  }
+
+  .dos-row__link {
+    justify-self: start;
+    color: var(--action);
+    font-weight: 600;
+    font-size: 0.9375rem;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .dos-row__link:hover {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 860px) {
+    .dos__head {
+      grid-template-columns: 1fr;
+    }
+    .dos__media {
+      justify-self: start;
+      max-width: 400px;
+    }
+  }
+
+  @media (max-width: 680px) {
+    .dos-row {
+      grid-template-columns: 1fr;
+    }
+    .dos-row__meta {
+      flex-direction: row;
+      justify-content: space-between;
+    }
+  }
+</style>

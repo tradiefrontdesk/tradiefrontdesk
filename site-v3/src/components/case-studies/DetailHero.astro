@@ -1,0 +1,111 @@
+---
+// DetailHero.astro — case-studies [slug], Section 1 (dark)
+// Compact interior hero for a single worked example. Same split pattern as
+// the index hero, but the copy is per-study: headline as h1, snapshot as
+// the lead, CaseStudyDetailVideo (shared across every slug) as the figure.
+import HomeVideo from "@/components/home/HomeVideo.astro";
+import Reveal from "@/components/motion/Reveal.astro";
+import { brand } from "@/data/site";
+import type { proofExamples } from "@/data/site";
+
+interface Props {
+  study: (typeof proofExamples)[number];
+}
+
+const { study } = Astro.props;
+---
+
+<section class="dh band-dark blueprint-grid">
+  <div class="container dh__inner">
+    <div class="dh__copy">
+      <p class="mono-label dh__eyebrow">Worked example &mdash; {study.location}</p>
+
+      <Reveal as="h1" variant="draft" class="dh__title">
+        {study.headline}
+      </Reveal>
+
+      <p class="dh__lead max-measure">{study.snapshot}</p>
+
+      <div class="dh__cta">
+        <a class="btn btn-primary" href="/free-audit" data-hero-cta
+          >Book a Free Front Desk Audit</a
+        >
+        <a class="btn btn-ghost" href="/case-studies">All worked examples</a>
+      </div>
+
+      <p class="dh__trust">{brand.trustLine}</p>
+    </div>
+
+    <div class="dh__media">
+      <HomeVideo
+        id="CaseStudyDetailVideo"
+        tone="dark"
+        caption="Snapshot, system, and reported result — in that order."
+      />
+    </div>
+  </div>
+</section>
+
+<style>
+  .dh {
+    padding-block: clamp(2.5rem, 6vw, 4.5rem);
+  }
+
+  .dh__inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    gap: clamp(2rem, 5vw, 3.5rem);
+    align-items: center;
+  }
+
+  .dh__eyebrow {
+    color: var(--marker);
+    margin-bottom: 1.25rem;
+  }
+
+  .dh__title {
+    font-size: clamp(1.85rem, 4.2vw, 3rem);
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    color: var(--on-dark);
+    max-width: 20ch;
+  }
+
+  .dh__lead {
+    color: var(--on-dark-body);
+    font-size: 1.0625rem;
+    margin-top: 1.25rem;
+  }
+
+  .dh__cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.85rem;
+    margin-block: 1.75rem 1.25rem;
+  }
+
+  .dh__trust {
+    font-size: 0.875rem;
+    line-height: 1.55;
+    color: var(--on-dark-muted);
+    max-width: 46ch;
+  }
+
+  .dh__media {
+    width: 100%;
+  }
+
+  @media (max-width: 900px) {
+    .dh__inner {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+    .dh__title {
+      max-width: 100%;
+    }
+    .dh__media {
+      max-width: 420px;
+      margin-inline: auto;
+    }
+  }
+</style>

@@ -1,0 +1,67 @@
+---
+// Disclaimer.astro — shared claims-safety block, used on both the
+// case-studies index and every [slug] detail page. Renders the exact
+// site.ts disclaimer text as a visible, readable paragraph (not buried
+// fine print) inside a bordered callout so it reads as a deliberate part
+// of the page, not a footnote. `tone` matches whichever band it sits in.
+import { disclaimer } from "@/data/site";
+
+interface Props {
+  tone?: "dark" | "light";
+  eyebrow?: string;
+  heading?: string;
+}
+
+const {
+  tone = "light",
+  eyebrow = "Read this before you compare",
+  heading = "Results depend on your business, not only the system.",
+} = Astro.props;
+---
+
+<section class:list={["cs-disc", tone === "dark" ? "band-dark blueprint-grid" : "band-light", "section"]}>
+  <div class="container">
+    <div class:list={["cs-disc__box", tone === "dark" ? "cs-disc__box--dark" : "surface-light"]}>
+      <p class="mono-label cs-disc__eyebrow">{eyebrow}</p>
+      <h2 class="cs-disc__heading">{heading}</h2>
+      <p class="cs-disc__text max-measure">{disclaimer}</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cs-disc__box {
+    padding: clamp(1.75rem, 4vw, 2.5rem);
+    border-radius: var(--radius-lg);
+  }
+
+  .cs-disc__box--dark {
+    background: var(--surface-dark);
+    border: 1px solid var(--line-dark);
+  }
+
+  .cs-disc__eyebrow {
+    color: var(--muted);
+    margin-bottom: 0.75rem;
+  }
+
+  .band-dark .cs-disc__eyebrow {
+    color: var(--on-dark-muted);
+  }
+
+  .cs-disc__heading {
+    font-size: clamp(1.375rem, 2.6vw, 1.75rem);
+    letter-spacing: -0.01em;
+    margin-bottom: 0.85rem;
+  }
+
+  .cs-disc__text {
+    color: var(--body);
+    font-size: 0.9375rem;
+    line-height: 1.6;
+  }
+
+  .band-dark .cs-disc__text {
+    color: var(--on-dark-body);
+  }
+</style>

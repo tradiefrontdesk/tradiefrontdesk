@@ -1,0 +1,175 @@
+---
+// JobSheet.astro — case-studies [slug], Section 2 (light)
+// The full proofExample record rendered as ONE annotated blueprint artifact
+// — a "job sheet," not three cards. A dark title-block header row (business
+// / industry / location, matching ComparisonBlueprint's spec-sheet device)
+// sits above three stacked fields: situation, what was installed (system[]
+// as a numbered mono list), and the reported outcome — kept visibly
+// labelled, never presented as a bare number.
+import type { proofExamples } from "@/data/site";
+
+interface Props {
+  study: (typeof proofExamples)[number];
+}
+
+const { study } = Astro.props;
+---
+
+<section class="js band-light section">
+  <div class="container">
+    <header class="js__head">
+      <p class="mono-label js__cap">Fig. &mdash; job sheet</p>
+      <h2 class="js__title">The record, in full.</h2>
+      <p class="js__lead max-measure">
+        Everything below is exactly what was tracked for this example &mdash;
+        the situation, what got installed, and the outcome that was
+        reported. Nothing is extrapolated past what's written here.
+      </p>
+    </header>
+
+    <div class="js__sheet surface-light">
+      <div class="js__title-block">
+        <div>
+          <p class="mono-label js__tb-label">Example</p>
+          <p class="js__tb-value">{study.business}</p>
+        </div>
+        <div>
+          <p class="mono-label js__tb-label">Industry</p>
+          <p class="js__tb-value">{study.industry}</p>
+        </div>
+        <div>
+          <p class="mono-label js__tb-label">Applies to</p>
+          <p class="js__tb-value">{study.location}</p>
+        </div>
+      </div>
+
+      <div class="js__field">
+        <p class="mono-label js__field-label">01 &mdash; Situation</p>
+        <p class="js__field-text">{study.snapshot}</p>
+      </div>
+
+      <div class="js__field">
+        <p class="mono-label js__field-label">02 &mdash; What was installed</p>
+        <ol class="js__system">
+          {study.system.map((item, i) => (
+            <li>
+              <span class="mono-label js__system-num">{String(i + 1).padStart(2, "0")}</span>
+              <span>{item}</span>
+            </li>
+          ))}
+        </ol>
+      </div>
+
+      <div class="js__field js__field--outcome">
+        <p class="mono-label js__field-label">03 &mdash; Reported outcome</p>
+        <p class="js__result">{study.result}</p>
+        <p class="js__note">{study.reported}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .js__head {
+    max-width: 62ch;
+    margin-bottom: clamp(2rem, 4vw, 3rem);
+  }
+  .js__cap {
+    color: var(--muted);
+    margin-bottom: 0.85rem;
+  }
+  .js__title {
+    font-size: clamp(1.75rem, 4vw, 2.75rem);
+    letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+  }
+  .js__lead {
+    color: var(--body);
+    font-size: 1.0625rem;
+  }
+
+  .js__sheet {
+    overflow: hidden;
+  }
+
+  .js__title-block {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.25rem;
+    padding: clamp(1.25rem, 2.5vw, 1.75rem) clamp(1.5rem, 3vw, 2.25rem);
+    background: var(--canvas-dark);
+  }
+  .js__tb-label {
+    color: var(--on-dark-muted);
+    margin-bottom: 0.35rem;
+  }
+  .js__tb-value {
+    font-family: var(--font-display);
+    font-variation-settings: "wdth" 125;
+    font-weight: 700;
+    font-size: 1.0625rem;
+    letter-spacing: -0.01em;
+    color: var(--on-dark);
+  }
+
+  .js__field {
+    padding: clamp(1.5rem, 3vw, 2.25rem);
+    border-bottom: 1px solid var(--line-light);
+    display: grid;
+    gap: 0.65rem;
+  }
+  .js__field:last-child {
+    border-bottom: none;
+  }
+  .js__field-label {
+    color: var(--muted);
+  }
+  .js__field-text {
+    color: var(--body);
+    font-size: 1rem;
+    max-width: 62ch;
+  }
+
+  .js__system {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 0.6rem;
+  }
+  .js__system li {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.85rem;
+    align-items: baseline;
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    color: var(--ink);
+  }
+  .js__system-num {
+    color: var(--muted);
+  }
+
+  .js__field--outcome {
+    background: color-mix(in oklch, var(--action) 6%, var(--surface-light));
+  }
+  .js__result {
+    color: var(--ink);
+    font-size: 1.0625rem;
+    font-weight: 500;
+    max-width: 62ch;
+  }
+  .js__note {
+    color: var(--muted);
+    font-size: 0.8125rem;
+    line-height: 1.6;
+    max-width: 62ch;
+  }
+
+  @media (max-width: 640px) {
+    .js__title-block {
+      grid-template-columns: 1fr;
+      gap: 0.85rem;
+    }
+  }
+</style>
