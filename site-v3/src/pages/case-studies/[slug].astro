@@ -25,7 +25,17 @@ export function getStaticPaths() {
 
 const { study } = Astro.props;
 
-const description = `${study.business}: ${study.snapshot} Reported outcome, labelled as illustrative, not guaranteed.`.slice(0, 155);
+// Meta sweep fix: the previous suffix ("Reported outcome, labelled as
+// illustrative, not guaranteed.") pushed every one of the three studies
+// past 160 chars, and the blind .slice(0, 155) cut mid-word instead of
+// mid-sentence. Shorter suffix keeps all three under the cap without
+// truncation; the word-boundary fallback only bites if a future study's
+// snapshot text runs long.
+const rawDescription = `${study.business}: ${study.snapshot} Reported outcome, not a guarantee.`;
+const description =
+  rawDescription.length <= 160
+    ? rawDescription
+    : `${rawDescription.slice(0, 157).replace(/\s+\S*$/, "")}…`;
 ---
 
 <BaseLayout title={study.business} description={description}>
