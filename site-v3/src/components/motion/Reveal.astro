@@ -29,7 +29,7 @@ interface Props {
   class?: string;
 }
 
-const { variant = "draft", delay = 0, as = "div", class: className } = Astro.props;
+const { variant = "draft", delay = 0, as = "div", class: className, ...rest } = Astro.props;
 
 const Tag = as;
 ---
@@ -39,6 +39,7 @@ const Tag = as;
   data-reveal
   data-reveal-variant={variant}
   style={delay ? `--reveal-delay: ${delay}s` : undefined}
+  {...rest}
 >
   <slot />
 </Tag>

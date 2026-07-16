@@ -16,10 +16,10 @@ interface Props {
   class?: string;
 }
 
-const { id, caption, tone = "dark", class: className } = Astro.props;
+const { id, caption, tone = "dark", class: className, ...rest } = Astro.props;
 ---
 
-<figure class:list={["hv", `hv--${tone}`, className]}>
+<figure class:list={["hv", `hv--${tone}`, className]} {...rest}>
   <div class="hv__frame">
     <span class="hv__reg hv__reg--tl" aria-hidden="true"></span>
     <span class="hv__reg hv__reg--tr" aria-hidden="true"></span>
