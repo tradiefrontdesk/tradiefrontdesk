@@ -1,0 +1,23 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Hero from "@/components/whats-included/Hero.astro";
+import SystemIntro from "@/components/whats-included/SystemIntro.astro";
+import ModuleGroups from "@/components/whats-included/ModuleGroups.astro";
+import PackagesCrossLink from "@/components/whats-included/PackagesCrossLink.astro";
+import CTASection from "@/components/CTASection.astro";
+import { corePromise } from "@/data/site";
+---
+
+<BaseLayout
+  title="What's Included"
+  description="Every module in the Tradie Front Desk system, grouped by capture, respond, follow-up, organise, and reputation — with what each does and why it matters."
+>
+  <Hero />
+  <SystemIntro />
+  <ModuleGroups />
+  <PackagesCrossLink />
+  <CTASection
+    title="See which package fits your front desk."
+    text={`${corePromise} Book a free audit and we'll map which modules your business needs first — no pressure, no lock-in.`}
+  />
+</BaseLayout>

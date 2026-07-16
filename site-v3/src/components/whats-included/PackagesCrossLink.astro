@@ -1,0 +1,118 @@
+---
+// PackagesCrossLink.astro — What's Included, Section 4 (light)
+// Closes the module breakdown by pointing at the packages page: modules
+// bundle into a package sized to the business, they are not picked one at a
+// time. Deliberately lightweight — package names, badges, and bestFor lines
+// only; exact prices and inclusion lists stay on /pricing so this page never
+// restates a number it doesn't own.
+import Reveal from "@/components/motion/Reveal.astro";
+import { packages } from "@/data/site";
+---
+
+<section class="wi-pkg band-light section">
+  <div class="container">
+    <header class="wi-pkg__head">
+      <p class="mono-label wi-pkg__cap">Where these modules live</p>
+      <h2 class="wi-pkg__title">Modules come bundled — see pricing.</h2>
+      <p class="wi-pkg__lead max-measure">
+        You don't pick modules one at a time. Each package is a set of
+        modules sized to how your business handles enquiries today, from
+        stopping the immediate leaks to adding the reputation and growth
+        layers once the front desk is running well.
+      </p>
+    </header>
+
+    <ul class="wi-pkg__grid" aria-label="Packages">
+      {
+        packages.map((pkg, i) => (
+          <Reveal as="li" variant="draft" delay={i * 0.06} class="wi-pkg__row">
+            <span class="mono-label wi-pkg__badge">{pkg.badge}</span>
+            <h3 class="wi-pkg__name">{pkg.name}</h3>
+            <p class="wi-pkg__bestfor">{pkg.bestFor}</p>
+          </Reveal>
+        ))
+      }
+    </ul>
+
+    <div class="wi-pkg__action">
+      <a class="btn btn-primary" href="/pricing">See package pricing</a>
+      <p class="wi-pkg__note">Full inclusion lists and pricing live on the pricing page.</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .wi-pkg__head {
+    max-width: 60ch;
+    margin-bottom: clamp(2rem, 4vw, 2.75rem);
+  }
+
+  .wi-pkg__cap {
+    color: var(--muted);
+    margin-bottom: 0.85rem;
+  }
+
+  .wi-pkg__title {
+    font-size: clamp(1.75rem, 4vw, 2.75rem);
+    letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+  }
+
+  .wi-pkg__lead {
+    color: var(--body);
+    font-size: 1.0625rem;
+  }
+
+  .wi-pkg__grid {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 clamp(2rem, 4vw, 2.75rem);
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .wi-pkg__row {
+    display: grid;
+    align-content: start;
+    gap: 0.5rem;
+    padding: 1.4rem 1.35rem;
+    background: var(--surface-light);
+    border: 1px solid var(--line-light);
+    border-radius: var(--radius-md);
+  }
+
+  .wi-pkg__badge {
+    color: var(--muted);
+  }
+
+  .wi-pkg__name {
+    font-size: 1.1875rem;
+    letter-spacing: -0.01em;
+  }
+
+  .wi-pkg__bestfor {
+    margin: 0;
+    color: var(--body);
+    font-size: 0.9063rem;
+  }
+
+  .wi-pkg__action {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 1rem 1.5rem;
+  }
+
+  .wi-pkg__note {
+    margin: 0;
+    color: var(--muted);
+    font-size: 0.875rem;
+  }
+
+  @media (max-width: 780px) {
+    .wi-pkg__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

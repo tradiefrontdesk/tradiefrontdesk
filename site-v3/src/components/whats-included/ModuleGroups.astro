@@ -1,0 +1,325 @@
+---
+// ModuleGroups.astro — What's Included, Section 3 (dark) — the centerpiece
+// Every module from site.ts `modules`, grouped by the job it does (capture,
+// respond & qualify, follow up, organise, reputation & growth) instead of
+// homepage's flat M01-M13 grid. Rendered as a bordered "schedule of parts"
+// — annotated rows with a mono index, a what-it-does line straight from
+// site.ts, and a one-sentence why-it-matters line — not a card grid, so this
+// page reads differently from ModuleSchedule.astro on the homepage.
+// IncludedModulesVideo sits beside the section head as the figure this
+// section's Fig. caption annotates.
+import Reveal from "@/components/motion/Reveal.astro";
+import StatTick from "@/components/motion/StatTick.tsx";
+import HomeVideo from "@/components/home/HomeVideo.astro";
+import { modules, packages } from "@/data/site";
+
+const isOptional = (title: string, text: string) =>
+  /optional/i.test(title) || /optional|add-on/i.test(text);
+
+const moduleByTitle = new Map(modules.map(([title, text], i) => [title, { text, index: i + 1 }]));
+
+// Concrete "why it matters" line per module — connective tissue grounded in
+// about-tradie-front-desk/features_benefits.md (Practical/Financial/Customer
+// Experience Benefit fields), kept claims-safe and specific to a real job.
+const whyByTitle: Record<string, string> = {
+  "Missed Call Saver":
+    "A missed call while you're under a house or up a ladder is often a job going to whoever calls the customer back first — this keeps the enquiry alive until you can.",
+  "Instant Enquiry Reply":
+    "A quote request that sits unanswered overnight reads as “not interested” to most customers — a fast reply keeps them waiting on you instead of messaging the next name on the list.",
+  "Quote Request Form":
+    "Ringing back a message that only says “need a quote” wastes a call — the form gets the job type, location, and photos sorted before you dial.",
+  "Job Qualification Flow":
+    "Not every enquiry is worth a site visit — a few questions upfront separate the jobs in your area and price range from the ones that are not.",
+  "Callback / Site Visit Booking":
+    "An interested customer left to work out the next step on their own tends to go cold — this moves them toward a callback or booking while they're still keen.",
+  "Follow-Up Engine":
+    "The mental list of who you still need to call back gets forgotten between jobs — this follows up on your behalf so quiet leads do not disappear.",
+  "Quote Follow-Up":
+    "A quote that gets sent and never checked on again is usually lost to silence, not price — this makes sure someone asks what the customer decided.",
+  "Simple Opportunity Pipeline":
+    "When every enquiry lives in your head or scattered across texts and notebooks, something gets missed — this puts new enquiries, quotes, and follow-ups somewhere you can actually see them.",
+  "Old Lead Reactivation":
+    "The quotes and enquiries that went quiet months ago are still real people who may still need the work done — this checks back in instead of writing them off.",
+  "Review Request Flow":
+    "A happy customer rarely leaves a review without being asked — sending the request right after the job wraps up is what actually gets it done.",
+  "Optional Phone Answering":
+    "For the calls that stack up back-to-back or land after hours, this captures the caller's details on your approved script instead of the phone ringing out unanswered.",
+  "Local Campaign Booster":
+    "More enquiries do not help if calls and quotes are already slipping through — this is for once the front desk is handling what you already get.",
+  "Website Enquiry Upgrade":
+    "A visitor who has to hunt for a way to ask a question usually leaves instead — this makes requesting a quote the obvious next step on your site.",
+};
+
+const groups = [
+  {
+    key: "capture",
+    label: "Capture",
+    blurb: "Every way a customer can reach you lands in the same process instead of a different inbox each time.",
+    items: ["Missed Call Saver", "Instant Enquiry Reply", "Quote Request Form", "Optional Phone Answering"],
+  },
+  {
+    key: "respond",
+    label: "Respond & qualify",
+    blurb: "Good-fit customers get the right questions and a clear next step, so the enquiry keeps moving.",
+    items: ["Job Qualification Flow", "Callback / Site Visit Booking"],
+  },
+  {
+    key: "follow-up",
+    label: "Follow up",
+    blurb: "Nothing depends on you remembering who to chase — quiet leads and sent quotes get followed up on a schedule.",
+    items: ["Follow-Up Engine", "Quote Follow-Up", "Old Lead Reactivation"],
+  },
+  {
+    key: "organise",
+    label: "Organise",
+    blurb: "Every enquiry, and every step of your website's enquiry path, lives somewhere you can see it.",
+    items: ["Simple Opportunity Pipeline", "Website Enquiry Upgrade"],
+  },
+  {
+    key: "reputation",
+    label: "Reputation & growth",
+    blurb: "Once the front desk handles what you already get, these modules build proof and add reach.",
+    items: ["Review Request Flow", "Local Campaign Booster"],
+  },
+] as const;
+---
+
+<section class="wi-groups band-dark blueprint-grid section">
+  <div class="container">
+    <header class="wi-groups__head">
+      <div class="wi-groups__intro">
+        <p class="mono-label wi-groups__cap">Fig. 02 — schedule of modules, by job</p>
+        <h2 class="wi-groups__title">Every module, grouped by what it does for you.</h2>
+        <p class="wi-groups__lead max-measure">
+          Thirteen modules, five jobs. Each one below carries what it does
+          and why it matters on a real job — and an "Add-on" tag if it is
+          optional until you're ready for it.
+        </p>
+        <dl class="wi-groups__stats">
+          <div class="wi-groups__stat">
+            <dt class="mono-label">Modules</dt>
+            <dd><StatTick client:visible value={modules.length} /></dd>
+          </div>
+          <div class="wi-groups__stat">
+            <dt class="mono-label">Groups</dt>
+            <dd><StatTick client:visible value={groups.length} /></dd>
+          </div>
+          <div class="wi-groups__stat">
+            <dt class="mono-label">Packages</dt>
+            <dd><StatTick client:visible value={packages.length} /></dd>
+          </div>
+        </dl>
+      </div>
+
+      <HomeVideo
+        id="IncludedModulesVideo"
+        tone="dark"
+        caption="Core modules protect current opportunities; optional layers add reach."
+        class="wi-groups__media"
+      />
+    </header>
+
+    <div class="wi-groups__list">
+      {
+        groups.map((group) => (
+          <div class="wig">
+            <div class="wig__head">
+              <h3 class="mono-label wig__label">{group.label}</h3>
+              <p class="wig__blurb">{group.blurb}</p>
+            </div>
+
+            <ul class="wig__rows">
+              {group.items.map((title, i) => {
+                const mod = moduleByTitle.get(title);
+                if (!mod) return null;
+                const optional = isOptional(title, mod.text);
+                const why = whyByTitle[title];
+                return (
+                  <Reveal as="li" variant="draft" delay={(i % 4) * 0.05} class="wig__row">
+                    <div class="wig__row-top">
+                      <span class="mono-label wig__index">M{String(mod.index).padStart(2, "0")}</span>
+                      <h4 class="wig__row-title">{title}</h4>
+                      {optional && <span class="mono-label wig__chip">Add-on</span>}
+                    </div>
+                    <p class="wig__does">{mod.text}</p>
+                    {why && <p class="wig__why"><span class="mono-label wig__why-tag">Why it matters</span> {why}</p>}
+                  </Reveal>
+                );
+              })}
+            </ul>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .wi-groups__head {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+    gap: clamp(1.75rem, 4vw, 3.25rem);
+    align-items: center;
+    margin-bottom: clamp(2.75rem, 5vw, 4rem);
+  }
+
+  .wi-groups__cap {
+    color: var(--marker);
+    margin-bottom: 0.85rem;
+  }
+
+  .wi-groups__title {
+    font-size: clamp(1.75rem, 4vw, 2.75rem);
+    letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+  }
+
+  .wi-groups__lead {
+    color: var(--on-dark-body);
+    font-size: 1.0625rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .wi-groups__stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem 2rem;
+    margin: 0;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--line-dark);
+  }
+
+  .wi-groups__stat dt {
+    color: var(--on-dark-muted);
+    margin-bottom: 0.3rem;
+  }
+
+  .wi-groups__stat dd {
+    margin: 0;
+    font-family: var(--font-display);
+    font-variation-settings: "wdth" 125;
+    font-weight: 700;
+    font-size: clamp(1.75rem, 3vw, 2.25rem);
+    letter-spacing: -0.02em;
+    color: var(--on-dark);
+  }
+
+  .wi-groups__media {
+    max-width: 340px;
+    justify-self: end;
+    width: 100%;
+  }
+
+  .wi-groups__list {
+    display: grid;
+    gap: clamp(2rem, 4vw, 2.75rem);
+  }
+
+  .wig__head {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.25rem;
+    margin-bottom: 1.1rem;
+    padding-bottom: 0.85rem;
+    border-bottom: 1px solid var(--line-dark);
+  }
+
+  .wig__label {
+    color: var(--marker);
+  }
+
+  .wig__blurb {
+    margin: 0;
+    color: var(--on-dark-muted);
+    font-size: 0.9375rem;
+    max-width: 56ch;
+  }
+
+  .wig__rows {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 1px;
+    background: var(--line-dark);
+    border: 1px solid var(--line-dark);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+  }
+
+  .wig__row {
+    display: grid;
+    gap: 0.55rem;
+    padding: 1.25rem clamp(1.1rem, 3vw, 1.5rem);
+    background: var(--surface-dark);
+  }
+
+  .wig__row-top {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: baseline;
+    gap: 0.75rem;
+  }
+
+  .wig__index {
+    color: var(--on-dark-muted);
+  }
+
+  .wig__row-title {
+    font-size: 1.0625rem;
+    letter-spacing: -0.01em;
+    color: var(--on-dark);
+    line-height: 1.2;
+  }
+
+  .wig__chip {
+    color: var(--on-dark-muted);
+    font-size: 0.625rem;
+    padding: 0.15rem 0.45rem;
+    border: 1px solid var(--line-dark);
+    border-radius: var(--radius-sm);
+    justify-self: end;
+  }
+
+  .wig__does {
+    margin: 0;
+    color: var(--on-dark-body);
+    font-size: 0.9375rem;
+    max-width: 68ch;
+  }
+
+  .wig__why {
+    margin: 0;
+    color: var(--on-dark-muted);
+    font-size: 0.875rem;
+    max-width: 68ch;
+    padding-top: 0.55rem;
+    border-top: 1px solid var(--line-dark);
+  }
+
+  .wig__why-tag {
+    color: var(--on-dark-muted);
+    margin-right: 0.35rem;
+  }
+
+  @media (max-width: 860px) {
+    .wi-groups__head {
+      grid-template-columns: 1fr;
+    }
+    .wi-groups__media {
+      justify-self: start;
+      max-width: 400px;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .wig__row-top {
+      grid-template-columns: auto minmax(0, 1fr);
+    }
+    .wig__chip {
+      grid-column: 1 / -1;
+      justify-self: start;
+    }
+  }
+</style>

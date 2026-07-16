@@ -1,0 +1,84 @@
+---
+// SystemIntro.astro — What's Included, Section 2 (light)
+// Sets up the module breakdown before it starts: one connected process, not
+// a pile of separate tools. IncludedHeroVideo sits as the section's figure,
+// the one genuine diagram this page annotates with a Fig. caption.
+import Reveal from "@/components/motion/Reveal.astro";
+import HomeVideo from "@/components/home/HomeVideo.astro";
+---
+
+<section class="wi-intro band-light section">
+  <div class="container wi-intro__grid">
+    <div class="wi-intro__copy">
+      <p class="mono-label wi-intro__cap">Fig. 01 — the modules, connected</p>
+      <Reveal as="h2" variant="draft" class="wi-intro__title">
+        One connected front desk, not a pile of separate tools.
+      </Reveal>
+      <p class="wi-intro__lead max-measure">
+        When a customer contacts your business — a call, a missed call, a
+        form, a text, a message — the same process picks it up. Missed calls
+        get a reply, new enquiries get answered fast, quotes get followed
+        up, and every step stays visible in one place instead of scattered
+        across your phone.
+      </p>
+      <p class="wi-intro__lead max-measure">
+        The modules below are how that happens, grouped by the job each one
+        does for your front desk: capture, respond and qualify, follow up,
+        organise, and — once the basics are handled — reputation and growth.
+      </p>
+    </div>
+
+    <HomeVideo
+      id="IncludedHeroVideo"
+      tone="light"
+      caption="Modules connect around one enquiry process, not thirteen separate tools."
+      class="wi-intro__media"
+    />
+  </div>
+</section>
+
+<style>
+  .wi-intro__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+    gap: clamp(1.75rem, 4vw, 3.25rem);
+    align-items: center;
+  }
+
+  .wi-intro__cap {
+    color: var(--muted);
+    margin-bottom: 0.85rem;
+  }
+
+  .wi-intro__title {
+    font-size: clamp(1.75rem, 4vw, 2.75rem);
+    letter-spacing: -0.02em;
+    margin-bottom: 1.1rem;
+    max-width: 20ch;
+  }
+
+  .wi-intro__lead {
+    color: var(--body);
+    font-size: 1.0625rem;
+  }
+
+  .wi-intro__lead + .wi-intro__lead {
+    margin-top: 1rem;
+  }
+
+  .wi-intro__media {
+    max-width: 380px;
+    justify-self: end;
+    width: 100%;
+  }
+
+  @media (max-width: 860px) {
+    .wi-intro__grid {
+      grid-template-columns: 1fr;
+    }
+    .wi-intro__media {
+      justify-self: start;
+      max-width: 400px;
+    }
+  }
+</style>
