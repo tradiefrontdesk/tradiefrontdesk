@@ -1,39 +1,43 @@
 ---
-import "../styles/global.css";
-import Wordmark from "../components/Wordmark.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Wordmark from "@/components/Wordmark.astro";
+import { corePromise, heroPromise } from "@/data/site";
 ---
 
-<h1>site-v3</h1>
+<BaseLayout title="Home" description={`${corePromise} ${heroPromise}`}>
+  <!--
+    TEMPORARY — placeholder markup carried over from Task 2/3 (design
+    tokens / global CSS / brand assets), now wrapped in BaseLayout
+    (Task 5). It exists only to exercise .band-dark / .band-light /
+    .btn-primary / .mono-label / .blueprint-grid and the Wordmark
+    component during `npm run build` so the shell is verified end to
+    end. Real page composition happens in Task 10 — delete this block
+    then (and keep [data-hero-cta] on the real hero CTA so the sticky
+    mobile bar hides correctly).
+  -->
+  <section class="band-dark blueprint-grid section">
+    <div class="container">
+      <p class="mono-label">Fig. 01 — Design Tokens</p>
+      <Wordmark variant="light" width={200} />
+      <h2>Blueprint &amp; Safety Orange</h2>
+      <p class="prose">
+        Dark navy band, sample body copy at the intended measure, plus a
+        primary action button styled from the token set below.
+      </p>
+      <a class="btn btn-primary" href="/free-audit" data-hero-cta>Book a Free Audit</a>
+      <a class="btn btn-ghost" href="/how-it-works">See How It Works</a>
+    </div>
+  </section>
 
-<!--
-  TEMPORARY — placeholder markup for Task 2/3 (design tokens / global CSS /
-  brand assets). This exists only to exercise .band-dark / .band-light /
-  .btn-primary / .mono-label / .blueprint-grid and the Wordmark component
-  during `npm run build` so the foundation is verified end to end. Real
-  page composition happens in Task 10 — delete this block then.
--->
-<section class="band-dark blueprint-grid section">
-  <div class="container">
-    <p class="mono-label">Fig. 01 — Design Tokens</p>
-    <Wordmark variant="light" width={200} />
-    <h2>Blueprint &amp; Safety Orange</h2>
-    <p class="prose">
-      Dark navy band, sample body copy at the intended measure, plus a
-      primary action button styled from the token set below.
-    </p>
-    <a class="btn btn-primary" href="#">Book a Free Audit</a>
-    <a class="btn btn-ghost" href="#">See How It Works</a>
-  </div>
-</section>
-
-<section class="band-light section">
-  <div class="container">
-    <p class="mono-label">Fig. 02 — Working Section</p>
-    <Wordmark variant="dark" width={200} />
-    <h3>Cool off-white band</h3>
-    <p class="prose">
-      Navy-tinted off-white background with near-navy ink text, used for
-      the working sections that alternate with the dark bands above.
-    </p>
-  </div>
-</section>
+  <section class="band-light section">
+    <div class="container">
+      <p class="mono-label">Fig. 02 — Working Section</p>
+      <Wordmark variant="dark" width={200} />
+      <h3>Cool off-white band</h3>
+      <p class="prose">
+        Navy-tinted off-white background with near-navy ink text, used for
+        the working sections that alternate with the dark bands above.
+      </p>
+    </div>
+  </section>
+</BaseLayout>

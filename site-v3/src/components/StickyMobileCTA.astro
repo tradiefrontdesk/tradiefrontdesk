@@ -1,0 +1,83 @@
+---
+// StickyMobileCTA.astro
+// Fixed bottom action bar, mobile only (< 768px). Hides itself while any
+// [data-hero-cta] element (the hero's own CTA — wired in Task 10) or the
+// footer is on screen, so it never duplicates a visible CTA or overlaps
+// the footer's legal text. Logic ported from the current site's component
+// and extended with the footer guard; fully restyled for v3.
+---
+
+<aside id="sticky-mobile-cta" class="mobile-cta" aria-label="Book a free front desk audit">
+  <a class="btn btn-primary" href="/free-audit">Book Free Audit</a>
+</aside>
+
+<style>
+  .mobile-cta {
+    display: none;
+  }
+
+  @media (max-width: 767px) {
+    .mobile-cta {
+      position: fixed;
+      left: 0.875rem;
+      right: 0.875rem;
+      bottom: calc(0.875rem + env(safe-area-inset-bottom, 0px));
+      z-index: 30;
+      display: block;
+      padding: 0.5rem;
+      border: 1px solid var(--line-dark);
+      border-radius: var(--radius-lg);
+      background: color-mix(in oklch, var(--canvas-dark) 90%, transparent);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: 0 8px 24px oklch(0.18 0.04 245 / 0.35);
+      transition:
+        transform var(--dur-base) var(--ease-out),
+        opacity var(--dur-base) var(--ease-out),
+        visibility 0s linear 0s;
+    }
+
+    .mobile-cta .btn {
+      width: 100%;
+    }
+
+    .mobile-cta.is-hidden {
+      transform: translateY(calc(100% + 1.75rem));
+      opacity: 0;
+      visibility: hidden;
+      transition:
+        transform var(--dur-base) var(--ease-out),
+        opacity var(--dur-base) var(--ease-out),
+        visibility 0s linear var(--dur-base);
+    }
+  }
+</style>
+
+<script>
+  const bar = document.getElementById("sticky-mobile-cta");
+
+  if (bar && "IntersectionObserver" in window) {
+    // Any hero CTA (marked with [data-hero-cta]) or the footer being on
+    // screen hides the bar. Track visibility per target so overlapping
+    // observations don't fight each other.
+    const targets = [
+      ...document.querySelectorAll("[data-hero-cta]"),
+      ...(document.getElementById("site-footer") ? [document.getElementById("site-footer")!] : []),
+    ];
+
+    if (targets.length > 0) {
+      const visible = new Set<Element>();
+      const observer = new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) {
+            if (entry.isIntersecting) visible.add(entry.target);
+            else visible.delete(entry.target);
+          }
+          bar.classList.toggle("is-hidden", visible.size > 0);
+        },
+        { threshold: 0.05 },
+      );
+      targets.forEach((target) => observer.observe(target));
+    }
+  }
+</script>

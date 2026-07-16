@@ -1,0 +1,331 @@
+---
+// Header.astro
+// Sticky primary navigation. Navy band, light wordmark, desktop nav +
+// primary CTA + phone, collapsing to a <details>-based disclosure menu
+// on narrow viewports. No JS framework; the small inline script only
+// wires aria-expanded, Escape-to-close, and the scrolled-state class —
+// the header is fully usable (nav, CTA, phone, menu toggle) with JS off.
+import Wordmark from "@/components/Wordmark.astro";
+import { navItems, contactDetails } from "@/data/site";
+
+const phone = contactDetails.phones[0];
+---
+
+<div class="site-header-sentinel" aria-hidden="true"></div>
+<header id="site-header" class="site-header band-dark">
+  <div class="container site-header__bar">
+    <a href="/" class="site-header__brand" aria-label={`${"Tradie Front Desk"} home`}>
+      <Wordmark variant="light" width={168} />
+    </a>
+
+    <nav class="site-header__nav" aria-label="Primary">
+      <ul>
+        {
+          navItems.map((item) => (
+            <li>
+              <a href={item.href}>{item.label}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <div class="site-header__actions">
+      <a class="site-header__phone mono-label" href={phone.href}>{phone.value}</a>
+      <a class="btn btn-primary" href="/free-audit">Book Free Audit</a>
+    </div>
+
+    <details class="site-header__disclosure">
+      <summary class="site-header__toggle" aria-label="Open menu">
+        <span class="site-header__toggle-box" aria-hidden="true">
+          <span class="site-header__bar"></span>
+          <span class="site-header__bar"></span>
+        </span>
+      </summary>
+      <div class="site-header__panel blueprint-grid">
+        <nav aria-label="Mobile">
+          <ul>
+            {
+              navItems.map((item, i) => (
+                <li style={`--i:${i}`}>
+                  <a href={item.href}>{item.label}</a>
+                </li>
+              ))
+            }
+          </ul>
+        </nav>
+        <div class="site-header__panel-actions">
+          <a class="btn btn-primary" href="/free-audit">Book Free Audit</a>
+          <a class="site-header__phone mono-label" href={phone.href}>{phone.value}</a>
+        </div>
+      </div>
+    </details>
+  </div>
+</header>
+
+<style>
+  .site-header-sentinel {
+    block-size: 1px;
+  }
+
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    background: color-mix(in oklch, var(--canvas-dark) 92%, transparent);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid transparent;
+    transition:
+      background-color var(--dur-base) var(--ease-out),
+      border-color var(--dur-base) var(--ease-out);
+  }
+
+  .site-header.is-scrolled {
+    background: var(--canvas-dark);
+    border-bottom-color: var(--line-dark);
+  }
+
+  .site-header__bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding-block: 0.85rem;
+    min-height: 64px;
+  }
+
+  .site-header__brand {
+    display: inline-flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  .site-header__nav {
+    flex: 1;
+  }
+
+  .site-header__nav ul {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.75rem;
+    list-style: none;
+    padding: 0;
+  }
+
+  .site-header__nav a {
+    position: relative;
+    display: inline-block;
+    padding-block: 0.35rem;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    text-decoration: none;
+    color: var(--on-dark-body);
+    transition: color var(--dur-fast) var(--ease-out);
+  }
+
+  .site-header__nav a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 2px;
+    background: var(--action);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--dur-base) var(--ease-out);
+  }
+
+  .site-header__nav a:hover,
+  .site-header__nav a:focus-visible {
+    color: var(--on-dark);
+  }
+
+  .site-header__nav a:hover::after,
+  .site-header__nav a:focus-visible::after {
+    transform: scaleX(1);
+  }
+
+  .site-header__actions {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    flex-shrink: 0;
+  }
+
+  .site-header__phone {
+    color: var(--on-dark-muted);
+    text-decoration: none;
+    white-space: nowrap;
+    transition: color var(--dur-fast) var(--ease-out);
+  }
+
+  .site-header__phone:hover,
+  .site-header__phone:focus-visible {
+    color: var(--action);
+  }
+
+  /* Disclosure menu — hidden at desktop widths */
+  .site-header__disclosure {
+    display: none;
+  }
+
+  .site-header__toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    cursor: pointer;
+    list-style: none;
+  }
+
+  .site-header__toggle::-webkit-details-marker {
+    display: none;
+  }
+
+  .site-header__toggle-box {
+    position: relative;
+    width: 22px;
+    height: 16px;
+  }
+
+  .site-header__bar {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--on-dark);
+    transition:
+      transform var(--dur-base) var(--ease-out),
+      opacity var(--dur-fast) var(--ease-out);
+  }
+
+  .site-header__bar:first-child {
+    top: 0;
+  }
+
+  .site-header__bar:last-child {
+    bottom: 0;
+  }
+
+  .site-header__disclosure[open] .site-header__bar:first-child {
+    top: 7px;
+    transform: rotate(45deg);
+  }
+
+  .site-header__disclosure[open] .site-header__bar:last-child {
+    bottom: 7px;
+    transform: rotate(-45deg);
+  }
+
+  .site-header__panel {
+    padding-block: 1.5rem 2rem;
+    border-top: 1px solid var(--line-dark);
+    animation: header-panel-in 220ms var(--ease-out);
+  }
+
+  .site-header__panel nav ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .site-header__panel nav a {
+    display: block;
+    padding-block: 0.65rem;
+    font-size: 1.0625rem;
+    font-weight: 600;
+    text-decoration: none;
+    color: var(--on-dark);
+    border-bottom: 1px solid var(--line-dark);
+    opacity: 0;
+    animation: header-item-in 260ms var(--ease-out) forwards;
+    animation-delay: calc(var(--i, 0) * 45ms + 60ms);
+  }
+
+  .site-header__panel-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-top: 1.25rem;
+  }
+
+  .site-header__panel-actions .btn {
+    width: 100%;
+  }
+
+  @keyframes header-panel-in {
+    from {
+      opacity: 0;
+      transform: translateY(-6px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes header-item-in {
+    from {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .site-header__panel,
+    .site-header__panel nav a {
+      animation: none;
+      opacity: 1;
+    }
+  }
+
+  @media (max-width: 959px) {
+    .site-header__nav,
+    .site-header__actions {
+      display: none;
+    }
+
+    .site-header__disclosure {
+      display: block;
+    }
+  }
+</style>
+
+<script>
+  const disclosure = document.querySelector<HTMLDetailsElement>(".site-header__disclosure");
+  const summary = disclosure?.querySelector("summary");
+
+  if (disclosure && summary) {
+    const syncAria = () => summary.setAttribute("aria-expanded", String(disclosure.open));
+    syncAria();
+    disclosure.addEventListener("toggle", syncAria);
+    disclosure.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && disclosure.open) {
+        disclosure.open = false;
+        summary.focus();
+      }
+    });
+  }
+
+  const header = document.getElementById("site-header");
+  const sentinel = document.querySelector(".site-header-sentinel");
+
+  if (header && sentinel && "IntersectionObserver" in window) {
+    const observer = new IntersectionObserver(
+      ([entry]) => header.classList.toggle("is-scrolled", !entry.isIntersecting),
+      { threshold: 0 },
+    );
+    observer.observe(sentinel);
+  }
+</script>

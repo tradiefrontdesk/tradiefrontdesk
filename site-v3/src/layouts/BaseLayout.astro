@@ -1,0 +1,117 @@
+---
+// BaseLayout.astro
+// Shared page shell: head/meta/SEO, skip link, Header, <main>, Footer,
+// StickyMobileCTA. Fonts + global styles come in via global.css.
+//
+// Note on the OG image: the default is og-image.svg. SVG og:image does not
+// render on most platforms (Facebook, X, LinkedIn); it is used anyway as
+// the project default, and the `ogImage` prop exists so a PNG can be
+// swapped in later without touching this layout.
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import StickyMobileCTA from "@/components/StickyMobileCTA.astro";
+import { brand, contactDetails, legalDetails, corePromise } from "@/data/site";
+import "@/styles/global.css";
+
+interface Props {
+  title: string;
+  description: string;
+  ogImage?: string;
+}
+
+const { title, description, ogImage = "/og-image.svg" } = Astro.props;
+
+const siteName = brand.name;
+const fullTitle = `${title} | ${siteName}`;
+const origin = Astro.site ?? Astro.url.origin;
+const canonical = new URL(Astro.url.pathname, origin);
+const ogImageUrl = new URL(ogImage, origin);
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  name: siteName,
+  alternateName: brand.fullName,
+  description: brand.trustLine,
+  slogan: corePromise,
+  url: origin.toString(),
+  email: contactDetails.email,
+  telephone: contactDetails.phones[0].value,
+  areaServed: contactDetails.phones.map((phone) => ({
+    "@type": "Country",
+    name: phone.region,
+  })),
+  contactPoint: contactDetails.phones.map((phone) => ({
+    "@type": "ContactPoint",
+    telephone: phone.value,
+    contactType: "sales",
+    areaServed: phone.region,
+  })),
+  parentOrganization: legalDetails.providerEntities.map((name) => ({
+    "@type": "Organization",
+    name,
+  })),
+};
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#0E2233" />
+    <meta name="application-name" content={siteName} />
+    <meta name="apple-mobile-web-app-title" content={siteName} />
+    <meta name="format-detection" content="telephone=no" />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="mask-icon" href="/favicon.svg" color="#FF5A1F" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta property="og:site_name" content={siteName} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:alt" content={`${siteName} — ${corePromise}`} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageUrl} />
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} is:inline />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <Header />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+    <StickyMobileCTA />
+  </body>
+</html>
+
+<style>
+  .skip-link {
+    position: absolute;
+    top: 0.75rem;
+    left: 0.75rem;
+    z-index: 100;
+    padding: 0.65rem 1.1rem;
+    border-radius: var(--radius-sm);
+    background: var(--action);
+    color: var(--on-action);
+    font-weight: 600;
+    font-size: 0.9375rem;
+    text-decoration: none;
+    transform: translateY(calc(-100% - 1.5rem));
+    transition: transform var(--dur-fast) var(--ease-out);
+  }
+
+  .skip-link:focus-visible {
+    transform: translateY(0);
+  }
+</style>
