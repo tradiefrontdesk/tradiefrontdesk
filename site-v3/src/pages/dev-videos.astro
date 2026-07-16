@@ -1,52 +1,62 @@
 ---
 // TEMPORARY — Task 6 QA page only. Not linked from navigation, not part
-// of the real site IA. Renders every registered Remotion VideoId (all 7
-// Home* compositions + all 17 story/page compositions) through the
-// SectionVideo/ProductVideoPlayer wrapper so the re-themed "Blueprint &
-// Safety Orange" compositions can be eyeballed end to end. Delete this
-// file in Task 10 (or whenever the real pages that embed these videos
-// are wired up and this sweep is no longer needed).
+// of the real site IA. Renders ONE registered Remotion composition at a
+// time (24 players at once chokes the renderer). Pick via ?i=<index>
+// (0-23); an index nav is rendered at the top. Delete this file in Task
+// 10 (or whenever the real pages that embed these videos are wired up).
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import SectionVideo from "@/components/SectionVideo.astro";
 import { allVideoSpecs } from "@/remotion/data/homeVideos";
+
+const idxRaw = Astro.url.searchParams.get("i") ?? "0";
+const idx = Math.min(Math.max(Number.parseInt(idxRaw, 10) || 0, 0), allVideoSpecs.length - 1);
+const video = allVideoSpecs[idx];
 ---
 
-<BaseLayout title="Dev: All Videos" description="Temporary QA page listing every Remotion composition.">
+<BaseLayout title="Dev: Videos" description="Temporary QA page for Remotion compositions.">
   <section class="section band-dark">
     <div class="container">
       <p class="mono-label">Task 6 QA — temporary page, delete before launch</p>
-      <h1>All Remotion Compositions ({allVideoSpecs.length})</h1>
-      <div class="dev-grid">
-        {allVideoSpecs.map((video) => (
-          <div class="dev-cell">
-            <p class="dev-cell__id">{video.id}</p>
-            <SectionVideo id={video.id} />
-            <p class="dev-cell__title">{video.title}</p>
-          </div>
+      <h1>{video.id} ({idx + 1}/{allVideoSpecs.length})</h1>
+      <nav class="dev-nav">
+        {allVideoSpecs.map((v, i) => (
+          <a href={`/dev-videos?i=${i}`} class={i === idx ? "is-active" : ""}>{i}</a>
         ))}
+      </nav>
+      <div class="dev-cell">
+        <SectionVideo id={video.id} />
+        <p class="dev-cell__title">{video.title}</p>
       </div>
     </div>
   </section>
 </BaseLayout>
 
 <style>
-  .dev-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 28px;
-    margin-top: 24px;
+  .dev-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 16px 0 24px;
+    font-family: var(--font-mono);
+    font-size: 13px;
+  }
+
+  .dev-nav a {
+    padding: 4px 8px;
+    border: 1px solid var(--line-dark);
+    color: var(--on-dark-body);
+    text-decoration: none;
+  }
+
+  .dev-nav a.is-active {
+    background: var(--action);
+    color: var(--on-action);
   }
 
   .dev-cell {
+    max-width: 960px;
     display: grid;
     gap: 8px;
-  }
-
-  .dev-cell__id {
-    margin: 0;
-    font-family: var(--font-mono);
-    font-size: 12px;
-    color: var(--action);
   }
 
   .dev-cell__title {
