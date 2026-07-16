@@ -1,0 +1,182 @@
+---
+// StepBreakdown.astro — how-it-works Section 3 (dark)
+// The mechanism laid out as a bordered blueprint table (per DESIGN.md's
+// "comparisons render as annotated blueprint artifacts, not card grids"
+// rule) — one row per processSteps entry, split into what runs behind the
+// scenes (site.ts, verbatim) and what the owner actually sees (connective
+// copy, grounded in the old page's owner/customer item lists).
+import Reveal from "@/components/motion/Reveal.astro";
+import { processSteps } from "@/data/site";
+
+const ownerSees = [
+  "One clean list of new enquiries, instead of missed calls, unread forms, and messages scattered across five different places.",
+  "Nothing, most of the time. The reply goes out on its own, and a note confirms it happened.",
+  "The job details already sitting there when you get a free minute: type, location, urgency, photos, whether it's in your patch.",
+  "A callback, quote, or site visit sitting in the pipeline, waiting on your call about what you promise and what you charge.",
+  "Quotes and quiet leads that would have gone cold, sitting in front of you with a completed follow-up next to them.",
+] as const;
+---
+
+<section class="steps band-dark blueprint-grid section">
+  <div class="container">
+    <header class="steps__head">
+      <p class="mono-label steps__cap">Fig. 02 — behind the desk</p>
+      <h2 class="steps__title">Every step, from both sides of the desk.</h2>
+      <p class="steps__lead max-measure">
+        The same mechanism from the hero, laid out step by step: what
+        actually runs in the background, and what actually lands in front
+        of you as the owner.
+      </p>
+    </header>
+
+    <div class="steps__table-wrap">
+      <table class="steps__table">
+        <thead>
+          <tr>
+            <th scope="col" class="mono-label">Step</th>
+            <th scope="col" class="mono-label">Behind the scenes</th>
+            <th scope="col" class="mono-label">What you see</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            processSteps.map((step, i) => (
+              <Reveal as="tr" variant="fade" delay={i * 0.05} class="steps__row">
+                <th scope="row" class="steps__row-head">
+                  <span class="mono-label steps__index">{String(i + 1).padStart(2, "0")}</span>
+                  <span class="steps__step-title">{step.title}</span>
+                </th>
+                <td data-label="Behind the scenes">{step.text}</td>
+                <td data-label="What you see">{ownerSees[i]}</td>
+              </Reveal>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<style>
+  .steps__head {
+    max-width: 58ch;
+    margin-bottom: clamp(2.5rem, 5vw, 3.5rem);
+  }
+  .steps__cap {
+    color: var(--marker);
+    margin-bottom: 0.85rem;
+  }
+  .steps__title {
+    font-size: clamp(1.75rem, 4vw, 2.75rem);
+    letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+  }
+  .steps__lead {
+    color: var(--on-dark-body);
+    font-size: 1.0625rem;
+  }
+
+  .steps__table-wrap {
+    overflow-x: auto;
+  }
+
+  .steps__table {
+    width: 100%;
+    min-width: 720px;
+    border-collapse: collapse;
+  }
+
+  .steps__table thead th {
+    text-align: left;
+    color: var(--on-dark-muted);
+    padding: 0 1.25rem 0.85rem;
+    border-bottom: 1px solid var(--line-dark);
+  }
+  .steps__table thead th:first-child {
+    padding-left: 0;
+  }
+
+  .steps__row-head {
+    text-align: left;
+    vertical-align: top;
+    padding: 1.5rem 1.25rem 1.5rem 0;
+    width: 15ch;
+  }
+
+  .steps__index {
+    display: block;
+    color: var(--action);
+    margin-bottom: 0.35rem;
+  }
+
+  .steps__step-title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-variation-settings: "wdth" 125;
+    font-size: 1.1875rem;
+    letter-spacing: -0.01em;
+    color: var(--on-dark);
+  }
+
+  .steps__table td {
+    vertical-align: top;
+    padding: 1.5rem 1.25rem;
+    color: var(--on-dark-body);
+    font-size: 0.9375rem;
+    line-height: 1.55;
+    max-width: 32ch;
+  }
+
+  .steps__table tbody tr {
+    border-top: 1px solid var(--line-dark);
+  }
+  .steps__table tbody tr:first-child {
+    border-top: none;
+  }
+
+  @media (max-width: 720px) {
+    .steps__table-wrap {
+      overflow-x: visible;
+    }
+    .steps__table {
+      min-width: 0;
+      display: block;
+    }
+    .steps__table thead {
+      display: none;
+    }
+    .steps__table tbody {
+      display: block;
+    }
+    .steps__table :global(tr) {
+      display: block;
+      padding-block: 1.5rem;
+    }
+    .steps__row-head {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      width: auto;
+      padding: 0 0 0.85rem;
+    }
+    .steps__index {
+      margin-bottom: 0;
+    }
+    .steps__table td {
+      display: block;
+      max-width: none;
+      padding: 0.65rem 0;
+    }
+    .steps__table td::before {
+      content: attr(data-label);
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 0.6875rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--on-dark-muted);
+      margin-bottom: 0.35rem;
+    }
+  }
+</style>

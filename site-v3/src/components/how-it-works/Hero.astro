@@ -1,0 +1,135 @@
+---
+// Hero.astro — how-it-works Section 1 (dark)
+// Compact interior hero (shorter than the homepage hero): blueprint grid,
+// the mechanism itself as the h1, one lead paragraph, primary + secondary
+// CTA, and HowItWorksHeroVideo as a supporting figure. No stamp badge —
+// that's a homepage-only flourish; this hero stays leaner.
+import Reveal from "@/components/motion/Reveal.astro";
+import DraftPath from "@/components/motion/DraftPath.astro";
+import HomeVideo from "@/components/home/HomeVideo.astro";
+---
+
+<section class="hiw-hero band-dark blueprint-grid">
+  <div class="container hiw-hero__inner">
+    <div class="hiw-hero__copy">
+      <div class="hiw-hero__eyebrow">
+        <span class="mono-label">The five-step mechanism</span>
+        <span class="hiw-hero__eyebrow-tick" aria-hidden="true"></span>
+        <span class="mono-label hiw-hero__eyebrow-alt">Explained end to end</span>
+      </div>
+
+      <Reveal as="h1" variant="draft" class="hiw-hero__title">
+        How every enquiry becomes a booked job.
+      </Reveal>
+
+      <div class="hiw-hero__rule" aria-hidden="true">
+        <DraftPath viewBox="0 0 320 8" d="M2 4 L318 4" stroke="var(--action)" strokeWidth={2} />
+      </div>
+
+      <p class="hiw-hero__sub max-measure">
+        This is what happens after the phone rings, the form gets submitted,
+        or the quote goes quiet: the same five steps, in the order they
+        actually run, plus what you see as the owner while they run.
+      </p>
+
+      <div class="hiw-hero__cta">
+        <a class="btn btn-primary" href="/free-audit" data-hero-cta
+          >Book a Free Front Desk Audit</a
+        >
+        <a class="btn btn-ghost" href="/pricing">See pricing</a>
+      </div>
+    </div>
+
+    <div class="hiw-hero__media">
+      <HomeVideo
+        id="HowItWorksHeroVideo"
+        tone="dark"
+        caption="The five-step enquiry path, from first contact to follow-up."
+      />
+    </div>
+  </div>
+</section>
+
+<style>
+  .hiw-hero {
+    position: relative;
+    overflow: hidden;
+    padding-block: clamp(2.5rem, 6vw, 4.5rem);
+  }
+
+  .hiw-hero__inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    gap: clamp(2rem, 5vw, 3.5rem);
+    align-items: center;
+  }
+
+  .hiw-hero__eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: var(--marker);
+    margin-bottom: 1.25rem;
+  }
+  .hiw-hero__eyebrow .mono-label {
+    color: var(--marker);
+  }
+  .hiw-hero__eyebrow-alt {
+    color: var(--on-dark-muted) !important;
+  }
+  .hiw-hero__eyebrow-tick {
+    flex: 1;
+    max-width: 64px;
+    height: 1px;
+    background: repeating-linear-gradient(
+      to right,
+      var(--line-dark) 0,
+      var(--line-dark) 4px,
+      transparent 4px,
+      transparent 8px
+    );
+  }
+
+  .hiw-hero__title {
+    font-size: clamp(2rem, 4.4vw, 3.4rem);
+    line-height: 1.06;
+    letter-spacing: -0.03em;
+    color: var(--on-dark);
+    max-width: 17ch;
+  }
+
+  .hiw-hero__rule {
+    width: min(280px, 65%);
+    margin-block: 1.25rem;
+  }
+
+  .hiw-hero__sub {
+    color: var(--on-dark-body);
+    font-size: 1.0625rem;
+  }
+
+  .hiw-hero__cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.85rem;
+    margin-top: 1.75rem;
+  }
+
+  .hiw-hero__media {
+    width: 100%;
+  }
+
+  @media (max-width: 900px) {
+    .hiw-hero__inner {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+    .hiw-hero__title {
+      max-width: 100%;
+    }
+    .hiw-hero__media {
+      max-width: 420px;
+      margin-inline: auto;
+    }
+  }
+</style>

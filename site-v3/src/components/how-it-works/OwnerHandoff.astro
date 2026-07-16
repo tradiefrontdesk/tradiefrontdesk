@@ -1,0 +1,160 @@
+---
+// OwnerHandoff.astro — how-it-works Section 4 (light)
+// A two-column handoff diagram, not a table (the table layout family is
+// already used by StepBreakdown) and not a card grid: what the front desk
+// runs versus what stays with the owner, joined by a single hand-drawn
+// orange annotation arrow — the "owner stays in control" pillar made literal.
+import Reveal from "@/components/motion/Reveal.astro";
+
+const systemRuns = [
+  "Capturing every call, form, text, and message",
+  "Sending the first reply",
+  "Asking the qualifying questions",
+  "Chasing quotes and quiet leads",
+] as const;
+
+const ownerControls = [
+  "Which jobs you take on",
+  "The price you quote",
+  "What you promise a customer",
+  "The final call on every booking",
+] as const;
+---
+
+<section class="handoff band-light section">
+  <div class="container">
+    <header class="handoff__head">
+      <h2 class="handoff__title">The system runs it. You still call the shots.</h2>
+      <p class="handoff__lead max-measure">
+        Every step above happens inside rules you set. No part of it commits
+        you to a price, a promise, or a job you don't want. Here's exactly
+        where the line sits.
+      </p>
+    </header>
+
+    <div class="handoff__diagram">
+      <div class="handoff__col">
+        <p class="mono-label handoff__col-cap">Runs inside the front desk</p>
+        <ul class="handoff__list">
+          {
+            systemRuns.map((item, i) => (
+              <Reveal as="li" variant="draft" delay={i * 0.05} class="handoff__item">
+                {item}
+              </Reveal>
+            ))
+          }
+        </ul>
+      </div>
+
+      <div class="handoff__arrow" aria-hidden="true">
+        <svg viewBox="0 0 80 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <line x1="2" y1="20" x2="68" y2="20" stroke="var(--action)" stroke-width="2" />
+          <path d="M56 8 L70 20 L56 32" stroke="var(--action)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </div>
+
+      <div class="handoff__col handoff__col--owner">
+        <p class="mono-label handoff__col-cap">Stays with you</p>
+        <ul class="handoff__list">
+          {
+            ownerControls.map((item, i) => (
+              <Reveal as="li" variant="draft" delay={0.2 + i * 0.05} class="handoff__item handoff__item--owner">
+                {item}
+              </Reveal>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .handoff__head {
+    max-width: 58ch;
+    margin-bottom: clamp(2.5rem, 5vw, 3.5rem);
+  }
+  .handoff__title {
+    font-size: clamp(1.75rem, 4vw, 2.75rem);
+    letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+  }
+  .handoff__lead {
+    color: var(--body);
+    font-size: 1.0625rem;
+  }
+
+  .handoff__diagram {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 88px minmax(0, 1fr);
+    align-items: start;
+    gap: clamp(1rem, 3vw, 2rem);
+  }
+
+  .handoff__col {
+    padding: clamp(1.5rem, 3vw, 2rem);
+    background: var(--surface-light);
+    border: 1px solid var(--line-light);
+    border-radius: var(--radius-lg);
+  }
+
+  .handoff__col-cap {
+    color: var(--muted);
+    margin-bottom: 1.1rem;
+  }
+
+  .handoff__list {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: 0.9rem;
+  }
+
+  .handoff__item {
+    position: relative;
+    padding-left: 1.25rem;
+    color: var(--ink);
+    font-size: 1rem;
+    line-height: 1.4;
+  }
+  .handoff__item::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.5em;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--action);
+  }
+
+  .handoff__item--owner {
+    font-weight: 600;
+  }
+
+  .handoff__arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: clamp(2.5rem, 5vw, 3.25rem);
+  }
+  .handoff__arrow svg {
+    width: 100%;
+    height: auto;
+    max-width: 80px;
+  }
+
+  @media (max-width: 780px) {
+    .handoff__diagram {
+      grid-template-columns: 1fr;
+    }
+    .handoff__arrow {
+      padding-top: 0;
+      padding-block: 0.5rem;
+    }
+    .handoff__arrow svg {
+      transform: rotate(90deg);
+      max-width: 40px;
+    }
+  }
+</style>

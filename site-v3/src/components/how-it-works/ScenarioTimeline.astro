@@ -1,0 +1,199 @@
+---
+// ScenarioTimeline.astro — how-it-works Section 2 (light)
+// The narrative spine: one afternoon, told as a timeline against a drawn
+// rail (the same DraftPath vertical-rail device Mechanism.astro uses on
+// mobile, promoted here to the primary desktop layout because this content
+// is chronological, not parallel). HowItWorksScenarioVideo sits sticky
+// beside it — media-left, to vary the hero's media-right split.
+import DraftPath from "@/components/motion/DraftPath.astro";
+import Reveal from "@/components/motion/Reveal.astro";
+import HomeVideo from "@/components/home/HomeVideo.astro";
+
+type Beat = { time: string; title: string; text: string; note?: string };
+
+const beats: Beat[] = [
+  {
+    time: "2:00pm",
+    title: "The call goes unanswered",
+    text: "You're on the roof with both hands full. The phone rings out, and the caller is one tap away from ringing the next tradie.",
+  },
+  {
+    time: "2:01pm",
+    title: "A reply goes out",
+    text: "The system texts back straight away, so the caller gets a fast, professional reply while you are still on the tools.",
+  },
+  {
+    time: "2:03pm",
+    title: "The job gets qualified",
+    text: "A few quick questions collect the job type, location, urgency, and photos, so you know what you're walking into before you call back.",
+  },
+  {
+    time: "2:05pm",
+    title: "Booked, or a callback set",
+    text: "The customer gets moved toward a callback, a quote request, or a site visit. You decide what happens next, not the system.",
+  },
+  {
+    time: "Friday, then next week",
+    title: "The quote gets chased",
+    text: "The quote you sent Friday doesn't sit in your sent folder going cold. It gets followed up properly, and stays visible until there's an answer.",
+    note: "Illustration of the process. Results depend on your market, pricing, and how customers respond.",
+  },
+];
+---
+
+<section class="scenario band-light section">
+  <div class="container">
+    <header class="scenario__head">
+      <p class="mono-label scenario__cap">Fig. 01 — a day in the life</p>
+      <h2 class="scenario__title">A missed call doesn't have to become a missed job.</h2>
+      <p class="scenario__lead max-measure">
+        Here's the same five steps playing out in a single afternoon, from
+        the moment the phone stops ringing to the moment a quote finally
+        gets an answer.
+      </p>
+    </header>
+
+    <div class="scenario__grid">
+      <div class="scenario__media">
+        <HomeVideo
+          id="HowItWorksScenarioVideo"
+          tone="light"
+          caption="Missed calls, quote requests, and quiet leads moving into one managed process."
+        />
+      </div>
+
+      <div class="scenario__flow">
+        <div class="scenario__rail" aria-hidden="true">
+          <DraftPath viewBox="0 0 8 1000" d="M4 4 L4 996" stroke="var(--action)" strokeWidth={2} />
+        </div>
+
+        <ol class="scenario__list">
+          {
+            beats.map((beat, i) => (
+              <Reveal as="li" variant="draft" delay={i * 0.08} class="scenario__item">
+                <span class="scenario__dot" aria-hidden="true" />
+                <div class="scenario__content">
+                  <span class="mono-label scenario__time">{beat.time}</span>
+                  <h3 class="scenario__item-title">{beat.title}</h3>
+                  <p class="scenario__item-text">{beat.text}</p>
+                  {beat.note && <p class="mono-label scenario__note">{beat.note}</p>}
+                </div>
+              </Reveal>
+            ))
+          }
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .scenario__head {
+    max-width: 56ch;
+    margin-bottom: clamp(2rem, 4vw, 3rem);
+  }
+  .scenario__cap {
+    color: var(--muted);
+    margin-bottom: 0.85rem;
+  }
+  .scenario__title {
+    font-size: clamp(1.6rem, 3.6vw, 2.5rem);
+    letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+  }
+  .scenario__lead {
+    color: var(--body);
+    font-size: 1.0625rem;
+  }
+
+  .scenario__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 0.78fr) minmax(0, 1.22fr);
+    gap: clamp(1.75rem, 4vw, 3.25rem);
+    align-items: start;
+  }
+
+  .scenario__media {
+    position: sticky;
+    top: 6rem;
+  }
+
+  .scenario__flow {
+    position: relative;
+  }
+
+  .scenario__rail {
+    position: absolute;
+    top: 8px;
+    bottom: 8px;
+    left: 13px;
+    width: 8px;
+    z-index: 0;
+  }
+  .scenario__rail :global(.draft-path) {
+    height: 100%;
+    width: 8px;
+  }
+
+  .scenario__list {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: clamp(1.75rem, 3.5vw, 2.5rem);
+    position: relative;
+    z-index: 1;
+  }
+
+  .scenario__item {
+    display: grid;
+    grid-template-columns: 28px minmax(0, 1fr);
+    column-gap: 1.25rem;
+  }
+
+  .scenario__dot {
+    justify-self: center;
+    margin-top: 0.4rem;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--action);
+    border: 3px solid var(--canvas-light);
+    box-shadow: 0 0 0 1.5px var(--action);
+  }
+
+  .scenario__content {
+    display: grid;
+    gap: 0.4rem;
+  }
+
+  .scenario__time {
+    color: var(--ink);
+  }
+
+  .scenario__item-title {
+    font-size: 1.1875rem;
+    letter-spacing: -0.01em;
+  }
+
+  .scenario__item-text {
+    color: var(--body);
+    font-size: 0.9688rem;
+  }
+
+  .scenario__note {
+    color: var(--muted);
+    font-size: 0.6875rem;
+    margin-top: 0.15rem;
+  }
+
+  @media (max-width: 860px) {
+    .scenario__grid {
+      grid-template-columns: 1fr;
+    }
+    .scenario__media {
+      position: static;
+      max-width: 420px;
+      margin-inline: auto;
+    }
+  }
+</style>

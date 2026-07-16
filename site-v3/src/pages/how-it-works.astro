@@ -1,0 +1,23 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Hero from "@/components/how-it-works/Hero.astro";
+import ScenarioTimeline from "@/components/how-it-works/ScenarioTimeline.astro";
+import StepBreakdown from "@/components/how-it-works/StepBreakdown.astro";
+import OwnerHandoff from "@/components/how-it-works/OwnerHandoff.astro";
+import CTASection from "@/components/CTASection.astro";
+import { corePromise } from "@/data/site";
+---
+
+<BaseLayout
+  title="How It Works"
+  description="See how Tradie Front Desk captures every enquiry, replies fast, qualifies the job, books the next step, and follows up until it's answered."
+>
+  <Hero />
+  <ScenarioTimeline />
+  <StepBreakdown />
+  <OwnerHandoff />
+  <CTASection
+    title="See exactly where this would run in your business."
+    text={`${corePromise} Book a free audit and we'll walk through how capture, respond, qualify, book, and follow-up would work for your enquiries.`}
+  />
+</BaseLayout>
