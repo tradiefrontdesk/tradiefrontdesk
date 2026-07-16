@@ -17,9 +17,11 @@ interface Props {
   title: string;
   description: string;
   ogImage?: string;
+  /** Override the sticky mobile bar's CTA target (e.g. "#audit-form" on /free-audit). */
+  stickyCtaHref?: string;
 }
 
-const { title, description, ogImage = "/og-image.svg" } = Astro.props;
+const { title, description, ogImage = "/og-image.svg", stickyCtaHref } = Astro.props;
 
 const siteName = brand.name;
 const fullTitle = `${title} | ${siteName}`;
@@ -90,7 +92,7 @@ const jsonLd = {
       <slot />
     </main>
     <Footer />
-    <StickyMobileCTA />
+    <StickyMobileCTA href={stickyCtaHref} />
   </body>
 </html>
 
