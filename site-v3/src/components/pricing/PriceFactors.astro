@@ -1,0 +1,138 @@
+---
+// PriceFactors.astro — Section 2 (light)
+// "What sets your price" — PricingHeroVideo as the explanatory figure next
+// to the intro, then the price-scope items as a bordered spec list (a
+// blueprint artifact — hairline rows with mono indices — not a card grid).
+import Reveal from "@/components/motion/Reveal.astro";
+import HomeVideo from "@/components/home/HomeVideo.astro";
+
+const factors: [string, string][] = [
+  ["Enquiry channels", "Calls, missed calls, forms, texts, social and Google messages, and campaign leads."],
+  ["Locations or service areas", "How many areas you cover and how job routing should work across them."],
+  ["Follow-up complexity", "How many follow-up sequences your enquiries and quotes need."],
+  ["Optional phone answering", "Whether an answering assistant is part of the build."],
+  ["Campaigns", "Whether local campaigns are added once the front desk is ready to handle new enquiries."],
+  ["Old-lead reactivation", "Whether dormant quotes and past customers get reactivated."],
+  ["Integrations", "Whether the system needs to sit alongside your job software."],
+  ["Monthly management", "How much ongoing monitoring, reporting, and adjustment is included."],
+];
+---
+
+<section class="pf band-light section">
+  <div class="container">
+    <header class="pf__head">
+      <div class="pf__intro">
+        <p class="mono-label pf__cap">What changes your price</p>
+        <h2 class="pf__title">No two front desks cost the same.</h2>
+        <p class="pf__lead max-measure">
+          Your price depends on how many enquiry channels we connect, how
+          many service areas you cover, how much follow-up your quotes need,
+          and whether phone answering, campaigns, or website work are part of
+          the build.
+        </p>
+      </div>
+      <HomeVideo
+        id="PricingHeroVideo"
+        tone="light"
+        caption="Package fit follows the size of your enquiry process."
+        class="pf__media"
+      />
+    </header>
+
+    <ul class="pf__list" aria-label="What affects your price">
+      {
+        factors.map(([label, clause], i) => (
+          <Reveal as="li" variant="draft" delay={(i % 4) * 0.05} class="pf__row">
+            <span class="mono-label pf__index">F{String(i + 1).padStart(2, "0")}</span>
+            <div class="pf__row-body">
+              <p class="pf__row-label">{label}</p>
+              <p class="pf__row-clause">{clause}</p>
+            </div>
+          </Reveal>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .pf__head {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+    gap: clamp(1.75rem, 4vw, 3.25rem);
+    align-items: center;
+    margin-bottom: clamp(2.25rem, 4vw, 3.25rem);
+  }
+  .pf__cap {
+    color: var(--muted);
+    margin-bottom: 0.85rem;
+  }
+  .pf__title {
+    font-size: clamp(1.75rem, 4vw, 2.75rem);
+    letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+  }
+  .pf__lead {
+    color: var(--body);
+    font-size: 1.0625rem;
+  }
+  .pf__media {
+    max-width: 340px;
+    justify-self: end;
+    width: 100%;
+  }
+
+  .pf__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border-top: 1px solid var(--line-light);
+  }
+
+  .pf__row {
+    display: grid;
+    grid-template-columns: 3.25rem minmax(0, 1fr);
+    gap: 1.25rem;
+    align-items: baseline;
+    padding-block: 1.25rem;
+    border-bottom: 1px solid var(--line-light);
+  }
+
+  .pf__index {
+    color: var(--ink);
+  }
+
+  .pf__row-body {
+    display: grid;
+    gap: 0.3rem;
+  }
+
+  .pf__row-label {
+    font-weight: 600;
+    color: var(--ink);
+    font-size: 1rem;
+  }
+
+  .pf__row-clause {
+    color: var(--body);
+    font-size: 0.9375rem;
+    max-width: 60ch;
+  }
+
+  @media (max-width: 860px) {
+    .pf__head {
+      grid-template-columns: 1fr;
+    }
+    .pf__media {
+      justify-self: start;
+      max-width: 400px;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .pf__row {
+      grid-template-columns: 1fr;
+      gap: 0.35rem;
+    }
+  }
+</style>

@@ -1,0 +1,39 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import PricingHero from "@/components/pricing/PricingHero.astro";
+import PriceFactors from "@/components/pricing/PriceFactors.astro";
+import PricingPackages from "@/components/pricing/PricingPackages.astro";
+import ValueAnchor from "@/components/pricing/ValueAnchor.astro";
+import AuditToManaged from "@/components/pricing/AuditToManaged.astro";
+import GuaranteeBand from "@/components/pricing/GuaranteeBand.astro";
+import FAQ from "@/components/FAQ.astro";
+import CTASection from "@/components/CTASection.astro";
+import { faqs, corePromise } from "@/data/site";
+
+// Pricing-relevant subset of the shared FAQ list — order follows site.ts.
+const pricingFaqQuestions = [
+  "Is this just lead generation?",
+  "Do I have to run ads?",
+  "What if I already use job software?",
+  "Can you guarantee more jobs?",
+  "What do you need from me?",
+];
+const pricingFaqs = faqs.filter(([question]) => pricingFaqQuestions.includes(question)) as [string, string][];
+---
+
+<BaseLayout
+  title="Pricing"
+  description="Tradie Front Desk package pricing: three starting points, what's included, the Front Desk Launch Guarantee, and how the free audit confirms your fit."
+>
+  <PricingHero />
+  <PriceFactors />
+  <PricingPackages />
+  <ValueAnchor />
+  <AuditToManaged />
+  <GuaranteeBand />
+  <FAQ items={pricingFaqs} title="Pricing questions" />
+  <CTASection
+    title="Not sure which package fits?"
+    text={`${corePromise} Book a free audit and we'll recommend the right starting point — no pressure, no lock-in.`}
+  />
+</BaseLayout>

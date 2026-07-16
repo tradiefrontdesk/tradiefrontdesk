@@ -1,0 +1,78 @@
+---
+// PricingHero.astro — Section 1 (dark)
+// Compact interior hero — no video, no crosshairs (the homepage hero's full
+// ornament set is deliberately dialled back here per the interior-hero rule).
+// Blueprint grid backdrop carries the motif on its own; the primary CTA
+// carries [data-hero-cta] so StickyMobileCTA hides while it is on screen.
+import Reveal from "@/components/motion/Reveal.astro";
+import { brand } from "@/data/site";
+---
+
+<section class="ph band-dark blueprint-grid">
+  <div class="container ph__inner">
+    <p class="mono-label ph__eyebrow">Pricing</p>
+
+    <Reveal as="h1" variant="draft" class="ph__title">
+      Packages built around your enquiry process.
+    </Reveal>
+
+    <p class="ph__lead max-measure">
+      Every trade business handles enquiries differently. Your price depends
+      on how many channels we connect, how much follow-up you need, whether
+      campaigns are included, and whether phone answering or website upgrades
+      are part of the setup.
+    </p>
+
+    <div class="ph__cta">
+      <a class="btn btn-primary" href="/free-audit" data-hero-cta
+        >Book a Free Front Desk Audit</a
+      >
+      <a class="btn btn-ghost" href="#packages">See the three packages</a>
+    </div>
+
+    <p class="ph__trust">{brand.trustLine}</p>
+  </div>
+</section>
+
+<style>
+  .ph {
+    padding-block: clamp(2.75rem, 6vw, 4.75rem);
+  }
+
+  .ph__inner {
+    max-width: 62ch;
+  }
+
+  .ph__eyebrow {
+    color: var(--marker);
+    margin-bottom: 1.25rem;
+  }
+
+  .ph__title {
+    font-size: clamp(2rem, 4.5vw, 3.25rem);
+    line-height: 1.08;
+    letter-spacing: -0.03em;
+    color: var(--on-dark);
+    max-width: 18ch;
+  }
+
+  .ph__lead {
+    color: var(--on-dark-body);
+    font-size: 1.0625rem;
+    margin-top: 1.25rem;
+  }
+
+  .ph__cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.85rem;
+    margin-block: 1.75rem 1.25rem;
+  }
+
+  .ph__trust {
+    font-size: 0.875rem;
+    line-height: 1.55;
+    color: var(--on-dark-muted);
+    max-width: 46ch;
+  }
+</style>

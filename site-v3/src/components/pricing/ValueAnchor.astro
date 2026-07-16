@@ -1,0 +1,141 @@
+---
+// ValueAnchor.astro — Section 4 (light)
+// The claims-safe "one saved job" framing, styled as a technical-drawing
+// dimension line (two labelled measurement ticks joined by a dashed run) —
+// a genuine use of the blueprint measurement-tick motif, not decoration.
+// Deliberately carries no dollar figures for job value (none exist in
+// site.ts) — the comparison stays qualitative, and the note ties back to
+// the disclaimer's "results depend on" framing.
+---
+
+<section class="va band-light section">
+  <div class="container va__inner">
+    <div class="va__copy">
+      <p class="mono-label va__cap">The measurement that matters</p>
+      <h2 class="va__title">One saved job can cover a lot of this.</h2>
+      <p class="va__body max-measure">
+        A missed call on a roof at 2pm. A quote that goes quiet. A
+        switchboard job that goes to the next tradie because nobody replied
+        in time. On their own, moments like these can be worth more than a
+        month of running this system. One booked job you would otherwise
+        have lost can go a long way toward covering the investment — that's
+        the maths worth doing before comparing this to software pricing.
+      </p>
+      <p class="va__note">
+        Illustrative framing, not a promise. Results depend on your market,
+        pricing, availability, and how quickly you respond.
+      </p>
+    </div>
+
+    <div class="va__ruler" aria-hidden="true">
+      <span class="va__tick">
+        <span class="va__tick-mark"></span>
+        <span class="mono-label va__tick-label">One job lost</span>
+      </span>
+      <span class="va__line"></span>
+      <span class="va__tick va__tick--end">
+        <span class="va__tick-mark"></span>
+        <span class="mono-label va__tick-label">One month, managed</span>
+      </span>
+    </div>
+  </div>
+</section>
+
+<style>
+  .va__inner {
+    display: grid;
+    gap: clamp(2rem, 4vw, 3rem);
+  }
+
+  .va__cap {
+    color: var(--muted);
+    margin-bottom: 0.85rem;
+  }
+  .va__title {
+    font-size: clamp(1.75rem, 4vw, 2.75rem);
+    letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+    max-width: 20ch;
+  }
+  .va__body {
+    color: var(--body);
+    font-size: 1.0625rem;
+  }
+  .va__note {
+    margin-top: 1rem;
+    color: var(--muted);
+    font-size: 0.8125rem;
+    line-height: 1.6;
+    max-width: 60ch;
+  }
+
+  /* Dimension-line ruler — two ticks, one dashed run between them. */
+  .va__ruler {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    padding-block: 0.5rem;
+  }
+  .va__tick {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.6rem;
+    flex-shrink: 0;
+  }
+  .va__tick--end {
+    align-items: flex-end;
+  }
+  .va__tick-mark {
+    width: 1.5px;
+    height: 28px;
+    background: var(--ink);
+  }
+  .va__tick-label {
+    color: var(--muted);
+    white-space: nowrap;
+  }
+  .va__line {
+    flex: 1;
+    height: 1px;
+    margin-inline: 0.75rem;
+    background: repeating-linear-gradient(
+      to right,
+      var(--line-light) 0,
+      var(--line-light) 6px,
+      transparent 6px,
+      transparent 12px
+    );
+    align-self: center;
+    margin-bottom: 1.6rem;
+  }
+
+  @media (max-width: 640px) {
+    .va__ruler {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0.75rem;
+    }
+    .va__tick,
+    .va__tick--end {
+      flex-direction: row;
+      align-items: center;
+    }
+    .va__tick-mark {
+      width: 28px;
+      height: 1.5px;
+    }
+    .va__line {
+      width: 1px;
+      height: 32px;
+      margin: 0 0 0 13px;
+      background: repeating-linear-gradient(
+        to bottom,
+        var(--line-light) 0,
+        var(--line-light) 6px,
+        transparent 6px,
+        transparent 12px
+      );
+    }
+  }
+</style>
