@@ -1,0 +1,17 @@
+{
+  "name": "Tradie Front Desk",
+  "short_name": "Tradie Front Desk",
+  "description": "Never miss another job. We answer every call, book the job, and follow up so tradies stop losing work to voicemail.",
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#0E2233",
+  "background_color": "#0E2233",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

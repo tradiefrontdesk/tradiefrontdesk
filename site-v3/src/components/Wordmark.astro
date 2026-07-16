@@ -1,0 +1,61 @@
+---
+// Wordmark.astro
+// Inline SVG wordmark — rendered inline (not <img src>) so the site's
+// bundled Archivo Variable (imported by global.css) applies to the
+// <text> nodes. The standalone public/wordmark-*.svg files are the
+// font-independent counterparts for use outside the page (social
+// previews, README, etc.) and intentionally do NOT reference Archivo.
+//
+// Registration-mark device (circle + crosshair) is always safety
+// orange. Text colour flips with `variant`:
+//   - "dark"  -> navy text, for light backgrounds
+//   - "light" -> off-white text, for dark backgrounds (default)
+interface Props {
+  variant?: "dark" | "light";
+  width?: number | string;
+  class?: string;
+}
+
+const { variant = "light", width, class: className } = Astro.props;
+
+const textFill = variant === "dark" ? "#0E2233" : "#F6F4EF";
+const device = "#FF5A1F";
+---
+
+<svg
+  viewBox="0 0 220 48"
+  width={width}
+  class={className}
+  role="img"
+  aria-label="Tradie Front Desk"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <title>Tradie Front Desk</title>
+  <g stroke={device} stroke-width="2" fill="none">
+    <circle cx="24" cy="24" r="14"></circle>
+    <line x1="24" y1="3" x2="24" y2="45"></line>
+    <line x1="3" y1="24" x2="45" y2="24"></line>
+  </g>
+  <circle cx="24" cy="24" r="1.6" fill={device} stroke="none"></circle>
+
+  <text
+    x="52"
+    y="22"
+    font-family="Archivo Variable, Arial Black, sans-serif"
+    font-weight="900"
+    font-size="17"
+    letter-spacing="0.5"
+    fill={textFill}>TRADIE</text
+  >
+  <text
+    x="52"
+    y="34"
+    font-family="Archivo Variable, Arial Black, sans-serif"
+    font-weight="700"
+    font-size="9.5"
+    letter-spacing="2"
+    fill={textFill}>FRONT DESK</text
+  >
+
+  <rect x="52" y="37.5" width="28" height="3" rx="1" fill={device}></rect>
+</svg>

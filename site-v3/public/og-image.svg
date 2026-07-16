@@ -1,0 +1,122 @@
+<svg
+  viewBox="0 0 1200 630"
+  width="1200"
+  height="630"
+  xmlns="http://www.w3.org/2000/svg"
+  role="img"
+  aria-label="Tradie Front Desk — Stop losing good jobs."
+>
+  <title>Tradie Front Desk — Stop losing good jobs.</title>
+
+  <defs>
+    <!-- Blueprint grid — same additive-line technique as .blueprint-grid in
+         global.css, hardcoded here since this file has no access to the
+         page's CSS custom properties. -->
+    <pattern id="blueprint-grid" width="60" height="60" patternUnits="userSpaceOnUse">
+      <path d="M 60 0 L 0 0 0 60" fill="none" stroke="rgba(122,150,175,0.14)" stroke-width="1" />
+    </pattern>
+
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#FF5A1F" />
+    </marker>
+  </defs>
+
+  <!-- Canvas -->
+  <rect width="1200" height="630" fill="#0E2233" />
+  <rect width="1200" height="630" fill="url(#blueprint-grid)" />
+
+  <!-- Faint oversized registration mark — background texture, bottom right -->
+  <g opacity="0.1" stroke="#F6F4EF" stroke-width="2" fill="none">
+    <circle cx="1080" cy="520" r="150" />
+    <line x1="1080" y1="340" x2="1080" y2="700" />
+    <line x1="900" y1="520" x2="1260" y2="520" />
+  </g>
+
+  <!-- Measurement ticks along the top edge, engineering-drawing motif -->
+  <g stroke="rgba(246,244,239,0.35)" stroke-width="1">
+    <line x1="80" y1="40" x2="80" y2="52" />
+    <line x1="140" y1="44" x2="140" y2="52" />
+    <line x1="200" y1="44" x2="200" y2="52" />
+    <line x1="260" y1="44" x2="260" y2="52" />
+    <line x1="320" y1="40" x2="320" y2="52" />
+  </g>
+  <line x1="80" y1="52" x2="320" y2="52" stroke="rgba(246,244,239,0.35)" stroke-width="1" />
+
+  <!-- Wordmark lockup -->
+  <g transform="translate(80,64) scale(2.2)">
+    <g stroke="#FF5A1F" stroke-width="2" fill="none">
+      <circle cx="24" cy="24" r="14" />
+      <line x1="24" y1="3" x2="24" y2="45" />
+      <line x1="3" y1="24" x2="45" y2="24" />
+    </g>
+    <circle cx="24" cy="24" r="1.6" fill="#FF5A1F" stroke="none" />
+    <text
+      x="52"
+      y="22"
+      font-family="Arial Black, Arial, sans-serif"
+      font-weight="900"
+      font-size="17"
+      letter-spacing="0.5"
+      fill="#F6F4EF"
+    >TRADIE</text>
+    <text
+      x="52"
+      y="34"
+      font-family="Arial Black, Arial, sans-serif"
+      font-weight="700"
+      font-size="9.5"
+      letter-spacing="2"
+      fill="#F6F4EF"
+    >FRONT DESK</text>
+    <rect x="52" y="37.5" width="28" height="3" rx="1" fill="#FF5A1F" />
+  </g>
+
+  <!-- Headline -->
+  <text
+    x="80"
+    y="400"
+    font-family="Arial Black, Arial, sans-serif"
+    font-weight="900"
+    font-size="72"
+    letter-spacing="-1"
+    fill="#F6F4EF"
+  >Stop losing good jobs.</text>
+
+  <!-- Supporting mono label -->
+  <text
+    x="82"
+    y="450"
+    font-family="Courier New, monospace"
+    font-weight="700"
+    font-size="20"
+    letter-spacing="3"
+    fill="rgba(246,244,239,0.7)"
+  >CALL ANSWERING &amp; BOOKING FOR TRADIES</text>
+
+  <!-- Orange annotation call-out -->
+  <g>
+    <circle cx="960" cy="220" r="3" fill="#FF5A1F" />
+    <line x1="960" y1="220" x2="905" y2="300" stroke="#FF5A1F" stroke-width="2" marker-end="url(#arrowhead)" />
+    <text
+      x="970"
+      y="215"
+      font-family="Courier New, monospace"
+      font-weight="700"
+      font-size="17"
+      letter-spacing="1.5"
+      fill="#FF5A1F"
+    >MISSED CALL =</text>
+    <text
+      x="970"
+      y="238"
+      font-family="Courier New, monospace"
+      font-weight="700"
+      font-size="17"
+      letter-spacing="1.5"
+      fill="#FF5A1F"
+    >LOST JOB</text>
+  </g>
+
+  <!-- Bottom safety-orange rule, ties to the tab motif in the wordmark -->
+  <rect x="80" y="560" width="120" height="6" rx="1" fill="#FF5A1F" />
+</svg>

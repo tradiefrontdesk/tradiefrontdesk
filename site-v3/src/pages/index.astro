@@ -1,19 +1,21 @@
 ---
 import "../styles/global.css";
+import Wordmark from "../components/Wordmark.astro";
 ---
 
 <h1>site-v3</h1>
 
 <!--
-  TEMPORARY — placeholder markup for Task 2 (design tokens / global CSS).
-  This exists only to exercise .band-dark / .band-light / .btn-primary /
-  .mono-label / .blueprint-grid during `npm run build` so the foundation
-  is verified end to end. Real page composition happens in Task 10 —
-  delete this block then.
+  TEMPORARY — placeholder markup for Task 2/3 (design tokens / global CSS /
+  brand assets). This exists only to exercise .band-dark / .band-light /
+  .btn-primary / .mono-label / .blueprint-grid and the Wordmark component
+  during `npm run build` so the foundation is verified end to end. Real
+  page composition happens in Task 10 — delete this block then.
 -->
 <section class="band-dark blueprint-grid section">
   <div class="container">
     <p class="mono-label">Fig. 01 — Design Tokens</p>
+    <Wordmark variant="light" width={200} />
     <h2>Blueprint &amp; Safety Orange</h2>
     <p class="prose">
       Dark navy band, sample body copy at the intended measure, plus a
@@ -27,6 +29,7 @@ import "../styles/global.css";
 <section class="band-light section">
   <div class="container">
     <p class="mono-label">Fig. 02 — Working Section</p>
+    <Wordmark variant="dark" width={200} />
     <h3>Cool off-white band</h3>
     <p class="prose">
       Navy-tinted off-white background with near-navy ink text, used for

@@ -1,0 +1,38 @@
+<svg
+  viewBox="0 0 220 48"
+  xmlns="http://www.w3.org/2000/svg"
+  role="img"
+  aria-label="Tradie Front Desk"
+>
+  <title>Tradie Front Desk</title>
+  <!-- Drafting registration mark: circle + crosshair, safety orange -->
+  <g stroke="#FF5A1F" stroke-width="2" fill="none">
+    <circle cx="24" cy="24" r="14" />
+    <line x1="24" y1="3" x2="24" y2="45" />
+    <line x1="3" y1="24" x2="45" y2="24" />
+  </g>
+  <circle cx="24" cy="24" r="1.6" fill="#FF5A1F" stroke="none" />
+
+  <!-- Wordmark: off-white text for dark backgrounds -->
+  <text
+    x="52"
+    y="22"
+    font-family="Arial Black, Arial, sans-serif"
+    font-weight="900"
+    font-size="17"
+    letter-spacing="0.5"
+    fill="#F6F4EF"
+  >TRADIE</text>
+  <text
+    x="52"
+    y="34"
+    font-family="Arial Black, Arial, sans-serif"
+    font-weight="700"
+    font-size="9.5"
+    letter-spacing="2"
+    fill="#F6F4EF"
+  >FRONT DESK</text>
+
+  <!-- Stamped safety-orange tab -->
+  <rect x="52" y="37.5" width="28" height="3" rx="1" fill="#FF5A1F" />
+</svg>
