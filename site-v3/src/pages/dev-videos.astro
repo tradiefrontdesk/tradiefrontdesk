@@ -1,0 +1,57 @@
+---
+// TEMPORARY — Task 6 QA page only. Not linked from navigation, not part
+// of the real site IA. Renders every registered Remotion VideoId (all 7
+// Home* compositions + all 17 story/page compositions) through the
+// SectionVideo/ProductVideoPlayer wrapper so the re-themed "Blueprint &
+// Safety Orange" compositions can be eyeballed end to end. Delete this
+// file in Task 10 (or whenever the real pages that embed these videos
+// are wired up and this sweep is no longer needed).
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import SectionVideo from "@/components/SectionVideo.astro";
+import { allVideoSpecs } from "@/remotion/data/homeVideos";
+---
+
+<BaseLayout title="Dev: All Videos" description="Temporary QA page listing every Remotion composition.">
+  <section class="section band-dark">
+    <div class="container">
+      <p class="mono-label">Task 6 QA — temporary page, delete before launch</p>
+      <h1>All Remotion Compositions ({allVideoSpecs.length})</h1>
+      <div class="dev-grid">
+        {allVideoSpecs.map((video) => (
+          <div class="dev-cell">
+            <p class="dev-cell__id">{video.id}</p>
+            <SectionVideo id={video.id} />
+            <p class="dev-cell__title">{video.title}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .dev-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 28px;
+    margin-top: 24px;
+  }
+
+  .dev-cell {
+    display: grid;
+    gap: 8px;
+  }
+
+  .dev-cell__id {
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--action);
+  }
+
+  .dev-cell__title {
+    margin: 0;
+    color: var(--on-dark-body);
+    font-size: 13px;
+  }
+</style>

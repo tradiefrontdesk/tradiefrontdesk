@@ -1,0 +1,22 @@
+---
+import ProductVideoPlayer from "@/components/ProductVideoPlayer";
+import { videoById, type VideoId } from "@/remotion/data/homeVideos";
+
+interface Props {
+  id: VideoId;
+  featured?: boolean;
+}
+
+const { id, featured = false } = Astro.props;
+const video = videoById[id];
+---
+
+<ProductVideoPlayer
+  id={video.id}
+  title={video.title}
+  description={video.description}
+  featured={featured}
+  bare
+  autoplay
+  client:visible
+/>
