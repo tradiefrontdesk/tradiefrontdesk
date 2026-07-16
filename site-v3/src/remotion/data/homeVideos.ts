@@ -24,7 +24,10 @@ export type StoryVideoId =
   | "CaseStudyProofVideo"
   | "CaseStudyDetailVideo"
   | "PrivacyPolicyVideo"
-  | "TermsVideo";
+  | "TermsVideo"
+  | "ElectriciansHeroVideo"
+  | "PlumbersHeroVideo"
+  | "RoofersHeroVideo";
 
 export type VideoId = HomeVideoId | StoryVideoId;
 
@@ -384,6 +387,51 @@ export const storyVideoSpecs = [
       nodes: ["Scope", "Build", "Launch", "Support", "Limits"],
       cards: ["Service scope", "Launch guarantee", "Client duties", "Results disclaimer"],
       footer: "Clear terms protect both the system and the client.",
+    },
+  },
+  {
+    id: "ElectriciansHeroVideo",
+    title: "Front Desk For Electricians",
+    description: "A callout enquiry moves from missed ring to booked job while the sparkie stays on the switchboard.",
+    durationInFrames: 360,
+    story: {
+      variant: "flow",
+      label: "Electrical callout",
+      cta: "Caught, qualified, booked",
+      beats: ["A switchboard job rings while both hands are in a live board.", "The front desk replies, collects the details, and lines up the booking."],
+      nodes: ["Call", "Text-back", "Job details", "Quote", "Booked"],
+      cards: ["Missed call caught", "Fault details", "Callout window", "Owner notified"],
+      footer: "Designed to help electricians stop losing callout work.",
+    },
+  },
+  {
+    id: "PlumbersHeroVideo",
+    title: "Front Desk For Plumbers & Drainage",
+    description: "An urgent leak enquiry is answered instantly and moved toward a booked visit while the plumber stays under the house.",
+    durationInFrames: 360,
+    story: {
+      variant: "flow",
+      label: "Urgent leak enquiry",
+      cta: "Answered while you are on the tools",
+      beats: ["A 7:30pm leak call cannot wait for tomorrow.", "The front desk replies straight away and captures the job before they ring the next plumber."],
+      nodes: ["Leak call", "Instant reply", "Urgency", "Callback", "Visit"],
+      cards: ["After-hours reply", "Job urgency", "Address captured", "Owner notified"],
+      footer: "Designed to help plumbers catch urgent work first.",
+    },
+  },
+  {
+    id: "RoofersHeroVideo",
+    title: "Front Desk For Roofers",
+    description: "A quote request lands mid-job on a roof and still gets a fast reply and a followed-up quote.",
+    durationInFrames: 360,
+    story: {
+      variant: "flow",
+      label: "Roofing quote request",
+      cta: "Quotes followed up until answered",
+      beats: ["You cannot answer a quote request from the ridge line.", "The front desk replies, books the site visit, and chases the quote after you send it."],
+      nodes: ["Enquiry", "Reply", "Site visit", "Quote", "Follow-up"],
+      cards: ["Fast first reply", "Visit booked", "Quote sent", "Follow-up runs"],
+      footer: "Designed to help roofers keep quotes moving.",
     },
   },
 ] as const satisfies readonly {
