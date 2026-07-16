@@ -1,0 +1,176 @@
+---
+// WhatYouGet.astro — free-audit Section 3 (dark)
+// The leak-report outcome, stamped like a report title block (badge reused
+// from the GuaranteeBand / Footer motif family) beside an annotated
+// four-item list of what the audit hands back, closing on an explicit
+// no-obligation, claims-safe line. No invented score or percentage —
+// only the four outcome categories from
+// about-tradie-front-desk/front_desk_audit.md's "What You Will Walk Away
+// With" section.
+import Reveal from "@/components/motion/Reveal.astro";
+
+const outcomes: Array<[string, string]> = [
+  [
+    "What's working",
+    "The parts of your enquiry process that are already solid, so you know what not to touch.",
+  ],
+  [
+    "Where it's leaking",
+    "The specific points where calls, forms, or quotes are most likely falling through.",
+  ],
+  [
+    "What to fix first",
+    "A short, ordered list of the highest-priority fixes, not a report you'll never get through.",
+  ],
+  [
+    "Whether a system makes sense",
+    "An honest recommendation, including the package that would fit, or a straight answer if now isn't the time.",
+  ],
+];
+---
+
+<section class="wyg band-dark blueprint-grid section">
+  <div class="container wyg__inner">
+    <div class="wyg__intro">
+      <Reveal variant="stamp" class="wyg__badge">
+        <svg class="wyg__badge-mark" viewBox="0 0 40 40" aria-hidden="true">
+          <circle cx="20" cy="20" r="18" fill="var(--action)"></circle>
+          <path
+            d="M12 20.5 L17.5 26 L28.5 14"
+            fill="none"
+            stroke="var(--on-action)"
+            stroke-width="2.75"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          ></path>
+        </svg>
+        <span class="mono-label">Audit report</span>
+      </Reveal>
+
+      <p class="mono-label wyg__cap">After the audit</p>
+      <h2 class="wyg__title">What you walk away with.</h2>
+      <p class="wyg__lead max-measure">
+        No 40-page theory document. A short, plain-English readout you can
+        act on the same week.
+      </p>
+    </div>
+
+    <div class="wyg__report">
+      <ol class="wyg__list">
+        {
+          outcomes.map(([title, body], i) => (
+            <Reveal as="li" variant="draft" delay={i * 0.05} class="wyg__row">
+              <span class="mono-label wyg__index">0{i + 1}</span>
+              <div>
+                <h3 class="wyg__row-title">{title}</h3>
+                <p>{body}</p>
+              </div>
+            </Reveal>
+          ))
+        }
+      </ol>
+
+      <p class="wyg__note max-measure">
+        There's no cost, no pressure, and no lock-in. If a front-desk system
+        doesn't make sense for your business yet, we'll say so.
+      </p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .wyg__inner {
+    display: grid;
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+    gap: clamp(2rem, 5vw, 3.5rem);
+    align-items: start;
+  }
+
+  .wyg__intro {
+    position: sticky;
+    top: 6rem;
+  }
+
+  .wyg__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.45rem 0.85rem;
+    margin-bottom: 1.75rem;
+    border: 1px solid var(--line-dark);
+    border-radius: var(--radius-sm);
+    color: var(--marker);
+    transform: rotate(-1.5deg);
+  }
+  .wyg__badge .mono-label {
+    color: var(--marker);
+  }
+  .wyg__badge-mark {
+    width: 20px;
+    height: 20px;
+  }
+
+  .wyg__cap {
+    color: var(--muted);
+    margin-bottom: 0.85rem;
+  }
+  .wyg__title {
+    font-size: clamp(1.6rem, 3.6vw, 2.5rem);
+    letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+  }
+  .wyg__lead {
+    font-size: 1.0625rem;
+  }
+
+  .wyg__list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 clamp(1.75rem, 4vw, 2.5rem);
+    display: grid;
+  }
+
+  .wyg__row {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 1.25rem;
+    padding-block: 1.35rem;
+    border-top: 1px solid var(--line-dark);
+  }
+  .wyg__row:last-child {
+    border-bottom: 1px solid var(--line-dark);
+  }
+
+  .wyg__index {
+    color: var(--on-dark-muted);
+    padding-top: 0.2rem;
+  }
+
+  .wyg__row-title {
+    font-size: 1.25rem;
+    letter-spacing: -0.01em;
+    margin-bottom: 0.35rem;
+  }
+  .wyg__row p {
+    font-size: 0.9688rem;
+    max-width: 52ch;
+  }
+
+  .wyg__note {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    padding: 1.1rem 1.4rem;
+    border: 1px solid var(--line-dark);
+    border-radius: var(--radius-md);
+    background: var(--surface-dark);
+  }
+
+  @media (max-width: 900px) {
+    .wyg__inner {
+      grid-template-columns: 1fr;
+    }
+    .wyg__intro {
+      position: static;
+    }
+  }
+</style>

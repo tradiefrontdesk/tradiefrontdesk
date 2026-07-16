@@ -1,0 +1,37 @@
+---
+// free-audit.astro — the site's primary conversion page. Every CTA on the
+// site routes here; the hero CTA anchors straight to #audit-form (see
+// components/free-audit/Hero.astro and BookAudit.astro).
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Hero from "@/components/free-audit/Hero.astro";
+import AuditChecklist from "@/components/free-audit/AuditChecklist.astro";
+import WhatYouGet from "@/components/free-audit/WhatYouGet.astro";
+import BookAudit from "@/components/free-audit/BookAudit.astro";
+import FAQ from "@/components/FAQ.astro";
+import CTASection from "@/components/CTASection.astro";
+import { faqs, corePromise } from "@/data/site";
+
+// Audit-relevant subset of the shared FAQ list — order follows site.ts.
+const auditFaqQuestions = [
+  "Is this just lead generation?",
+  "Can you guarantee more jobs?",
+  "What do you need from me?",
+];
+const auditFaqs = faqs.filter(([question]) => auditFaqQuestions.includes(question)) as [string, string][];
+---
+
+<BaseLayout
+  title="Free Front Desk Audit"
+  description="Book a free, no-obligation Front Desk Audit. We review your calls, forms, and quote follow-up, and show you where jobs may be slipping through."
+>
+  <Hero />
+  <AuditChecklist />
+  <WhatYouGet />
+  <BookAudit />
+  <FAQ items={auditFaqs} title="Audit questions" />
+  <CTASection
+    title="Ready to find your leaks?"
+    text={`${corePromise} Book your free audit below and we'll map where jobs are slipping. No pressure, no lock-in.`}
+    href="#audit-form"
+  />
+</BaseLayout>

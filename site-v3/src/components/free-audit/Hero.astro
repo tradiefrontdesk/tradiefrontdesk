@@ -1,0 +1,123 @@
+---
+// Hero.astro — free-audit Section 1 (dark)
+// Compact interior hero: one sentence naming what the audit is, the primary
+// CTA anchored straight down to #audit-form (carries [data-hero-cta] so
+// StickyMobileCTA hides while this is on screen), a call-instead fallback for
+// visitors not ready to fill in a form, and AuditHeroVideo as a supporting
+// figure. Shorter than the homepage hero per the interior-hero rule.
+import Reveal from "@/components/motion/Reveal.astro";
+import DraftPath from "@/components/motion/DraftPath.astro";
+import HomeVideo from "@/components/home/HomeVideo.astro";
+import { brand, contactDetails } from "@/data/site";
+
+const primaryPhone = contactDetails.phones[0];
+---
+
+<section class="fah band-dark blueprint-grid">
+  <div class="container fah__inner">
+    <div class="fah__copy">
+      <p class="mono-label fah__eyebrow">Free Front Desk Audit</p>
+
+      <Reveal as="h1" variant="draft" class="fah__title">
+        See where your trade business is losing jobs.
+      </Reveal>
+
+      <div class="fah__rule" aria-hidden="true">
+        <DraftPath viewBox="0 0 320 8" d="M2 4 L318 4" stroke="var(--action)" strokeWidth={2} />
+      </div>
+
+      <p class="fah__sub max-measure">
+        The Free Front Desk Audit is a no-cost, practical review of how your
+        calls, quote requests, and follow-up get handled today, and shows
+        where good jobs may be slipping through.
+      </p>
+
+      <div class="fah__cta">
+        <a class="btn btn-primary" href="#audit-form" data-hero-cta
+          >Book a Free Front Desk Audit</a
+        >
+        <a class="btn btn-ghost" href={primaryPhone.href}>Or call {primaryPhone.value}</a>
+      </div>
+
+      <p class="fah__trust">{brand.trustLine}</p>
+    </div>
+
+    <div class="fah__media">
+      <HomeVideo
+        id="AuditHeroVideo"
+        tone="dark"
+        caption="Mapping the enquiry process before the build starts."
+      />
+    </div>
+  </div>
+</section>
+
+<style>
+  .fah {
+    position: relative;
+    overflow: hidden;
+    padding-block: clamp(2.5rem, 6vw, 4.5rem);
+  }
+
+  .fah__inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    gap: clamp(2rem, 5vw, 3.5rem);
+    align-items: center;
+  }
+
+  .fah__eyebrow {
+    color: var(--marker);
+    margin-bottom: 1.25rem;
+  }
+
+  .fah__title {
+    font-size: clamp(2rem, 4.4vw, 3.4rem);
+    line-height: 1.06;
+    letter-spacing: -0.03em;
+    color: var(--on-dark);
+    max-width: 15ch;
+  }
+
+  .fah__rule {
+    width: min(280px, 65%);
+    margin-block: 1.25rem;
+  }
+
+  .fah__sub {
+    color: var(--on-dark-body);
+    font-size: 1.0625rem;
+  }
+
+  .fah__cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.85rem;
+    margin-block: 1.75rem 1.25rem;
+  }
+
+  .fah__trust {
+    font-size: 0.875rem;
+    line-height: 1.55;
+    color: var(--on-dark-muted);
+    max-width: 46ch;
+  }
+
+  .fah__media {
+    width: 100%;
+  }
+
+  @media (max-width: 900px) {
+    .fah__inner {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+    .fah__title {
+      max-width: 100%;
+    }
+    .fah__media {
+      max-width: 420px;
+      margin-inline: auto;
+    }
+  }
+</style>

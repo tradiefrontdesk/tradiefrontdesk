@@ -1,0 +1,67 @@
+---
+// BookAudit.astro — free-audit Section 4 (light, id="audit-form")
+// THE conversion moment: the section id everything else on the page and
+// the site's other hero CTAs anchor down to. AuditForm sits directly on
+// .surface-light per the page brief. VoiceAiEmbed follows inside the same
+// band so the "book the form" and "talk first" paths read as one calm,
+// bright action zone rather than alternating bands mid-decision — this
+// keeps the page's overall band rhythm to one deliberate light-light pair
+// (dark hero -> light checklist -> dark report -> light booking+voice ->
+// light FAQ -> dark close), matching the two-in-a-row pattern the homepage
+// already uses for its own closing stretch (AuditPackages -> FAQ).
+//
+// VoiceAiEmbed's own defaults say "Voice AI" / "Speak To Us" — buyer-facing
+// copy may not use "AI" per PRODUCT.md's vocabulary ban, so every string is
+// overridden via props here rather than left at the component default.
+import AuditForm from "@/components/AuditForm.astro";
+import VoiceAiEmbed from "@/components/VoiceAiEmbed.astro";
+---
+
+<section class="ba band-light section" id="audit-form">
+  <div class="container ba__inner">
+    <header class="ba__head">
+      <p class="mono-label ba__cap">Book your audit</p>
+      <h2 class="ba__title">Book your Free Front Desk Audit.</h2>
+      <p class="ba__lead max-measure">
+        Tell us about your business and how enquiries currently come in.
+        We'll come back with what's working, what's leaking, and what to fix
+        first.
+      </p>
+    </header>
+
+    <AuditForm />
+
+    <div class="ba__voice">
+      <VoiceAiEmbed
+        eyebrow="Prefer to talk first?"
+        title="Ask a quick question"
+        text="Ask about pricing, what the audit covers, or how the front desk works, before you book."
+      />
+    </div>
+  </div>
+</section>
+
+<style>
+  .ba__inner {
+    max-width: 900px;
+    margin-inline: auto;
+  }
+
+  .ba__head {
+    max-width: 62ch;
+    margin-bottom: clamp(1.75rem, 4vw, 2.5rem);
+  }
+  .ba__cap {
+    color: var(--muted);
+    margin-bottom: 0.85rem;
+  }
+  .ba__title {
+    font-size: clamp(1.6rem, 3.6vw, 2.5rem);
+    letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+  }
+  .ba__lead {
+    color: var(--body);
+    font-size: 1.0625rem;
+  }
+</style>

@@ -1,0 +1,195 @@
+---
+// AuditChecklist.astro — free-audit Section 2 (light)
+// The scorecard motif: ONE annotated blueprint artifact (bordered "scorecard"
+// with a measurement-tick ruler and mono row indices), not five equal cards.
+// Five categories, straight from about-tradie-front-desk/front_desk_audit.md
+// (Call Handling, Website Enquiry Capture, Speed To Response, Follow-Up
+// System, Pipeline Visibility), paraphrased down to what the assignment
+// names: calls, forms, response speed, quote follow-up, pipeline visibility.
+// No numeric score is shown — the source doc's /100 scoring system is an
+// internal sales-call tool, and a fabricated number here would violate the
+// claims-safe / no-invented-metrics rule. AuditChecksVideo closes the
+// section as its figure.
+import Reveal from "@/components/motion/Reveal.astro";
+import HomeVideo from "@/components/home/HomeVideo.astro";
+
+const checks: Array<[string, string]> = [
+  [
+    "Calls",
+    "What happens when the phone rings and you can't get to it. Whether missed calls get a reply, or just a voicemail nobody checks.",
+  ],
+  [
+    "Forms",
+    "Whether your website turns a quote request into a clear, useful enquiry, or an email that sits unread instead.",
+  ],
+  [
+    "Response speed",
+    "How long a customer waits to hear back, on the phone, by text, or through a form, and whether that changes when you're flat out.",
+  ],
+  [
+    "Quote follow-up",
+    "Whether the quote you sent last week gets chased properly, or quietly goes cold in your sent folder.",
+  ],
+  [
+    "Pipeline visibility",
+    "Whether you can see every open enquiry and what needs action today, or it's all sitting in your head.",
+  ],
+];
+---
+
+<section class="ac band-light section">
+  <div class="container">
+    <header class="ac__head">
+      <p class="mono-label ac__cap">Fig. — the audit checklist</p>
+      <h2 class="ac__title">What the audit actually checks.</h2>
+      <p class="ac__lead max-measure">
+        Five places trade businesses most often lose good jobs, walked
+        through one by one.
+      </p>
+    </header>
+
+    <div class="ac__artifact surface-light">
+      <div class="ac__ruler" aria-hidden="true">
+        <svg viewBox="0 0 640 16" preserveAspectRatio="none">
+          {
+            Array.from({ length: 33 }).map((_, i) => (
+              <line
+                x1={i * 20}
+                x2={i * 20}
+                y1={0}
+                y2={i % 4 === 0 ? 16 : 9}
+                stroke="var(--line-light)"
+                stroke-width="1"
+              />
+            ))
+          }
+        </svg>
+      </div>
+
+      <ol class="ac__list" aria-label="What the Free Front Desk Audit checks">
+        {
+          checks.map(([title, body], i) => (
+            <Reveal as="li" variant="draft" delay={i * 0.05} class="ac__row">
+              <span class="mono-label ac__index">{String(i + 1).padStart(2, "0")}</span>
+              <div class="ac__body">
+                <h3 class="ac__row-title">{title}</h3>
+                <p>{body}</p>
+              </div>
+              <svg class="ac__check" viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="12" r="10.5" fill="var(--action)" />
+                <path
+                  d="M7 12.3 L10.5 15.8 L17 8.5"
+                  fill="none"
+                  stroke="var(--on-action)"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </Reveal>
+          ))
+        }
+      </ol>
+    </div>
+
+    <HomeVideo
+      id="AuditChecksVideo"
+      tone="light"
+      caption="No guaranteed results claim, just a practical process review."
+      class="ac__media"
+    />
+  </div>
+</section>
+
+<style>
+  .ac__head {
+    max-width: 62ch;
+    margin-bottom: clamp(1.75rem, 4vw, 2.75rem);
+  }
+  .ac__cap {
+    color: var(--muted);
+    margin-bottom: 0.85rem;
+  }
+  .ac__title {
+    font-size: clamp(1.6rem, 3.6vw, 2.5rem);
+    letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+  }
+  .ac__lead {
+    color: var(--body);
+    font-size: 1.0625rem;
+  }
+
+  .ac__artifact {
+    overflow: hidden;
+    margin-bottom: clamp(2rem, 4vw, 3rem);
+  }
+
+  .ac__ruler {
+    padding: 0.6rem 1.25rem 0;
+    background: var(--surface-light);
+  }
+  .ac__ruler svg {
+    width: 100%;
+    height: 12px;
+    display: block;
+  }
+
+  .ac__list {
+    list-style: none;
+    padding: 0.5rem 0 0;
+    margin: 0;
+    display: grid;
+  }
+
+  .ac__row {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 1.25rem;
+    padding: 1.25rem 1.5rem;
+    border-top: 1px solid var(--line-light);
+  }
+  .ac__row:last-child {
+    border-bottom: 1px solid var(--line-light);
+  }
+
+  .ac__index {
+    color: var(--muted);
+    white-space: nowrap;
+  }
+
+  .ac__row-title {
+    font-size: 1.25rem;
+    letter-spacing: -0.01em;
+    margin-bottom: 0.3rem;
+  }
+  .ac__body p {
+    color: var(--body);
+    font-size: 0.9688rem;
+    max-width: 52ch;
+  }
+
+  .ac__check {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+  }
+
+  .ac__media {
+    max-width: 460px;
+    margin-inline: auto;
+  }
+
+  @media (max-width: 640px) {
+    .ac__row {
+      grid-template-columns: auto 1fr;
+      padding: 1.1rem 1.25rem;
+    }
+    .ac__check {
+      grid-column: 1 / -1;
+      justify-self: end;
+      margin-top: -0.5rem;
+    }
+  }
+</style>
