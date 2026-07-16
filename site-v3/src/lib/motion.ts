@@ -14,7 +14,7 @@
 //      and reveals it (removes the primed state) the first time it enters
 //      the viewport, then stops observing it (reveal-once).
 
-/** True when the user has NOT opted out of motion (i.e. animation is allowed). */
+/** True when the user prefers reduced motion (or it can't be determined) — callers must NOT animate. */
 export function prefersReducedMotion(): boolean {
   if (typeof window === "undefined" || typeof window.matchMedia !== "function") {
     // Can't tell — assume reduced motion so we never force an animation on
