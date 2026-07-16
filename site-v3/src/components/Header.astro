@@ -38,8 +38,8 @@ const phone = contactDetails.phones[0];
     <details class="site-header__disclosure">
       <summary class="site-header__toggle" aria-label="Open menu">
         <span class="site-header__toggle-box" aria-hidden="true">
-          <span class="site-header__bar"></span>
-          <span class="site-header__bar"></span>
+          <span class="site-header__toggle-bar"></span>
+          <span class="site-header__toggle-bar"></span>
         </span>
       </summary>
       <div class="site-header__panel blueprint-grid">
@@ -192,7 +192,7 @@ const phone = contactDetails.phones[0];
     height: 16px;
   }
 
-  .site-header__bar {
+  .site-header__toggle-bar {
     position: absolute;
     left: 0;
     width: 100%;
@@ -203,20 +203,20 @@ const phone = contactDetails.phones[0];
       opacity var(--dur-fast) var(--ease-out);
   }
 
-  .site-header__bar:first-child {
+  .site-header__toggle-bar:first-child {
     top: 0;
   }
 
-  .site-header__bar:last-child {
+  .site-header__toggle-bar:last-child {
     bottom: 0;
   }
 
-  .site-header__disclosure[open] .site-header__bar:first-child {
+  .site-header__disclosure[open] .site-header__toggle-bar:first-child {
     top: 7px;
     transform: rotate(45deg);
   }
 
-  .site-header__disclosure[open] .site-header__bar:last-child {
+  .site-header__disclosure[open] .site-header__toggle-bar:last-child {
     bottom: 7px;
     transform: rotate(-45deg);
   }
