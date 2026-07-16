@@ -53,11 +53,9 @@ const flowSteps = data.flow
   .map((step) => step.charAt(0).toUpperCase() + step.slice(1));
 const stepInset = Math.round(100 / (flowSteps.length * 2));
 
-// The trade video ids in site.ts (ElectriciansHeroVideo etc.) are not yet
-// registered as compositions in remotion/data/homeVideos.ts — guard so the
-// page renders correctly today and picks the video up automatically the
-// moment a matching composition is added, instead of crashing on an
-// undefined lookup.
+// Guard the lookup so a videoId typo in site.ts degrades to no video
+// instead of crashing the page. (All three trade compositions are
+// registered in remotion/data/homeVideos.ts.)
 const hasVideo = Object.prototype.hasOwnProperty.call(videoById, data.videoId);
 const videoId = data.videoId as unknown as VideoId;
 ---
