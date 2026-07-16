@@ -28,7 +28,7 @@ Create six editable HyperFrames projects for the homepage.
 - Target duration: 90-120 seconds
 - Purpose: explain Capture, Respond, Qualify, Book, Follow Up
 - CTA: See how your enquiry flow works
-- Visuals: five animated nodes with glowing connectors
+- Visuals: five animated nodes with dashed draft-path connectors
 
 ## 5. home-system-modules
 

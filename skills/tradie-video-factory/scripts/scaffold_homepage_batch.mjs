@@ -241,31 +241,46 @@ function buildHtml(video, transcript) {
   <body>
     <div id="${video.slug}" data-composition-id="${video.slug}" data-start="0" data-width="1920" data-height="1080" data-duration="${duration}">
       <div class="bg-grid"></div>
-      <div class="brand">TRADIE FRONT DESK</div>
+      <div class="brand"><span class="brand-mark"></span>TRADIE FRONT DESK</div>
       ${sceneMarkup}
       <div class="caption-wrap">${captions}</div>
       <div class="cta">${escapeHtml(video.cta)}</div>
       <style>
+        /* Blueprint & Safety Orange tokens — mirrors site-v3/src/styles/tokens.css */
+        :root {
+          --canvas-dark: oklch(0.245 0.045 245);      /* #0E2233 */
+          --surface-dark: oklch(0.31 0.05 245);       /* #16334A */
+          --surface-dark-2: oklch(0.275 0.048 245);
+          --action: oklch(0.68 0.21 38);              /* #FF5A1F safety orange */
+          --action-hover: oklch(0.63 0.21 38);
+          --on-action: oklch(0.18 0.05 38);
+          --marker: oklch(0.87 0.15 88);              /* #FFC933 hi-vis, sparse only */
+          --on-dark: oklch(0.965 0.006 245);           /* #F6F4EF-ish off-white */
+          --on-dark-body: oklch(0.88 0.012 245);
+          --on-dark-muted: oklch(0.72 0.02 245);
+          --line-dark: oklch(0.38 0.045 245);
+          --font-display: "Archivo Variable", "Arial Black", sans-serif;
+          --font-body: "Inter Variable", system-ui, sans-serif;
+          --font-mono: "JetBrains Mono Variable", ui-monospace, monospace;
+        }
         * { box-sizing: border-box; }
-        body { margin: 0; background: #0a0a0a; font-family: Inter, Arial, sans-serif; }
+        body { margin: 0; background: var(--canvas-dark); font-family: var(--font-body); }
         #${video.slug} {
           position: relative;
           overflow: hidden;
           width: 1920px;
           height: 1080px;
-          background:
-            radial-gradient(circle at 20% 10%, rgba(250, 255, 105, 0.16), transparent 30%),
-            radial-gradient(circle at 78% 30%, rgba(59, 130, 246, 0.08), transparent 28%),
-            #0a0a0a;
-          color: #fff;
+          background: var(--canvas-dark);
+          color: var(--on-dark);
         }
         .bg-grid {
+          /* fine blueprint grid, 72px pitch, low-alpha per DESIGN.md */
           position: absolute;
           inset: 0;
           background:
-            linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
-          background-size: 64px 64px;
+            linear-gradient(color-mix(in oklch, var(--line-dark) 45%, transparent) 1px, transparent 1px),
+            linear-gradient(90deg, color-mix(in oklch, var(--line-dark) 45%, transparent) 1px, transparent 1px);
+          background-size: 72px 72px;
           mask-image: radial-gradient(circle at 50% 35%, black, transparent 72%);
         }
         .brand {
@@ -273,11 +288,31 @@ function buildHtml(video, transcript) {
           top: 54px;
           left: 72px;
           z-index: 10;
-          color: #faff69;
+          display: flex;
+          align-items: center;
+          gap: 14px;
+          color: var(--on-dark);
+          font-family: var(--font-display);
+          font-variation-settings: "wdth" 125;
           font-size: 22px;
-          font-weight: 800;
-          letter-spacing: 3px;
+          font-weight: 700;
+          letter-spacing: 0.02em;
         }
+        .brand-mark {
+          width: 20px;
+          height: 20px;
+          border: 2px solid var(--action);
+          border-radius: 50%;
+          position: relative;
+        }
+        .brand-mark::before,
+        .brand-mark::after {
+          content: "";
+          position: absolute;
+          background: var(--action);
+        }
+        .brand-mark::before { left: 50%; top: -6px; bottom: -6px; width: 2px; transform: translateX(-50%); }
+        .brand-mark::after { top: 50%; left: -6px; right: -6px; height: 2px; transform: translateY(-50%); }
         .scene {
           position: absolute;
           inset: 0;
@@ -295,52 +330,61 @@ function buildHtml(video, transcript) {
         }
         .kicker {
           margin: 0;
-          color: #faff69;
-          font-size: 24px;
-          font-weight: 800;
-          letter-spacing: 4px;
+          color: var(--marker);
+          font-family: var(--font-mono);
+          text-transform: uppercase;
+          font-size: 20px;
+          font-weight: 500;
+          letter-spacing: 0.08em;
         }
         h2 {
           margin: 0;
-          color: #fff;
+          color: var(--on-dark);
+          font-family: var(--font-display);
+          font-variation-settings: "wdth" 125;
           font-size: 86px;
+          font-weight: 700;
           line-height: 0.98;
-          letter-spacing: -2px;
+          letter-spacing: -0.01em;
         }
         p {
           margin: 0;
-          color: #cccccc;
+          color: var(--on-dark-body);
+          font-family: var(--font-body);
           font-size: 32px;
           line-height: 1.32;
         }
         .visual-card {
           position: relative;
           min-height: 600px;
-          border: 1px solid rgba(250, 255, 105, 0.35);
-          border-radius: 18px;
-          background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.015)), #1a1a1a;
-          box-shadow: 0 0 0 1px rgba(250,255,105,0.16), 0 34px 110px rgba(250,255,105,0.13);
+          border: 1px solid var(--line-dark);
+          border-radius: 14px;
+          background: var(--surface-dark);
           padding: 52px;
         }
         .line {
+          /* dashed call-path connector, draws left to right */
           position: absolute;
           height: 3px;
-          background: linear-gradient(90deg, transparent, #faff69, transparent);
-          box-shadow: 0 0 24px rgba(250,255,105,0.6);
+          background-image: repeating-linear-gradient(90deg, var(--action) 0 14px, transparent 14px 24px);
         }
         .glow-node {
+          /* stamped badge for a flow step */
           position: absolute;
           display: grid;
           place-items: center;
           width: 126px;
           height: 126px;
-          border-radius: 18px;
-          background: #faff69;
-          color: #0a0a0a;
-          font-size: 18px;
-          font-weight: 850;
+          border-radius: 14px;
+          background: var(--surface-dark-2);
+          border: 1.5px solid var(--action);
+          color: var(--on-dark);
+          font-family: var(--font-mono);
+          text-transform: uppercase;
+          font-size: 16px;
+          font-weight: 500;
+          letter-spacing: 0.04em;
           text-align: center;
-          box-shadow: 0 0 55px rgba(250,255,105,0.36);
         }
         .caption-wrap {
           position: absolute;
@@ -349,16 +393,17 @@ function buildHtml(video, transcript) {
           left: 90px;
           z-index: 20;
           min-height: 118px;
-          border: 1px solid rgba(255,255,255,0.12);
-          border-radius: 14px;
-          background: rgba(10,10,10,0.78);
+          border: 1px solid var(--line-dark);
+          border-radius: 8px;
+          background: color-mix(in oklch, var(--canvas-dark) 85%, black);
           padding: 18px 24px;
         }
         .caption {
           position: absolute;
           inset: 18px 24px;
           opacity: 0;
-          color: #fff;
+          color: var(--on-dark);
+          font-family: var(--font-body);
           font-size: 25px;
           line-height: 1.22;
         }
@@ -367,13 +412,13 @@ function buildHtml(video, transcript) {
           right: 72px;
           top: 54px;
           z-index: 10;
-          border-radius: 10px;
-          background: #faff69;
-          color: #0a0a0a;
+          border-radius: 4px;
+          background: var(--action);
+          color: var(--on-action);
+          font-family: var(--font-body);
           padding: 18px 26px;
           font-size: 20px;
-          font-weight: 850;
-          box-shadow: 0 0 40px rgba(250,255,105,0.22);
+          font-weight: 600;
         }
       </style>
       <script>
@@ -407,7 +452,7 @@ function visualFor(index, video) {
           <div class="line" style="left:80px;top:310px;width:520px"></div>
           <div class="line" style="left:160px;top:430px;width:420px"></div>
           ${nodes}
-          <p style="position:absolute;left:52px;right:52px;bottom:48px;color:#faff69;font-weight:800;font-size:30px">${title}</p>
+          <p style="position:absolute;left:52px;right:52px;bottom:48px;color:var(--on-dark);font-family:var(--font-mono);text-transform:uppercase;letter-spacing:0.04em;font-weight:500;font-size:26px">${title}</p>
         </div>`;
 }
 

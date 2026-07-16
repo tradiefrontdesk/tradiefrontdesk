@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import { readFileSync } from "node:fs";
 
-const page = process.argv[2] ?? "src/pages/index.astro";
+const page = process.argv[2] ?? "site-v3/src/pages/index.astro";
 const source = readFileSync(page, "utf8");
 
 const cleaned = source

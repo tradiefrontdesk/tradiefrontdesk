@@ -1,6 +1,6 @@
 ---
 name: tradie-video-factory
-description: Create branded HyperFrames explainer video projects from Tradie Front Desk website pages. Use when Codex needs to read an Astro page or site section, identify 4-6 video opportunities, write legal-safe explainer scripts, generate ElevenLabs narration when environment variables are configured, produce numbered transcripts, and scaffold editable HyperFrames HTML animation projects using the site's about-tradie-front-desk/DESIGN.md visual identity.
+description: Create branded HyperFrames explainer video projects from Tradie Front Desk website pages. Use when Codex needs to read an Astro page or site section, identify 4-6 video opportunities, write legal-safe explainer scripts, generate ElevenLabs narration when environment variables are configured, produce numbered transcripts, and scaffold editable HyperFrames HTML animation projects using the site's site-v3/DESIGN.md "Blueprint & Safety Orange" visual identity.
 ---
 
 # Tradie Video Factory
@@ -11,9 +11,9 @@ Use this skill to turn pages from The Tradie Front Desk System website into bran
 
 Read these before creating any video:
 
-1. `about-tradie-front-desk/DESIGN.md` for visual identity. Use black canvas, electric yellow, Inter, dark cards, glowing borders, SVG line motion, and practical non-generic visuals.
-2. The target Astro page, usually `src/pages/<page>.astro`.
-3. `src/data/site.ts` for reusable packages, modules, process steps, FAQs, disclaimers, and case studies.
+1. `site-v3/DESIGN.md` for visual identity ("Blueprint & Safety Orange"). Use the navy canvas (`#0E2233`), stepped-up navy surfaces (`#16334A`), a single safety-orange action color (`#FF5A1F`, never more than one accent), sparse hi-vis yellow (`#FFC933`, callouts only, never a CTA color, never more than ~5% of frame), off-white (`#F6F4EF`) for light bands, Archivo (Expanded, `"wdth" 125`) for display type, Inter for body/caption text, and JetBrains Mono (uppercase, tracked) for annotation labels. Also check `site-v3/src/styles/tokens.css` for the exact token values. Compositions should read like engineering drawings, not glowing dark-mode dashboards.
+2. The target Astro page, usually `site-v3/src/pages/<page>.astro`.
+3. `site-v3/src/data/site.ts` for reusable packages, modules, process steps, FAQs, disclaimers, and case studies.
 4. `about-tradie-front-desk/terms_scope_and_guarantee.md` when proof, pricing, or results language appears.
 
 ## Claims Rules
@@ -66,16 +66,19 @@ Use safe phrasing:
 
 ## Visual Direction
 
-Use animated SVG and CSS/GSAP, not stock footage or robot imagery.
+Use animated SVG and CSS/GSAP, not stock footage or robot imagery. Compositions should feel like a set of engineering plans marked up like a job sheet, per `site-v3/DESIGN.md` — not a glowing dark-mode SaaS dashboard. Orange is the only actionable color (buttons, CTA badges, active states); hi-vis yellow is a sparse annotation marker only, never a fill or a second CTA color.
 
 Preferred visuals:
 
-- glowing enquiry lines
-- missed call cards becoming SMS replies
-- pipeline stages moving left to right
-- quote follow-up reminders
-- owner notification panels
+- fine blueprint grid backdrop (thin navy-tinted line grid, low alpha)
+- registration marks (circle-and-crosshair devices) as scene anchors
+- measurement ticks and dashed "call path" lines connecting enquiry stages
+- stamped badges (e.g. "AUDIT №…") for proof and CTA moments
+- missed call cards becoming SMS replies, drawn as annotated call-outs
+- pipeline stages moving left to right along a dashed draft-path
+- quote follow-up reminders styled as mono-label callouts
+- owner notification panels as stepped navy surface cards
 - audit checklist score panels
-- comparison cards for chaos vs organised
+- comparison cards for chaos vs organised, using tonal navy stepping (not glow) for depth
 
 Keep all compositions 1920x1080 unless asked otherwise.
