@@ -7,10 +7,10 @@
 // as an intentional, cropped "drawing figure" (registration marks in orange,
 // square Remotion canvas), and the loading fallback sits behind the player.
 import SectionVideo from "@/components/SectionVideo.astro";
-import type { HomeVideoId } from "@/remotion/data/homeVideos";
+import type { VideoId } from "@/remotion/data/homeVideos";
 
 interface Props {
-  id: HomeVideoId;
+  id: VideoId;
   caption?: string;
   tone?: "dark" | "light";
   class?: string;
