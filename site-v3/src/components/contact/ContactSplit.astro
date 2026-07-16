@@ -106,11 +106,16 @@ import { contactDetails } from "@/data/site";
     font-weight: 600;
     text-decoration: none;
     overflow-wrap: anywhere;
-    transition: color var(--dur-fast) var(--ease-out);
+    transition: text-decoration-color var(--dur-fast) var(--ease-out);
   }
 
+  /* Orange TEXT fails contrast on light bands — hover affordance is an
+     orange underline under ink text instead. */
   .cs__item-value:hover {
-    color: var(--action);
+    text-decoration: underline;
+    text-decoration-color: var(--action);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
   }
 
   @media (max-width: 900px) {

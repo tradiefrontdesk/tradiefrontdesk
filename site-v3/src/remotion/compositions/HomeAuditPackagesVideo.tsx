@@ -7,7 +7,9 @@ const checks = ["Missed calls", "Reply speed", "Quote follow-up", "Pipeline"];
 
 export const HomeAuditPackagesVideo = () => {
   const frame = useCurrentFrame();
-  const score = Math.round(interpolate(frame, [20, 160], [12, 74], { extrapolateLeft: "clamp", extrapolateRight: "clamp" }));
+  // Factual progress readout synced to the checks list — never an invented
+  // business metric (claims-safety: no fabricated "score" numbers).
+  const checksDone = Math.max(0, Math.min(checks.length, Math.floor((frame - 18) / 20) + 1));
 
   return (
     <VideoShell label="Audit packages" cta="Recommendation after review">
@@ -16,8 +18,8 @@ export const HomeAuditPackagesVideo = () => {
         <SquareCard style={{ padding: 24, display: "grid", gridTemplateColumns: "250px 1fr", gap: 24, alignItems: "center" }}>
           <div style={{ width: 220, height: 220, borderRadius: 999, border: "10px solid rgba(255,139,61,.28)", display: "grid", placeItems: "center", boxShadow: "0 0 45px rgba(255,139,61,.18)" }}>
             <div>
-              <div style={{ color: colors.primary, fontSize: 66, fontWeight: 950, lineHeight: 1 }}>{score}</div>
-              <div style={{ color: colors.body, fontSize: 19, fontWeight: 850 }}>leak score</div>
+              <div style={{ color: colors.primary, fontSize: 62, fontWeight: 950, lineHeight: 1 }}>{checksDone}/{checks.length}</div>
+              <div style={{ color: colors.body, fontSize: 19, fontWeight: 850 }}>checks reviewed</div>
             </div>
           </div>
           <div style={{ display: "grid", gap: 14 }}>

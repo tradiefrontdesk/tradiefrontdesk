@@ -210,7 +210,10 @@ const ComparisonVisual = ({ story }: { story: StoryVideoConfig }) => {
 
 const AuditVisual = ({ story }: { story: StoryVideoConfig }) => {
   const frame = useCurrentFrame();
-  const score = Math.round(clamp(frame, [40, 185], [22, 78]));
+  // Counts the checklist items as they reveal (same pacing as the list on the
+  // left) — a factual progress readout, never an invented business metric.
+  const totalChecks = story.nodes.length;
+  const checksDone = Math.max(0, Math.min(totalChecks, Math.floor((frame - 22) / 18) + 1));
   return (
     <div style={{ display: "grid", gridTemplateColumns: "1.15fr .85fr", gap: 16, alignItems: "stretch" }}>
       <SquareCard style={{ padding: 18, minHeight: 380 }}>
@@ -227,12 +230,12 @@ const AuditVisual = ({ story }: { story: StoryVideoConfig }) => {
       <SquareCard style={{ padding: 20, minHeight: 380, display: "grid", alignContent: "center", justifyItems: "center" }}>
         <svg viewBox="0 0 240 240" style={{ width: 230, height: 230 }}>
           <circle cx="120" cy="120" r="92" fill="none" stroke="rgba(255,255,255,.12)" strokeWidth="22" />
-          <circle cx="120" cy="120" r="92" fill="none" stroke={colors.primary} strokeWidth="22" strokeLinecap="round" strokeDasharray="578" strokeDashoffset={578 - (score / 100) * 578} transform="rotate(-90 120 120)" />
-          <text x="120" y="120" fill={colors.text} textAnchor="middle" fontSize="58" fontWeight="950">
-            {score}
+          <circle cx="120" cy="120" r="92" fill="none" stroke={colors.primary} strokeWidth="22" strokeLinecap="round" strokeDasharray="578" strokeDashoffset={578 - (checksDone / totalChecks) * 578} transform="rotate(-90 120 120)" />
+          <text x="120" y="120" fill={colors.text} textAnchor="middle" fontSize="52" fontWeight="950">
+            {checksDone}/{totalChecks}
           </text>
           <text x="120" y="154" fill={colors.body} textAnchor="middle" fontSize="18" fontWeight="850">
-            leak score
+            checks reviewed
           </text>
         </svg>
         <div style={{ color: colors.primary, fontSize: 20, fontWeight: 900, textAlign: "center" }}>Prioritise what to fix first</div>
