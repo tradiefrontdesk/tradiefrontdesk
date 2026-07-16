@@ -172,6 +172,17 @@ const phone = contactDetails.phones[0];
     display: none;
   }
 
+  /* Explicit hide for the closed panel content. Some browser/WebView
+     environments don't reliably apply the native
+     `details:not([open]) > *:not(summary) { display: none }` UA rule,
+     which otherwise lets the (nowrap) phone number and nav links inside
+     the closed panel lay out at full width and paint past the viewport
+     edge on narrow screens. Belt-and-suspenders so mobile never overflows
+     regardless of UA default support. */
+  .site-header__disclosure:not([open]) .site-header__panel {
+    display: none;
+  }
+
   .site-header__toggle {
     display: flex;
     align-items: center;
