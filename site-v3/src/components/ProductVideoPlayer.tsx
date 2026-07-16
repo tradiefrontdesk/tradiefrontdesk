@@ -33,8 +33,10 @@ const components = {
 
 export default class ProductVideoPlayer extends PureComponent<ProductVideoPlayerProps> {
   private playerRef = createRef<PlayerRef>();
+  private containerRef = createRef<HTMLElement>();
   private timer: number | undefined;
   private frame = 0;
+  private intersectionObserver: IntersectionObserver | undefined;
 
   componentDidMount() {
     if (!this.props.autoplay) {
@@ -44,18 +46,50 @@ export default class ProductVideoPlayer extends PureComponent<ProductVideoPlayer
     const player = this.playerRef.current;
     player?.mute();
     player?.setVolume(0);
-    this.timer = window.setInterval(() => {
-      const duration = videoById[this.props.id].durationInFrames;
-      this.frame = (this.frame + 1) % duration;
-      this.playerRef.current?.seekTo(this.frame);
-    }, 1000 / remotionVideoDefaults.fps);
+
+    // Pause the frame-stepping loop while the player is off-screen so the
+    // homepage doesn't run every Remotion player's render loop concurrently.
+    // Resumes automatically once the section scrolls back into view.
+    const node = this.containerRef.current;
+    if (node && "IntersectionObserver" in window) {
+      this.intersectionObserver = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            this.startLoop();
+          } else {
+            this.stopLoop();
+          }
+        },
+        { threshold: 0.1 },
+      );
+      this.intersectionObserver.observe(node);
+    } else {
+      this.startLoop();
+    }
   }
 
   componentWillUnmount() {
-    if (this.timer) {
-      window.clearInterval(this.timer);
-    }
+    this.stopLoop();
+    this.intersectionObserver?.disconnect();
   }
+
+  private startLoop = () => {
+    if (this.timer !== undefined) {
+      return;
+    }
+    const duration = videoById[this.props.id].durationInFrames;
+    this.timer = window.setInterval(() => {
+      this.frame = (this.frame + 1) % duration;
+      this.playerRef.current?.seekTo(this.frame);
+    }, 1000 / remotionVideoDefaults.fps);
+  };
+
+  private stopLoop = () => {
+    if (this.timer !== undefined) {
+      window.clearInterval(this.timer);
+      this.timer = undefined;
+    }
+  };
 
   render() {
     const { id, title, description, featured = false, bare = false, autoplay = true } = this.props;
@@ -65,7 +99,10 @@ export default class ProductVideoPlayer extends PureComponent<ProductVideoPlayer
     const inputProps = isHomeVideo ? undefined : { id: id as StoryVideoId };
 
     return (
-      <article className={`${featured ? "product-video product-video--featured" : "product-video"}${bare ? " product-video--bare" : ""}`}>
+      <article
+        ref={this.containerRef}
+        className={`${featured ? "product-video product-video--featured" : "product-video"}${bare ? " product-video--bare" : ""}`}
+      >
         <div className="product-video__frame" aria-label={`${title} Remotion video player`}>
           <div className="product-video__fallback" aria-hidden="true">
             <p>{spec.title}</p>

@@ -1,10 +1,13 @@
 ---
-// GuaranteeBand.astro — Section 6 (light)
+// GuaranteeBand.astro — Section 6 (dark)
 // The Front Desk Launch Guarantee, presented as a stamped certificate panel.
 // The Q/A text is the site.ts faqs guarantee entry verbatim, unedited — this
 // is the highest-stakes copy on the page, so it is reproduced exactly rather
-// than paraphrased. The stamp uses orange as a fill/shape only (never text),
-// which keeps it compliant with the light-band orange rule.
+// than paraphrased. The stamp uses orange as a fill/shape only (never text).
+// Dark band (not light): AuditToManaged (dark) is immediately followed by
+// FAQ (light) and the final CTA (dark) — a light GuaranteeBand here would
+// put two light bands back to back before the dark CTA, breaking the
+// page's dark/light alternation.
 import Reveal from "@/components/motion/Reveal.astro";
 import { faqs } from "@/data/site";
 
@@ -12,7 +15,7 @@ const guaranteeEntry = faqs.find(([q]) => q === "Can you guarantee more jobs?");
 const [question, answer] = guaranteeEntry ?? ["Can you guarantee more jobs?", ""];
 ---
 
-<section class="gb band-light section">
+<section class="gb band-dark blueprint-grid section">
   <div class="container gb__inner">
     <Reveal variant="stamp" class="gb__badge">
       <svg class="gb__badge-mark" viewBox="0 0 40 40" aria-hidden="true">
@@ -56,7 +59,7 @@ const [question, answer] = guaranteeEntry ?? ["Can you guarantee more jobs?", ""
   }
 
   .gb__cap {
-    color: var(--muted);
+    color: var(--on-dark-muted);
     margin-bottom: 0.75rem;
   }
   .gb__title {
@@ -67,16 +70,16 @@ const [question, answer] = guaranteeEntry ?? ["Can you guarantee more jobs?", ""
 
   .gb__qa {
     padding: clamp(1.25rem, 2.5vw, 1.75rem);
-    border: 1px solid var(--line-light);
+    border: 1px solid var(--line-dark);
     border-radius: var(--radius-md);
-    background: var(--surface-light);
+    background: var(--surface-dark);
   }
   .gb__q {
-    color: var(--ink);
+    color: var(--on-dark);
     margin-bottom: 0.6rem;
   }
   .gb__a {
-    color: var(--body);
+    color: var(--on-dark-body);
     font-size: 1rem;
   }
 
