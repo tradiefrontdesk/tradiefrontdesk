@@ -1,0 +1,280 @@
+---
+// AuditPackages.astro — Section 7 (light)
+// The free-audit path (a slim 4-step strip, visually distinct from the
+// mechanism's big-node flow) plus the three packages as pricing cards. The
+// flagship (Booked Jobs System) is emphasised with a full orange border, a
+// filled badge, and lift — no border-stripe accent. All package actions
+// funnel to the same one audit/pricing intent; the flagship carries the one
+// dominant orange button, the others a ghost secondary.
+import Reveal from "@/components/motion/Reveal.astro";
+import HomeVideo from "@/components/home/HomeVideo.astro";
+import { packages } from "@/data/site";
+
+const auditSteps = [
+  "Book a free audit",
+  "We find the leaks",
+  "We recommend the right build",
+  "We build, launch, and manage",
+];
+
+const MAX_INCLUDES = 7;
+---
+
+<section class="ap band-light section">
+  <div class="container">
+    <header class="ap__head">
+      <div class="ap__intro">
+        <p class="mono-label ap__cap">Fig. 07 — start with the audit</p>
+        <h2 class="ap__title">Start with a free audit. Then pick the right build.</h2>
+        <p class="ap__lead">
+          The audit maps how your enquiries are handled now and where jobs are
+          leaking. You get a clear picture first — then choose whether a system
+          makes sense, with no pressure and no lock-in to a package.
+        </p>
+      </div>
+      <HomeVideo
+        id="HomeAuditPackagesVideo"
+        tone="light"
+        caption="Find the leaks, then choose Starter, Booked Jobs, or Growth."
+        class="ap__media"
+      />
+    </header>
+
+    <ol class="ap__path" aria-label="How starting works">
+      {
+        auditSteps.map((step, i) => (
+          <li class="ap__path-step">
+            <span class="mono-label ap__path-num">{String(i + 1).padStart(2, "0")}</span>
+            <span class="ap__path-label">{step}</span>
+          </li>
+        ))
+      }
+    </ol>
+
+    <ul class="ap__grid" aria-label="Packages">
+      {
+        packages.map((pkg) => {
+          const featured = Boolean(pkg.featured);
+          const shown = pkg.includes.slice(0, MAX_INCLUDES);
+          const extra = pkg.includes.length - shown.length;
+          const href = featured ? "/free-audit" : "/pricing";
+          return (
+            <Reveal
+              as="li"
+              variant={featured ? "stamp" : "draft"}
+              class:list={["pkg", { "pkg--featured": featured }]}
+            >
+              <div class="pkg__top">
+                <span class:list={["mono-label", "pkg__badge", { "pkg__badge--featured": featured }]}>
+                  {pkg.badge}
+                </span>
+              </div>
+              <h3 class="pkg__name">{pkg.name}</h3>
+              <p class="pkg__price mono-label">{pkg.price}</p>
+              <p class="pkg__bestfor">{pkg.bestFor}</p>
+              <ul class="pkg__includes">
+                {shown.map((item) => (
+                  <li>
+                    <span class="pkg__tick" aria-hidden="true" />
+                    {item}
+                  </li>
+                ))}
+                {extra > 0 && <li class="pkg__more">+ {extra} more in the full spec</li>}
+              </ul>
+              <a
+                class:list={["btn", featured ? "btn-primary" : "btn-ghost", "pkg__cta"]}
+                href={href}
+              >
+                {pkg.cta}
+              </a>
+            </Reveal>
+          );
+        })
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .ap__head {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+    gap: clamp(1.75rem, 4vw, 3.25rem);
+    align-items: center;
+    margin-bottom: clamp(2rem, 4vw, 3rem);
+  }
+  .ap__cap {
+    color: var(--muted);
+    margin-bottom: 0.85rem;
+  }
+  .ap__title {
+    font-size: clamp(1.75rem, 4vw, 2.75rem);
+    letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+  }
+  .ap__lead {
+    color: var(--body);
+    font-size: 1.0625rem;
+    max-width: 56ch;
+  }
+  .ap__media {
+    max-width: 360px;
+    justify-self: end;
+    width: 100%;
+  }
+
+  /* Slim audit path — numbered strip, distinct from the mechanism flow. */
+  .ap__path {
+    list-style: none;
+    padding: 1.1rem 1.25rem;
+    margin: 0 0 clamp(2.25rem, 4vw, 3rem);
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    border: 1px solid var(--line-light);
+    border-radius: var(--radius-md);
+    background: var(--surface-light);
+  }
+  .ap__path-step {
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+  }
+  .ap__path-step + .ap__path-step {
+    position: relative;
+    padding-left: 1rem;
+  }
+  .ap__path-step + .ap__path-step::before {
+    content: "";
+    position: absolute;
+    left: -0.5rem;
+    top: 0.15rem;
+    bottom: 0.15rem;
+    width: 1px;
+    background: var(--line-light);
+  }
+  .ap__path-num {
+    color: var(--ink);
+  }
+  .ap__path-label {
+    font-weight: 500;
+    color: var(--ink);
+    font-size: 0.9375rem;
+  }
+
+  .ap__grid {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.25rem;
+    align-items: start;
+  }
+
+  .pkg {
+    display: grid;
+    align-content: start;
+    gap: 0.65rem;
+    padding: clamp(1.5rem, 2.5vw, 2rem);
+    background: var(--surface-light);
+    border: 1px solid var(--line-light);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 24px 48px -32px oklch(0.22 0.04 245 / 0.18);
+  }
+  .pkg--featured {
+    border: 1.5px solid var(--action);
+    box-shadow: 0 28px 56px -28px oklch(0.22 0.04 245 / 0.28);
+  }
+
+  .pkg__badge {
+    display: inline-block;
+    color: var(--muted);
+    padding: 0.3rem 0.6rem;
+    border: 1px solid var(--line-light);
+    border-radius: var(--radius-sm);
+  }
+  .pkg__badge--featured {
+    color: var(--on-action);
+    background: var(--action);
+    border-color: var(--action);
+  }
+
+  .pkg__name {
+    font-size: 1.4rem;
+    letter-spacing: -0.01em;
+  }
+  .pkg__price {
+    color: var(--ink);
+    font-size: 0.8125rem;
+    letter-spacing: 0.02em;
+  }
+  .pkg__bestfor {
+    color: var(--body);
+    font-size: 0.9375rem;
+    padding-bottom: 0.4rem;
+  }
+  .pkg__includes {
+    list-style: none;
+    padding: 0.85rem 0 0.4rem;
+    margin: 0;
+    border-top: 1px solid var(--line-light);
+    display: grid;
+    gap: 0.55rem;
+  }
+  .pkg__includes li {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.6rem;
+    align-items: start;
+    font-size: 0.9063rem;
+    color: var(--body);
+  }
+  .pkg__tick {
+    margin-top: 0.45rem;
+    width: 8px;
+    height: 8px;
+    border-radius: 1px;
+    background: var(--action);
+    transform: rotate(45deg);
+    flex-shrink: 0;
+  }
+  .pkg__includes li.pkg__more {
+    display: block;
+    color: var(--muted);
+    font-size: 0.8125rem;
+    padding-top: 0.15rem;
+  }
+  .pkg__cta {
+    margin-top: 0.75rem;
+    width: 100%;
+  }
+
+  @media (max-width: 900px) {
+    .ap__head {
+      grid-template-columns: 1fr;
+    }
+    .ap__media {
+      justify-self: start;
+      max-width: 400px;
+    }
+    .ap__grid {
+      grid-template-columns: 1fr;
+      max-width: 460px;
+    }
+    .ap__path {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .ap__path {
+      grid-template-columns: 1fr;
+    }
+    .ap__path-step + .ap__path-step {
+      padding-left: 0;
+    }
+    .ap__path-step + .ap__path-step::before {
+      display: none;
+    }
+  }
+</style>

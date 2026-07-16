@@ -1,0 +1,225 @@
+---
+// ProofBand.astro — Section 6 (dark)
+// Claims-safe proof. StatTick counts only real STRUCTURAL facts (step count,
+// module count, worked-example count) — never an outcome, revenue, or
+// response-rate promise. The five proofMetrics appear as the categories the
+// system tracks and reports; the three proofExamples are labelled worked
+// illustrations, carrying their own "results depend on..." line.
+import StatTick from "@/components/motion/StatTick.tsx";
+import Reveal from "@/components/motion/Reveal.astro";
+import HomeVideo from "@/components/home/HomeVideo.astro";
+import { processSteps, modules, proofExamples, proofMetrics } from "@/data/site";
+
+const stats = [
+  { value: processSteps.length, label: "steps from first contact to booked job" },
+  { value: modules.length, label: "front-desk modules to draw from" },
+  { value: proofExamples.length, label: "worked examples you can walk through" },
+];
+---
+
+<section class="proof band-dark blueprint-grid section">
+  <div class="container">
+    <header class="proof__head">
+      <div class="proof__intro">
+        <p class="mono-label proof__cap">Fig. 06 — proof, not promises</p>
+        <h2 class="proof__title">Built to be measured — and honest about it.</h2>
+        <p class="proof__lead max-measure">
+          No guaranteed job counts here. What you get is a process built to be
+          tracked, and worked examples that show how it handles the moments
+          jobs usually leak away.
+        </p>
+      </div>
+      <HomeVideo
+        id="HomeRealBusinessPaymentVideo"
+        tone="dark"
+        caption="A managed system running behind a real trade business."
+        class="proof__media"
+      />
+    </header>
+
+    <dl class="proof__stats">
+      {
+        stats.map((stat, i) => (
+          <Reveal as="div" variant="stamp" delay={i * 0.08} class="proof__stat">
+            <dt class="proof__num">
+              <StatTick client:visible value={stat.value} />
+            </dt>
+            <dd class="proof__stat-label">{stat.label}</dd>
+          </Reveal>
+        ))
+      }
+    </dl>
+
+    <div class="proof__tracked">
+      <p class="mono-label proof__tracked-cap">What the system tracks and reports</p>
+      <ul class="proof__chips">
+        {proofMetrics.map(([name]) => <li class="mono-label proof__chip">{name}</li>)}
+      </ul>
+    </div>
+
+    <ul class="proof__examples" aria-label="Worked examples">
+      {
+        proofExamples.map((ex, i) => (
+          <Reveal as="li" variant="draft" delay={i * 0.07} class="pex">
+            <div class="pex__top">
+              <span class="mono-label pex__tag">Worked example</span>
+              <span class="mono-label pex__num">{String(i + 1).padStart(2, "0")}</span>
+            </div>
+            <h3 class="pex__title">{ex.shortHeadline}</h3>
+            <p class="pex__snapshot">{ex.snapshot}</p>
+            <p class="pex__result">{ex.result}</p>
+            <p class="pex__note">{ex.reported}</p>
+          </Reveal>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .proof__head {
+    display: grid;
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr);
+    gap: clamp(1.75rem, 4vw, 3.25rem);
+    align-items: center;
+    margin-bottom: clamp(2.5rem, 5vw, 3.5rem);
+  }
+  .proof__cap {
+    color: var(--marker);
+    margin-bottom: 0.85rem;
+  }
+  .proof__title {
+    font-size: clamp(1.75rem, 4vw, 2.75rem);
+    letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+  }
+  .proof__lead {
+    color: var(--on-dark-body);
+    font-size: 1.0625rem;
+  }
+  .proof__media {
+    max-width: 380px;
+    justify-self: end;
+    width: 100%;
+  }
+
+  .proof__stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+    margin: 0 0 clamp(2rem, 4vw, 2.75rem);
+    padding-block: clamp(1.5rem, 3vw, 2rem);
+    border-block: 1px solid var(--line-dark);
+  }
+  .proof__stat {
+    display: grid;
+    gap: 0.4rem;
+  }
+  .proof__num {
+    font-family: var(--font-display);
+    font-variation-settings: "wdth" 125;
+    font-weight: 700;
+    font-size: clamp(2.75rem, 7vw, 4.25rem);
+    line-height: 1;
+    letter-spacing: -0.03em;
+    color: var(--on-dark);
+  }
+  .proof__stat-label {
+    margin: 0;
+    color: var(--on-dark-muted);
+    font-size: 0.9375rem;
+    max-width: 22ch;
+  }
+
+  .proof__tracked {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem 1.25rem;
+    margin-bottom: clamp(2.5rem, 5vw, 3.5rem);
+  }
+  .proof__tracked-cap {
+    color: var(--on-dark-muted);
+  }
+  .proof__chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    list-style: none;
+    padding: 0;
+  }
+  .proof__chip {
+    color: var(--on-dark-body);
+    padding: 0.35rem 0.7rem;
+    border: 1px solid var(--line-dark);
+    border-radius: var(--radius-sm);
+    background: var(--surface-dark-2);
+  }
+
+  .proof__examples {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.25rem;
+  }
+  .pex {
+    display: grid;
+    align-content: start;
+    gap: 0.7rem;
+    padding: 1.6rem 1.5rem;
+    background: var(--surface-dark);
+    border: 1px solid var(--line-dark);
+    border-radius: var(--radius-lg);
+  }
+  .pex__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .pex__tag {
+    color: var(--marker);
+    font-size: 0.6875rem;
+  }
+  .pex__num {
+    color: var(--on-dark-muted);
+  }
+  .pex__title {
+    font-size: 1.1875rem;
+    letter-spacing: -0.01em;
+    color: var(--on-dark);
+    line-height: 1.2;
+  }
+  .pex__snapshot {
+    color: var(--on-dark-body);
+    font-size: 0.9375rem;
+  }
+  .pex__result {
+    color: var(--on-dark-body);
+    font-size: 0.9375rem;
+    padding-top: 0.7rem;
+    border-top: 1px solid var(--line-dark);
+  }
+  .pex__note {
+    color: var(--on-dark-muted);
+    font-size: 0.75rem;
+    line-height: 1.5;
+  }
+
+  @media (max-width: 860px) {
+    .proof__head {
+      grid-template-columns: 1fr;
+    }
+    .proof__media {
+      justify-self: start;
+      max-width: 400px;
+    }
+    .proof__examples {
+      grid-template-columns: 1fr;
+    }
+    .proof__stats {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+  }
+</style>

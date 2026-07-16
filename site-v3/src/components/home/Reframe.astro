@@ -1,0 +1,100 @@
+---
+// Reframe.astro — Section 3 (light)
+// A vertical-stack manifesto (deliberately NOT a text/media split, to break
+// the hero+leak split rhythm and cap consecutive splits at two). Three
+// struck-through negations resolve into one affirmation, then HomeReframeVideo
+// as a centred figure. Meaning never rides on colour alone — the word "Not"
+// carries it, the strike is emphasis.
+import Reveal from "@/components/motion/Reveal.astro";
+import HomeVideo from "@/components/home/HomeVideo.astro";
+
+const negations = ["Not shared leads.", "Not just ads.", "Not another app to log into."];
+---
+
+<section class="reframe band-light section">
+  <div class="container reframe__inner">
+    <p class="mono-label reframe__cap">Fig. 03 — the reframe</p>
+
+    <h2 class="reframe__statement">
+      {
+        negations.map((line, i) => (
+          <Reveal as="span" variant="draft" delay={i * 0.07} class="reframe__no">
+            <span class="reframe__no-text">{line}</span>
+          </Reveal>
+        ))
+      }
+      <Reveal as="span" variant="draft" delay={0.28} class="reframe__yes">
+        A managed front desk.
+      </Reveal>
+    </h2>
+
+    <p class="reframe__body max-measure">
+      The front desk your trade business should already have — installed and run
+      for you, so calls, quote requests, and follow-ups stop depending on
+      anyone's memory. You stay in control of pricing, promises, and which jobs
+      you take on.
+    </p>
+
+    <HomeVideo
+      id="HomeReframeVideo"
+      tone="light"
+      caption="Fix the front desk before you pay for more enquiries."
+      class="reframe__media"
+    />
+  </div>
+</section>
+
+<style>
+  .reframe__inner {
+    display: grid;
+    justify-items: start;
+  }
+
+  .reframe__cap {
+    color: var(--muted);
+    margin-bottom: 1.5rem;
+  }
+
+  .reframe__statement {
+    display: grid;
+    gap: 0.35rem;
+    font-size: clamp(1.9rem, 5vw, 3.4rem);
+    line-height: 1.08;
+    letter-spacing: -0.03em;
+    margin-bottom: 1.75rem;
+  }
+
+  .reframe__no {
+    color: var(--muted);
+  }
+  .reframe__no-text {
+    position: relative;
+    display: inline;
+    background-image: linear-gradient(var(--action), var(--action));
+    background-repeat: no-repeat;
+    background-position: 0 58%;
+    background-size: 100% 3px;
+    padding-inline: 0.02em;
+  }
+  .reframe__yes {
+    color: var(--ink);
+  }
+
+  .reframe__body {
+    color: var(--body);
+    font-size: 1.0625rem;
+    margin-bottom: clamp(2rem, 4vw, 3rem);
+  }
+
+  .reframe__media {
+    width: 100%;
+    max-width: 440px;
+    justify-self: center;
+  }
+
+  @media (max-width: 560px) {
+    .reframe__statement {
+      letter-spacing: -0.02em;
+    }
+  }
+</style>

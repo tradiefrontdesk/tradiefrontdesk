@@ -1,0 +1,220 @@
+---
+// Hero.astro — Section 1 (dark)
+// Drafting-assembly hero: blueprint grid, corner registration marks, a
+// measurement-tick ruler, the approved h1 rising in with Reveal(draft), a
+// stamped figure annotation, the orange primary CTA carrying [data-hero-cta]
+// (so StickyMobileCTA hides while it is on screen), and HomeHeroVideo as a
+// supporting figure — present, not dominating.
+import Reveal from "@/components/motion/Reveal.astro";
+import DraftPath from "@/components/motion/DraftPath.astro";
+import HomeVideo from "@/components/home/HomeVideo.astro";
+import { heroPromise } from "@/data/site";
+---
+
+<section class="hero band-dark blueprint-grid">
+  <!-- Registration crosshairs in the section corners — "you are here" on a plan. -->
+  <svg class="hero__crosshair hero__crosshair--tl" viewBox="0 0 40 40" aria-hidden="true">
+    <line x1="20" y1="4" x2="20" y2="36"></line>
+    <line x1="4" y1="20" x2="36" y2="20"></line>
+    <circle cx="20" cy="20" r="10"></circle>
+  </svg>
+  <svg class="hero__crosshair hero__crosshair--br" viewBox="0 0 40 40" aria-hidden="true">
+    <line x1="20" y1="4" x2="20" y2="36"></line>
+    <line x1="4" y1="20" x2="36" y2="20"></line>
+    <circle cx="20" cy="20" r="10"></circle>
+  </svg>
+
+  <div class="container hero__inner">
+    <div class="hero__copy">
+      <div class="hero__eyebrow">
+        <span class="mono-label">Managed front-desk system</span>
+        <span class="hero__eyebrow-tick" aria-hidden="true"></span>
+        <span class="mono-label hero__eyebrow-alt">NZ trade businesses</span>
+      </div>
+
+      <Reveal as="h1" variant="draft" class="hero__title">{heroPromise}</Reveal>
+
+      <div class="hero__rule" aria-hidden="true">
+        <DraftPath
+          viewBox="0 0 320 8"
+          d="M2 4 L318 4"
+          stroke="var(--action)"
+          strokeWidth={2}
+        />
+      </div>
+
+      <p class="hero__sub max-measure">
+        Tradie Front Desk sets up and runs the front desk your business should
+        already have — catching missed calls, replying while you are still on
+        the tools, and following up every quote, so good jobs stop slipping
+        through the cracks.
+      </p>
+
+      <div class="hero__cta">
+        <a class="btn btn-primary" href="/free-audit" data-hero-cta
+          >Book a Free Front Desk Audit</a
+        >
+        <a class="btn btn-ghost" href="/how-it-works">See how it works</a>
+      </div>
+
+      <p class="hero__trust">
+        Not shared leads. Not just ads. Not another app. A managed front desk
+        built for trade businesses.
+      </p>
+    </div>
+
+    <div class="hero__media">
+      <Reveal variant="stamp" class="hero__stamp">
+        <svg class="hero__stamp-mark" viewBox="0 0 40 40" aria-hidden="true">
+          <circle cx="20" cy="20" r="17"></circle>
+          <line x1="20" y1="3" x2="20" y2="37"></line>
+          <line x1="3" y1="20" x2="37" y2="20"></line>
+          <circle cx="20" cy="20" r="1.6" fill="currentColor" stroke="none"></circle>
+        </svg>
+        <span class="mono-label">Fig. 01 — the front desk</span>
+      </Reveal>
+
+      <HomeVideo
+        id="HomeHeroVideo"
+        tone="dark"
+        caption="From scattered enquiries to a clear front-desk process."
+      />
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    overflow: hidden;
+    padding-block: clamp(3rem, 8vw, 6.5rem);
+  }
+
+  .hero__crosshair {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    stroke: var(--line-dark);
+    stroke-width: 1;
+    fill: none;
+    opacity: 0.7;
+    pointer-events: none;
+  }
+  .hero__crosshair--tl {
+    top: 1.25rem;
+    left: 1.25rem;
+  }
+  .hero__crosshair--br {
+    bottom: 1.25rem;
+    right: 1.25rem;
+  }
+
+  .hero__inner {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+    gap: clamp(2rem, 5vw, 4rem);
+    align-items: center;
+  }
+
+  .hero__eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: var(--marker);
+    margin-bottom: 1.5rem;
+  }
+  .hero__eyebrow .mono-label {
+    color: var(--marker);
+  }
+  .hero__eyebrow-alt {
+    color: var(--on-dark-muted) !important;
+  }
+  .hero__eyebrow-tick {
+    flex: 1;
+    max-width: 64px;
+    height: 1px;
+    background: repeating-linear-gradient(
+      to right,
+      var(--line-dark) 0,
+      var(--line-dark) 4px,
+      transparent 4px,
+      transparent 8px
+    );
+  }
+
+  .hero__title {
+    font-size: clamp(2.25rem, 5vw, 3.9rem);
+    line-height: 1.04;
+    letter-spacing: -0.03em;
+    color: var(--on-dark);
+    max-width: 16ch;
+  }
+
+  .hero__rule {
+    width: min(320px, 70%);
+    margin-block: 1.5rem;
+  }
+
+  .hero__sub {
+    color: var(--on-dark-body);
+    font-size: 1.0625rem;
+  }
+
+  .hero__cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.85rem;
+    margin-block: 2rem 1.25rem;
+  }
+
+  .hero__trust {
+    font-size: 0.875rem;
+    line-height: 1.55;
+    color: var(--on-dark-muted);
+    max-width: 46ch;
+  }
+
+  .hero__media {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .hero__stamp {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    justify-self: start;
+    padding: 0.45rem 0.85rem;
+    border: 1px solid var(--line-dark);
+    border-radius: var(--radius-sm);
+    color: var(--marker);
+    transform: rotate(-1.5deg);
+  }
+  .hero__stamp .mono-label {
+    color: var(--marker);
+  }
+  .hero__stamp-mark {
+    width: 20px;
+    height: 20px;
+    stroke: currentColor;
+    stroke-width: 1.5;
+    fill: none;
+  }
+
+  @media (max-width: 900px) {
+    .hero__inner {
+      grid-template-columns: 1fr;
+      gap: 2.25rem;
+    }
+    .hero__title {
+      max-width: 100%;
+    }
+    .hero__media {
+      max-width: 460px;
+    }
+    .hero__crosshair {
+      display: none;
+    }
+  }
+</style>

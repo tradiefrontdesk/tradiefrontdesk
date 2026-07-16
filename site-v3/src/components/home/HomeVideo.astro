@@ -1,0 +1,147 @@
+---
+// HomeVideo.astro
+// Shared framed wrapper around <SectionVideo>. The homepage does NOT import
+// RemotionVideoGrid, so the `:global(.product-video*)` styles that component
+// ships are not on the page — the bare player's frame/fallback are unstyled
+// here. This wrapper owns that styling directly so every section video reads
+// as an intentional, cropped "drawing figure" (registration marks in orange,
+// square Remotion canvas), and the loading fallback sits behind the player.
+import SectionVideo from "@/components/SectionVideo.astro";
+import type { HomeVideoId } from "@/remotion/data/homeVideos";
+
+interface Props {
+  id: HomeVideoId;
+  caption?: string;
+  tone?: "dark" | "light";
+  class?: string;
+}
+
+const { id, caption, tone = "dark", class: className } = Astro.props;
+---
+
+<figure class:list={["hv", `hv--${tone}`, className]}>
+  <div class="hv__frame">
+    <span class="hv__reg hv__reg--tl" aria-hidden="true"></span>
+    <span class="hv__reg hv__reg--tr" aria-hidden="true"></span>
+    <span class="hv__reg hv__reg--bl" aria-hidden="true"></span>
+    <span class="hv__reg hv__reg--br" aria-hidden="true"></span>
+    <SectionVideo id={id} />
+  </div>
+  {caption && <figcaption class="mono-label hv__cap">{caption}</figcaption>}
+</figure>
+
+<style>
+  .hv {
+    margin: 0;
+    display: grid;
+    gap: 0.85rem;
+  }
+
+  .hv__frame {
+    position: relative;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background: var(--canvas-dark);
+    border: 1px solid var(--line-dark);
+  }
+
+  .hv--light .hv__frame {
+    border-color: var(--line-light);
+    box-shadow: 0 24px 48px -28px oklch(0.22 0.04 245 / 0.28);
+  }
+
+  .hv__cap {
+    color: var(--muted);
+  }
+
+  .hv--dark .hv__cap {
+    color: var(--on-dark-muted);
+  }
+
+  /* Orange corner registration / crop marks — the drafting "figure" frame. */
+  .hv__reg {
+    position: absolute;
+    width: 13px;
+    height: 13px;
+    z-index: 2;
+    pointer-events: none;
+    border: 0 solid var(--action);
+  }
+  .hv__reg--tl {
+    top: 9px;
+    left: 9px;
+    border-top-width: 2px;
+    border-left-width: 2px;
+  }
+  .hv__reg--tr {
+    top: 9px;
+    right: 9px;
+    border-top-width: 2px;
+    border-right-width: 2px;
+  }
+  .hv__reg--bl {
+    bottom: 9px;
+    left: 9px;
+    border-bottom-width: 2px;
+    border-left-width: 2px;
+  }
+  .hv__reg--br {
+    bottom: 9px;
+    right: 9px;
+    border-bottom-width: 2px;
+    border-right-width: 2px;
+  }
+
+  /* Own the bare ProductVideoPlayer markup (its own :global styles are not
+     loaded on the homepage — see file header). */
+  .hv__frame :global(.product-video),
+  .hv__frame :global(.product-video--bare) {
+    display: block;
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: none;
+    box-shadow: none;
+    border-radius: 0;
+    overflow: hidden;
+  }
+
+  .hv__frame :global(.product-video__frame) {
+    position: relative;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    background: var(--canvas-dark);
+  }
+
+  .hv__frame :global(.product-video__fallback) {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.85rem;
+    padding: 1.5rem;
+    color: var(--on-dark-muted);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    line-height: 1.5;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .hv__frame :global(.product-video__fallback div) {
+    display: flex;
+    gap: 6px;
+  }
+
+  .hv__frame :global(.product-video__fallback span) {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--action);
+    opacity: 0.55;
+  }
+</style>

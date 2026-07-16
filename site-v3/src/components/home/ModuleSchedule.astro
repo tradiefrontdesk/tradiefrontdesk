@@ -1,0 +1,151 @@
+---
+// ModuleSchedule.astro — Section 5 (light)
+// The modules rendered as a drawing's "schedule of parts" — a mono-indexed
+// card grid (M01..M13), not three equal feature cards. Optional/add-on
+// modules carry a mono chip. HomeModulesVideo sits left of the section intro
+// (media-left header) to vary the rhythm.
+import Reveal from "@/components/motion/Reveal.astro";
+import HomeVideo from "@/components/home/HomeVideo.astro";
+import { modules } from "@/data/site";
+
+const isOptional = (title: string, text: string) =>
+  /optional/i.test(title) || /optional|add-on/i.test(text);
+---
+
+<section class="mods band-light section">
+  <div class="container">
+    <header class="mods__head">
+      <div class="mods__media">
+        <HomeVideo
+          id="HomeModulesVideo"
+          tone="light"
+          caption="Modules that connect around one enquiry process."
+        />
+      </div>
+      <div class="mods__intro">
+        <p class="mono-label mods__cap">Fig. 05 — schedule of modules</p>
+        <h2 class="mods__title">What your front desk can handle.</h2>
+        <p class="mods__lead">
+          One connected process, not a pile of tools. Core modules protect the
+          jobs you already get; the optional layers add reach once the front
+          desk is handling enquiries well.
+        </p>
+      </div>
+    </header>
+
+    <ul class="mods__grid" aria-label="Front desk modules">
+      {
+        modules.map(([title, text], i) => {
+          const optional = isOptional(title, text);
+          return (
+            <Reveal as="li" variant="draft" delay={(i % 4) * 0.05} class="mod">
+              <div class="mod__top">
+                <span class="mono-label mod__index">M{String(i + 1).padStart(2, "0")}</span>
+                {optional && <span class="mono-label mod__chip">Add-on</span>}
+              </div>
+              <h3 class="mod__title">{title}</h3>
+              <p class="mod__text">{text}</p>
+            </Reveal>
+          );
+        })
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .mods__head {
+    display: grid;
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    gap: clamp(1.75rem, 4vw, 3.25rem);
+    align-items: center;
+    margin-bottom: clamp(2.5rem, 5vw, 3.5rem);
+  }
+  .mods__media {
+    max-width: 400px;
+  }
+  .mods__cap {
+    color: var(--muted);
+    margin-bottom: 0.85rem;
+  }
+  .mods__title {
+    font-size: clamp(1.75rem, 4vw, 2.75rem);
+    letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+  }
+  .mods__lead {
+    color: var(--body);
+    font-size: 1.0625rem;
+    max-width: 54ch;
+  }
+
+  .mods__grid {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(258px, 1fr));
+    gap: 1rem;
+  }
+
+  .mod {
+    display: grid;
+    align-content: start;
+    gap: 0.5rem;
+    padding: 1.4rem 1.35rem;
+    background: var(--surface-light);
+    border: 1px solid var(--line-light);
+    border-radius: var(--radius-md);
+    transition:
+      border-color var(--dur-fast) var(--ease-out),
+      transform var(--dur-fast) var(--ease-out);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .mod:hover {
+      border-color: var(--action);
+      transform: translateY(-2px);
+    }
+  }
+
+  .mod__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    margin-bottom: 0.15rem;
+  }
+  .mod__index {
+    color: var(--ink);
+  }
+  .mod__chip {
+    color: var(--muted);
+    font-size: 0.625rem;
+    padding: 0.15rem 0.45rem;
+    border: 1px solid var(--line-light);
+    border-radius: var(--radius-sm);
+  }
+
+  .mod__title {
+    font-size: 1.0625rem;
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+  }
+  .mod__text {
+    color: var(--body);
+    font-size: 0.9375rem;
+  }
+
+  @media (max-width: 820px) {
+    .mods__head {
+      grid-template-columns: 1fr;
+    }
+    .mods__media {
+      max-width: 400px;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .mods__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

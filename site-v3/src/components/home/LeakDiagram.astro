@@ -1,0 +1,183 @@
+---
+// LeakDiagram.astro — Section 2 (light)
+// The annotated "where jobs slip" figure. Three leak paths (missed call,
+// slow reply, dead quote) each drawn with a DraftPath drip that draws itself
+// in on scroll into an orange "job gone" marker. HomeProblemVideo sits on the
+// left as the figure's companion (media-left, to break the hero's media-right
+// rhythm).
+import DraftPath from "@/components/motion/DraftPath.astro";
+import Reveal from "@/components/motion/Reveal.astro";
+import HomeVideo from "@/components/home/HomeVideo.astro";
+
+const leaks = [
+  [
+    "Missed call",
+    "You are on a roof at 2pm. The phone rings out. Voicemail fills up and nobody rings back.",
+  ],
+  [
+    "Slow reply",
+    "A website form lands in an inbox. Hours pass. By the time someone sees it, they have called the next tradie.",
+  ],
+  [
+    "Dead quote",
+    "The quote you sent Friday goes quiet, and no one remembers to chase it before it goes cold.",
+  ],
+] as const;
+---
+
+<section class="leak band-light section">
+  <div class="container">
+    <header class="leak__head">
+      <p class="mono-label leak__cap">Fig. 02 — where jobs slip</p>
+      <h2 class="leak__title">Most tradies don't have a lead problem first.</h2>
+      <p class="leak__lead max-measure">
+        They have a missed-call, slow-reply, dead-quote problem. When the
+        enquiries you already pay for leak out the side, buying more of them
+        just makes the leaks bigger.
+      </p>
+    </header>
+
+    <div class="leak__grid">
+      <div class="leak__media">
+        <HomeVideo
+          id="HomeProblemVideo"
+          tone="light"
+          caption="Scattered enquiries, leaking out before anyone answers."
+        />
+      </div>
+
+      <ol class="leak__list" aria-label="Where trade businesses lose jobs">
+        {
+          leaks.map(([title, body], i) => (
+            <Reveal as="li" variant="draft" delay={i * 0.06} class="leak__row">
+              <span class="mono-label leak__index">Leak {String(i + 1).padStart(2, "0")}</span>
+              <div class="leak__body">
+                <h3 class="leak__row-title">{title}</h3>
+                <p>{body}</p>
+              </div>
+              <div class="leak__drip" aria-hidden="true">
+                <DraftPath
+                  viewBox="0 0 120 24"
+                  d="M2 4 C 40 4, 60 20, 118 20"
+                  stroke="var(--action)"
+                  strokeWidth={2}
+                />
+                <span class="leak__gone mono-label">Job gone</span>
+              </div>
+            </Reveal>
+          ))
+        }
+      </ol>
+    </div>
+  </div>
+</section>
+
+<style>
+  .leak__head {
+    max-width: 52ch;
+    margin-bottom: clamp(2rem, 4vw, 3rem);
+  }
+  .leak__cap {
+    color: var(--muted);
+    margin-bottom: 0.85rem;
+  }
+  .leak__title {
+    font-size: clamp(1.6rem, 3.6vw, 2.5rem);
+    letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+  }
+  .leak__lead {
+    color: var(--body);
+    font-size: 1.0625rem;
+  }
+
+  .leak__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
+    gap: clamp(1.75rem, 4vw, 3.25rem);
+    align-items: center;
+  }
+
+  .leak__media {
+    align-self: start;
+    position: sticky;
+    top: 6rem;
+  }
+
+  .leak__list {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: 0;
+  }
+
+  .leak__row {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) 150px;
+    align-items: center;
+    gap: 1.5rem;
+    padding-block: 1.5rem;
+    border-top: 1px solid var(--line-light);
+  }
+  .leak__row:last-child {
+    border-bottom: 1px solid var(--line-light);
+  }
+
+  .leak__index {
+    color: var(--ink);
+    white-space: nowrap;
+    align-self: start;
+    padding-top: 0.2rem;
+  }
+
+  .leak__row-title {
+    font-size: 1.25rem;
+    letter-spacing: -0.01em;
+    margin-bottom: 0.35rem;
+  }
+  .leak__body p {
+    color: var(--body);
+    font-size: 0.9688rem;
+  }
+
+  .leak__drip {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.4rem;
+  }
+  .leak__drip :global(.draft-path) {
+    width: 120px;
+  }
+  .leak__gone {
+    color: var(--muted);
+    font-size: 0.6875rem;
+  }
+
+  @media (max-width: 860px) {
+    .leak__grid {
+      grid-template-columns: 1fr;
+    }
+    .leak__media {
+      position: static;
+      max-width: 420px;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .leak__row {
+      grid-template-columns: auto 1fr;
+      gap: 0.75rem 1rem;
+    }
+    .leak__drip {
+      grid-column: 1 / -1;
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 0.75rem;
+    }
+    .leak__drip :global(.draft-path) {
+      width: 90px;
+    }
+  }
+</style>
