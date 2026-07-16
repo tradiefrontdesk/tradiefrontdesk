@@ -1,0 +1,31 @@
+:root {
+  /* Blueprint & Safety Orange — OKLCH with hex anchors from spec */
+  --canvas-dark: oklch(0.245 0.045 245);      /* ≈ #0E2233 */
+  --surface-dark: oklch(0.31 0.05 245);       /* ≈ #16334A */
+  --surface-dark-2: oklch(0.275 0.048 245);   /* between canvas and surface */
+  --action: oklch(0.68 0.21 38);              /* ≈ #FF5A1F safety orange */
+  --action-hover: oklch(0.63 0.21 38);
+  --on-action: oklch(0.18 0.05 38);
+  --marker: oklch(0.87 0.15 88);              /* ≈ #FFC933 hi-vis, sparse */
+  --canvas-light: oklch(0.965 0.006 245);     /* cool off-white, navy-tinted */
+  --surface-light: oklch(1 0 0);
+  --ink: oklch(0.22 0.04 245);
+  --body: oklch(0.32 0.03 245);
+  --muted: oklch(0.45 0.025 245);
+  --on-dark: oklch(0.965 0.006 245);
+  --on-dark-body: oklch(0.88 0.012 245);
+  --on-dark-muted: oklch(0.72 0.02 245);
+  --line-dark: oklch(0.38 0.045 245);
+  --line-light: oklch(0.86 0.012 245);
+  --font-display: "Archivo Variable", "Arial Black", sans-serif;
+  --font-body: "Inter Variable", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono Variable", ui-monospace, monospace;
+  --max: 1200px;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 14px;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-fast: 180ms;
+  --dur-base: 320ms;
+  --dur-slow: 700ms;
+}
