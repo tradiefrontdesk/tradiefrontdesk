@@ -19,7 +19,7 @@ export const brand = {
   name: "Tradie Front Desk",
   fullName: "The Tradie Front Desk System",
   byline: "by System Pros AI",
-  logo: "/tradie-front-desk-logo.png",
+  logo: "/logo.png",
   trustLine:
     "Not shared leads. Not just ads. Not another app. A managed front desk built for trade businesses.",
 };
