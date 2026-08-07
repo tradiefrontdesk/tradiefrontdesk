@@ -203,7 +203,7 @@ Sequenced first because sending traffic to the current site wastes it.
 | # | Fix | Why |
 |---|---|---|
 | 1 | **Wire the contact form to a real endpoint** | Live lead loss. Everything else is secondary. |
-| 2 | **Verify the mobile booking calendar** | The conversion audit could not select a date or see any time slot on a 375×812 viewport across 5 attempts, on the primary conversion path, on the primary device. Needs checking on a real phone today. If it reproduces it outranks everything in this plan. |
+| 2 | ~~Verify the mobile booking calendar~~ | **RESOLVED 8 Aug 2026 — client confirms the GoHighLevel calendar books fine.** The conversion audit could not select a date or see a time slot at 375×812 across 5 attempts, but that was almost certainly an artefact of its headless browser: the same environment silently suppresses IntersectionObserver, which independently broke both the sticky-bar test and Astro's `client:visible` hydration. Treat automated findings about third-party embeds from that environment as unconfirmed until checked on a real device. No action needed. |
 | 3 | Install `@astrojs/sitemap`, add `robots.txt` | Google currently has no crawl map |
 | 4 | Rewrite all 16 page titles | Every one is 24–46 chars against a 50–60 budget. Cheapest ranking gain available. |
 | 5 | Fix trailing-slash mismatch | Every internal click currently takes a 301 hop |
