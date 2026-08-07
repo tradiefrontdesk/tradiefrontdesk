@@ -3,14 +3,6 @@ import type { PlayerRef } from "@remotion/player";
 import type { ComponentType } from "react";
 import { createRef, PureComponent } from "react";
 import { videoById, remotionVideoDefaults, type HomeVideoId, type StoryVideoId, type VideoId } from "@/remotion/data/homeVideos";
-import { HomeAuditPackagesVideo } from "@/remotion/compositions/HomeAuditPackagesVideo";
-import { HomeFiveStepVideo } from "@/remotion/compositions/HomeFiveStepVideo";
-import { HomeHeroVideo } from "@/remotion/compositions/HomeHeroVideo";
-import { HomeModulesVideo } from "@/remotion/compositions/HomeModulesVideo";
-import { HomeProblemVideo } from "@/remotion/compositions/HomeProblemVideo";
-import { HomeReframeVideo } from "@/remotion/compositions/HomeReframeVideo";
-import { HomeRealBusinessPaymentVideo } from "@/remotion/compositions/HomeRealBusinessPaymentVideo";
-import { StoryVideo } from "@/remotion/compositions/StoryVideo";
 
 type ProductVideoPlayerProps = {
   id: VideoId;
@@ -21,31 +13,76 @@ type ProductVideoPlayerProps = {
   autoplay?: boolean;
 };
 
-const components = {
-  HomeHeroVideo,
-  HomeProblemVideo,
-  HomeReframeVideo,
-  HomeFiveStepVideo,
-  HomeModulesVideo,
-  HomeAuditPackagesVideo,
-  HomeRealBusinessPaymentVideo,
+type AnyVideoComponent = ComponentType<Record<string, unknown>>;
+
+// Each composition is imported dynamically so a page ships only the animation
+// it actually renders.
+//
+// These were previously eight static imports, which meant every composition
+// was bundled into one chunk (286KB raw / 88KB gzip) and loaded on 14 of the
+// site's 16 pages — to display a single looping figure. Vite gives each
+// import() its own chunk, so a page now pays for one composition instead of
+// all eight.
+//
+// Safe against layout shift: .product-video__frame carries its own
+// `aspect-ratio: 1 / 1` and the fallback is absolutely positioned inside it,
+// so the box holds its size whether or not the player has loaded yet.
+const componentLoaders: Record<HomeVideoId, () => Promise<AnyVideoComponent>> = {
+  HomeHeroVideo: () => import("@/remotion/compositions/HomeHeroVideo").then((m) => m.HomeHeroVideo as AnyVideoComponent),
+  HomeProblemVideo: () => import("@/remotion/compositions/HomeProblemVideo").then((m) => m.HomeProblemVideo as AnyVideoComponent),
+  HomeReframeVideo: () => import("@/remotion/compositions/HomeReframeVideo").then((m) => m.HomeReframeVideo as AnyVideoComponent),
+  HomeFiveStepVideo: () => import("@/remotion/compositions/HomeFiveStepVideo").then((m) => m.HomeFiveStepVideo as AnyVideoComponent),
+  HomeModulesVideo: () => import("@/remotion/compositions/HomeModulesVideo").then((m) => m.HomeModulesVideo as AnyVideoComponent),
+  HomeAuditPackagesVideo: () => import("@/remotion/compositions/HomeAuditPackagesVideo").then((m) => m.HomeAuditPackagesVideo as AnyVideoComponent),
+  HomeRealBusinessPaymentVideo: () =>
+    import("@/remotion/compositions/HomeRealBusinessPaymentVideo").then((m) => m.HomeRealBusinessPaymentVideo as AnyVideoComponent),
 };
 
-export default class ProductVideoPlayer extends PureComponent<ProductVideoPlayerProps> {
+const loadStoryVideo = () =>
+  import("@/remotion/compositions/StoryVideo").then((m) => m.StoryVideo as AnyVideoComponent);
+
+type ProductVideoPlayerState = {
+  Component: AnyVideoComponent | null;
+};
+
+export default class ProductVideoPlayer extends PureComponent<ProductVideoPlayerProps, ProductVideoPlayerState> {
+  state: ProductVideoPlayerState = { Component: null };
+
   private playerRef = createRef<PlayerRef>();
   private containerRef = createRef<HTMLElement>();
   private timer: number | undefined;
   private frame = 0;
   private intersectionObserver: IntersectionObserver | undefined;
+  private hasMounted = false;
 
   componentDidMount() {
+    this.hasMounted = true;
+
+    // Every call site hydrates this with client:visible, so mounting already
+    // means "at or near the viewport" — no second visibility gate needed
+    // before fetching the composition chunk.
+    const { id } = this.props;
+    const load = id in componentLoaders ? componentLoaders[id as HomeVideoId] : loadStoryVideo;
+    load()
+      .then((Component) => {
+        if (!this.hasMounted) return;
+        // Mute inside the callback: the Player does not exist until this
+        // state lands, so playerRef is still null at componentDidMount time.
+        this.setState({ Component }, () => {
+          if (!this.props.autoplay) return;
+          this.playerRef.current?.mute();
+          this.playerRef.current?.setVolume(0);
+        });
+      })
+      .catch(() => {
+        // Leave Component null. The frame keeps its aspect ratio and the
+        // static fallback stays visible, which is the correct degraded state
+        // for a decorative figure.
+      });
+
     if (!this.props.autoplay) {
       return;
     }
-
-    const player = this.playerRef.current;
-    player?.mute();
-    player?.setVolume(0);
 
     // Pause the frame-stepping loop while the player is off-screen so the
     // homepage doesn't run every Remotion player's render loop concurrently.
@@ -69,6 +106,7 @@ export default class ProductVideoPlayer extends PureComponent<ProductVideoPlayer
   }
 
   componentWillUnmount() {
+    this.hasMounted = false;
     this.stopLoop();
     this.intersectionObserver?.disconnect();
   }
@@ -94,8 +132,8 @@ export default class ProductVideoPlayer extends PureComponent<ProductVideoPlayer
   render() {
     const { id, title, description, featured = false, bare = false, autoplay = true } = this.props;
     const spec = videoById[id];
-    const isHomeVideo = id in components;
-    const Component = (isHomeVideo ? components[id as HomeVideoId] : StoryVideo) as ComponentType<Record<string, unknown>>;
+    const isHomeVideo = id in componentLoaders;
+    const Component = this.state.Component;
     const inputProps = isHomeVideo ? undefined : { id: id as StoryVideoId };
 
     return (
@@ -113,27 +151,29 @@ export default class ProductVideoPlayer extends PureComponent<ProductVideoPlayer
             </div>
             <small>Graphic system animation</small>
           </div>
-          <Player
-            ref={this.playerRef}
-            component={Component}
-            inputProps={inputProps}
-            durationInFrames={spec.durationInFrames}
-            fps={remotionVideoDefaults.fps}
-            compositionWidth={remotionVideoDefaults.width}
-            compositionHeight={remotionVideoDefaults.height}
-            autoPlay={false}
-            initiallyMuted
-            controls={!autoplay}
-            loop
-            acknowledgeRemotionLicense
-            style={{
-              position: "relative",
-              zIndex: 1,
-              width: "100%",
-              aspectRatio: "1 / 1",
-              backgroundColor: "#0E2233",
-            }}
-          />
+          {Component && (
+            <Player
+              ref={this.playerRef}
+              component={Component}
+              inputProps={inputProps}
+              durationInFrames={spec.durationInFrames}
+              fps={remotionVideoDefaults.fps}
+              compositionWidth={remotionVideoDefaults.width}
+              compositionHeight={remotionVideoDefaults.height}
+              autoPlay={false}
+              initiallyMuted
+              controls={!autoplay}
+              loop
+              acknowledgeRemotionLicense
+              style={{
+                position: "relative",
+                zIndex: 1,
+                width: "100%",
+                aspectRatio: "1 / 1",
+                backgroundColor: "#0E2233",
+              }}
+            />
+          )}
         </div>
         {!bare && (
           <div className="product-video__copy">
