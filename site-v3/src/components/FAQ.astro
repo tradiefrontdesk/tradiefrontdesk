@@ -12,7 +12,25 @@ interface Props {
 }
 
 const { items = faqs, title = "Common Questions" } = Astro.props;
+
+// FAQPage schema, emitted alongside the disclosure list. The questions and
+// answers marked up here are the same strings rendered below — Google requires
+// the marked-up content to be visible on the page, which it is.
+//
+// NOTE: render this component at most once per page. Two FAQPage blocks on one
+// page is invalid structured data. Every page currently uses it once.
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: items.map(([question, answer]) => ({
+    "@type": "Question",
+    name: question,
+    acceptedAnswer: { "@type": "Answer", text: answer },
+  })),
+};
 ---
+
+<script type="application/ld+json" set:html={JSON.stringify(faqSchema)} is:inline />
 
 <section class="section faq band-light">
   <div class="container faq__wrap">

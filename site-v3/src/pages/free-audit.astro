@@ -12,8 +12,14 @@ import CTASection from "@/components/CTASection.astro";
 import { faqs, corePromise } from "@/data/site";
 
 // Audit-relevant subset of the shared FAQ list — order follows site.ts.
+//
+// "Will a machine be talking to my customers?" is included deliberately: this
+// is the page where a sceptical visitor hands their details to a booking
+// widget, so it is exactly where that objection surfaces. It was previously
+// omitted here while appearing on pages where the objection is less live.
 const auditFaqQuestions = [
   "Is this just lead generation?",
+  "Will a machine be talking to my customers?",
   "Can you guarantee more jobs?",
   "What do you need from me?",
 ];
@@ -21,7 +27,7 @@ const auditFaqs = faqs.filter(([question]) => auditFaqQuestions.includes(questio
 ---
 
 <BaseLayout
-  title="Free Front Desk Audit"
+  title="Book a Free Front Desk Audit"
   description="Book a free, no-obligation Front Desk Audit. We review your calls, forms, and quote follow-up, and show you where jobs may be slipping through."
   stickyCtaHref="#audit-form"
 >

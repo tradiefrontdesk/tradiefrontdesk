@@ -63,12 +63,24 @@ const { href = "/free-audit/" } = Astro.props;
   const bar = document.getElementById("sticky-mobile-cta");
 
   if (bar && "IntersectionObserver" in window) {
-    // Any hero CTA (marked with [data-hero-cta]) or the footer being on
-    // screen hides the bar. Track visibility per target so overlapping
-    // observations don't fight each other.
+    // Any hero CTA (marked with [data-hero-cta]), the booking section, or the
+    // footer being on screen hides the bar. Track visibility per target so
+    // overlapping observations don't fight each other.
+    //
+    // #audit-form matters most: without it the sticky "Book Free Audit" bar
+    // sat fixed over the bottom of the actual booking calendar and the voice
+    // widget on mobile — a redundant CTA physically covering the real one at
+    // the exact moment of conversion.
+    const byId = (id: string) => {
+      const el = document.getElementById(id);
+      return el ? [el] : [];
+    };
+
     const targets = [
       ...document.querySelectorAll("[data-hero-cta]"),
-      ...(document.getElementById("site-footer") ? [document.getElementById("site-footer")!] : []),
+      ...byId("audit-form"),
+      ...byId("contact-form"),
+      ...byId("site-footer"),
     ];
 
     if (targets.length > 0) {

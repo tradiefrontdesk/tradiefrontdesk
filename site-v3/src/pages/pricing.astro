@@ -22,13 +22,18 @@ const pricingFaqs = faqs.filter(([question]) => pricingFaqQuestions.includes(que
 ---
 
 <BaseLayout
-  title="Pricing"
+  title="Front Desk Packages and Pricing"
   description="Tradie Front Desk package pricing: three starting points, what's included, the Front Desk Launch Guarantee, and how the free audit confirms your fit."
 >
   <PricingHero />
   <PriceFactors />
-  <PricingPackages />
+  {/* ValueAnchor sits BEFORE the packages deliberately. Its own copy tells the
+      reader to do this maths "before comparing this to software pricing" —
+      which only works if they read it before seeing a number. It previously
+      ran after PricingPackages, so the anchor landed as post-hoc
+      justification. */}
   <ValueAnchor />
+  <PricingPackages />
   <AuditToManaged />
   <GuaranteeBand />
   <FAQ items={pricingFaqs} title="Pricing questions" />

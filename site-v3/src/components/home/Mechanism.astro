@@ -8,7 +8,18 @@
 import DraftPath from "@/components/motion/DraftPath.astro";
 import Reveal from "@/components/motion/Reveal.astro";
 import HomeVideo from "@/components/home/HomeVideo.astro";
-import { processSteps } from "@/data/site";
+import { processSteps, tradePages } from "@/data/site";
+
+// The trade pages carry the highest commercial intent on the site but had no
+// contextual inbound links anywhere — only the footer. This line sits where a
+// reader has just understood the flow and would naturally ask "what does that
+// look like for my trade", so it earns its place as copy as well as passing
+// link equity with descriptive anchor text.
+const trades = [
+  { ...tradePages.electricians, anchor: "electricians" },
+  { ...tradePages.plumbersDrainage, anchor: "plumbers and drainage" },
+  { ...tradePages.roofers, anchor: "roofers" },
+];
 ---
 
 <section class="mech band-dark blueprint-grid section">
@@ -54,6 +65,15 @@ import { processSteps } from "@/data/site";
       </ol>
     </div>
 
+    <Reveal as="p" variant="fade" class="mech__trades max-measure">
+      See how this runs on the tools for{" "}
+      {/* Kept on one line: a newline between the anchor and its punctuation
+          renders as a literal space ("electricians , plumbers"). */}
+      {trades.map((trade, i) => (
+        <Fragment><a class="mech__trade-link" href={trade.path}>{trade.anchor}</a>{i < trades.length - 2 ? ", " : i === trades.length - 2 ? ", or " : "."}</Fragment>
+      ))}
+    </Reveal>
+
     <HomeVideo
       id="HomeFiveStepVideo"
       tone="dark"
@@ -84,6 +104,28 @@ import { processSteps } from "@/data/site";
 
   .mech__flow {
     position: relative;
+  }
+
+  .mech__trades {
+    margin-top: clamp(2rem, 4vw, 2.75rem);
+    color: var(--on-dark-body);
+    font-size: 1.0625rem;
+  }
+
+  /* On the dark band orange text clears contrast, so the links can carry the
+     accent directly rather than needing the underline treatment the light
+     bands use. */
+  .mech__trade-link {
+    color: var(--action);
+    font-weight: 600;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+    transition: color var(--dur-fast) var(--ease-out);
+  }
+
+  .mech__trade-link:hover {
+    color: var(--marker);
   }
 
   /* Horizontal rail passes through the marker centres (markers are opaque and

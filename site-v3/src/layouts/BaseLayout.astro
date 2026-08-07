@@ -29,9 +29,16 @@ const origin = Astro.site ?? Astro.url.origin;
 const canonical = new URL(Astro.url.pathname, origin);
 const ogImageUrl = new URL(ogImage, origin);
 
+// "Organization", not "LocalBusiness". LocalBusiness describes a business with
+// a physical location customers visit; this is a remote service delivered by
+// phone and software across multiple countries, with no street address and no
+// `address` property to give. Google's own Business Profile eligibility rules
+// exclude businesses with no face-to-face customer contact, which is the same
+// distinction. Claiming LocalBusiness without an address is a schema mismatch,
+// not a shortcut to local visibility.
 const jsonLd = {
   "@context": "https://schema.org",
-  "@type": "LocalBusiness",
+  "@type": "Organization",
   name: siteName,
   alternateName: brand.fullName,
   description: brand.trustLine,

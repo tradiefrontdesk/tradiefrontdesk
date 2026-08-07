@@ -15,6 +15,9 @@
 // overridden via props here rather than left at the component default.
 import AuditForm from "@/components/AuditForm.astro";
 import VoiceAiEmbed from "@/components/VoiceAiEmbed.astro";
+import { contactDetails } from "@/data/site";
+
+const primaryPhone = contactDetails.phones[0];
 ---
 
 <section class="ba band-light section" id="audit-form">
@@ -30,6 +33,16 @@ import VoiceAiEmbed from "@/components/VoiceAiEmbed.astro";
     </header>
 
     <AuditForm />
+
+    {/* The calendar is a third-party embed we do not control. If it is slow,
+        blocked, or broken for a given visitor, this is the only thing standing
+        between them and a dead end — the phone number in the hero is long
+        scrolled past by the time anyone reaches this point. */}
+    <p class="ba__fallback">
+      Calendar not loading? Call or text
+      <a class="ba__fallback-link" href={primaryPhone.href}>{primaryPhone.value}</a>
+      and we'll book the audit for you.
+    </p>
 
     <div class="ba__voice">
       <VoiceAiEmbed
@@ -63,5 +76,23 @@ import VoiceAiEmbed from "@/components/VoiceAiEmbed.astro";
   .ba__lead {
     color: var(--body);
     font-size: 1.0625rem;
+  }
+
+  .ba__fallback {
+    margin-top: 1.25rem;
+    color: var(--muted);
+    font-size: 0.9375rem;
+    line-height: 1.6;
+  }
+
+  /* Orange text fails contrast on light bands, so the affordance is an orange
+     underline under ink text — same treatment as ContactSplit's direct lines. */
+  .ba__fallback-link {
+    color: var(--ink);
+    font-weight: 600;
+    text-decoration: underline;
+    text-decoration-color: var(--action);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
   }
 </style>
