@@ -57,7 +57,7 @@ const MAX_INCLUDES = 7;
           const featured = Boolean(pkg.featured);
           const shown = pkg.includes.slice(0, MAX_INCLUDES);
           const extra = pkg.includes.length - shown.length;
-          const href = featured ? "/free-audit" : "/pricing";
+          const href = featured ? "/free-audit/" : "/pricing/";
           return (
             <Reveal
               as="li"

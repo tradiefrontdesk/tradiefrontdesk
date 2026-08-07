@@ -1,18 +1,18 @@
 export const navItems = [
   { href: "/", label: "Home" },
-  { href: "/how-it-works", label: "How It Works" },
-  { href: "/pricing", label: "Pricing" },
-  { href: "/case-studies", label: "Proof" },
-  { href: "/free-audit", label: "Free Audit" },
+  { href: "/how-it-works/", label: "How It Works" },
+  { href: "/pricing/", label: "Pricing" },
+  { href: "/case-studies/", label: "Proof" },
+  { href: "/free-audit/", label: "Free Audit" },
 ];
 
 export const footerLinks = [
-  { href: "/whats-included", label: "What's Included" },
-  { href: "/why-were-different", label: "Why Different" },
-  { href: "/electricians", label: "Electricians" },
-  { href: "/plumbers-drainage", label: "Plumbers / Drainage" },
-  { href: "/roofers", label: "Roofers" },
-  { href: "/contact", label: "Contact" },
+  { href: "/whats-included/", label: "What's Included" },
+  { href: "/why-were-different/", label: "Why Different" },
+  { href: "/electricians/", label: "Electricians" },
+  { href: "/plumbers-drainage/", label: "Plumbers / Drainage" },
+  { href: "/roofers/", label: "Roofers" },
+  { href: "/contact/", label: "Contact" },
 ];
 
 export const brand = {
@@ -221,7 +221,7 @@ export const caseStudies = proofExamples;
 
 export const tradePages = {
   electricians: {
-    path: "/electricians",
+    path: "/electricians/",
     eyebrow: "For electricians",
     title: "Electrical enquiries do not wait. Neither should your front desk.",
     text: "Catch urgent fault calls, switchboard quotes, heat pump enquiries, and EV charger requests before they go cold.",
@@ -232,7 +232,7 @@ export const tradePages = {
     videoId: "ElectriciansHeroVideo",
   },
   plumbersDrainage: {
-    path: "/plumbers-drainage",
+    path: "/plumbers-drainage/",
     eyebrow: "For plumbers",
     title: "An urgent plumbing call needs a fast front desk.",
     text: "Handle after-hours leaks, blocked-drain enquiries, missed calls, quote follow-up, and past-customer reactivation with one clear process.",
@@ -243,7 +243,7 @@ export const tradePages = {
     videoId: "PlumbersHeroVideo",
   },
   roofers: {
-    path: "/roofers",
+    path: "/roofers/",
     eyebrow: "For roofers",
     title: "Roofing enquiries are too valuable to leave sitting.",
     text: "Protect reroofing enquiries, repair requests, inspection bookings, quote follow-up, and weather-delay updates.",
