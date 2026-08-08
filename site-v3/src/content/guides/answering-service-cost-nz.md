@@ -20,7 +20,7 @@ faqs:
 sources: Prices checked August 2026 from providers' own published pages — Private Box, Talkify, Call Catcher, Hey Jodie. CallCare does not publish pricing and quotes on request. Provider pricing changes without notice; confirm current figures directly. Tradie Front Desk pricing is our own and is listed in full on our pricing page.
 ---
 
-Published answering-service prices in New Zealand start at about **$43 a month** for basic call handling and run to roughly **$400 a month** for higher-volume flat-rate plans. A managed front desk — where the enquiry is not just answered but qualified, booked and followed up — starts higher, from **$497 a month plus a setup fee**. Per-call and per-minute services advertise the lowest headline rates and vary the most once you are busy. Below are the actual published figures, including the options cheaper than ours.
+Published answering-service prices in New Zealand start at about **$43 a month** for basic call handling and run to roughly **$400 a month** for higher-volume flat-rate plans. A managed front desk — where the enquiry is not just answered but qualified, booked and followed up — starts higher, from **$497 a month plus a setup fee**. All figures on this page are in New Zealand dollars. Per-call and per-minute services advertise the lowest headline rates and vary the most once you are busy. Below are the actual published figures, including the options cheaper than ours.
 
 ## A note on where these numbers come from
 

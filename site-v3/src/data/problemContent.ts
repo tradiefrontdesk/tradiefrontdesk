@@ -227,7 +227,7 @@ export const problemContent: Record<ProblemKey, ProblemContent> = {
       ],
       [
         "What does it cost, and what do you need from me?",
-        "Packages start from $1,500 setup plus $497 a month. From you: your business details, the wording you want used, and reasonably prompt feedback while it is set up and tested. The free audit is the fastest way to see what it would look like for your business.",
+        "Packages start from $1,500 setup plus $497 a month, in New Zealand dollars. From you: your business details, the wording you want used, and reasonably prompt feedback while it is set up and tested. The free audit is the fastest way to see what it would look like for your business.",
       ],
     ],
     close: {

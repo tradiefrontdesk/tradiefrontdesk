@@ -42,7 +42,7 @@ None of that makes hiring wrong. It makes it a bigger decision than the hourly r
 
 An answering service runs from roughly **$43 to $400 a month** depending on the model — [our cost breakdown](/guides/answering-service-cost-nz/) has the real published New Zealand figures, including options cheaper than ours.
 
-A managed front desk that captures, qualifies, books and follows up — rather than taking a message — starts from **$497 a month plus setup** with our Starter plan, scaling to $1,200 and $2,000 a month at the higher tiers.
+A managed front desk that captures, qualifies, books and follows up — rather than taking a message — starts from **$497 a month plus setup** with our Starter plan, in New Zealand dollars, scaling to $1,200 and $2,000 a month at the higher tiers.
 
 None of these carry KiwiSaver, ACC, recruitment fees, or a coverage gap when someone is on leave. The trade-off is real though: you are not building an in-house relationship with a dedicated person who learns your business, your regulars, and the way you like things done.
 

@@ -9,7 +9,7 @@
 // rule). The disclaimer sits directly under the grid, per the page brief.
 import Reveal from "@/components/motion/Reveal.astro";
 import HomeVideo from "@/components/home/HomeVideo.astro";
-import { packages, disclaimer } from "@/data/site";
+import { packages, disclaimer, pricingCurrencyNote } from "@/data/site";
 ---
 
 <section id="packages" class="pp band-dark blueprint-grid section">
@@ -87,6 +87,10 @@ import { packages, disclaimer } from "@/data/site";
       }
     </ul>
 
+    {/* Currency sits with the prices, in the annotation layer, not buried in
+        the footer disclaimer — an unlabelled dollar figure is a real
+        ambiguity for the Australian visitors the regional pages now bring. */}
+    <p class="mono-label pp__currency">{pricingCurrencyNote}</p>
     <p class="pp__disclaimer max-measure">{disclaimer}</p>
   </div>
 </section>
@@ -223,6 +227,11 @@ import { packages, disclaimer } from "@/data/site";
   .pkg__cta {
     margin-top: 0.5rem;
     width: 100%;
+  }
+
+  .pp__currency {
+    margin-top: clamp(1.5rem, 3vw, 2rem);
+    color: var(--marker);
   }
 
   .pp__disclaimer {

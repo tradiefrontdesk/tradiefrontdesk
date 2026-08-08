@@ -59,7 +59,7 @@ An answering service is not the only option and it is not always the next step.
 
 **An answering service.** A third party takes the call so it does not ring out. Published New Zealand plans start around $43 a month for basic handling and run to a few hundred for higher-volume flat-rate cover. The catch: an operator who does not necessarily know your trade well enough to ask the right questions or judge what is genuinely urgent.
 
-**A managed front desk.** Goes further than answering — captures the enquiry, replies fast, asks your qualifying questions, and follows up rather than stopping at "message taken". Costs more than voicemail, generally less than hiring, and sits alongside job software you already use. Ours starts from $1,500 setup plus $497 a month. See [missed calls](/missed-calls/) and [after-hours cover](/after-hours-cover/) for what that covers.
+**A managed front desk.** Goes further than answering — captures the enquiry, replies fast, asks your qualifying questions, and follows up rather than stopping at "message taken". Costs more than voicemail, generally less than hiring, and sits alongside job software you already use. Ours starts from $1,500 setup plus $497 a month, in New Zealand dollars. See [missed calls](/missed-calls/) and [after-hours cover](/after-hours-cover/) for what that covers.
 
 ## Questions to ask before spending anything
 

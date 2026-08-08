@@ -8,7 +8,7 @@
 // dominant orange button, the others a ghost secondary.
 import Reveal from "@/components/motion/Reveal.astro";
 import HomeVideo from "@/components/home/HomeVideo.astro";
-import { packages } from "@/data/site";
+import { packages, pricingCurrencyNote } from "@/data/site";
 
 const auditSteps = [
   "Book a free audit",
@@ -81,6 +81,8 @@ const MAX_INCLUDES = 7;
                 ))}
                 {extra > 0 && <li class="pkg__more">+ {extra} more in the full spec</li>}
               </ul>
+
+      <p class="mono-label ap__currency">{pricingCurrencyNote}</p>
               <a
                 class:list={["btn", featured ? "btn-primary" : "btn-ghost", "pkg__cta"]}
                 href={href}
@@ -96,6 +98,11 @@ const MAX_INCLUDES = 7;
 </section>
 
 <style>
+  .ap__currency {
+    margin-top: 1.5rem;
+    color: var(--marker);
+  }
+
   .ap__head {
     display: grid;
     grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);

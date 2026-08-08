@@ -7,14 +7,22 @@
 //    office, and no local case studies anywhere. Every page therefore carries
 //    an explicit `basedIn` disclosure, and none of them may imply otherwise.
 //
-// 2. NO DELIVERY-MECHANISM CLAIMS. Both drafting passes for these pages
-//    invented one — the NZ drafts said the service uses "AI-assisted tools",
-//    the AU drafts said "a real person handles your calls, there is no
-//    artificial intelligence". Neither is verifiable from anything the client
-//    has stated. PRODUCT.md and the context file describe only what the
-//    service DOES: approved messages, scripts the owner signs off, handoff
-//    rules. Copy here describes the process and never asserts who or what
-//    executes it.
+// 2. NO DELIVERY-MECHANISM CLAIMS. Both drafting passes asserted one, in
+//    opposite directions — the NZ drafts said "AI-assisted tools", the AU
+//    drafts said "a real person handles your calls, there is no artificial
+//    intelligence". The site's own privacy policy settles it: section 9,
+//    "AI-Assisted Tools", discloses that AI tools may assist with enquiry
+//    handling, message drafting, website chat and phone detail capture.
+//
+//    So the NZ claim was accurate and the AU claim was FALSE — it would have
+//    contradicted the client's own published privacy policy. Neither is used
+//    here. Copy describes what the process does and what the owner approves,
+//    without asserting who or what executes it, which is true either way and
+//    consistent with the vocabulary boundary in PRODUCT.md.
+//
+//    Rule for future edits: never write copy that DENIES AI involvement. The
+//    privacy policy discloses it, and a page contradicting the legal terms is
+//    worse than a page that simply does not raise the question.
 //
 // 3. THE PRODUCT IS NOT AN ANSWERING SERVICE. "Answering service" is the
 //    search term buyers use, and it is fine in a title or a keyword. But the
@@ -23,9 +31,10 @@
 //    a staffed line by default — an earlier draft did, and it described a
 //    different product to the one the rest of the site sells.
 //
-// AU pages deliberately state no prices. The client has not confirmed whether
-// the published figures are NZD or AUD, and an unlabelled dollar figure on an
-// Australian page is a real commercial ambiguity. They link to /pricing/.
+// CURRENCY: confirmed NZD by the client, 8 Aug 2026. The AU pages state the
+// figures AND name the currency explicitly, because an unlabelled dollar
+// amount on an Australian page is a real commercial ambiguity — an Australian
+// reader would reasonably assume AUD.
 
 export type LocationKey =
   | "auckland"
@@ -100,8 +109,8 @@ const auFaqTail: [string, string][] = [
     "The front desk handles enquiry capture, replies, qualification, booking and follow-up. It sits alongside tools like ServiceM8, Tradify or Simpro where that is listed in your proposal, rather than replacing them.",
   ],
   [
-    "What does it cost?",
-    "Our published packages are listed on the pricing page. A free front desk audit is the fastest way to see what it would look like against your own calls and quotes, with no obligation.",
+    "What does it cost, and is that in Australian dollars?",
+    "Packages start from $1,500 setup plus $497 a month, and those figures are in New Zealand dollars, not Australian. We price in NZD because that is where we operate from, and we would rather say so than have you convert it yourself after the fact. Full packages are on the pricing page, and a free front desk audit is the fastest way to see what it would look like against your own calls and quotes.",
   ],
 ];
 
@@ -201,7 +210,7 @@ export const locationContent: Record<LocationKey, LocationContent> = {
       ],
       [
         "What does it cost?",
-        "Packages start from $1,500 setup plus $497 a month. Exact pricing depends on scope. The free audit is the fastest way to see what it would look like for your business.",
+        "Packages start from $1,500 setup plus $497 a month, in New Zealand dollars. Exact pricing depends on scope. The free audit is the fastest way to see what it would look like for your business.",
       ],
     ],
     close: {
@@ -305,7 +314,7 @@ export const locationContent: Record<LocationKey, LocationContent> = {
       ],
       [
         "What does it cost?",
-        "Packages start from $1,500 setup plus $497 a month, depending on scope. The free audit is the fastest way to see what it would look like for your business.",
+        "Packages start from $1,500 setup plus $497 a month in New Zealand dollars, depending on scope. The free audit is the fastest way to see what it would look like for your business.",
       ],
     ],
     close: {

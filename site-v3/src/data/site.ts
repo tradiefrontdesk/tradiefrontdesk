@@ -117,6 +117,13 @@ export const modules = [
   ["Website Enquiry Upgrade", "Turn your website into a clear path from visitor to quote request."],
 ];
 
+// Currency, confirmed by the client 8 Aug 2026. Stated once here and rendered
+// wherever prices appear, rather than repeated inline on every figure.
+// NOTE: GST treatment is NOT stated because it has not been confirmed. Do not
+// add "plus GST" or "incl. GST" to this string without checking first.
+export const pricingCurrencyNote =
+  "All prices are shown in New Zealand dollars (NZD).";
+
 export const packages = [
   {
     name: "Front Desk Starter",

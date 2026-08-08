@@ -58,7 +58,7 @@ It is sold two different ways.
 
 **As a standalone service.** Call Catcher, which is New Zealand-based and trade-specific, publishes $99 a month for roughly 90 calls and $149 for roughly 140, with no setup fee and overage at 18c per segment. Talkify publishes $129 a month for the first three months and $199 standard, with 100 minutes included. At that price you are buying the mechanism — the wording, the monitoring and the follow-through are still your job.
 
-**As part of a managed service**, it is not sold alone. It is one piece of a wider front desk that also handles qualification, booking, follow-up and after-hours rules. Our own starter tier runs from $1,500 setup plus $497 a month and includes text-back alongside the rest of that process rather than as a separate line item.
+**As part of a managed service**, it is not sold alone. It is one piece of a wider front desk that also handles qualification, booking, follow-up and after-hours rules. Our own starter tier runs from $1,500 setup plus $497 a month in New Zealand dollars and includes text-back alongside the rest of that process rather than as a separate line item.
 
 Neither figure is a promise of savings or extra work. Treat both as a cost to compare against what a missed call is actually worth to your business. [The full cost comparison](/guides/answering-service-cost-nz/) has more published New Zealand prices, including cheaper options than ours.
 
