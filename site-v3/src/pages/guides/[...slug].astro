@@ -1,0 +1,284 @@
+---
+// Renders one guide from the `guides` content collection.
+//
+// Band rhythm per DESIGN.md: dark hero -> light article -> dark cluster nav
+// -> light FAQ -> dark close. The cluster nav sits mid-page deliberately —
+// it is the "this is part of a set" break, and it is also what makes the
+// pillar/supporting link graph real rather than theoretical.
+import { getCollection, render, type CollectionEntry } from "astro:content";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Reveal from "@/components/motion/Reveal.astro";
+import DraftPath from "@/components/motion/DraftPath.astro";
+import CTASection from "@/components/CTASection.astro";
+import FAQ from "@/components/FAQ.astro";
+import { corePromise } from "@/data/site";
+
+export async function getStaticPaths() {
+  const guides = await getCollection("guides");
+  return guides.map((guide) => ({
+    params: { slug: guide.id },
+    props: { guide },
+  }));
+}
+
+interface Props {
+  guide: CollectionEntry<"guides">;
+}
+
+const { guide } = Astro.props;
+const { Content } = await render(guide);
+const data = guide.data;
+
+// The cluster: the pillar links down to every supporting guide, each
+// supporting guide links back up to the pillar and across to its siblings.
+const all = await getCollection("guides");
+const pillar = all.find((g) => g.data.pillar);
+const siblings = all
+  .filter((g) => g.id !== guide.id && !g.data.pillar)
+  .sort((a, b) => a.data.order - b.data.order);
+
+// A pillar shows all its supporting guides. A supporting guide shows a few
+// siblings — enough to be useful, not so many it becomes a link dump.
+const related = data.pillar ? siblings : siblings.slice(0, 3);
+
+const faqItems = data.faqs.map((f) => [f.q, f.a] as [string, string]);
+const updated = data.updatedDate ?? data.publishDate;
+const dateFmt = new Intl.DateTimeFormat("en-NZ", { dateStyle: "long" });
+---
+
+<BaseLayout title={data.title} description={data.description}>
+  <section class="gd-hero band-dark blueprint-grid">
+    <div class="container gd-hero__inner">
+      <p class="mono-label gd-hero__eyebrow">
+        {data.pillar ? "Guide — the complete rundown" : "Guide"}
+      </p>
+      <Reveal as="h1" variant="draft" class="gd-hero__title">{data.heading}</Reveal>
+      <div class="gd-hero__rule" aria-hidden="true">
+        <DraftPath viewBox="0 0 320 8" d="M2 4 L318 4" stroke="var(--action)" strokeWidth={2} />
+      </div>
+      <p class="gd-hero__lead max-measure">{data.lead}</p>
+      <p class="mono-label gd-hero__meta">
+        Updated <time datetime={updated.toISOString()}>{dateFmt.format(updated)}</time>
+      </p>
+    </div>
+  </section>
+
+  <section class="gd-body band-light section">
+    <div class="container">
+      <article class="gd-prose prose">
+        <Content />
+      </article>
+
+      {
+        data.sources && (
+          <p class="gd-sources">{data.sources}</p>
+        )
+      }
+    </div>
+  </section>
+
+  <section class="gd-cluster band-dark blueprint-grid section">
+    <div class="container">
+      <header class="gd-cluster__head">
+        <p class="mono-label gd-cluster__cap">Fig. — the rest of the set</p>
+        <h2 class="gd-cluster__title">
+          {data.pillar ? "Go deeper on any part of it." : "Read next."}
+        </h2>
+      </header>
+
+      <ul class="gd-cluster__grid">
+        {
+          !data.pillar && pillar && (
+            <li class="gd-cluster__item gd-cluster__item--pillar">
+              <p class="mono-label gd-cluster__tag">Start here</p>
+              <h3 class="gd-cluster__item-title">
+                <a href={`/guides/${pillar.id}/`}>{pillar.data.heading}</a>
+              </h3>
+              <p class="gd-cluster__item-text">{pillar.data.lead}</p>
+            </li>
+          )
+        }
+        {
+          related.map((g) => (
+            <li class="gd-cluster__item">
+              <h3 class="gd-cluster__item-title">
+                <a href={`/guides/${g.id}/`}>{g.data.heading}</a>
+              </h3>
+              <p class="gd-cluster__item-text">{g.data.lead}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <FAQ items={faqItems} title="Common questions" />
+
+  <CTASection
+    title="See where your own enquiries are leaking."
+    text={`${corePromise} Book a free audit and we'll map where jobs are slipping — no pressure, no lock-in.`}
+  />
+</BaseLayout>
+
+<style>
+  /* ---- Hero ---- */
+  .gd-hero {
+    padding-block: clamp(3.5rem, 8vw, 6rem);
+  }
+  .gd-hero__inner {
+    max-width: 62ch;
+  }
+  .gd-hero__eyebrow {
+    color: var(--marker);
+    margin-bottom: 1.25rem;
+  }
+  .gd-hero__title {
+    font-size: clamp(2rem, 5vw, 3.25rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+  .gd-hero__rule {
+    width: min(320px, 60%);
+    margin-block: 1.5rem;
+  }
+  .gd-hero__lead {
+    color: var(--on-dark-body);
+    font-size: 1.0625rem;
+    margin-bottom: 1.5rem;
+  }
+  .gd-hero__meta {
+    color: var(--on-dark-muted);
+  }
+
+  /* ---- Article ----
+     Markdown output is not reachable by Astro's scoped styles, so the prose
+     rules are :global() inside .gd-prose. Scoped to the wrapper so they
+     cannot leak into the rest of the site. */
+  .gd-prose :global(h2) {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    letter-spacing: -0.02em;
+    margin-top: 2.75rem;
+    margin-bottom: 0.9rem;
+    text-wrap: balance;
+  }
+  .gd-prose :global(h2:first-child) {
+    margin-top: 0;
+  }
+  .gd-prose :global(h3) {
+    font-size: 1.1875rem;
+    letter-spacing: -0.01em;
+    margin-top: 2rem;
+    margin-bottom: 0.6rem;
+  }
+  .gd-prose :global(p) {
+    color: var(--body);
+    line-height: 1.7;
+    margin-bottom: 1.1rem;
+  }
+  .gd-prose :global(ul),
+  .gd-prose :global(ol) {
+    margin: 0 0 1.4rem 1.1rem;
+    display: grid;
+    gap: 0.6rem;
+  }
+  .gd-prose :global(li) {
+    color: var(--body);
+    line-height: 1.7;
+    padding-left: 0.35rem;
+  }
+  .gd-prose :global(li::marker) {
+    color: var(--action);
+  }
+  .gd-prose :global(strong) {
+    color: var(--ink);
+    font-weight: 600;
+  }
+  /* Orange text fails contrast on light bands, so links keep ink text with an
+     orange underline — the same affordance used across the site. */
+  .gd-prose :global(a) {
+    color: var(--ink);
+    font-weight: 600;
+    text-decoration: underline;
+    text-decoration-color: var(--action);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
+  }
+  .gd-prose :global(blockquote) {
+    margin: 1.75rem 0;
+    padding-left: 1.1rem;
+    border-left: 2px solid var(--action);
+    color: var(--muted);
+  }
+
+  /* Citations live in the annotation layer. They are a claims-safe
+     requirement, not decoration. */
+  .gd-sources {
+    margin-top: clamp(2rem, 4vw, 3rem);
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--line-light);
+    max-width: 80ch;
+    color: var(--muted);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.04em;
+    line-height: 1.7;
+  }
+
+  /* ---- Cluster nav ---- */
+  .gd-cluster__head {
+    max-width: 58ch;
+    margin-bottom: clamp(2rem, 4vw, 3rem);
+  }
+  .gd-cluster__cap {
+    color: var(--marker);
+    margin-bottom: 0.85rem;
+  }
+  .gd-cluster__title {
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    letter-spacing: -0.02em;
+  }
+  .gd-cluster__grid {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 290px), 1fr));
+    gap: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+  .gd-cluster__item {
+    background: var(--surface-dark-2);
+    border: 1px solid var(--line-dark);
+    border-radius: var(--radius-lg);
+    padding: clamp(1.25rem, 2.5vw, 1.6rem);
+  }
+  /* The pillar card spans the row on wide screens — it is the entry point to
+     the set, not a peer of the supporting guides. */
+  .gd-cluster__item--pillar {
+    grid-column: 1 / -1;
+    background: var(--surface-dark);
+  }
+  .gd-cluster__tag {
+    color: var(--marker);
+    margin-bottom: 0.6rem;
+  }
+  .gd-cluster__item-title {
+    font-size: 1.0625rem;
+    letter-spacing: -0.01em;
+    margin-bottom: 0.5rem;
+  }
+  .gd-cluster__item-title a {
+    color: var(--on-dark);
+    text-decoration: none;
+    transition: color var(--dur-fast) var(--ease-out);
+  }
+  .gd-cluster__item-title a:hover,
+  .gd-cluster__item-title a:focus-visible {
+    color: var(--action);
+  }
+  .gd-cluster__item-text {
+    color: var(--on-dark-body);
+    font-size: 0.9375rem;
+    line-height: 1.6;
+  }
+</style>

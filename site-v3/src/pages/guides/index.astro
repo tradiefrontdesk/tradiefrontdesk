@@ -1,0 +1,171 @@
+---
+// /guides/ — the cluster hub.
+//
+// Its job is crawlability and orientation: one page that links to every guide
+// so nothing in the set depends on the footer alone for discovery, and a
+// reader who lands mid-cluster can see what else exists.
+import { getCollection } from "astro:content";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Reveal from "@/components/motion/Reveal.astro";
+import DraftPath from "@/components/motion/DraftPath.astro";
+import CTASection from "@/components/CTASection.astro";
+import { corePromise } from "@/data/site";
+
+const all = await getCollection("guides");
+const pillar = all.find((g) => g.data.pillar);
+const supporting = all
+  .filter((g) => !g.data.pillar)
+  .sort((a, b) => a.data.order - b.data.order);
+---
+
+<BaseLayout
+  title="Guides for Trade Businesses"
+  description="Plain-English guides on handling trade enquiries: what an answering service costs in NZ, how fast to reply, why customers go quiet, and whether you need one at all."
+>
+  <section class="gi-hero band-dark blueprint-grid">
+    <div class="container gi-hero__inner">
+      <p class="mono-label gi-hero__eyebrow">Guides</p>
+      <Reveal as="h1" variant="draft" class="gi-hero__title">
+        How trade businesses handle enquiries.
+      </Reveal>
+      <div class="gi-hero__rule" aria-hidden="true">
+        <DraftPath viewBox="0 0 320 8" d="M2 4 L318 4" stroke="var(--action)" strokeWidth={2} />
+      </div>
+      <p class="gi-hero__lead max-measure">
+        Straight answers on missed calls, quotes going quiet, what an answering
+        service actually costs in New Zealand, and when the honest answer is
+        that you do not need one. Written to be useful whether or not you ever
+        talk to us.
+      </p>
+    </div>
+  </section>
+
+  <section class="gi-list band-light section">
+    <div class="container">
+      {
+        pillar && (
+          <a class="gi-pillar surface-light" href={`/guides/${pillar.id}/`}>
+            <p class="mono-label gi-pillar__tag">Start here</p>
+            <h2 class="gi-pillar__title">{pillar.data.heading}</h2>
+            <p class="gi-pillar__text">{pillar.data.lead}</p>
+          </a>
+        )
+      }
+
+      <ol class="gi-grid">
+        {
+          supporting.map((g, i) => (
+            <Reveal as="li" variant="draft" delay={(i % 3) * 0.05} class="gi-card">
+              <span class="mono-label gi-card__no">{String(i + 1).padStart(2, "0")}</span>
+              <h3 class="gi-card__title">
+                <a href={`/guides/${g.id}/`}>{g.data.heading}</a>
+              </h3>
+              <p class="gi-card__text">{g.data.lead}</p>
+            </Reveal>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <CTASection
+    title="Rather we just looked at your setup?"
+    text={`${corePromise} Book a free audit and we'll map where enquiries are slipping — no pressure, no lock-in.`}
+  />
+</BaseLayout>
+
+<style>
+  .gi-hero {
+    padding-block: clamp(3.5rem, 8vw, 6rem);
+  }
+  .gi-hero__inner {
+    max-width: 62ch;
+  }
+  .gi-hero__eyebrow {
+    color: var(--marker);
+    margin-bottom: 1.25rem;
+  }
+  .gi-hero__title {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+  .gi-hero__rule {
+    width: min(320px, 60%);
+    margin-block: 1.5rem;
+  }
+  .gi-hero__lead {
+    color: var(--on-dark-body);
+    font-size: 1.0625rem;
+  }
+
+  .gi-pillar {
+    display: block;
+    padding: clamp(1.5rem, 3.5vw, 2.5rem);
+    margin-bottom: clamp(1.5rem, 3vw, 2.25rem);
+    text-decoration: none;
+    transition: border-color var(--dur-fast) var(--ease-out);
+  }
+  .gi-pillar:hover,
+  .gi-pillar:focus-visible {
+    border-color: var(--action);
+  }
+  .gi-pillar__tag {
+    color: var(--action);
+    margin-bottom: 0.85rem;
+  }
+  .gi-pillar__title {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    letter-spacing: -0.02em;
+    margin-bottom: 0.75rem;
+    color: var(--ink);
+  }
+  .gi-pillar__text {
+    color: var(--muted);
+    max-width: 68ch;
+  }
+
+  .gi-grid {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 290px), 1fr));
+    gap: 1px;
+    background: var(--line-light);
+    border: 1px solid var(--line-light);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+  .gi-card {
+    background: var(--surface-light);
+    padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+  .gi-card__no {
+    color: var(--action);
+    display: block;
+    margin-bottom: 0.75rem;
+  }
+  .gi-card__title {
+    font-size: 1.0625rem;
+    letter-spacing: -0.01em;
+    margin-bottom: 0.5rem;
+  }
+  .gi-card__title a {
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .gi-card__title a:hover,
+  .gi-card__title a:focus-visible {
+    text-decoration: underline;
+    text-decoration-color: var(--action);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
+  }
+  .gi-card__text {
+    color: var(--muted);
+    font-size: 0.9375rem;
+    line-height: 1.6;
+  }
+</style>
