@@ -15,6 +15,16 @@ export const footerLinks = [
   { href: "/contact/", label: "Contact" },
 ];
 
+// Regional pages. Footer-linked only, like the problem pages — the navbar
+// stays clean. NZ first, then the Australian state pages.
+export const locationLinks = [
+  { href: "/auckland/", label: "Auckland" },
+  { href: "/christchurch/", label: "Christchurch" },
+  { href: "/nsw/", label: "New South Wales" },
+  { href: "/queensland/", label: "Queensland" },
+  { href: "/victoria/", label: "Victoria" },
+];
+
 // Problem-led pages. Kept out of navItems deliberately: the client's
 // instruction is a clean navbar with discovery carried by the footer. The
 // crawl weight the nav would have given these pages is carried instead by

@@ -113,11 +113,13 @@ const { cap, title, intro, steps, close, note } = Astro.props as Props;
 
   /* The caveat sits in the mono annotation layer, like a note on a drawing.
      It is legally load-bearing, so it is not allowed to fade into decoration
-     — hence the marker colour and a left rule tying it to the log above. */
+     — hence the mono treatment and a hairline rule tying it to the log above.
+     A full-width top rule rather than a side stripe: DESIGN.md bans coloured
+     side borders over 1px, and a divider is the system's own device. */
   .jl__note {
     margin-top: 1.5rem;
-    padding-left: 0.9rem;
-    border-left: 2px solid var(--marker);
+    padding-top: 0.9rem;
+    border-top: 1px solid var(--line-dark);
     color: var(--on-dark-muted);
     font-family: var(--font-mono);
     font-size: 0.75rem;

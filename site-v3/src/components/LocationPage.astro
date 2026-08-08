@@ -1,0 +1,369 @@
+---
+// LocationPage.astro — shared template for the regional pages.
+//
+// These are the highest-risk pages on the site and the template reflects that.
+// The business has no Google Business Profile (it is not eligible — no
+// face-to-face customer contact), no citations, no local office, and no local
+// case studies. A location page here cannot lean on local presence, so it has
+// to earn its place on genuinely regional substance: official construction
+// statistics, named regional trade bodies or state regulators, and honest
+// regional operating conditions.
+//
+// The `basedIn` band is the reason this is a separate component rather than a
+// reskinned ProblemPage. Every regional page carries an explicit, prominent
+// statement of where the business actually is. A prospect who rings after
+// reading an implied local presence and reaches an operation in another
+// country is a worse outcome than never ranking at all — so the disclosure is
+// a designed feature of the page, rendered in the drawing's annotation layer
+// like a stamp on a plan, not buried in a footer.
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Reveal from "@/components/motion/Reveal.astro";
+import DraftPath from "@/components/motion/DraftPath.astro";
+import CTASection from "@/components/CTASection.astro";
+import FAQ from "@/components/FAQ.astro";
+import ControlList from "@/components/shared/ControlList.astro";
+import { locationContent, type LocationKey } from "@/data/locationContent";
+
+interface Props {
+  contentKey: LocationKey;
+}
+
+const { contentKey } = Astro.props as Props;
+const page = locationContent[contentKey];
+---
+
+<BaseLayout title={page.metaTitle} description={page.metaDescription}>
+  <section class="lp-hero band-dark blueprint-grid">
+    <div class="container lp-hero__inner">
+      <p class="mono-label lp-hero__eyebrow">{page.eyebrow}</p>
+      <Reveal as="h1" variant="draft" class="lp-hero__title">{page.title}</Reveal>
+      <div class="lp-hero__rule" aria-hidden="true">
+        <DraftPath viewBox="0 0 320 8" d="M2 4 L318 4" stroke="var(--action)" strokeWidth={2} />
+      </div>
+      <p class="lp-hero__lead max-measure">{page.lead}</p>
+      <div class="lp-hero__cta">
+        <a class="btn btn-primary" href="/free-audit/" data-hero-cta>{page.cta}</a>
+        <a class="btn btn-ghost" href="/how-it-works/">See how it works</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="lp-market band-light section">
+    <div class="container">
+      <header class="lp-head">
+        <p class="mono-label lp-head__cap lp-head__cap--light">{page.market.cap}</p>
+        <h2 class="lp-head__title">{page.market.title}</h2>
+        <p class="lp-head__lead lp-head__lead--light max-measure">{page.market.intro}</p>
+      </header>
+
+      {/* A figure table, not stat cards. These are cited measurements from an
+          official release, and they should read like one. */}
+      <dl class="lp-figures surface-light">
+        {
+          page.market.figures.map((fig) => (
+            <div class="lp-figure">
+              <dt class="mono-label lp-figure__label">{fig.label}</dt>
+              <dd class="lp-figure__value">{fig.value}</dd>
+              <dd class="lp-figure__note">{fig.note}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+  </section>
+
+  <section class="lp-context band-dark blueprint-grid section">
+    <div class="container">
+      <header class="lp-head">
+        <p class="mono-label lp-head__cap lp-head__cap--dark">{page.context.cap}</p>
+        <h2 class="lp-head__title">{page.context.title}</h2>
+        <p class="lp-head__lead lp-head__lead--dark max-measure">{page.context.intro}</p>
+      </header>
+
+      <div class="lp-grid">
+        {
+          page.context.blocks.map((block, i) => (
+            <Reveal as="article" variant="draft" delay={i * 0.07} class="lp-block">
+              <h3 class="lp-block__title">{block.heading}</h3>
+              <p class="lp-block__text">{block.text}</p>
+            </Reveal>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="lp-mech band-light section">
+    <div class="container">
+      <header class="lp-head">
+        <p class="mono-label lp-head__cap lp-head__cap--light">{page.mechanism.cap}</p>
+        <h2 class="lp-head__title">{page.mechanism.title}</h2>
+        <p class="lp-head__lead lp-head__lead--light max-measure">{page.mechanism.intro}</p>
+      </header>
+
+      <ul class="lp-mech__list">
+        {
+          page.mechanism.items.map(([title, text], i) => (
+            <Reveal as="li" variant="draft" delay={(i % 4) * 0.05} class="lp-mech__item">
+              <h3 class="lp-mech__item-title">{title}</h3>
+              <p class="lp-mech__item-text">{text}</p>
+            </Reveal>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="lp-trades band-dark blueprint-grid section">
+    <div class="container">
+      <header class="lp-head">
+        <p class="mono-label lp-head__cap lp-head__cap--dark">{page.trades.cap}</p>
+        <h2 class="lp-head__title">{page.trades.title}</h2>
+        <p class="lp-head__lead lp-head__lead--dark max-measure">{page.trades.intro}</p>
+      </header>
+
+      <div class="lp-grid">
+        {
+          page.trades.items.map((trade, i) => (
+            <Reveal as="article" variant="draft" delay={i * 0.06} class="lp-block">
+              <h3 class="lp-block__title">{trade.name}</h3>
+              <p class="lp-block__text">{trade.text}</p>
+              <a class="lp-block__link" href={trade.href}>{trade.linkLabel}</a>
+            </Reveal>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <ControlList intro={page.control.intro} items={page.control.items} close={page.control.close} />
+
+  <section class="lp-based band-dark blueprint-grid section">
+    <div class="container">
+      <div class="lp-based__stamp">
+        <p class="mono-label lp-based__cap">{page.basedIn.cap}</p>
+        <h2 class="lp-based__title">{page.basedIn.title}</h2>
+        {page.basedIn.body.map((para) => <p class="lp-based__text">{para}</p>)}
+      </div>
+    </div>
+  </section>
+
+  <FAQ items={page.faqs} title="Common questions" />
+
+  <section class="lp-sources band-light">
+    <div class="container">
+      <p class="lp-sources__text">{page.sources}</p>
+    </div>
+  </section>
+
+  <CTASection title={page.close.title} text={page.close.text} cta={page.cta} />
+</BaseLayout>
+
+<style>
+  /* ---- Hero ---- */
+  .lp-hero {
+    padding-block: clamp(3.5rem, 8vw, 6rem);
+  }
+  .lp-hero__inner {
+    max-width: 62ch;
+  }
+  .lp-hero__eyebrow {
+    color: var(--marker);
+    margin-bottom: 1.25rem;
+  }
+  .lp-hero__title {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+  .lp-hero__rule {
+    width: min(320px, 60%);
+    margin-block: 1.5rem;
+  }
+  .lp-hero__lead {
+    color: var(--on-dark-body);
+    font-size: 1.0625rem;
+    margin-bottom: 2rem;
+  }
+  .lp-hero__cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.85rem;
+  }
+
+  /* ---- Shared heads ---- */
+  .lp-head {
+    max-width: 58ch;
+    margin-bottom: clamp(2rem, 4vw, 3rem);
+  }
+  .lp-head__cap {
+    margin-bottom: 0.85rem;
+  }
+  .lp-head__cap--light {
+    color: var(--muted);
+  }
+  .lp-head__cap--dark {
+    color: var(--marker);
+  }
+  .lp-head__title {
+    font-size: clamp(1.75rem, 4vw, 2.75rem);
+    letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+  }
+  .lp-head__lead {
+    font-size: 1.0625rem;
+  }
+  .lp-head__lead--light {
+    color: var(--body);
+  }
+  .lp-head__lead--dark {
+    color: var(--on-dark-body);
+  }
+
+  /* ---- Figures ---- */
+  .lp-figures {
+    margin: 0;
+    padding: clamp(1.5rem, 3vw, 2.25rem);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+    gap: clamp(1.5rem, 3vw, 2.5rem);
+  }
+  .lp-figure {
+    display: grid;
+    gap: 0.4rem;
+    align-content: start;
+  }
+  .lp-figure__label {
+    color: var(--muted);
+  }
+  /* The figure itself carries the display face — it is a measurement on a
+     drawing, which is exactly what the type system was built for. */
+  .lp-figure__value {
+    margin: 0;
+    font-family: var(--font-display);
+    font-variation-settings: "wdth" 125;
+    font-weight: 700;
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+  .lp-figure__note {
+    margin: 0;
+    color: var(--muted);
+    font-size: 0.9375rem;
+    line-height: 1.55;
+  }
+
+  /* ---- Shared dark grids ---- */
+  .lp-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+    gap: clamp(1.25rem, 2.5vw, 2rem);
+  }
+  .lp-block {
+    background: var(--surface-dark-2);
+    border: 1px solid var(--line-dark);
+    border-radius: var(--radius-lg);
+    padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+  .lp-block__title {
+    font-size: 1.0625rem;
+    letter-spacing: -0.01em;
+    margin-bottom: 0.6rem;
+    color: var(--on-dark);
+  }
+  .lp-block__text {
+    color: var(--on-dark-body);
+    font-size: 0.9375rem;
+    line-height: 1.65;
+  }
+  .lp-block__link {
+    display: inline-block;
+    margin-top: 0.9rem;
+    color: var(--action);
+    font-weight: 600;
+    font-size: 0.9375rem;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+    transition: color var(--dur-fast) var(--ease-out);
+  }
+  .lp-block__link:hover {
+    color: var(--marker);
+  }
+
+  /* ---- Mechanism ---- */
+  .lp-mech__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+    gap: 1px;
+    background: var(--line-light);
+    border: 1px solid var(--line-light);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+  .lp-mech__item {
+    background: var(--surface-light);
+    padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+  .lp-mech__item-title {
+    font-size: 1.0625rem;
+    letter-spacing: -0.01em;
+    margin-bottom: 0.5rem;
+  }
+  .lp-mech__item-text {
+    color: var(--muted);
+    font-size: 0.9375rem;
+    line-height: 1.6;
+  }
+
+  /* ---- Where we're based ----
+     Rendered as a stamped disclosure panel, held to a reading measure and
+     deliberately not styled to be skimmed past.
+     Uses a full hairline border and a stepped surface rather than a coloured
+     side stripe — DESIGN.md bans border-left over 1px as an accent, and the
+     prominence here comes from the mono caption and the marker-coloured
+     label instead. */
+  .lp-based__stamp {
+    max-width: 68ch;
+    background: var(--surface-dark-2);
+    border: 1px solid var(--line-dark);
+    border-radius: var(--radius-lg);
+    padding: clamp(1.5rem, 3.5vw, 2.5rem);
+  }
+  .lp-based__cap {
+    color: var(--marker);
+    margin-bottom: 0.85rem;
+  }
+  .lp-based__title {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+  }
+  .lp-based__text {
+    color: var(--on-dark-body);
+    line-height: 1.7;
+    margin-bottom: 0.9rem;
+  }
+  .lp-based__text:last-child {
+    margin-bottom: 0;
+  }
+
+  /* ---- Sources ---- */
+  .lp-sources {
+    padding-block: clamp(1.5rem, 3vw, 2.25rem);
+  }
+  .lp-sources__text {
+    max-width: 80ch;
+    color: var(--muted);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.04em;
+    line-height: 1.7;
+  }
+</style>
