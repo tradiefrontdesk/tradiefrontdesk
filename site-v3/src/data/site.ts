@@ -46,12 +46,17 @@ export const brand = {
     "Not shared leads. Not just ads. Not another app. A managed front desk built for trade businesses.",
 };
 
+// NAP consistency: `value` is the DISPLAY format and is deliberately uniform
+// across all three regions — international prefix, then space-separated groups.
+// Three different formats were rendering before (unspaced NZ, spaced AU, dashed
+// US), which is precisely the inconsistency that undermines a citation profile.
+// `href` stays unformatted because tel: URIs must not contain spaces.
 export const contactDetails = {
   email: "tradie@tradiefrontdesk.ai",
   phones: [
-    { region: "New Zealand", value: "+64212550493", href: "tel:+64212550493", available: true },
+    { region: "New Zealand", value: "+64 21 255 0493", href: "tel:+64212550493", available: true },
     { region: "Australia", value: "+61 2 3821 3526", href: "tel:+61238213526", available: true },
-    { region: "United States", value: "+1 877-320-7259", href: "tel:+18773207259", available: true },
+    { region: "United States", value: "+1 877 320 7259", href: "tel:+18773207259", available: true },
   ],
 };
 

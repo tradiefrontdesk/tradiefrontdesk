@@ -10,7 +10,7 @@
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
 import StickyMobileCTA from "@/components/StickyMobileCTA.astro";
-import { brand, contactDetails, legalDetails, corePromise } from "@/data/site";
+import { brand, contactDetails, legalDetails, corePromise, packages } from "@/data/site";
 import "@/styles/global.css";
 
 export type BreadcrumbCrumb = { name: string; href: string };
@@ -80,6 +80,32 @@ const jsonLd = {
     "@type": "Organization",
     name,
   })),
+  // The published packages as a service catalog. Prices are the advertised
+  // starting points and are marked as such — `priceCurrency` is NZD, confirmed
+  // by the client, and every package price on the site reads "from", so the
+  // Offer carries `minPrice` rather than a flat `price` it cannot honour.
+  hasOfferCatalog: {
+    "@type": "OfferCatalog",
+    name: "Managed front desk packages",
+    itemListElement: packages.map((pkg) => ({
+      "@type": "Offer",
+      name: pkg.name,
+      description: pkg.bestFor,
+      priceSpecification: {
+        "@type": "PriceSpecification",
+        priceCurrency: "NZD",
+        minPrice: Number(pkg.price.replace(/^From \$/, "").split(" ")[0].replace(/,/g, "")),
+        // valueAddedTaxIncluded is deliberately omitted. GST treatment has not
+        // been confirmed by the client, and asserting it in schema while
+        // refusing to state it in copy would be the same claim by another route.
+      },
+      itemOffered: {
+        "@type": "Service",
+        name: pkg.name,
+        serviceType: "Managed front desk for trade businesses",
+      },
+    })),
+  },
 };
 
 // BreadcrumbList on every page. Home is always position 1 and the current page
