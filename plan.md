@@ -314,7 +314,7 @@ All five decisions returned by the client.
 | # | Decision | Outcome |
 |---|---|---|
 | 1 | Contact form | **Done.** Honest "Form offline" placeholder shipped; client is fitting a GoHighLevel form embed. |
-| 2 | IP Australia trademark check | **Deferred by the client — "we will register this later."** Recorded, not resolved. The risk this leaves open: registering later does not help if the tradiefrontdesk.com operator registers in Australia first, and they are already trading under the name there with a ™ claim. Australia stays sequenced last so it blocks nothing else. |
+| 2 | IP Australia trademark check | **RESOLVED 8 Aug 2026.** The client searched the IP Australia trademarks register for "tradie front desk" and found no registration. The ™ on tradiefrontdesk.com is therefore an unregistered assertion, not a registered mark, and Australia proceeds. Residual — recorded, not blocking: Australia also protects unregistered marks through passing off and the Australian Consumer Law, so an operator with established local use can hold rights without registering. Settled enough to publish; worth a professional view before significant AU spend. |
 | 3 | Location page count | **5 confirmed** — Auckland, Christchurch, and NSW / QLD / VIC at state level. |
 | 4 | Vocabulary ban | **Changed — "AI" is now restricted rather than banned.** See below. |
 | 5 | Wave order | **Wave 1 approved.** Trade page rewrites proceed. |

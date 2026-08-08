@@ -182,5 +182,6 @@ Astro 5 static, React islands only where needed, hand-written CSS with OKLCH cus
 
 1. **Sales call recordings / real enquiry transcripts.** Would replace doc-derived verbatims with actual buyer language. Currently all customer language in this file is second-hand from strategy docs.
 2. **Existing rankings and backlinks.** Is the domain new, or does it have history worth protecting? Phase 1 will establish a baseline.
-3. **AU credibility.** No AU client, address, or proof exists. Which AU terms are realistically winnable without them is a Phase 1 research question, and the answer may constrain the AU page map.
+3. **AU credibility.** No AU client, address, or proof exists, and the regional pages state that plainly rather than implying otherwise. Which AU terms are realistically winnable without local proof remains open — the research was clear that head commercial terms are not.
+4. **AU naming — checked.** "Tradie Front Desk" is not on the IP Australia trademarks register (client-checked, 8 Aug 2026). A separate operator trades as tradiefrontdesk.com in Australia using a ™, which is an unregistered claim. Unregistered rights can still arise in Australia through passing off and the Australian Consumer Law, so this is settled enough to publish but worth a professional view before significant AU investment.
 4. **Google Business Profile.** Unknown whether one exists for Tradie Front Desk or System Pros AI. Relevant to the location-page decision.
