@@ -1,0 +1,18 @@
+---
+import TradePage from "@/components/TradePage.astro";
+import { tradePages } from "@/data/site";
+---
+
+<TradePage
+  data={tradePages.heatPumpInstallers}
+  contentKey="heatPumpInstallers"
+  metaTitle="Heat Pump Installers Front Desk"
+  metaDescription="A managed front desk for heat pump installers — helps protect winter install enquiries, Healthy Homes compliance jobs, and quote follow-up."
+  tradeAdj="heat pump"
+  scenarioIntro="Heat pump enquiries spike hard the moment the weather turns, and installers get booked out for weeks at a time. In that rush the enquiry that slips is rarely the loud one — it is the call that comes in while you are up a ladder, and does not get a reply before the caller rings the next installer on their list."
+  exampleNotes={["Homeowners shopping for a new unit usually ring more than one installer the same afternoon. A fast reply keeps you in front of them while you are still their first call.", "A unit that has stopped working in a cold snap gets the questions that matter — brand, age, is it tripping anything, is anyone without heating tonight — asked before you call back.", "A property manager working through Healthy Homes requirements gets acknowledged fast, with the property details and timeframe collected up front instead of traded back and forth over email.", "A new-install quote you sent last week gets chased on a schedule, instead of sitting in your sent folder while the homeowner quietly rings someone else.", "Existing customers due a service get a reminder and an easy way to book, so maintenance work does not depend on you remembering who is due."]}
+  mechanismIntro="A new-install enquiry gets a fast reply while you are still on the tools, then the details that matter — job type, property, urgency — get collected before you call back. Good-fit enquiries move toward a booked measure-up or install slot, and quotes get followed up until there is an answer."
+  objectionsIntro="The two questions heat pump installers ask most before the audit, answered plainly."
+  objectionTags={["Already flat out", "Shared leads"]}
+  objectionQuestions={["I'm flat out from May to August anyway. Why would I want more enquiries?", "Is this another directory selling my leads to other installers?"]}
+/>

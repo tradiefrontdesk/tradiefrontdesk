@@ -573,9 +573,9 @@ export const problemContent: Record<ProblemKey, ProblemContent> = {
   },
 
   qualifying: {
-    metaTitle: "How to Qualify Enquiries Before You Quote",
+    metaTitle: "Qualifying Enquiries Before You Quote",
     metaDescription:
-      "How to tell which enquiries are worth a callout before you drive across town — the questions worth asking early, and what a managed front desk asks for you.",
+      "How to tell which enquiries are worth a callout before you drive across town, and the questions worth asking early.",
     eyebrow: "Qualifying enquiries",
     title: "Not every enquiry deserves your afternoon.",
     lead: "You drove forty minutes for the measure-up. Wrote the quote at 9pm after the kids were down. Followed up twice. Then nothing. That job cost you half a day — not because you did anything wrong, but because nobody found out it was not a real job until you had already spent the time.",

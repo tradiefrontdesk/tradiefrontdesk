@@ -1,7 +1,7 @@
 ---
 title: Why Customers Go Quiet on Quotes
 heading: Why customers go quiet after a quote, and what each reason means
-description: Silence after a quote is usually not a no. The five real reasons New Zealand customers go quiet, how to tell which one it is, and when it genuinely is over.
+description: Silence after a quote is usually not a no. The five real reasons customers go quiet, and what each one means for your next move.
 primaryKeyword: why do customers go quiet after a quote
 lead: You did the measure-up, priced it properly, sent it off, and then nothing. It feels like a no. Most of the time it is not one.
 order: 40

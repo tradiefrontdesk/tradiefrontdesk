@@ -1,7 +1,7 @@
 ---
 title: How to Handle Trade Enquiries
 heading: How to handle trade enquiries, so you don't lose the job before you've quoted
-description: A practical guide to capturing, answering, qualifying, booking and following up trade enquiries — and working out which stage is actually costing you jobs.
+description: A practical guide to capturing, answering, qualifying, booking and following up trade enquiries, and which stage is costing you jobs.
 primaryKeyword: how to handle enquiries trade business
 lead: Most trade businesses don't lose work on price or workmanship. They lose it because an enquiry sat unanswered for a day, or a quote went quiet and nobody chased it.
 pillar: true

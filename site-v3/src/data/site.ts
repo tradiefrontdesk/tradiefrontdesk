@@ -254,6 +254,50 @@ export const tradePages = {
     objections: ["Urgent jobs get routed by rule.", "High-risk requests never get promised by a machine."],
     videoId: "PlumbersHeroVideo",
   },
+  heatPumpInstallers: {
+    path: "/heat-pump-installers/",
+    eyebrow: "For heat pump installers",
+    title: "Heat pump enquiries do not wait for a callback.",
+    text: "Demand spikes hard once the weather turns and installers get booked out for weeks. The caller who does not hear back today is already ringing the next name on the list.",
+    cta: "Book a Free Heat Pump Front Desk Audit",
+    examples: ["New install enquiry", "Heat pump not heating", "Landlord compliance job", "Quote follow-up", "Annual service booking"],
+    flow: "Cold-snap enquiry -> fast reply -> install slot booked",
+    objections: [
+      "This is not about generating more enquiries. It is about not losing the ones you are already flat out getting to — a quote that goes cold while you are up a ladder, or a caller who rings the next name because nobody replied.",
+      "No. It runs on your own enquiries — the calls, forms and messages your business already receives. Nothing gets shared, sold, or shown to other installers.",
+    ],
+    // No Remotion composition for the Wave 4 trades. TradePage guards the
+    // lookup with hasVideo, so an empty id degrades to no video band.
+    videoId: "",
+  },
+  builders: {
+    path: "/builders/",
+    eyebrow: "For builders",
+    title: "A good quote is not a good job until someone chases it.",
+    text: "Capture renovation, new-build and reclad enquiries, book the measure-up, and keep the quote alive with follow-up — so a job you already priced does not die from six weeks of silence.",
+    cta: "Book a Free Building Front Desk Audit",
+    examples: ["Renovation quote request", "New build enquiry", "Kitchen or bathroom reno", "Deck or reclad job", "Measure-up booking request"],
+    flow: "Renovation enquiry -> qualified -> measure-up booked -> quote followed up",
+    objections: [
+      "It sits alongside Buildxact, Fergus or whatever you already price and manage jobs in. The front desk only touches enquiry capture, replies, booking and follow-up — the part that usually happens on a notepad before a job gets that far.",
+      "Every follow-up is wording you approved, on a cadence you set. Most people who go quiet have not said no; they are waiting on a partner, a bank, or another quote, and a short check-in is what keeps you in the running.",
+    ],
+    videoId: "",
+  },
+  painters: {
+    path: "/painters/",
+    eyebrow: "For painters",
+    title: "Your painting season is short. A slow reply makes it shorter.",
+    text: "Exterior work is squeezed into a handful of dry months, and most homeowners are comparing two or three painters. Catch the enquiry fast, qualify it properly, and keep the quote alive until you get an answer.",
+    cta: "Book a Free Painting Front Desk Audit",
+    examples: ["Exterior repaint enquiry", "Interior repaint quote", "Quote comparison request", "Weather-delay update", "Quiet quote follow-up"],
+    flow: "Repaint enquiry -> qualified -> quote sent -> chased to an answer",
+    objections: [
+      "Comparing quotes is normal on a job this size, and plenty of the people doing it hire the painter who actually followed up. The front desk keeps your quote in front of them on a schedule you set, so it is not down to memory.",
+      "It never promises a start date or makes a weather call — that stays with you. When you tell it a job has moved, it sends the update in your own wording, so the customer hears it from you instead of chasing you for it.",
+    ],
+    videoId: "",
+  },
   roofers: {
     path: "/roofers/",
     eyebrow: "For roofers",

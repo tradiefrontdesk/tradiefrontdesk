@@ -1,7 +1,7 @@
 ---
 title: Do Tradies Need an Answering Service?
 heading: Do tradies actually need an answering service?
-description: An honest answer, including when it is no. Who genuinely benefits, who does not, the cheaper alternatives, and the questions to ask before spending anything.
+description: An honest answer, including when it is no. Who genuinely benefits, who does not, and the cheaper alternatives worth trying first.
 primaryKeyword: do tradies need an answering service
 lead: Not automatically. Plenty of tradies run for years on their own phone and never lose meaningful work to it. Here is how to tell which one you are.
 order: 60

@@ -14,7 +14,7 @@ const guides = defineCollection({
       title: z.string().min(10).max(45),
       /** The <h1>. Usually longer and more human than the meta title. */
       heading: z.string().min(10),
-      description: z.string().min(70).max(158),
+      description: z.string().min(70).max(155),
       /** One primary keyword per URL. Cannibalisation is self-inflicted. */
       primaryKeyword: z.string().min(3),
       /** Short deck under the h1. */

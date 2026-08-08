@@ -15,7 +15,13 @@
 //   "designed to help", "helps catch", "results depend on".
 // - NZ vocabulary: tradie, job, quote, callout, on the tools, knock-off, smoko.
 
-export type TradeContentKey = "electricians" | "plumbersDrainage" | "roofers";
+export type TradeContentKey =
+  | "electricians"
+  | "plumbersDrainage"
+  | "roofers"
+  | "heatPumpInstallers"
+  | "builders"
+  | "painters";
 
 export type TradeContent = {
   included: { intro: string; items: [string, string][] };
@@ -390,6 +396,227 @@ export const tradeContent: Record<TradeContentKey, TradeContent> = {
         "Will it pester my customers or promise things I have not agreed to?",
         "No. Follow-up runs on a set schedule with approved messages — a check-in, not a hard sell. Nothing about price, timeframes or scope gets promised without you.",
       ],
+    ],
+  },
+  heatPumpInstallers: {
+    included: {
+      intro: sharedIncludedIntro,
+      items: [
+        ["Missed-call text-back", "You are up a ladder or elbow-deep in an outdoor unit and cannot take a call. The moment it goes unanswered the caller gets a text, so they know they have been heard instead of ringing the next installer."],
+        ["Instant enquiry reply", "Website forms and messages get a fast, professional reply, so a new-install enquiry does not go cold in an inbox nobody checks until knock-off."],
+        ["Quote request form", "Property type, existing system, room size, and photos of where the unit needs to go, collected up front. You walk into the quote already knowing what you are looking at."],
+        ["Job qualification", "New install or replacement, ducted or single-split, whether it is a landlord compliance job with a deadline attached. The jobs worth your time are easy to pick out."],
+        ["Callback and site-visit booking", "Good-fit enquiries get moved toward a callback, a quote, or a measure-up, on times you have made available."],
+        ["Follow-up engine", "Enquiries that go quiet get a nudge on a schedule you set, so nothing depends on you remembering to check back in."],
+        ["Quote follow-up", "A new-install quote you sent last week gets chased properly, instead of sitting unanswered while the job goes to the next installer who called."],
+        ["A simple pipeline", "New enquiries, callbacks, quoted jobs, follow-ups, won and lost — visible in one place, not spread across texts, voicemail and a notebook in the van."],
+        ["Review requests", "Once the install is signed off and the customer is happy, they get asked for a Google review."],
+        ["Optional phone answering", "For calls you genuinely cannot get to, an answering assistant can take the caller's details using a script you write and approve, with clear rules for what comes straight to you."],
+      ],
+    },
+    walkthrough: {
+      intro: "Here is what a cold snap looks like from the installer's side.",
+      steps: [
+        { time: "09:14", text: "You are halfway through mounting an outdoor unit, both hands full, when the phone goes. Not stopping for it." },
+        { time: "09:15", text: "It rings out, so a text goes straight back — short, in your wording — letting the caller know you have seen them." },
+        { time: "09:22", text: "They reply: existing heat pump has stopped heating altogether, cold snap forecast for the weekend, wants it looked at soon." },
+        { time: "09:24", text: "The qualifying questions go out: brand and rough age, is it tripping anything, is anyone without heating right now." },
+        { time: "09:31", text: "Answers come back. Under your rules, no heating with a cold weekend coming counts as worth prioritising." },
+        { time: "09:33", text: "You get a notification with the details already attached. You have not stopped working and you have not asked a single question yourself." },
+        { time: "11:50", text: "Unit mounted, gas charged, job signed off. You check your phone and the fault call is sitting there, ready to slot in." },
+        { time: "11:52", text: "You ring back knowing what you are walking into, and book it for first thing tomorrow." },
+      ],
+      close: "Meanwhile a new-install quote you sent Monday — no urgency, just a homeowner comparing three installers — already got a reply and a scheduled follow-up for the end of the week.",
+    },
+    control: {
+      intro: "This is the part most installers want settled first: what is this thing allowed to say and do without me.",
+      items: [
+        ["You set the price", "The front desk never quotes a number for an install, a repair, or a service call. Pricing conversations stay with you."],
+        ["No install date gets promised", "Nothing tells a customer their unit will be in by a certain date without you confirming it. Scheduling against your real availability stays yours."],
+        ["No call on whether a unit is worth repairing", "It does not tell a caller their heat pump is dead, or that it needs replacing rather than fixing. That is a technical judgement and it stays with you."],
+        ["No compliance advice", "It collects the details a Healthy Homes job needs — property, timeframe, existing heating. It does not tell a landlord whether they meet the standard."],
+        ["You decide which jobs you take", "The system does not accept work on your behalf. It books time for you to make that call."],
+        ["Every message is one you approved", "Replies, follow-ups and booking confirmations use wording you have signed off, not generic scripts."],
+      ],
+      close: "The short version: the front desk keeps enquiries moving and visible. It does not make the decisions that are yours to make.",
+    },
+    seasonal: {
+      intro: "Heat pump demand in New Zealand does not sit still. It has been climbing for years, and it still spikes hard once the weather turns.",
+      blocks: [
+        {
+          heading: "Heat pumps are now the main way New Zealand heats a home",
+          text: "Census data shows heat pumps became the dominant heating type nationwide, used as the main heating source in 66.8% of dwellings in 2023, up from 47.3% in 2018. When one stops heating, it is no longer an inconvenience — it is the thing the household relies on to stay warm.",
+        },
+        {
+          heading: "Landlords are on the clock, not just homeowners",
+          text: "Under the Healthy Homes Standards, every private rental has had to meet a fixed heating requirement for the main living room since 1 July 2025, with no grace period. The standard requires a device capable of maintaining 18°C, and a heat pump with a thermostat is one accepted way to meet it. Penalties run to $7,200 per breach, and up to $50,000 for landlords with six or more properties. Compliance jobs arrive with real urgency attached.",
+        },
+        {
+          heading: "A subsidised channel adds its own volume",
+          text: "EECA's Warmer Kiwi Homes programme has funded tens of thousands of heating retrofits, much of it heat pumps installed in homes that would not otherwise have upgraded. Grant-funded jobs come with their own paperwork and eligibility checks, on top of the private market.",
+        },
+        {
+          heading: "And it all lands at once",
+          text: "A household deciding it is finally time, a landlord racing a compliance obligation, and a grant-funded retrofit queue all tend to move together — as soon as the first proper cold snap hits.",
+        },
+      ],
+      sources: "Sources: Stats NZ 2023 Census data on main types of household heating; Healthy Homes Standards heating standard, deadline and penalties via Tenancy Services and the Ministry for Cities, Environment, Regions and Transport; EECA Warmer Kiwi Homes programme results.",
+    },
+    faqs: [
+      ["Is this an AI receptionist?", "Not in the way that phrase usually means. This is a managed front desk — a process built and run for you, using messages you approve. There is no tool for you to learn. If you add optional phone answering it works from a script you write, and anything it cannot handle goes straight to you."],
+      ["What if I already run ServiceM8, Tradify, Fergus or Simpro?", "The front desk handles enquiry capture, replies, follow-up and booking. It can sit alongside your job management software when that is listed in the proposal. It is not there to replace what you use for scheduling and invoicing."],
+      ["Do you handle Healthy Homes compliance assessments?", "No. The front desk captures and organises a landlord or property manager's enquiry — property details, existing heating, timeframe. Whether a property meets the standard, and what needs installing to fix that, is your professional call."],
+      ["Can it promise an install date or a price over the phone?", "No. Nothing gets quoted or promised without you. The front desk gets the details in front of you fast so you can make that call yourself."],
+      ["Can you guarantee more jobs?", "No. We guarantee the agreed system gets built, tested, launched, and fixed if a listed part is not working. We do not guarantee job numbers, revenue, or what any customer decides to do. Results depend on your market, your response, and your follow-through."],
+      ["What do you need from me to get it running?", "Your business details, the services and areas you cover, access to the relevant accounts, your approved wording for messages, and reasonably prompt feedback while it is set up and tested."],
+    ],
+  },
+
+  builders: {
+    included: {
+      intro: sharedIncludedIntro,
+      items: [
+        ["Missed-call text-back", "You are on the tools, up a ladder, or mid-pour and the phone rings out. The caller gets a text straight away, so they know they have been heard instead of ringing the next builder in their search."],
+        ["Instant enquiry reply", "A form from someone wanting a renovation quoted gets a fast, professional reply — not a message sitting in an inbox until knock-off, by which time they have emailed two other builders."],
+        ["Quote request form", "Job type, address, rough scope, and photos of the space collected up front — kitchen, extension, reclad, new build — so you walk into the first call already knowing what you are pricing."],
+        ["Job qualification", "The questions that separate a real renovation from a browsing enquiry get asked before it reaches you — budget range, timeframe, whether they own the property, whether council involvement is likely."],
+        ["Callback and site-visit booking", "Good-fit enquiries get moved toward a measure-up, booked against times you have made available, not a vague promise to call back."],
+        ["Follow-up engine", "Enquiries that go quiet after the first conversation get a second, approved touch on a schedule, instead of relying on you remembering three weeks later."],
+        ["Quote follow-up", "The kitchen-and-bathroom quote you sent a fortnight ago gets chased properly, on wording you signed off, instead of sitting in your sent folder while the homeowner talks to two other builders."],
+        ["Simple pipeline", "Every live enquiry and quote in one place — new, qualified, quoted, follow-up due, won, lost — instead of tracked across texts, a whiteboard, and what you can remember on site."],
+        ["Review requests", "Once a job is signed off and the client is happy, they get asked for a Google review, while the work is still fresh in their mind."],
+        ["Optional phone answering", "For calls you genuinely cannot get to, an answering assistant can take the caller's details on a script you write and approve, with clear rules for what comes straight to you."],
+      ],
+    },
+    walkthrough: {
+      intro: "A renovation quote does not live or die in a day. Here is the real shape of one, from enquiry to decision.",
+      steps: [
+        { time: "Day 0", text: "You are on site pouring a slab. A renovation enquiry comes in through the website — kitchen and bathroom, rough budget, no fixed timeline. You do not see it until knock-off." },
+        { time: "Day 0", text: "It gets a fast, approved reply and a short set of qualifying questions: rough scope, address, timeframe, whether they own the property." },
+        { time: "Day 1", text: "Answers come back. It is a real job — established homeowners, budget in range, wanting to start in the next few months. A measure-up gets booked for a day that suits you." },
+        { time: "Day 4", text: "You do the measure-up, walking in already knowing the scope instead of starting the conversation from zero." },
+        { time: "Day 12", text: "You have priced it and sent the quote. Then nothing. No reply." },
+        { time: "Day 19", text: "A follow-up goes out on wording you approved — checking whether they have questions, not chasing a yes. No pressure, just visible." },
+        { time: "Week 4", text: "They reply: still deciding, waiting to hear back from the bank. It stays open in the pipeline instead of falling off your radar." },
+        { time: "Week 6", text: "They come back ready to go. A callback gets booked to talk contract and start date — the parts that are yours to handle." },
+      ],
+      close: "That is the real shape of a renovation quote. Not lost in a day, but forgotten slowly over six weeks while life, finance and other builders' quotes get in the way. The front desk's job is making sure it is not forgotten on your side of the ledger.",
+    },
+    control: {
+      intro: "This is the part most builders want settled first, and on this trade some of it is a legal boundary rather than a preference.",
+      items: [
+        ["You set the price", "The front desk never quotes a number, discounts, or negotiates. Every dollar figure a customer hears comes from you."],
+        ["No start dates promised", "Nothing tells a customer when their job will start. That is your call, once you have scoped the work and, above the legal threshold, got a contract signed."],
+        ["No advice on consents, licensing or contract terms", "The front desk does not advise on building consents, restricted building work, or what belongs in a contract. Those stay with you as the licensed practitioner."],
+        ["You decide which jobs you take", "It does not accept work on your behalf. It books time for you to look at the job and decide whether it is worth taking on."],
+        ["Every message is one you approved", "Replies, qualifying questions and follow-ups use wording you signed off, not a generic script."],
+        ["Follow-up stays inside limits you set", "You decide how many touches a quiet quote gets and how far apart, so a big decision does not turn into nagging."],
+      ],
+      close: "The short version: the front desk keeps a quote alive and visible. It does not price it, promise a start date, advise on compliance, or decide anything that is legally yours to decide.",
+    },
+    seasonal: {
+      intro: "Building demand in New Zealand does not move in a straight line, and a renovation quote lives inside that movement for weeks before it becomes a job.",
+      blocks: [
+        {
+          heading: "New builds are consenting faster than renovations are starting",
+          text: "In the year to April 2026, Stats NZ recorded 39,087 new dwellings consented, up 16% on the year before. Renovation work tells a different story: the value of residential alteration work actually commencing fell from $3.309 billion in the year to March 2024 to $2.637 billion in the year to March 2026 — roughly a 20% drop — while the value being consented stayed close to flat. Quotes are still being written. Fewer are turning into work on site.",
+        },
+        {
+          heading: "The consent clock adds weeks you do not control",
+          text: "Once a council has a complete application, the Building Act gives it 20 working days to process it. That clock stops every time it requests further information and only resumes once you answer. A straightforward renovation can sit for a month or more between a quote being accepted and a stud going up.",
+        },
+        {
+          heading: "Anything over $30,000 comes with paperwork first",
+          text: "A written contract has been legally required for residential building work costing $30,000 or more including GST since January 2015. Most kitchen and bathroom jobs, extensions and full renovations sit above that line, so the quote is only step one.",
+        },
+        {
+          heading: "Structural work needs a licensed sign-off",
+          text: "Restricted building work — anything affecting a home's structure or weathertightness — must be carried out or supervised by a Licensed Building Practitioner, with a formal record on completion. For a homeowner comparing builders, that is one more thing to check before committing, and one more reason a quote sits open a while.",
+        },
+      ],
+      sources: "Sources: Stats NZ Building Consents Issued statistical release (year ended April 2026); Stats NZ Value of Building Work Put in Place survey; MBIE Building Performance guidance on consent processing timeframes and restricted building work; Building Act 2004 Part 4A.",
+    },
+    faqs: [
+      ["Is this an AI quoting tool or an AI receptionist?", "Neither. This is a managed front desk — a process built and run for you, using replies and follow-ups you approved. It does not generate quotes or make decisions on its own. If you add optional phone answering it works from a script you write."],
+      ["What if I already run Buildxact, Fergus or Buildertrend?", "The front desk handles enquiry capture, replies, qualification, booking and follow-up — the part that usually happens before a job gets logged in your job management software. It sits alongside whatever you use for estimating and scheduling."],
+      ["Can it tell a customer about consents, licensing or contract terms?", "No. The front desk captures and organises enquiries. It does not advise on building consents, restricted building work, or contract terms. Those conversations, and the paperwork that goes with any job over $30,000, stay with you."],
+      ["Will chasing a quote make me look pushy?", "The wording is yours to approve and the cadence is yours to set. It is a short, professional check-in, not a countdown. Most people who go quiet on a renovation quote are still deciding, not saying no."],
+      ["Do I lose control of pricing or which jobs I take on?", "No. You price every job and decide which ones you want. The front desk keeps enquiries and quotes moving and visible."],
+      ["What do you need from me to get it running?", "Your business details, the areas and job types you cover, access to the relevant accounts, your approved wording for messages, and reasonably prompt feedback while it is set up and tested."],
+    ],
+  },
+
+  painters: {
+    included: {
+      intro: sharedIncludedIntro,
+      items: [
+        ["Missed-call text-back", "You are up a ladder or mid-coat and the phone rings out. The caller gets a text straight back so they know you have seen them, instead of ringing the next painter in their search."],
+        ["Instant enquiry reply", "Website enquiries get a fast, professional reply — particularly in spring, when a slow reply is often the only thing separating you from the painter who answered first."],
+        ["Quote request form", "House size, surface type, current condition and photos get collected up front, so you are not starting the quote conversation from zero once you are back at the ute."],
+        ["Job qualification", "Timeframe, access, and whether it is a full repaint or a patch-up get asked before you call back, so you know which enquiries are worth a site visit."],
+        ["Callback and site-visit booking", "Good-fit enquiries get moved toward a measure-up or quote appointment, booked against times you have actually made available."],
+        ["Quote follow-up", "A repaint you quoted three weeks ago gets chased on a schedule you set — not left to compete on memory against however many other painters that homeowner is waiting to hear from."],
+        ["Weather-delay updates", "When rain pushes a job, the update goes out in your own wording the moment you tell the system, so the customer hears it from you rather than watching the forecast and wondering."],
+        ["Simple pipeline", "New enquiries, quoted jobs, follow-ups and booked work visible in one place instead of spread across texts, a notebook and what you can remember."],
+        ["Review requests", "Once a job is finished and signed off, the customer gets asked for a Google review — useful in a trade where homeowners often check reviews before they even ask for a quote."],
+        ["Optional phone answering", "If you would rather calls were picked up live, an answering assistant can take the caller's details on a script you write and approve."],
+      ],
+    },
+    walkthrough: {
+      intro: "Here is what a spring day looks like when the weather turns partway through a job.",
+      steps: [
+        { time: "07:50", text: "You are loading the ute for a two-storey exterior repaint, first coat due on once the dew burns off the weatherboards." },
+        { time: "08:40", text: "Halfway up the scaffold the phone goes. You are not stopping to answer it." },
+        { time: "08:41", text: "A text goes out straight away — short, in your wording — telling the caller you have seen them and asking what the job is." },
+        { time: "08:53", text: "They reply: full exterior repaint, weatherboard villa, wants it done before the weather turns. A couple of photos come through with it." },
+        { time: "08:55", text: "The qualifying questions go out — current condition, access, rough timeframe — built around what you actually need to quote." },
+        { time: "09:20", text: "Answers land in the pipeline with the photos attached. You have not stopped painting and you have not typed a word." },
+        { time: "10:55", text: "Cloud rolls in and the humidity climbs. You call it — today's coat is not happening. You flag the job as weather-delayed." },
+        { time: "10:57", text: "An update goes out to this morning's customer in your own wording: the coat has been pushed to keep the finish right, new date to follow." },
+      ],
+      close: "Meanwhile the villa repaint quoted three weeks ago — the one that has gone quiet — gets its scheduled follow-up today too, waiting on a two-minute decision from you rather than lost to whichever painter got back to that homeowner first.",
+    },
+    control: {
+      intro: "This is the part most painters want settled first: what is this thing allowed to say and commit to without me.",
+      items: [
+        ["You set the price", "The front desk never quotes a number or discounts a job. Every price comes from you, once you know what you are actually looking at."],
+        ["No start dates get promised", "Painting is weather-dependent work. Nothing tells a customer a job starts Tuesday or finishes by Friday — that call is always yours."],
+        ["Weather updates use your wording only", "When a job gets pushed by rain, the message that goes out is one you approved in advance, not an improvised excuse."],
+        ["You decide which jobs you take", "The system does not accept work on your behalf. It qualifies the enquiry and books time for you to make the call."],
+        ["No promises on finish or durability", "How long a coat will last, or whether a surface needs extra prep, is your professional judgement, not something the front desk decides."],
+        ["Phone answering runs on your script", "If you use it, you write it, you approve it, and you set what gets escalated straight to you."],
+      ],
+      close: "The short version: the front desk keeps enquiries moving and visible. It does not quote, it does not promise a date, and it does not decide what work you take.",
+    },
+    seasonal: {
+      intro: "Painting demand in New Zealand does not sit flat across the year. It is set by the weather, and the weather sets a short working window.",
+      blocks: [
+        {
+          heading: "The working season is short, and the weather sets the rules",
+          text: "Exterior coatings need genuine dry weather to cure properly. Resene's own painting guidance puts the ideal range at 15-20°C with surface temperatures above 10°C and a gap of at least 5°C above the dew point — conditions that narrow sharply outside the warmer months. NIWA's climate overview identifies summer as the driest season across most of the country, which is a large part of why exterior work concentrates into a handful of months.",
+        },
+        {
+          heading: "That window compresses demand into one rush",
+          text: "When reliable painting weather is confined to spring and summer, enquiries do not spread evenly — they land in a shorter stretch of the calendar, and most painters in an area field them at roughly the same time. A slow reply in that window does not just lose one job. It loses whatever else arrives while the reply is still sitting unanswered.",
+        },
+        {
+          heading: "Comparison shopping is standard practice, not a red flag",
+          text: "It is common for homeowners to get quotes from more than one painter before deciding, and that is sensible on a job this size. It does not mean the enquiry is not worth your time. It does mean qualification and follow-up matter more here than in trades where a homeowner typically asks only one person.",
+        },
+        {
+          heading: "Demand is trending up",
+          text: "MBIE's Occupation Outlook for painters reports demand has increased since 2018, driven in part by residential and commercial building activity, with employment growth projected on the back of continued building work.",
+        },
+      ],
+      sources: "Sources: Resene painting guidance on surface temperature and dew point; NIWA overview of New Zealand's climate; MBIE Occupation Outlook — Painters and Floor Finishers. The MBIE figures were retrieved via search summary rather than the primary page and are worth re-checking against the live source.",
+    },
+    faqs: [
+      ["Is this an AI receptionist?", "Not in the way that phrase usually means. This is a managed front desk — a process built and run for you, using messages you approve. There is no tool for you to learn. If you add optional phone answering it runs on a script you write and approve."],
+      ["Homeowners shop around anyway. Why bother chasing them?", "Comparing quotes is normal on a job this size, and plenty of the people doing it hire whoever actually followed up. The front desk keeps your quote in front of them on a schedule you set, so it is not down to memory."],
+      ["Can it promise a start date or a finish date?", "No. Painting depends on weather, and nothing here commits to a date on your behalf. If a job gets pushed by rain the update goes out in your own wording, but the date itself is always your call."],
+      ["What happens when rain pushes a job I have already started?", "You tell the system the job is delayed and an update goes out to the customer straight away, using wording you approved. They hear it from you before they have to ring and ask."],
+      ["Do I lose control of pricing or which jobs I take?", "No. You set every price and you decide which jobs you want. The front desk keeps enquiries moving and visible — it does not quote or accept work for you."],
+      ["What do you need from me to get it running?", "Your services and areas, the messages you are happy going out under your name — including how you want weather delays communicated — and reasonably prompt feedback while it is built and tested."],
     ],
   },
 };

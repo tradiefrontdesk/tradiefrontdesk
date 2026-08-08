@@ -1,0 +1,18 @@
+---
+import TradePage from "@/components/TradePage.astro";
+import { tradePages } from "@/data/site";
+---
+
+<TradePage
+  data={tradePages.painters}
+  contentKey="painters"
+  metaTitle="For Painters: Protect Every Quote"
+  metaDescription="A managed front desk for painters — designed to help catch spring repaint enquiries, qualify quote requests, and chase quotes through weather delays."
+  tradeAdj="painting"
+  scenarioIntro="You are four coats into a two-storey exterior with the sun about to turn, and the phone is going in your pocket. It is spring, so it is not the only call today — everyone wants their house done before the weather turns unreliable, and everyone is ringing two or three painters at once."
+  exampleNotes={["Answered fast while you are still on the ladder, with the questions that matter — house size, current condition, access — asked up front so you are not starting the quote from scratch.", "Captured the same way as the bigger exterior jobs, so a smaller repaint does not fall to the bottom of the pile while spring keeps you flat out outside.", "Qualified properly rather than chased hard. The details come back so you can judge whether it is worth quoting, and if you do, the follow-up keeps you in the running without you having to remember.", "Sent in your own wording the moment you tell the system a job has moved, so the customer hears about the delay from you, not from watching the forecast.", "Chased on a schedule you set, so a repaint you quoted three weeks ago does not quietly go to whichever painter got back to them first."]}
+  mechanismIntro="An exterior enquiry gets a fast reply and the qualifying questions before you have climbed down off the ladder. Good-fit jobs move toward a quote, and if weather pushes the start date, the update goes out in your own wording rather than being left for the customer to guess at."
+  objectionsIntro="The two questions painters ask most before the audit, answered plainly."
+  objectionTags={["Quote shopping", "Weather delays"]}
+  objectionQuestions={["Homeowners get three or four quotes anyway — why bother chasing them?", "Rain moves my jobs constantly. I'm not having this promise a start date."]}
+/>

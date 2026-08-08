@@ -1,0 +1,18 @@
+---
+import TradePage from "@/components/TradePage.astro";
+import { tradePages } from "@/data/site";
+---
+
+<TradePage
+  data={tradePages.builders}
+  contentKey="builders"
+  metaTitle="For Builders: Quotes That Don't Go Cold"
+  metaDescription="A managed front desk for builders — catching renovation and new-build enquiries, booking measure-ups, and chasing quotes before they go cold."
+  tradeAdj="building"
+  scenarioIntro="You are mid-pour, up a ladder, or three trades deep into a build when the phone goes. A renovation enquiry, a new build question, a reclad quote — by the time you check your phone at knock-off, the caller has already messaged two other builders. These are the enquiries, and the quotes that follow them, that slip first."
+  exampleNotes={["These carry the highest value and the longest fuse of any enquiry you get. Get the scope and budget range up front, and follow-up keeps it alive long after the first conversation goes quiet.", "Someone chasing a full build wants a serious first response, not a missed call. It gets captured and qualified early, so you can tell a genuine build from someone testing the market.", "The bread-and-butter renovation job — valuable enough to chase properly, common enough that it is easy to let one slip while you are focused on the job in front of you.", "Exterior work often carries a timeline pressure the caller does not say out loud — before winter, before the weather turns. Getting scope and urgency clear early means you are not guessing when you call back.", "Someone ready to move past a phone conversation and get a builder on site. It gets booked against times you have actually made available, instead of a back-and-forth that costs the job momentum."]}
+  mechanismIntro="A missed renovation enquiry gets a text back within minutes, not a voicemail nobody checks until knock-off. Real jobs get qualified and moved toward a measure-up on your terms — and once the quote is out, it stays visible and gets followed up on a schedule you set."
+  objectionsIntro="The two questions builders ask most before booking the audit, answered plainly."
+  objectionTags={["Job software", "Chasing clients"]}
+  objectionQuestions={["What if I already run Buildxact, Fergus, or Buildertrend?", "Won't this make me look like I'm hassling someone over a big decision?"]}
+/>
