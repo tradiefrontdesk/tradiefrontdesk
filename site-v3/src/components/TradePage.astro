@@ -69,7 +69,11 @@ const hasVideo = Object.prototype.hasOwnProperty.call(videoById, data.videoId);
 const videoId = data.videoId as unknown as VideoId;
 ---
 
-<BaseLayout title={metaTitle} description={metaDescription}>
+<BaseLayout
+  title={metaTitle}
+  description={metaDescription}
+  serviceName={`Managed front desk for ${tradeName}`}
+>
   <section class="th-hero band-dark blueprint-grid">
     <div class="container th-hero__inner">
       <p class="mono-label th-hero__eyebrow">{data.eyebrow}</p>

@@ -42,7 +42,7 @@ Built around a single monthly number instead of a running meter.
 
 **Call Catcher** publishes **$99 a month** for roughly 90 calls and **$149 a month** for roughly 140, with **no setup fee**, overage at 18c per segment, no lock-in, and an integration with Fergus. It is trade-specific and includes evening and weekend triage.
 
-**Talkify** publishes **$129 a month** for the first three months, moving to **$199** standard, with 100 minutes included, overage at 10c a minute, and no setup fee or lock-in.
+**Talkify** publishes **$129 a month** for the first three months, moving to **$199** standard, with 100 minutes included and no setup fee or lock-in. Overage runs 10c a minute during the introductory period and 20c once the standard rate applies.
 
 **Hey Jodie** lists **$99, $199 and $399** tiers on its own site, each claiming unlimited minutes.
 

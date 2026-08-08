@@ -33,7 +33,11 @@ const { contentKey } = Astro.props as Props;
 const page = problemContent[contentKey];
 ---
 
-<BaseLayout title={page.metaTitle} description={page.metaDescription}>
+<BaseLayout
+  title={page.metaTitle}
+  description={page.metaDescription}
+  serviceName={page.metaTitle}
+>
   <section class="pp-hero band-dark blueprint-grid">
     <div class="container pp-hero__inner">
       <p class="mono-label pp-hero__eyebrow">{page.eyebrow}</p>
@@ -235,8 +239,10 @@ const page = problemContent[contentKey];
     border-top: none;
     padding-top: 0;
   }
+  /* --muted, not --action: 2.84:1 on this light band. The dark-band
+     "number in the accent colour" idiom does not survive the swap. */
   .pp-cost__no {
-    color: var(--action);
+    color: var(--muted);
     padding-top: 0.2rem;
   }
   .pp-cost__item-title {

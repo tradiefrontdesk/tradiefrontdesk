@@ -46,7 +46,12 @@ const updated = data.updatedDate ?? data.publishDate;
 const dateFmt = new Intl.DateTimeFormat("en-NZ", { dateStyle: "long" });
 ---
 
-<BaseLayout title={data.title} description={data.description}>
+<BaseLayout
+  title={data.title}
+  description={data.description}
+  breadcrumbs={[{ name: "Guides", href: "/guides/" }]}
+  article={{ published: data.publishDate, modified: data.updatedDate }}
+>
   <section class="gd-hero band-dark blueprint-grid">
     <div class="container gd-hero__inner">
       <p class="mono-label gd-hero__eyebrow">

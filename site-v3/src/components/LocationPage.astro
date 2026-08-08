@@ -32,7 +32,11 @@ const { contentKey } = Astro.props as Props;
 const page = locationContent[contentKey];
 ---
 
-<BaseLayout title={page.metaTitle} description={page.metaDescription}>
+<BaseLayout
+  title={page.metaTitle}
+  description={page.metaDescription}
+  serviceName={page.metaTitle}
+>
   <section class="lp-hero band-dark blueprint-grid">
     <div class="container lp-hero__inner">
       <p class="mono-label lp-hero__eyebrow">{page.eyebrow}</p>

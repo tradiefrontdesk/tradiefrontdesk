@@ -111,8 +111,9 @@ const supporting = all
   .gi-pillar:focus-visible {
     border-color: var(--action);
   }
+  /* 3.15:1 in --action on --surface-light; --muted clears 7.41:1. */
   .gi-pillar__tag {
-    color: var(--action);
+    color: var(--muted);
     margin-bottom: 0.85rem;
   }
   .gi-pillar__title {
@@ -143,7 +144,7 @@ const supporting = all
     padding: clamp(1.25rem, 2.5vw, 1.75rem);
   }
   .gi-card__no {
-    color: var(--action);
+    color: var(--muted);
     display: block;
     margin-bottom: 0.75rem;
   }

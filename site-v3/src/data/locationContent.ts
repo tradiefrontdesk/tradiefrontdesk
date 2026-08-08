@@ -82,7 +82,7 @@ const nzControl: LocationContent["control"] = {
     ["No promises get made for you", "Nothing tells a customer a job is safe, a fix will hold, or a callout time is guaranteed."],
     ["You decide which jobs you take", "It does not accept work on your behalf. It books time for you to make that call."],
   ],
-  close: "The short version: it keeps enquiries visible and moving. It does not make the decisions that are yours to make.",
+  close: "Put simply: it makes sure nothing goes quiet while you are working. Pricing, promises and which jobs you take are all still yours.",
 };
 
 const auBasedIn = (regulator: string): LocationContent["basedIn"] => ({
@@ -143,7 +143,7 @@ export const locationContent: Record<LocationKey, LocationContent> = {
       blocks: [
         {
           heading: "Distance and traffic eat billable hours",
-          text: "Auckland Transport's own congestion work, commissioned by the mayor, put the cost of congestion to the city at roughly $2.6 billion a year. For a trade business that is the extra half hour between a job in Henderson and one in Pakuranga, and the calls you cannot take because you are holding a steering wheel. Phone availability and vehicle time compete for the same hours.",
+          text: "Auckland Transport's own congestion work, commissioned by the mayor, projected the cost of congestion to the city reaching roughly $2.6 billion a year by 2026. For a trade business that is the extra half hour between a job in Henderson and one in Pakuranga, and the calls you cannot take because you are holding a steering wheel. Phone availability and vehicle time compete for the same hours.",
         },
         {
           heading: "The build mix is dense, and dense means coordination",
@@ -247,7 +247,7 @@ export const locationContent: Record<LocationKey, LocationContent> = {
       blocks: [
         {
           heading: "Hard frosts do real damage",
-          text: "Christchurch averages around 70 days of ground frost a year on NIWA's 1991–2020 climate normals, among the highest of any main centre. When a cold snap hits properly the callout volume shows it — further south, Central Otago plumbers reportedly fielded around 100 burst-pipe callouts in a single week during one hard snap, with temperatures down to −16°C in places. Frozen and bursting pipes are a predictable seasonal event here, not a one-off.",
+          text: "Christchurch records among the highest ground-frost counts of any New Zealand main centre — station records vary, but well upward of 70 days a year on NIWA's 1991–2020 climate normals. When a cold snap hits properly the callout volume shows it: during a 2015 frost that took temperatures to −16°C in places, Central Otago plumbers reportedly fielded around 100 burst-pipe callouts in a single week. An older example, but the pattern has not changed. Frozen and bursting pipes are a predictable seasonal event here, not a one-off.",
         },
         {
           heading: "A wide spread of housing stock",

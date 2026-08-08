@@ -192,7 +192,7 @@ export const packages = [
 export const faqs = [
   ["Is this just lead generation?", "No. The core system is about handling the enquiries you already get. Campaigns can be added later if you want more volume."],
   ["Do I have to run ads?", "No. Ads are optional and usually only make sense once your front desk can handle new enquiries fast."],
-  ["Will a machine be talking to my customers?", "No. The system runs on approved texts, emails, forms, missed-call replies, and follow-up. Any phone answering is optional, controlled, and uses scripts you sign off on."],
+  ["Will a machine be talking to my customers?", "Not in an open-ended way, and never off its own bat. The system runs on approved texts, emails, forms, missed-call replies and follow-up — every message worded and signed off by you in advance. Optional phone answering, if you add it, works from a script you write, with clear rules for what gets handed straight to you. Nothing improvises and nothing makes a decision you have not approved."],
   ["Can it book jobs on its own?", "It can help book callbacks, quote requests, site visits, or appointments based on your rules. You stay in control of what you accept and what you promise."],
   ["What if I already use job software?", "Tradie Front Desk handles enquiry capture, response, follow-up, and booking. It can sit alongside your job software when that connection is listed in the proposal."],
   ["Can you guarantee more jobs?", "No. We guarantee the agreed system gets built, tested, launched, and fixed if a proposal-listed part is not working. We do not guarantee exact job numbers, revenue, or what customers decide to do."],

@@ -56,7 +56,7 @@ The trigger is always the same: an unanswered call. What happens after that firs
 
 It is sold two different ways.
 
-**As a standalone service.** Call Catcher, which is New Zealand-based and trade-specific, publishes $99 a month for roughly 90 calls and $149 for roughly 140, with no setup fee and overage at 18c per segment. Talkify publishes $129 a month for the first three months and $199 standard, with 100 minutes included. At that price you are buying the mechanism — the wording, the monitoring and the follow-through are still your job.
+**As a standalone service.** Call Catcher, which is New Zealand-based and trade-specific, publishes $99 a month for roughly 90 calls and $149 for roughly 140, with no setup fee and overage at 18c per segment. Talkify publishes $129 a month for the first three months and $199 standard, with 100 minutes included and overage rising from 10c to 20c a minute once the intro period ends. At that price you are buying the mechanism — the wording, the monitoring and the follow-through are still your job.
 
 **As part of a managed service**, it is not sold alone. It is one piece of a wider front desk that also handles qualification, booking, follow-up and after-hours rules. Our own starter tier runs from $1,500 setup plus $497 a month in New Zealand dollars and includes text-back alongside the rest of that process rather than as a separate line item.
 

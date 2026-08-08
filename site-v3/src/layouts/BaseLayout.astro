@@ -13,15 +13,35 @@ import StickyMobileCTA from "@/components/StickyMobileCTA.astro";
 import { brand, contactDetails, legalDetails, corePromise } from "@/data/site";
 import "@/styles/global.css";
 
+export type BreadcrumbCrumb = { name: string; href: string };
+
 interface Props {
   title: string;
   description: string;
   ogImage?: string;
   /** Override the sticky mobile bar's CTA target (e.g. "#audit-form" on /free-audit). */
   stickyCtaHref?: string;
+  /**
+   * Ancestors of this page, excluding Home (added automatically) and excluding
+   * the page itself (derived from `title`). A page one level below Home needs
+   * nothing; a guide passes [{ name: "Guides", href: "/guides/" }].
+   */
+  breadcrumbs?: BreadcrumbCrumb[];
+  /** Emits Service schema. Pass the service name for trade/problem/location pages. */
+  serviceName?: string;
+  /** Emits Article schema. Guides pass their dates. */
+  article?: { published: Date; modified?: Date };
 }
 
-const { title, description, ogImage = "/og-image.png", stickyCtaHref } = Astro.props;
+const {
+  title,
+  description,
+  ogImage = "/og-image.png",
+  stickyCtaHref,
+  breadcrumbs = [],
+  serviceName,
+  article,
+} = Astro.props;
 
 const siteName = brand.name;
 const fullTitle = `${title} | ${siteName}`;
@@ -61,6 +81,61 @@ const jsonLd = {
     name,
   })),
 };
+
+// BreadcrumbList on every page. Home is always position 1 and the current page
+// is always last, so callers only pass the levels in between.
+const crumbs = [
+  { name: "Home", href: "/" },
+  ...breadcrumbs,
+  { name: title, href: Astro.url.pathname },
+];
+const breadcrumbLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: crumbs.map((c, i) => ({
+    "@type": "ListItem",
+    position: i + 1,
+    name: c.name,
+    item: new URL(c.href, origin).toString(),
+  })),
+};
+
+// Service, on the pages that describe an actual service offering. `provider`
+// points back at the Organization rather than restating it, so there is one
+// entity on the page and not two competing ones.
+const serviceLd = serviceName
+  ? {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      name: serviceName,
+      serviceType: "Managed front desk for trade businesses",
+      description,
+      url: canonical.toString(),
+      provider: { "@type": "Organization", name: siteName, url: origin.toString() },
+      areaServed: contactDetails.phones.map((phone) => ({
+        "@type": "Country",
+        name: phone.region,
+      })),
+    }
+  : null;
+
+// Article, on the guides. dateModified falls back to datePublished rather than
+// being omitted, because a missing modified date is worse than an honest one.
+const articleLd = article
+  ? {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      headline: title,
+      description,
+      datePublished: article.published.toISOString(),
+      dateModified: (article.modified ?? article.published).toISOString(),
+      mainEntityOfPage: { "@type": "WebPage", "@id": canonical.toString() },
+      publisher: { "@type": "Organization", name: siteName, url: origin.toString() },
+      image: ogImageUrl.toString(),
+    }
+  : null;
+
+const structuredData = [jsonLd, breadcrumbLd, serviceLd, articleLd].filter(Boolean);
 ---
 
 <!doctype html>
@@ -90,7 +165,11 @@ const jsonLd = {
     <meta name="twitter:title" content={fullTitle} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImageUrl} />
-    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} is:inline />
+    {
+      structuredData.map((block) => (
+        <script type="application/ld+json" set:html={JSON.stringify(block)} is:inline />
+      ))
+    }
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>

@@ -31,13 +31,11 @@ export type TradeContent = {
   faqs: [string, string][];
 };
 
-const sharedIncludedIntro =
-  "Not a call centre, and not another app to log into. A managed front desk that runs in the background of the business you already have.";
 
 export const tradeContent: Record<TradeContentKey, TradeContent> = {
   electricians: {
     included: {
-      intro: sharedIncludedIntro,
+      intro: "Not a call centre, and not another app to log into. A managed front desk running quietly behind the business you already have.",
       items: [
         [
           "Missed-call text-back",
@@ -107,7 +105,7 @@ export const tradeContent: Record<TradeContentKey, TradeContent> = {
         ["You decide which jobs you take", "The system does not accept work on your behalf. It books time for you to make that call."],
         ["Phone answering runs on your script", "If you use it, you write it and you approve it, and you set what gets escalated straight to you."],
       ],
-      close: "The short version: the front desk keeps enquiries moving and visible. It does not make the decisions that are yours to make.",
+      close: "The short version: it keeps the work visible and moving while you are on the tools. What happens to any of it is still your call.",
     },
     seasonal: {
       intro: "Electrical demand in New Zealand does not sit flat across the year. It moves, and it moves fast.",
@@ -162,7 +160,7 @@ export const tradeContent: Record<TradeContentKey, TradeContent> = {
 
   plumbersDrainage: {
     included: {
-      intro: sharedIncludedIntro,
+      intro: "Not a call centre, and not another app to log into. A managed front desk that holds the urgent calls while you are under a house.",
       items: [
         [
           "Missed-call text-back",
@@ -238,11 +236,11 @@ export const tradeContent: Record<TradeContentKey, TradeContent> = {
       blocks: [
         {
           heading: "Frost turns a normal week into a flood of callouts",
-          text: "During a run of severe frosts with temperatures down to −16°C, Central Otago plumbers fielded roughly 100 burst-pipe callouts in a single week, with individual firms taking 20 to 40 calls in three days. Waikato plumbers report the same pattern whenever a cold snap lands — burst pipes and failed cylinders arriving all at once.",
+          text: "During a severe frost in 2015, with temperatures down to −16°C, Central Otago plumbers fielded roughly 100 burst-pipe callouts in a single week, with individual firms taking 20 to 40 calls in three days. It is an older example, but the pattern it shows has not changed. Waikato plumbers report the same pattern whenever a cold snap lands — burst pipes and failed cylinders arriving all at once.",
         },
         {
           heading: "Older housing stock keeps producing unplanned work",
-          text: "In Canterbury, frost, ground movement and ageing Dux Quest pipe are named as recurring causes of winter emergencies. Dux Quest alone was fitted in an estimated 40,000 New Zealand homes before it was pulled from the market, and it still fails without warning as pinhole leaks or sudden splits.",
+          text: "In Canterbury, frost, ground movement and ageing Dux Quest pipe are named as recurring causes of winter emergencies. Dux Quest alone was fitted in an estimated 20,000 to 40,000 New Zealand homes before it was pulled from the market, and it still fails without warning as pinhole leaks or sudden splits.",
         },
         {
           heading: "Storms bring drainage, not just leaks",
@@ -282,7 +280,7 @@ export const tradeContent: Record<TradeContentKey, TradeContent> = {
 
   roofers: {
     included: {
-      intro: sharedIncludedIntro,
+      intro: "Not a call centre, and not another app to log into. A managed front desk that keeps a reroof enquiry together while you are on a pitch.",
       items: [
         [
           "Missed-call text-back",
@@ -298,7 +296,7 @@ export const tradeContent: Record<TradeContentKey, TradeContent> = {
         ],
         [
           "Job qualification",
-          "A short set of questions sorts real jobs from tyre-kickers, so your time goes where it is worth going.",
+          "A short set of questions sorts the jobs that are ready to go from the ones still weeks off deciding, so your time goes where it is worth going.",
         ],
         [
           "Callback and site-visit booking",
@@ -400,7 +398,7 @@ export const tradeContent: Record<TradeContentKey, TradeContent> = {
   },
   heatPumpInstallers: {
     included: {
-      intro: sharedIncludedIntro,
+      intro: "Not a call centre, and not another app to log into. A managed front desk built to hold a winter rush without dropping anything.",
       items: [
         ["Missed-call text-back", "You are up a ladder or elbow-deep in an outdoor unit and cannot take a call. The moment it goes unanswered the caller gets a text, so they know they have been heard instead of ringing the next installer."],
         ["Instant enquiry reply", "Website forms and messages get a fast, professional reply, so a new-install enquiry does not go cold in an inbox nobody checks until knock-off."],
@@ -438,7 +436,7 @@ export const tradeContent: Record<TradeContentKey, TradeContent> = {
         ["You decide which jobs you take", "The system does not accept work on your behalf. It books time for you to make that call."],
         ["Every message is one you approved", "Replies, follow-ups and booking confirmations use wording you have signed off, not generic scripts."],
       ],
-      close: "The short version: the front desk keeps enquiries moving and visible. It does not make the decisions that are yours to make.",
+      close: "The short version: it keeps the work visible and moving while you are on the tools. What happens to any of it is still your call.",
     },
     seasonal: {
       intro: "Heat pump demand in New Zealand does not sit still. It has been climbing for years, and it still spikes hard once the weather turns.",
@@ -474,7 +472,7 @@ export const tradeContent: Record<TradeContentKey, TradeContent> = {
 
   builders: {
     included: {
-      intro: sharedIncludedIntro,
+      intro: "Not a call centre, and not another app to log into. A managed front desk that keeps a quote alive through a six-week decision.",
       items: [
         ["Missed-call text-back", "You are on the tools, up a ladder, or mid-pour and the phone rings out. The caller gets a text straight away, so they know they have been heard instead of ringing the next builder in their search."],
         ["Instant enquiry reply", "A form from someone wanting a renovation quoted gets a fast, professional reply — not a message sitting in an inbox until knock-off, by which time they have emailed two other builders."],
@@ -548,7 +546,7 @@ export const tradeContent: Record<TradeContentKey, TradeContent> = {
 
   painters: {
     included: {
-      intro: sharedIncludedIntro,
+      intro: "Not a call centre, and not another app to log into. A managed front desk built for a season that only runs a few months.",
       items: [
         ["Missed-call text-back", "You are up a ladder or mid-coat and the phone rings out. The caller gets a text straight back so they know you have seen them, instead of ringing the next painter in their search."],
         ["Instant enquiry reply", "Website enquiries get a fast, professional reply — particularly in spring, when a slow reply is often the only thing separating you from the painter who answered first."],

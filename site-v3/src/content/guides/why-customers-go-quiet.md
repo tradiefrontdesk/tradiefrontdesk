@@ -70,7 +70,7 @@ The mistake most tradies make is reading silence as a verdict and reacting to it
 
 The useful move is to treat an unanswered quote as an open question rather than a closed file, and to follow up in a way that reads as organised rather than pushy.
 
-That is a mechanics question — how soon, how many times, what to say, when to stop — and it is covered properly on [quote follow-up for tradies](/quote-follow-up/) rather than repeated here. New Zealand industry sources back the same shape. Builderscrack frames follow-up as what turns interest into income and notes it also sorts genuine prospects from tyre-kickers. BizCover NZ recommends confirming a quote landed within a day or two, a proper follow-up around the week mark, and easing off after three attempts. Both treat a quiet customer as someone to check in on, not someone to write off.
+That is a mechanics question — how soon, how many times, what to say, when to stop — and it is covered properly on [quote follow-up for tradies](/quote-follow-up/) rather than repeated here. New Zealand industry sources back the same shape. Builderscrack frames follow-up as what turns interest into income, and notes it also separates the people who are genuinely ready from the ones who are not. BizCover NZ recommends confirming a quote landed within a day or two, a proper follow-up around the week mark, and easing off after three attempts. Both treat a quiet customer as someone to check in on, not someone to write off.
 
 ## When silence really is a no
 
