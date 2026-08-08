@@ -307,13 +307,32 @@ The guide does not change the plan's shape; it sharpens Waves 1–3 and confirms
 
 ---
 
-## 10. Approval gate 🛑
+## 10. Approval gate — CLEARED 8 August 2026
 
-Nothing has been built. Waiting on your go.
+All five decisions returned by the client.
 
-**Decisions needed:**
-1. Fix the contact form now, ahead of everything else? *(Recommended: yes, today)*
-2. Check the IP Australia trademark register before Wave 5? *(Recommended: yes)*
-3. Location pages at 5, or the full 11 you originally asked for? *(Recommended: 5)*
-4. Keep the vocabulary ban? *(Recommended: yes, with Option B as the test)*
-5. Approve the wave order, or reprioritise?
+| # | Decision | Outcome |
+|---|---|---|
+| 1 | Contact form | **Done.** Honest "Form offline" placeholder shipped; client is fitting a GoHighLevel form embed. |
+| 2 | IP Australia trademark check | **Deferred by the client — "we will register this later."** Recorded, not resolved. The risk this leaves open: registering later does not help if the tradiefrontdesk.com operator registers in Australia first, and they are already trading under the name there with a ™ claim. Australia stays sequenced last so it blocks nothing else. |
+| 3 | Location page count | **5 confirmed** — Auckland, Christchurch, and NSW / QLD / VIC at state level. |
+| 4 | Vocabulary ban | **Changed — "AI" is now restricted rather than banned.** See below. |
+| 5 | Wave order | **Wave 1 approved.** Trade page rewrites proceed. |
+
+### The vocabulary change, and the boundary it needs
+
+The client's instruction: *"little of ai, we need to rank for it as well for seo, but our main display can be problem solving as well, so we need both."*
+
+This is the right commercial read. The research was unambiguous that refusing the term costs real traffic — every close competitor leads with it, and the "AI receptionist" query family is the fastest-growing in the category. But an unbounded relaxation would quietly turn a managed-service brand into a software pitch, which is the buyer this offer converts worst against.
+
+So the rule is now a boundary, not a ban. Full table in `site-v3/PRODUCT.md`; the short version:
+
+- **Never** in hero headlines, CTAs, or section headings — those stay problem-led.
+- **Yes** in meta titles/descriptions, FAQ questions phrased the way buyers ask them, and a dedicated comparison page built to own the query.
+- **Sparingly** in body copy, only where a buyer would genuinely use the word.
+
+The other bans are unchanged: CRM, automation, funnel, SaaS, workflow, GoHighLevel, bot. GoHighLevel especially — that is the vendor and never appears in buyer-facing copy.
+
+**Test for whether the boundary has been crossed:** read a page's display copy alone. If it sounds like it is selling AI software, it has.
+
+This also promotes what was Option B in §7 from an experiment to a planned page: a comparison page targeting the "AI receptionist vs managed front desk" query is now the designated home for the term, keeping it concentrated on one URL instead of diffused across the site.

@@ -36,7 +36,25 @@ Voice in three words: **confident, plain-spoken, specific.** The brand is an ope
 
 Emotional goal for a visitor: recognize their own business in the problem within the first fold (the missed call on the roof, the quote gone quiet), feel the relief of "someone gets it and will just handle this," and feel the industrial confidence of the visual system — precise, serious, built like proper front-office infrastructure, not a flashy app pitch.
 
-**Buyer-facing vocabulary bans (hard rule, carries into every page and every CTA):** AI, CRM, automation, funnel, SaaS, workflow, GoHighLevel, bot. Sell the system and the outcome, not the tooling underneath it ("we build and manage the front-desk process that captures enquiries and follows up with customers," never "we install AI agents and automations" or "we use GoHighLevel workflows").
+**Buyer-facing vocabulary rules (carries into every page and every CTA).**
+
+**Still banned outright:** CRM, automation, funnel, SaaS, workflow, GoHighLevel, bot. Sell the system and the outcome, not the tooling underneath it ("we build and manage the front-desk process that captures enquiries and follows up with customers," never "we install automations" or "we use GoHighLevel workflows"). GoHighLevel in particular is the vendor and never appears in buyer-facing copy.
+
+**"AI" — restricted, not banned (client decision, 8 August 2026).** Search research found the term unavoidable for visibility: every close competitor leads with it (Call Catcher's H1 is "AI Missed-Call Service for NZ Tradies"; Sophiie, AnswR, Ring Jenny and TradieAssistance all build pages around it), and the "AI receptionist" query family is the fastest-growing in the category. Refusing the word entirely forfeits that traffic. The client has chosen to compete for it while keeping the brand's display copy problem-led.
+
+The boundary, which is what stops it leaking everywhere:
+
+| Surface | "AI" allowed? |
+|---|---|
+| Hero headlines and subheads | **No** — always the problem: missed calls, dead quotes, slow replies |
+| Primary CTAs and button labels | **No** |
+| Section headings on core pages | **No** |
+| Meta titles and descriptions where the query demands it | **Yes** |
+| FAQ *questions* that mirror how buyers actually ask ("Is this an AI receptionist?") | **Yes** — the answer reframes to the managed-service positioning |
+| A dedicated comparison/definition page targeting the query | **Yes** — this is the page that carries the term |
+| Body copy on core pages | **Sparingly**, and only where a buyer would genuinely use the word |
+
+The positioning has not changed. Tradie Front Desk is a managed service, not a tool, and the reason for the restriction is commercial rather than cosmetic: ranking for "AI receptionist" attracts buyers shopping for software, who convert badly against a done-for-you offer. The term is a doorway, never the pitch. If a page's *display* copy reads as though it is selling AI software, the boundary has been crossed.
 
 **Claims-safe language (hard rule):** no guaranteed job counts, revenue, profit, rankings, review counts, or response rates. Use claims-safe framing throughout — "designed to help," "helps catch," "reported outcome," "results depend on" — matching `about-tradie-front-desk/terms_scope_and_guarantee.md`. Worked examples are labelled as illustrations of the process, not promises of what a visitor's business will experience.
 
