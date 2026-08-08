@@ -1,0 +1,120 @@
+---
+// ControlList.astro — "what stays your call", a light band.
+//
+// Extracted from TradePage.astro for reuse across the trade pages, problem
+// pages, and later waves.
+//
+// This section does real commercial work, not decoration. The single biggest
+// anxiety in this market is something being promised on the owner's behalf
+// that they then have to deliver — see PRODUCT.md's switching dynamics. A
+// definition list is the honest structure for it: each term is a limit, each
+// definition is what the system will not do. It should read like the scope
+// page of a contract, because that is what a sceptical buyer is looking for.
+export type ControlItem = [term: string, definition: string];
+
+interface Props {
+  cap?: string;
+  title?: string;
+  intro: string;
+  items: ControlItem[];
+  close?: string;
+}
+
+const {
+  cap = "Fig. — the limits, in writing",
+  title = "What stays your call.",
+  intro,
+  items,
+  close,
+} = Astro.props as Props;
+---
+
+<section class="cl band-light section">
+  <div class="container">
+    <header class="cl__head">
+      <p class="mono-label cl__cap">{cap}</p>
+      <h2 class="cl__title">{title}</h2>
+      <p class="cl__lead max-measure">{intro}</p>
+    </header>
+
+    <dl class="cl__list surface-light">
+      {
+        items.map(([term, definition]) => (
+          <div class="cl__row">
+            <dt class="cl__term">{term}</dt>
+            <dd class="cl__def">{definition}</dd>
+          </div>
+        ))
+      }
+    </dl>
+
+    {close && <p class="cl__close max-measure">{close}</p>}
+  </div>
+</section>
+
+<style>
+  .cl__head {
+    max-width: 58ch;
+    margin-bottom: clamp(2rem, 4vw, 3rem);
+  }
+  .cl__cap {
+    color: var(--muted);
+    margin-bottom: 0.85rem;
+  }
+  .cl__title {
+    font-size: clamp(1.75rem, 4vw, 2.75rem);
+    letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+  }
+  .cl__lead {
+    color: var(--body);
+    font-size: 1.0625rem;
+  }
+
+  .cl__list {
+    margin: 0;
+    padding: clamp(1.5rem, 3vw, 2.25rem);
+  }
+
+  .cl__row {
+    display: grid;
+    grid-template-columns: minmax(0, 15rem) minmax(0, 1fr);
+    gap: 1.5rem;
+    padding: 1.1rem 0;
+    border-top: 1px solid var(--line-light);
+  }
+  .cl__row:first-child {
+    padding-top: 0;
+    border-top: none;
+  }
+
+  /* The term carries the display face at body size — it is a label on a
+     drawing, not a heading, so it takes the width axis without the scale. */
+  .cl__term {
+    font-family: var(--font-display);
+    font-variation-settings: "wdth" 125;
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--ink);
+  }
+  .cl__def {
+    margin: 0;
+    color: var(--muted);
+    font-size: 0.9375rem;
+    line-height: 1.6;
+  }
+
+  .cl__close {
+    margin-top: clamp(1.5rem, 3vw, 2rem);
+    color: var(--body);
+    font-size: 0.9375rem;
+    line-height: 1.65;
+  }
+
+  @media (max-width: 700px) {
+    .cl__row {
+      grid-template-columns: 1fr;
+      gap: 0.4rem;
+    }
+  }
+</style>

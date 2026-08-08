@@ -15,6 +15,18 @@ export const footerLinks = [
   { href: "/contact/", label: "Contact" },
 ];
 
+// Problem-led pages. Kept out of navItems deliberately: the client's
+// instruction is a clean navbar with discovery carried by the footer. The
+// crawl weight the nav would have given these pages is carried instead by
+// contextual body links — the problem pages link out to the trade pages, and
+// the trade pages and homepage link back.
+export const problemLinks = [
+  { href: "/missed-calls/", label: "Missed Calls" },
+  { href: "/quote-follow-up/", label: "Quote Follow-Up" },
+  { href: "/after-hours-cover/", label: "After-Hours Cover" },
+  { href: "/qualifying-enquiries/", label: "Qualifying Enquiries" },
+];
+
 export const brand = {
   name: "Tradie Front Desk",
   fullName: "The Tradie Front Desk System",

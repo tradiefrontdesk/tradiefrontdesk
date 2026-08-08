@@ -7,6 +7,7 @@ import Wordmark from "@/components/Wordmark.astro";
 import {
   navItems,
   footerLinks,
+  problemLinks,
   brand,
   contactDetails,
   legalDetails,
@@ -79,6 +80,19 @@ const year = new Date().getFullYear();
       </ul>
     </nav>
 
+    <nav class="site-footer__col" aria-label="Problems we fix">
+      <p class="mono-label site-footer__heading">What We Fix</p>
+      <ul>
+        {
+          problemLinks.map((item) => (
+            <li>
+              <a href={item.href}>{item.label}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
     <nav class="site-footer__col" aria-label="Company and legal">
       <p class="mono-label site-footer__heading">Company</p>
       <ul>
@@ -130,7 +144,7 @@ const year = new Date().getFullYear();
 
   .site-footer__top {
     display: grid;
-    grid-template-columns: minmax(220px, 1.3fr) repeat(3, minmax(130px, 1fr)) minmax(190px, 1.15fr);
+    grid-template-columns: minmax(200px, 1.2fr) repeat(4, minmax(125px, 1fr)) minmax(180px, 1.1fr);
     gap: 2.5rem;
     padding-bottom: 2.5rem;
   }

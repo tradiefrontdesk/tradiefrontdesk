@@ -11,6 +11,8 @@ import DraftPath from "@/components/motion/DraftPath.astro";
 import HomeVideo from "@/components/home/HomeVideo.astro";
 import CTASection from "@/components/CTASection.astro";
 import FAQ from "@/components/FAQ.astro";
+import JobLog from "@/components/shared/JobLog.astro";
+import ControlList from "@/components/shared/ControlList.astro";
 import { tradePages } from "@/data/site";
 import { tradeContent, type TradeContentKey } from "@/data/tradeContent";
 import { videoById, type VideoId } from "@/remotion/data/homeVideos";
@@ -166,51 +168,15 @@ const videoId = data.videoId as unknown as VideoId;
     </div>
   </section>
 
-  <section class="th-run band-dark blueprint-grid section">
-    <div class="container">
-      <header class="th-run__head">
-        <p class="mono-label th-run__cap">Fig. — one job, start to finish</p>
-        <h2 class="th-run__title">How it runs on a live job.</h2>
-        <p class="th-run__lead max-measure">{walkthrough.intro}</p>
-      </header>
+  <JobLog
+    cap="Fig. — one job, start to finish"
+    title="How it runs on a live job."
+    intro={walkthrough.intro}
+    steps={walkthrough.steps}
+    close={walkthrough.close}
+  />
 
-      <ol class="th-run__log">
-        {
-          walkthrough.steps.map((step, i) => (
-            <Reveal as="li" variant="draft" delay={Math.min(i, 5) * 0.06} class="th-run__step">
-              <span class="mono-label th-run__time">{step.time}</span>
-              <p class="th-run__text">{step.text}</p>
-            </Reveal>
-          ))
-        }
-      </ol>
-
-      <p class="th-run__close max-measure">{walkthrough.close}</p>
-    </div>
-  </section>
-
-  <section class="th-ctl band-light section">
-    <div class="container">
-      <header class="th-ctl__head">
-        <p class="mono-label th-ctl__cap">Fig. — the limits, in writing</p>
-        <h2 class="th-ctl__title">What stays your call.</h2>
-        <p class="th-ctl__lead max-measure">{control.intro}</p>
-      </header>
-
-      <dl class="th-ctl__list surface-light">
-        {
-          control.items.map(([title, text]) => (
-            <div class="th-ctl__row">
-              <dt class="th-ctl__term">{title}</dt>
-              <dd class="th-ctl__def">{text}</dd>
-            </div>
-          ))
-        }
-      </dl>
-
-      <p class="th-ctl__close max-measure">{control.close}</p>
-    </div>
-  </section>
+  <ControlList intro={control.intro} items={control.items} close={control.close} />
 
   <section class="th-sea band-dark blueprint-grid section">
     <div class="container">
@@ -497,128 +463,6 @@ const videoId = data.videoId as unknown as VideoId;
     color: var(--muted);
     font-size: 0.9375rem;
     line-height: 1.6;
-  }
-
-  /* ---- Live-job log (dark) ---- */
-  .th-run__head {
-    max-width: 58ch;
-    margin-bottom: clamp(2rem, 4vw, 3rem);
-  }
-  .th-run__cap {
-    color: var(--marker);
-    margin-bottom: 0.85rem;
-  }
-  .th-run__title {
-    font-size: clamp(1.75rem, 4vw, 2.75rem);
-    letter-spacing: -0.02em;
-    margin-bottom: 1rem;
-  }
-  .th-run__lead {
-    color: var(--on-dark-body);
-    font-size: 1.0625rem;
-  }
-
-  .th-run__log {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: grid;
-    gap: 0;
-    max-width: 74ch;
-  }
-  /* The timestamp column is the device: a job log, read top to bottom. The
-     rule between rows is the drawing's own hairline, not a card edge. */
-  .th-run__step {
-    display: grid;
-    grid-template-columns: 5.5rem minmax(0, 1fr);
-    gap: 1.25rem;
-    padding: 1.1rem 0;
-    border-top: 1px solid var(--line-dark);
-  }
-  .th-run__step:first-child {
-    border-top: none;
-  }
-  .th-run__time {
-    color: var(--action);
-    padding-top: 0.15rem;
-  }
-  .th-run__text {
-    color: var(--on-dark-body);
-    line-height: 1.6;
-  }
-  .th-run__close {
-    margin-top: clamp(1.75rem, 3vw, 2.5rem);
-    color: var(--on-dark-muted);
-    font-size: 0.9375rem;
-    line-height: 1.65;
-  }
-
-  @media (max-width: 560px) {
-    .th-run__step {
-      grid-template-columns: 1fr;
-      gap: 0.4rem;
-    }
-  }
-
-  /* ---- What stays your call (light) ---- */
-  .th-ctl__head {
-    max-width: 58ch;
-    margin-bottom: clamp(2rem, 4vw, 3rem);
-  }
-  .th-ctl__cap {
-    color: var(--muted);
-    margin-bottom: 0.85rem;
-  }
-  .th-ctl__title {
-    font-size: clamp(1.75rem, 4vw, 2.75rem);
-    letter-spacing: -0.02em;
-    margin-bottom: 1rem;
-  }
-  .th-ctl__lead {
-    color: var(--body);
-    font-size: 1.0625rem;
-  }
-
-  .th-ctl__list {
-    margin: 0;
-    padding: clamp(1.5rem, 3vw, 2.25rem);
-  }
-  .th-ctl__row {
-    display: grid;
-    grid-template-columns: minmax(0, 15rem) minmax(0, 1fr);
-    gap: 1.5rem;
-    padding: 1.1rem 0;
-    border-top: 1px solid var(--line-light);
-  }
-  .th-ctl__row:first-child {
-    padding-top: 0;
-    border-top: none;
-  }
-  .th-ctl__term {
-    font-family: var(--font-display);
-    font-variation-settings: "wdth" 125;
-    font-weight: 700;
-    font-size: 1rem;
-    color: var(--ink);
-  }
-  .th-ctl__def {
-    margin: 0;
-    color: var(--muted);
-    font-size: 0.9375rem;
-    line-height: 1.6;
-  }
-  .th-ctl__close {
-    margin-top: clamp(1.5rem, 3vw, 2rem);
-    color: var(--body);
-    font-size: 0.9375rem;
-    line-height: 1.65;
-  }
-
-  @media (max-width: 700px) {
-    .th-ctl__row {
-      grid-template-columns: 1fr;
-      gap: 0.4rem;
-    }
   }
 
   /* ---- Seasonal context (dark) ---- */

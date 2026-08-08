@@ -1,0 +1,333 @@
+---
+// ProblemPage.astro — shared template for the problem-led landing pages
+// (/missed-calls, /quote-follow-up, /after-hours-cover, /qualifying-enquiries).
+//
+// These are the highest-intent pages on the site: the reader already knows
+// they have the problem and is looking for the fix. So the page leads with the
+// symptom in their words, establishes the cost, explains why it happens
+// WITHOUT blaming them, then shows the mechanism.
+//
+// Band rhythm follows DESIGN.md — dark/light alternating carries the
+// narrative: problem (dark) -> cost (light) -> cause (dark) -> mechanism
+// (light) -> evidence (dark) -> limits (light) -> who (dark) -> FAQ (light)
+// -> close (dark).
+//
+// The "which trades feel this most" band is doing double duty: it is genuinely
+// useful to a reader deciding whether this applies to them, and it is the
+// contextual link path from the problem pages to the trade pages that the
+// internal-linking plan needs. Footer links alone do not carry that weight.
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Reveal from "@/components/motion/Reveal.astro";
+import DraftPath from "@/components/motion/DraftPath.astro";
+import CTASection from "@/components/CTASection.astro";
+import FAQ from "@/components/FAQ.astro";
+import JobLog from "@/components/shared/JobLog.astro";
+import ControlList from "@/components/shared/ControlList.astro";
+import { problemContent, type ProblemKey } from "@/data/problemContent";
+
+interface Props {
+  contentKey: ProblemKey;
+}
+
+const { contentKey } = Astro.props as Props;
+const page = problemContent[contentKey];
+---
+
+<BaseLayout title={page.metaTitle} description={page.metaDescription}>
+  <section class="pp-hero band-dark blueprint-grid">
+    <div class="container pp-hero__inner">
+      <p class="mono-label pp-hero__eyebrow">{page.eyebrow}</p>
+      <Reveal as="h1" variant="draft" class="pp-hero__title">{page.title}</Reveal>
+      <div class="pp-hero__rule" aria-hidden="true">
+        <DraftPath viewBox="0 0 320 8" d="M2 4 L318 4" stroke="var(--action)" strokeWidth={2} />
+      </div>
+      <p class="pp-hero__lead max-measure">{page.lead}</p>
+      <div class="pp-hero__cta">
+        <a class="btn btn-primary" href="/free-audit/" data-hero-cta>{page.cta}</a>
+        <a class="btn btn-ghost" href="/how-it-works/">See how it works</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="pp-cost band-light section">
+    <div class="container">
+      <header class="pp-head">
+        <p class="mono-label pp-head__cap pp-head__cap--light">{page.cost.cap}</p>
+        <h2 class="pp-head__title">{page.cost.title}</h2>
+        <p class="pp-head__lead pp-head__lead--light max-measure">{page.cost.intro}</p>
+      </header>
+
+      <ol class="pp-cost__list">
+        {
+          page.cost.items.map(([title, text], i) => (
+            <Reveal as="li" variant="draft" delay={(i % 4) * 0.05} class="pp-cost__item">
+              <span class="mono-label pp-cost__no">{String(i + 1).padStart(2, "0")}</span>
+              <div>
+                <h3 class="pp-cost__item-title">{title}</h3>
+                <p class="pp-cost__item-text">{text}</p>
+              </div>
+            </Reveal>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <section class="pp-why band-dark blueprint-grid section">
+    <div class="container">
+      <header class="pp-head">
+        <p class="mono-label pp-head__cap pp-head__cap--dark">{page.why.cap}</p>
+        <h2 class="pp-head__title">{page.why.title}</h2>
+        <p class="pp-head__lead pp-head__lead--dark max-measure">{page.why.intro}</p>
+      </header>
+
+      <div class="pp-why__grid">
+        {
+          page.why.blocks.map((block, i) => (
+            <Reveal as="article" variant="draft" delay={i * 0.07} class="pp-why__block">
+              <h3 class="pp-why__block-title">{block.heading}</h3>
+              <p class="pp-why__block-text">{block.text}</p>
+            </Reveal>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="pp-mech band-light section">
+    <div class="container">
+      <header class="pp-head">
+        <p class="mono-label pp-head__cap pp-head__cap--light">{page.mechanism.cap}</p>
+        <h2 class="pp-head__title">{page.mechanism.title}</h2>
+        <p class="pp-head__lead pp-head__lead--light max-measure">{page.mechanism.intro}</p>
+      </header>
+
+      <ul class="pp-mech__list">
+        {
+          page.mechanism.items.map(([title, text], i) => (
+            <Reveal as="li" variant="draft" delay={(i % 4) * 0.05} class="pp-mech__item">
+              <h3 class="pp-mech__item-title">{title}</h3>
+              <p class="pp-mech__item-text">{text}</p>
+            </Reveal>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <JobLog
+    cap={page.walkthrough.cap}
+    title={page.walkthrough.title}
+    intro={page.walkthrough.intro}
+    steps={page.walkthrough.steps}
+    close={page.walkthrough.close}
+    note={page.walkthrough.note}
+  />
+
+  <ControlList intro={page.control.intro} items={page.control.items} close={page.control.close} />
+
+  <section class="pp-trades band-dark blueprint-grid section">
+    <div class="container">
+      <header class="pp-head">
+        <p class="mono-label pp-head__cap pp-head__cap--dark">{page.trades.cap}</p>
+        <h2 class="pp-head__title">{page.trades.title}</h2>
+        <p class="pp-head__lead pp-head__lead--dark max-measure">{page.trades.intro}</p>
+      </header>
+
+      <div class="pp-trades__grid">
+        {
+          page.trades.items.map((trade, i) => (
+            <Reveal as="article" variant="draft" delay={i * 0.07} class="pp-trades__block">
+              <h3 class="pp-trades__block-title">{trade.name}</h3>
+              <p class="pp-trades__block-text">{trade.text}</p>
+              <a class="pp-trades__link" href={trade.href}>{trade.linkLabel}</a>
+            </Reveal>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <FAQ items={page.faqs} title="Common questions" />
+
+  <CTASection title={page.close.title} text={page.close.text} cta={page.cta} />
+</BaseLayout>
+
+<style>
+  /* ---- Hero ---- */
+  .pp-hero {
+    padding-block: clamp(3.5rem, 8vw, 6rem);
+  }
+  .pp-hero__inner {
+    max-width: 62ch;
+  }
+  .pp-hero__eyebrow {
+    color: var(--marker);
+    margin-bottom: 1.25rem;
+  }
+  .pp-hero__title {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+  .pp-hero__rule {
+    width: min(320px, 60%);
+    margin-block: 1.5rem;
+  }
+  .pp-hero__lead {
+    color: var(--on-dark-body);
+    font-size: 1.0625rem;
+    margin-bottom: 2rem;
+  }
+  .pp-hero__cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.85rem;
+  }
+
+  /* ---- Shared section head ---- */
+  .pp-head {
+    max-width: 58ch;
+    margin-bottom: clamp(2rem, 4vw, 3rem);
+  }
+  .pp-head__cap {
+    margin-bottom: 0.85rem;
+  }
+  .pp-head__cap--light {
+    color: var(--muted);
+  }
+  .pp-head__cap--dark {
+    color: var(--marker);
+  }
+  .pp-head__title {
+    font-size: clamp(1.75rem, 4vw, 2.75rem);
+    letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+  }
+  .pp-head__lead {
+    font-size: 1.0625rem;
+  }
+  .pp-head__lead--light {
+    color: var(--body);
+  }
+  .pp-head__lead--dark {
+    color: var(--on-dark-body);
+  }
+
+  /* ---- Cost (light) — a numbered ledger, not a card grid ---- */
+  .pp-cost__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 0;
+    max-width: 78ch;
+  }
+  .pp-cost__item {
+    display: grid;
+    grid-template-columns: 3.5rem minmax(0, 1fr);
+    gap: 1.25rem;
+    padding: 1.35rem 0;
+    border-top: 1px solid var(--line-light);
+  }
+  .pp-cost__item:first-child {
+    border-top: none;
+    padding-top: 0;
+  }
+  .pp-cost__no {
+    color: var(--action);
+    padding-top: 0.2rem;
+  }
+  .pp-cost__item-title {
+    font-size: 1.0625rem;
+    letter-spacing: -0.01em;
+    margin-bottom: 0.45rem;
+  }
+  .pp-cost__item-text {
+    color: var(--muted);
+    font-size: 0.9375rem;
+    line-height: 1.65;
+  }
+
+  /* ---- Why it happens (dark) ---- */
+  .pp-why__grid,
+  .pp-trades__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+    gap: clamp(1.25rem, 2.5vw, 2rem);
+  }
+  .pp-why__block,
+  .pp-trades__block {
+    background: var(--surface-dark-2);
+    border: 1px solid var(--line-dark);
+    border-radius: var(--radius-lg);
+    padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+  .pp-why__block-title,
+  .pp-trades__block-title {
+    font-size: 1.0625rem;
+    letter-spacing: -0.01em;
+    margin-bottom: 0.6rem;
+    color: var(--on-dark);
+  }
+  .pp-why__block-text,
+  .pp-trades__block-text {
+    color: var(--on-dark-body);
+    font-size: 0.9375rem;
+    line-height: 1.65;
+  }
+
+  /* ---- Mechanism (light) — hairline grid, matching the trade pages ---- */
+  .pp-mech__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+    gap: 1px;
+    background: var(--line-light);
+    border: 1px solid var(--line-light);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+  .pp-mech__item {
+    background: var(--surface-light);
+    padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+  .pp-mech__item-title {
+    font-size: 1.0625rem;
+    letter-spacing: -0.01em;
+    margin-bottom: 0.5rem;
+  }
+  .pp-mech__item-text {
+    color: var(--muted);
+    font-size: 0.9375rem;
+    line-height: 1.6;
+  }
+
+  /* ---- Which trades (dark) ---- */
+  /* Orange clears contrast on the dark band, so the link carries the accent
+     directly — same treatment as the homepage trade cross-links. */
+  .pp-trades__link {
+    display: inline-block;
+    margin-top: 0.9rem;
+    color: var(--action);
+    font-weight: 600;
+    font-size: 0.9375rem;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+    transition: color var(--dur-fast) var(--ease-out);
+  }
+  .pp-trades__link:hover {
+    color: var(--marker);
+  }
+
+  @media (max-width: 560px) {
+    .pp-cost__item {
+      grid-template-columns: 1fr;
+      gap: 0.4rem;
+    }
+  }
+</style>

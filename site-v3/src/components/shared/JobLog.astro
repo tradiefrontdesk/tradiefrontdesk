@@ -1,0 +1,137 @@
+---
+// JobLog.astro — "how it runs on a live job", a dark blueprint band.
+//
+// Extracted from TradePage.astro so the trade pages, problem pages, and the
+// waves after them share one implementation rather than three copies of the
+// same markup.
+//
+// The device: a timestamped log read top to bottom, timestamps in the mono
+// annotation layer and safety orange, rows separated by the drawing's own
+// hairline rather than card edges. It reads as a record of what happened,
+// which is the point — it is evidence, not a marketing timeline.
+import Reveal from "@/components/motion/Reveal.astro";
+
+export type JobLogStep = { time: string; text: string };
+
+interface Props {
+  cap: string;
+  title: string;
+  intro: string;
+  steps: JobLogStep[];
+  close?: string;
+  /**
+   * Claims-safe caveat rendered under the log. Timestamps read as a promise
+   * whether or not one is intended — a reader who sees "7:33pm" next to a
+   * reply can reasonably infer a two-minute response time. Any page where
+   * that inference would be a commitment the business has not made (the
+   * after-hours page above all) must pass this.
+   */
+  note?: string;
+}
+
+const { cap, title, intro, steps, close, note } = Astro.props as Props;
+---
+
+<section class="jl band-dark blueprint-grid section">
+  <div class="container">
+    <header class="jl__head">
+      <p class="mono-label jl__cap">{cap}</p>
+      <h2 class="jl__title">{title}</h2>
+      <p class="jl__lead max-measure">{intro}</p>
+    </header>
+
+    <ol class="jl__log">
+      {
+        steps.map((step, i) => (
+          <Reveal as="li" variant="draft" delay={Math.min(i, 5) * 0.06} class="jl__step">
+            <span class="mono-label jl__time">{step.time}</span>
+            <p class="jl__text">{step.text}</p>
+          </Reveal>
+        ))
+      }
+    </ol>
+
+    {close && <p class="jl__close max-measure">{close}</p>}
+    {note && <p class="jl__note">{note}</p>}
+  </div>
+</section>
+
+<style>
+  .jl__head {
+    max-width: 58ch;
+    margin-bottom: clamp(2rem, 4vw, 3rem);
+  }
+  .jl__cap {
+    color: var(--marker);
+    margin-bottom: 0.85rem;
+  }
+  .jl__title {
+    font-size: clamp(1.75rem, 4vw, 2.75rem);
+    letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+  }
+  .jl__lead {
+    color: var(--on-dark-body);
+    font-size: 1.0625rem;
+  }
+
+  .jl__log {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 0;
+    max-width: 74ch;
+  }
+
+  .jl__step {
+    display: grid;
+    grid-template-columns: 5.5rem minmax(0, 1fr);
+    gap: 1.25rem;
+    padding: 1.1rem 0;
+    border-top: 1px solid var(--line-dark);
+  }
+  .jl__step:first-child {
+    border-top: none;
+  }
+
+  .jl__time {
+    color: var(--action);
+    padding-top: 0.15rem;
+  }
+  .jl__text {
+    color: var(--on-dark-body);
+    line-height: 1.6;
+  }
+
+  .jl__close {
+    margin-top: clamp(1.75rem, 3vw, 2.5rem);
+    color: var(--on-dark-muted);
+    font-size: 0.9375rem;
+    line-height: 1.65;
+  }
+
+  /* The caveat sits in the mono annotation layer, like a note on a drawing.
+     It is legally load-bearing, so it is not allowed to fade into decoration
+     — hence the marker colour and a left rule tying it to the log above. */
+  .jl__note {
+    margin-top: 1.5rem;
+    padding-left: 0.9rem;
+    border-left: 2px solid var(--marker);
+    color: var(--on-dark-muted);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.04em;
+    line-height: 1.6;
+    max-width: 74ch;
+  }
+
+  /* The timestamp column stops earning its width on a narrow screen — stack
+     it above the entry rather than squeezing both. */
+  @media (max-width: 560px) {
+    .jl__step {
+      grid-template-columns: 1fr;
+      gap: 0.4rem;
+    }
+  }
+</style>
