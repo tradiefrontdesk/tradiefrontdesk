@@ -110,6 +110,19 @@ const videoId = data.videoId as unknown as VideoId;
           ))
         }
       </ol>
+
+      {/* Contextual path from trade pages to problem pages. The SEO audit
+          found all six trade pages linked only to /free-audit/ and
+          /how-it-works/, leaving the problem pages reachable from here only
+          via the footer. This is where a reader has just recognised their own
+          leak, so it is the honest place to offer the deeper page. */}
+      <p class="th-jobs__cross max-measure">
+        Every one of these comes down to the same four leaks:{" "}
+        <a class="th-jobs__link" href="/missed-calls/">calls you cannot take</a>,{" "}
+        <a class="th-jobs__link" href="/quote-follow-up/">quotes that go quiet</a>,{" "}
+        <a class="th-jobs__link" href="/after-hours-cover/">enquiries after knock-off</a>, and{" "}
+        <a class="th-jobs__link" href="/qualifying-enquiries/">time spent quoting jobs that were never real</a>.
+      </p>
     </div>
   </section>
 
@@ -288,6 +301,25 @@ const videoId = data.videoId as unknown as VideoId;
   .th-jobs__lead {
     color: var(--body);
     font-size: 1.0625rem;
+  }
+
+  .th-jobs__cross {
+    margin-top: clamp(1.75rem, 3vw, 2.5rem);
+    color: var(--body);
+    font-size: 0.9375rem;
+    line-height: 1.7;
+  }
+
+  /* Orange text is 2.84:1 on a light band. Ink text with an orange underline
+     is the affordance the rest of the site uses on light — see ContactSplit
+     and the guide prose links. */
+  .th-jobs__link {
+    color: var(--ink);
+    font-weight: 600;
+    text-decoration: underline;
+    text-decoration-color: var(--action);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
   }
 
   .th-jobs__sheet {

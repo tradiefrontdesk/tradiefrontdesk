@@ -48,6 +48,13 @@ export type ProblemContent = {
     note?: string;
   };
   control: { intro: string; items: [string, string][]; close: string };
+  /**
+   * What a reader can do about this themselves, for free, this week. Optional.
+   * It costs us some conversions and buys the page the right to be believed —
+   * the same trade the guides make. A page that only works if you buy is a
+   * brochure; one that helps either way gets cited and linked.
+   */
+  selfHelp?: { cap: string; title: string; intro: string; items: [string, string][]; close: string };
   trades: {
     cap: string;
     title: string;
@@ -177,6 +184,36 @@ export const problemContent: Record<ProblemKey, ProblemContent> = {
       ],
       close:
         "The short version: it keeps the front of your business moving and visible while you are on the tools. It does not run the parts only you should be running.",
+    },
+    selfHelp: {
+      cap: "Fig. — what you can do this week",
+      title: "Things worth doing before you pay anyone.",
+      intro:
+        "None of this needs a service behind it. If you do all five and missed calls stop costing you work, you have solved the problem for nothing, and we would rather you did that than paid us to fix something that was not broken.",
+      items: [
+        [
+          "Record a voicemail greeting that actually says something",
+          "Most greetings are the network default, which tells a caller nothing and gives them no reason to wait. Thirty seconds recorded in your own voice — who you are, that you are on a job, when you will ring back — turns a dead end into a held place. It costs nothing and it is the single highest-return thing on this list.",
+        ],
+        [
+          "Set one time a day to clear missed calls",
+          "Smoko or knock-off, the same time every day, phone in hand, work down the list. The problem with missed calls is rarely the missing. It is that there is no moment in the day where dealing with them is the job. Give it one.",
+        ],
+        [
+          "Text back instead of ringing back",
+          "A returned call at 4pm catches someone at work or driving. A text catches them whenever they look. It also leaves a written record of what the job is, which saves you asking twice. If you do nothing else on this list, do this one.",
+        ],
+        [
+          "Write down every enquiry in one place",
+          "A notebook on the dash beats a memory and a call log. You cannot see a pattern in missed calls until they are all written in one column — and once you can see it, you will know whether this is actually costing you money or whether it just feels like it.",
+        ],
+        [
+          "Count them for a fortnight before deciding anything",
+          "How many you missed, how many you rang back the same day, and what happened to each. Two weeks of honest numbers tells you more than any argument on a website, including this one. If the answer is that you catch nearly all of them, you do not have a problem worth paying to fix.",
+        ],
+      ],
+      close:
+        "If you get through that and the calls are still going elsewhere, the gap is not discipline. It is that answering and working cannot happen in the same five minutes, and that is the point where a front desk starts to earn its cost.",
     },
     trades: {
       cap: "Fig. — who feels it hardest",
@@ -351,6 +388,36 @@ export const problemContent: Record<ProblemKey, ProblemContent> = {
       ],
       close:
         "A follow-up system that negotiates on your behalf is one that can quietly give away your margin while you are not looking. This one keeps the conversation open and leaves the decisions with you.",
+    },
+    selfHelp: {
+      cap: "Fig. — what you can do this week",
+      title: "A follow-up habit you can run off your phone.",
+      intro:
+        "You do not need a system to chase a quote. You need a rule and somewhere to write the date down. If this fixes it, you have saved yourself a monthly bill, and that is a better outcome than us selling you one.",
+      items: [
+        [
+          "Put a follow-up date on the quote the day you send it",
+          "Not a mental note. A calendar entry with the customer's name on it, set for three or four days out, made at the moment you hit send. The reason quotes go unchased is almost never a decision not to chase them. It is that nothing ever prompted anyone.",
+        ],
+        [
+          "Make the first touch about the quote, not about the decision",
+          "Checking they received it and can open it is admin, and it is easy to send. Asking whether they want to go ahead is a sales call, and it is not. The first one gets answered far more often, and it opens the door for the second.",
+        ],
+        [
+          "Give it three touches, then stop",
+          "A receipt check, a proper follow-up about a week later, and a final note a fortnight or so after that. Three is enough. Past that you are not being persistent, you are being a nuisance, and the difference matters more than one job.",
+        ],
+        [
+          "Keep a list of quotes out, not quotes sent",
+          "A sent folder is a record of what you did. A list of what is still open is a record of what is still winnable. They are different documents and only one of them makes you money.",
+        ],
+        [
+          "Log why the lost ones were lost",
+          "One word is enough — price, timing, went elsewhere, never replied. After a dozen you will know whether you have a follow-up problem, a pricing problem, or a qualification problem, and those need three different fixes.",
+        ],
+      ],
+      close:
+        "Do all five consistently and you will win quotes you are currently losing. The catch is consistency: the follow-up that slips is always the one for the job you were least excited about, which is exactly the one still worth having.",
     },
     trades: {
       cap: "Fig. — who feels it hardest",

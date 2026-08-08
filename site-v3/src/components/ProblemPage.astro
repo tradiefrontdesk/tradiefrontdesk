@@ -130,6 +130,34 @@ const page = problemContent[contentKey];
 
   <ControlList intro={page.control.intro} items={page.control.items} close={page.control.close} />
 
+  {
+    page.selfHelp && (
+      <section class="pp-self band-dark blueprint-grid section">
+        <div class="container">
+          <header class="pp-head">
+            <p class="mono-label pp-head__cap pp-head__cap--dark">{page.selfHelp.cap}</p>
+            <h2 class="pp-head__title">{page.selfHelp.title}</h2>
+            <p class="pp-head__lead pp-head__lead--dark max-measure">{page.selfHelp.intro}</p>
+          </header>
+
+          <ol class="pp-self__list">
+            {page.selfHelp.items.map(([title, text], i) => (
+              <Reveal as="li" variant="draft" delay={Math.min(i, 4) * 0.05} class="pp-self__item">
+                <span class="mono-label pp-self__no">{String(i + 1).padStart(2, "0")}</span>
+                <div>
+                  <h3 class="pp-self__item-title">{title}</h3>
+                  <p class="pp-self__item-text">{text}</p>
+                </div>
+              </Reveal>
+            ))}
+          </ol>
+
+          <p class="pp-self__close max-measure">{page.selfHelp.close}</p>
+        </div>
+      </section>
+    )
+  }
+
   <section class="pp-trades band-dark blueprint-grid section">
     <div class="container">
       <header class="pp-head">
@@ -310,6 +338,59 @@ const page = problemContent[contentKey];
     color: var(--muted);
     font-size: 0.9375rem;
     line-height: 1.6;
+  }
+
+  /* ---- Do it yourself (dark) ----
+     A numbered ledger like the cost section, but on dark, so the two read as
+     a matched pair: here is what it costs you, here is what you can do about
+     it for nothing. Marker on dark is 10.86:1, so the numbers can carry the
+     accent here in a way they cannot on the light cost band. */
+  .pp-self__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 0;
+    max-width: 78ch;
+  }
+  .pp-self__item {
+    display: grid;
+    grid-template-columns: 3.5rem minmax(0, 1fr);
+    gap: 1.25rem;
+    padding: 1.35rem 0;
+    border-top: 1px solid var(--line-dark);
+  }
+  .pp-self__item:first-child {
+    border-top: none;
+    padding-top: 0;
+  }
+  .pp-self__no {
+    color: var(--marker);
+    padding-top: 0.2rem;
+  }
+  .pp-self__item-title {
+    font-size: 1.0625rem;
+    letter-spacing: -0.01em;
+    margin-bottom: 0.45rem;
+    color: var(--on-dark);
+  }
+  .pp-self__item-text {
+    color: var(--on-dark-body);
+    font-size: 0.9375rem;
+    line-height: 1.65;
+  }
+  .pp-self__close {
+    margin-top: clamp(1.75rem, 3vw, 2.5rem);
+    color: var(--on-dark-muted);
+    font-size: 0.9375rem;
+    line-height: 1.65;
+  }
+
+  @media (max-width: 560px) {
+    .pp-self__item {
+      grid-template-columns: 1fr;
+      gap: 0.4rem;
+    }
   }
 
   /* ---- Which trades (dark) ---- */

@@ -307,6 +307,47 @@ The guide does not change the plan's shape; it sharpens Waves 1–3 and confirms
 
 ---
 
+## 9a. Post-QA decisions — closed 8 August 2026
+
+Phase 5 QA raised three items that needed a call rather than a fix. All three
+are now closed.
+
+**Internal linking — FIXED.** The audit was right: the homepage linked to the
+problem pages only from the footer, and none of the six trade pages linked to
+a problem page at all. Both now carry contextual body links, placed where a
+reader has just recognised the leak being described.
+
+**Word counts on /missed-calls/ and /quote-follow-up/ — FIXED, not padded.**
+Both were ~24% under target. Rather than stretching existing copy, each gained
+a section it was genuinely missing: what a reader can do about the problem
+this week without paying anyone. That costs some conversions and buys the page
+the right to be believed — the same trade the guides make. Now 2,088 and 2,053
+against a 2,200 target.
+
+**`areaServed` listing the United States — KEPT, deliberately, against the
+plan.** Wave 0 item #10 said to remove it. I did not, and after QA raised it
+again the answer is the same: `areaServed` is a factual statement about where
+the business provides its service, and it is derived from the real phone
+numbers in `site.ts`, where the US line is marked available. The NZ+AU
+decision scoped which markets this SEO work targets — it did not say the
+business stops serving US customers. Narrowing a factual schema field to match
+a marketing plan would make the schema wrong.
+
+If the business genuinely does not serve US customers, the fix is to remove
+the US phone number from `site.ts` and the footer, and `areaServed` will
+follow automatically. That is a business fact the client has not stated, so
+it is not mine to assume in either direction.
+
+**`hreflang` — NOT IMPLEMENTED, and the plan was wrong to require it.**
+`hreflang` marks up equivalent content targeted at different locales. The NZ
+and AU pages are not equivalents of each other — they are different pages
+about different places, with different regulators, different data and
+different copy. Annotating them as locale variants would misdescribe them.
+The cannibalisation risk the plan was reaching for is handled properly by
+each page having its own distinct primary keyword.
+
+---
+
 ## 10. Approval gate — CLEARED 8 August 2026
 
 All five decisions returned by the client.
