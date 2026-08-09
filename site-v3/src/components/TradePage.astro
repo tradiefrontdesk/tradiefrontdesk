@@ -51,6 +51,41 @@ const {
 
 const { included, walkthrough, control, seasonal, faqs: tradeFaqs } = tradeContent[contentKey];
 
+// Each trade page has two guides going deeper: the enquiry problem that bites
+// that trade hardest, and what paid campaigns look like for it. Kept here rather than in tradeContent.ts because it
+// is a link map, not copy — and because the pairing is a routing fact.
+//
+// This is the return leg of the link graph: every one of these guides links up
+// to its trade page, so without this the relationship is one-way and the guides
+// depend on the /guides/ hub alone for discovery.
+const relatedGuides: Record<TradeContentKey, { href: string; label: string }[]> = {
+  electricians: [
+    { href: "/guides/after-hours-calls-for-electricians/", label: "handling after-hours callouts without being on call every night" },
+    { href: "/guides/ads-for-electricians/", label: "what paid campaigns look like for an electrical business" },
+  ],
+  plumbersDrainage: [
+    { href: "/guides/triaging-emergency-plumbing-calls/", label: "sorting emergency calls from work that can wait" },
+    { href: "/guides/ads-for-plumbers/", label: "why a plumbing ad click is worth nothing two hours later" },
+  ],
+  roofers: [
+    { href: "/guides/roofing-enquiries-after-storms/", label: "handling the enquiry surge after bad weather" },
+    { href: "/guides/ads-for-roofers/", label: "pacing ad spend around weather-driven demand" },
+  ],
+  heatPumpInstallers: [
+    { href: "/guides/heat-pump-enquiries-peak-season/", label: "keeping the enquiries you cannot book this month" },
+    { href: "/guides/ads-for-heat-pump-installers/", label: "why the peak is the most expensive time to advertise" },
+  ],
+  builders: [
+    { href: "/guides/following-up-building-quotes/", label: "following up a quote that took a day to write" },
+    { href: "/guides/ads-for-builders/", label: "advertising when the decision takes months, not minutes" },
+  ],
+  painters: [
+    { href: "/guides/painting-quotes-against-competition/", label: "what to do when yours is one of three quotes" },
+    { href: "/guides/ads-for-painters/", label: "why an impulse enquiry evaporates rather than going elsewhere" },
+  ],
+};
+const guideLinks = relatedGuides[contentKey];
+
 // Plural noun for the people ("electricians", "plumbers", "roofers") —
 // derived from the eyebrow so the wrappers stay thin.
 const tradeName = data.eyebrow.replace(/^For\s+/i, "");
@@ -215,6 +250,16 @@ const videoId = data.videoId as unknown as VideoId;
       </div>
 
       <p class="th-sea__sources">{seasonal.sources}</p>
+
+      {/* Audit cluster 1: the location pages had zero contextual inbound —
+          discovery hung on the footer alone. The seasonal band is the honest
+          place for the regional leg, because season and region are the same
+          conversation in this country. */}
+      <p class="th-sea__regions">
+        How the season lands depends on where you work — see the regional
+        pages for <a href="/auckland/">Auckland</a> and{" "}
+        <a href="/christchurch/">Christchurch and Canterbury</a>.
+      </p>
     </div>
   </section>
 
@@ -238,6 +283,15 @@ const videoId = data.videoId as unknown as VideoId;
           ))
         }
       </ol>
+
+      <div class="th-obj__more">
+        <p>Going deeper, for {tradeAdj} businesses specifically:</p>
+        <ul>
+          {guideLinks.map((g) => (
+            <li><a href={g.href}>{g.label}</a></li>
+          ))}
+        </ul>
+      </div>
     </div>
   </section>
 
@@ -544,12 +598,68 @@ const videoId = data.videoId as unknown as VideoId;
   }
   /* Sourced figures carry their citation in the drawing's own annotation
      layer — a claims-safe requirement, not decoration. */
+  .th-sea__regions {
+    margin-top: 1.25rem;
+    max-width: 68ch;
+    color: var(--on-dark-muted);
+    font-size: 0.9375rem;
+    line-height: 1.7;
+  }
+  .th-sea__regions a {
+    color: var(--on-dark);
+    font-weight: 600;
+    text-decoration: underline;
+    text-decoration-color: var(--action);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
+  }
+
   .th-sea__sources {
     margin-top: clamp(1.5rem, 3vw, 2rem);
     color: var(--on-dark-muted);
     font-size: 0.8125rem;
     line-height: 1.6;
     max-width: 80ch;
+  }
+
+  /* Return leg of the link graph to this trade's guide. Ink text with an
+     orange underline — the site-wide prose link affordance, because --action
+     as text fails contrast on a light band. */
+  .th-obj__more {
+    margin-top: clamp(1.5rem, 3vw, 2.25rem);
+    max-width: 68ch;
+    color: var(--body);
+    line-height: 1.7;
+  }
+  .th-obj__more ul {
+    list-style: none;
+    margin: 0.75rem 0 0;
+    padding: 0;
+    display: grid;
+    gap: 0.5rem;
+  }
+  .th-obj__more li {
+    padding-left: 1.1rem;
+    position: relative;
+  }
+  /* Orange tick rather than a bullet glyph, matching the annotation layer's
+     use of the accent as a mark rather than as text colour. */
+  .th-obj__more li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.65em;
+    width: 0.5rem;
+    height: 1px;
+    background: var(--action);
+  }
+  .th-obj__more a {
+    color: var(--ink);
+    font-weight: 600;
+    text-decoration: underline;
+    text-decoration-color: var(--action);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
   }
 
   .th-obj__head {

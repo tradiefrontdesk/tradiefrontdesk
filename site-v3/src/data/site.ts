@@ -70,6 +70,48 @@ export const legalDetails = {
 export const disclaimer =
   "Tradie Front Desk helps improve enquiry capture, response, follow-up, and organisation. Results depend on your market, services, pricing, availability, reputation, customer demand, ad budget, and how quickly your team responds to opportunities. We do not guarantee exact job numbers, revenue, profit, rankings, leads, bookings, or reviews.";
 
+// Trust signals. Every item here is a fact the client supplied and confirmed;
+// nothing is inferred or rounded up. Notes on what was deliberately NOT used
+// are in docs/trust-signals-plan.md.
+//
+// The closing line is doing real work: these are IT and systems credentials,
+// not trade qualifications, and saying so plainly is more credible than
+// letting a reader assume otherwise and find out later.
+export const trustSignals = {
+  cap: "Fig. — who you are actually dealing with",
+  title: "A small New Zealand outfit with a long IT background.",
+  intro:
+    "No testimonials yet, because we are not going to write our own. What we can tell you is who is behind this and what they have actually done.",
+  items: [
+    [
+      "A registered business, in two countries",
+      "Registered in New Zealand as The AI and Automation Agency LTD, and in the United States as Altcutm LLC. Both are on the public registers if you want to check before you talk to anyone.",
+    ],
+    [
+      "Thirty years in IT",
+      "Infrastructure, security and systems, since well before any of this was called a front desk. The reason that matters to you is uptime: the thing catching your enquiries is built by someone who has spent three decades on systems that are not allowed to fall over.",
+    ],
+    [
+      "CompTIA Linux+ certified",
+      "Plus ongoing training in Linux administration, networking and IT security. One named certification from a recognised body, rather than a long list — you can look up what it takes.",
+    ],
+    [
+      "GoHighLevel award winner",
+      "A gold-tier award in 2025 for the scale of client systems built and managed one-to-one. Thousands of client accounts set up and run over the years.",
+    ],
+    [
+      "Verified team members",
+      "We work with a small team of assistants, and each one is verified for the specific work they do before they touch a client account — not certified in the abstract, checked on the actual job.",
+    ],
+    [
+      "We train other people in this work",
+      "Alongside running front desks, we run a training operation teaching these systems to people who do this for a living. It is a fair test of whether you actually know something.",
+    ],
+  ] as [string, string][],
+  close:
+    "One thing worth being straight about: these are IT and systems credentials, not trade qualifications. You know your trade better than we ever will. What we know is the systems that stop enquiries going missing while you are on the tools.",
+};
+
 export const corePromise = "More booked jobs. Less chasing. No tech headaches.";
 export const heroPromise =
   "Stop losing good jobs to missed calls, slow replies, and forgotten follow-up.";
@@ -124,10 +166,11 @@ export const modules = [
 
 // Currency, confirmed by the client 8 Aug 2026. Stated once here and rendered
 // wherever prices appear, rather than repeated inline on every figure.
-// NOTE: GST treatment is NOT stated because it has not been confirmed. Do not
-// add "plus GST" or "incl. GST" to this string without checking first.
+// GST confirmed by the client 9 Aug 2026: prices exclude it. This is the one
+// place the wording lives — it renders on the homepage and pricing packages,
+// and the same fact appears in prose on the guides and location pages.
 export const pricingCurrencyNote =
-  "All prices are shown in New Zealand dollars (NZD).";
+  "All prices are shown in New Zealand dollars (NZD) and exclude GST.";
 
 export const packages = [
   {
@@ -195,8 +238,8 @@ export const packages = [
 ];
 
 export const faqs = [
-  ["Is this just lead generation?", "No. The core system is about handling the enquiries you already get. Campaigns can be added later if you want more volume."],
-  ["Do I have to run ads?", "No. Ads are optional and usually only make sense once your front desk can handle new enquiries fast."],
+  ["Is this just lead generation?", "No. The core system is about handling the enquiries you already get, and most businesses find more work there than they expected. We do run paid campaigns as a separate service, but only once the front desk is in place to catch what they bring in."],
+  ["Do I have to run ads?", "No. Campaigns are optional and only make sense once your front desk can handle new enquiries fast — we will not run them before that. If you do want more volume later, we build and run Meta and Google campaigns, and the order we work in is explained on our campaigns page."],
   ["Will a machine be talking to my customers?", "Not in an open-ended way, and never off its own bat. The system runs on approved texts, emails, forms, missed-call replies and follow-up — every message worded and signed off by you in advance. Optional phone answering, if you add it, works from a script you write, with clear rules for what gets handed straight to you. Nothing improvises and nothing makes a decision you have not approved."],
   ["Can it book jobs on its own?", "It can help book callbacks, quote requests, site visits, or appointments based on your rules. You stay in control of what you accept and what you promise."],
   ["What if I already use job software?", "Tradie Front Desk handles enquiry capture, response, follow-up, and booking. It can sit alongside your job software when that connection is listed in the proposal."],
@@ -252,6 +295,111 @@ export const proofExamples = [
 ];
 
 export const caseStudies = proofExamples;
+
+/**
+ * Real, named clients. Published with the client's permission, confirmed by
+ * the business owner on 9 August 2026.
+ *
+ * These are deliberately kept separate from `proofExamples` above, which are
+ * illustrations of a mechanism with no client behind them. Mixing the two
+ * would let an invented example borrow credibility from a real one.
+ *
+ * THREE RULES THIS DATA FOLLOWS, and the reasoning, because the temptation to
+ * break each one is obvious:
+ *
+ * 1. SCOPE IS STATED. Every one of these was a full custom build — website,
+ *    search visibility, and the front-desk system together. The packages sold
+ *    on /pricing/ are the front desk on its own. A reader who buys the $497
+ *    package expecting Kurt's result has been misled by us, so `scope` says
+ *    what was actually delivered and it renders on the page.
+ *
+ * 2. NO INVENTED PRECISION. The martial arts club's month-by-month growth was
+ *    described by the owner as a rough fair impression, not a figure pulled
+ *    from a report. It is therefore written as accelerating growth across
+ *    three months, with no percentages. Same call already made on the
+ *    sub-account count in the trust band. If a real report surfaces later,
+ *    the numbers can go in then.
+ *
+ * 3. NON-TRADE CLIENTS ARE LABELLED AS SUCH. Two of the three are not trade
+ *    businesses. They earn their place by showing the same system working in
+ *    another industry, and `industry` says so plainly rather than letting a
+ *    skimming tradie assume otherwise.
+ */
+export const clientStories = [
+  {
+    slug: "ka-plumbing",
+    isClient: true,
+    business: "KA Plumbing",
+    industry: "Plumbing — a trade business",
+    location: "New Zealand",
+    headline: "A Newly Qualified Plumber, Booked Out Inside Five Months",
+    shortHeadline: "Apprenticeship to fully booked",
+    snapshot:
+      "Kurt had just finished his apprenticeship and started on his own. No customer list, no website, no reputation to trade on — the hardest position a good tradie can be in.",
+    scope:
+      "A full custom build, not the standalone front-desk package: a 38-page website built for search, corrections to how the business appeared on Google, and the front-desk system on top of it — enquiry capture, booking, and after-hours cover.",
+    system: [
+      "38-page website built for search",
+      "Google presence corrected",
+      "Enquiry capture across calls, forms and messages",
+      "Online booking into his own calendar",
+      "After-hours enquiry cover",
+      "Quote follow-up",
+    ],
+    result:
+      "Over roughly five months his calendar filled to the point of being booked out, and he took on his first apprentice to keep up with the work.",
+    reported:
+      "Reported by the client. The growth came from the whole build working together — search visibility, the website, and the front desk — not from any single part of it on its own. A new business starting from nothing has more room to grow than an established one, and results depend on trade, market and demand.",
+  },
+  {
+    slug: "superior-taekwondo",
+    isClient: true,
+    business: "Superior Taekwondo",
+    industry: "Martial arts club — not a trade business",
+    location: "New Zealand",
+    headline: "Three Straight Months Of Growth Through A New Location Opening",
+    shortHeadline: "Same system, different industry",
+    snapshot:
+      "A martial arts club opening a second location, needing enrolments to arrive and be handled without the instructors doing admin between classes.",
+    scope:
+      "A full custom build: search-focused pages, the front-desk system, and online booking with payment taken up front.",
+    system: [
+      "Search-focused pages for the club",
+      "Enquiry capture and reply",
+      "Online booking",
+      "Payment collected at booking",
+      "After-hours enquiry cover",
+    ],
+    result:
+      "Enrolment growth in each of the first three months after the new location opened, and the rate of growth increased month on month rather than tailing off.",
+    reported:
+      "Reported by the client as a fair impression rather than a figure taken from a report, which is why no percentage is given here. Included because it shows the same system working outside the trades — a martial arts club is not a plumbing business, and the comparison only goes so far.",
+  },
+  {
+    slug: "hair-by-melissa",
+    isClient: true,
+    business: "Hair By Melissa",
+    industry: "Hair salon — not a trade business",
+    location: "New Zealand",
+    headline: "From No Online Presence To Booked Three Months Ahead",
+    shortHeadline: "Nothing to a full diary",
+    snapshot:
+      "A small boutique salon starting from nothing online: no website, no booking system, and every enquiry arriving by phone or message to be handled between clients.",
+    scope:
+      "A full custom build: a website built for search, enquiry capture, and online booking — a whole front desk where there had not been one.",
+    system: [
+      "Website built for search",
+      "Enquiry capture across channels",
+      "Online booking",
+      "After-hours enquiry cover",
+      "Reminders and follow-up",
+    ],
+    result:
+      "The diary now runs about three months ahead, and enquiries are captured and booked without interrupting a client in the chair.",
+    reported:
+      "Reported by the client. A boutique salon with one chair fills differently from a trade business with vans on the road, and a business starting from no online presence has the most obvious room to gain. Results depend on demand, capacity and market.",
+  },
+];
 
 export const tradePages = {
   electricians: {

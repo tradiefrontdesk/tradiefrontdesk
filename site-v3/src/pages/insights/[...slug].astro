@@ -1,0 +1,385 @@
+---
+// Renders one post from the `insights` content collection.
+//
+// Deliberately NOT a copy of guides/[...slug].astro. The two templates share a
+// visual language but answer different questions, and the difference is the
+// status block: almost every change covered here is a bill, not law. A reader
+// who skims and comes away thinking a rule already applies has been misled by
+// us, so status is not a footnote — it sits in the hero, above the article,
+// in the annotation layer where the eye lands first.
+//
+// The status block uses --marker. That is allowed here and only here: the hero
+// is a dark band, which is the reserved context for marker per DESIGN.md. Do
+// not lift this block onto a light band without re-solving the colour.
+import { getCollection, render, type CollectionEntry } from "astro:content";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Reveal from "@/components/motion/Reveal.astro";
+import DraftPath from "@/components/motion/DraftPath.astro";
+import CTASection from "@/components/CTASection.astro";
+import FAQ from "@/components/FAQ.astro";
+import { corePromise } from "@/data/site";
+
+export async function getStaticPaths() {
+  const insights = await getCollection("insights");
+  return insights.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+interface Props {
+  post: CollectionEntry<"insights">;
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const data = post.data;
+
+// Human labels for the schema enum. The wording is chosen to be unambiguous to
+// someone who does not follow parliamentary process: "bill" and "first
+// reading" mean nothing to most readers, so each label says whether it applies.
+const STATUS_LABEL: Record<typeof data.status, string> = {
+  proposed: "Proposed — not law yet",
+  "bill-first-reading": "Bill — passed first reading only, not law yet",
+  "bill-in-progress": "Bill — before Parliament, not law yet",
+  "passed-not-in-force": "Passed — but not in force yet",
+  "in-force": "In force",
+};
+
+const all = await getCollection("insights");
+const pillar = all.find((p) => p.data.pillar);
+const siblings = all
+  .filter((p) => p.id !== post.id && !p.data.pillar)
+  .sort((a, b) => a.data.order - b.data.order);
+const related = data.pillar ? siblings : siblings.slice(0, 3);
+
+const faqItems = data.faqs.map((f) => [f.q, f.a] as [string, string]);
+const updated = data.updatedDate ?? data.publishDate;
+const dateFmt = new Intl.DateTimeFormat("en-NZ", { dateStyle: "long" });
+---
+
+<BaseLayout
+  title={data.title}
+  description={data.description}
+  breadcrumbs={[{ name: "Insights", href: "/insights/" }]}
+  article={{ published: data.publishDate, modified: data.updatedDate }}
+>
+  <section class="in-hero band-dark blueprint-grid">
+    <div class="container in-hero__inner">
+      <p class="mono-label in-hero__eyebrow">Sector change</p>
+      <Reveal as="h1" variant="draft" class="in-hero__title">{data.heading}</Reveal>
+      <div class="in-hero__rule" aria-hidden="true">
+        <DraftPath viewBox="0 0 320 8" d="M2 4 L318 4" stroke="var(--action)" strokeWidth={2} />
+      </div>
+      <p class="in-hero__lead max-measure">{data.lead}</p>
+
+      <dl class="in-status">
+        <div class="in-status__row">
+          <dt class="mono-label">Status</dt>
+          <dd class="in-status__value">{STATUS_LABEL[data.status]}</dd>
+        </div>
+        <div class="in-status__row">
+          <dt class="mono-label">Timing</dt>
+          <dd class="in-status__value">{data.effectiveFrom}</dd>
+        </div>
+        <div class="in-status__row">
+          <dt class="mono-label">Checked</dt>
+          <dd class="in-status__value">
+            <time datetime={updated.toISOString()}>{dateFmt.format(updated)}</time>
+            <span class="in-status__review">
+              — we review this page by {dateFmt.format(data.reviewBy)}
+            </span>
+          </dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="in-body band-light section">
+    <div class="container">
+      <aside class="in-changed" aria-labelledby="what-changed">
+        <h2 class="in-changed__title" id="what-changed">What is actually proposed</h2>
+        <ul class="in-changed__list">
+          {data.changeSummary.map((point) => <li>{point}</li>)}
+        </ul>
+      </aside>
+
+      <article class="in-prose prose">
+        <Content />
+      </article>
+
+      <p class="in-sources">{data.sources}</p>
+    </div>
+  </section>
+
+  <section class="in-cluster band-dark blueprint-grid section">
+    <div class="container">
+      <header class="in-cluster__head">
+        <p class="mono-label in-cluster__cap">Fig. — the rest of the set</p>
+        <h2 class="in-cluster__title">
+          {data.pillar ? "The changes, one at a time." : "Read next."}
+        </h2>
+        <p class="in-cluster__all">
+          <a href="/insights/">Or see everything we are tracking</a>
+        </p>
+      </header>
+
+      <ul class="in-cluster__grid">
+        {
+          !data.pillar && pillar && (
+            <li class="in-cluster__item in-cluster__item--pillar">
+              <p class="mono-label in-cluster__tag">Start here</p>
+              <h3 class="in-cluster__item-title">
+                <a href={`/insights/${pillar.id}/`}>{pillar.data.heading}</a>
+              </h3>
+              <p class="in-cluster__item-text">{pillar.data.lead}</p>
+            </li>
+          )
+        }
+        {
+          related.map((p) => (
+            <li class="in-cluster__item">
+              <h3 class="in-cluster__item-title">
+                <a href={`/insights/${p.id}/`}>{p.data.heading}</a>
+              </h3>
+              <p class="in-cluster__item-text">{p.data.lead}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <FAQ items={faqItems} title="Common questions" />
+
+  <CTASection
+    title="See where your own enquiries are leaking."
+    text={`${corePromise} Book a free audit and we'll map where jobs are slipping — no pressure, no lock-in.`}
+  />
+</BaseLayout>
+
+<style>
+  /* ---- Hero ---- */
+  .in-hero {
+    padding-block: clamp(3.5rem, 8vw, 6rem);
+  }
+  .in-hero__inner {
+    max-width: 62ch;
+  }
+  .in-hero__eyebrow {
+    color: var(--marker);
+    margin-bottom: 1.25rem;
+  }
+  .in-hero__title {
+    font-size: clamp(2rem, 5vw, 3.25rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+  .in-hero__rule {
+    width: min(320px, 60%);
+    margin-block: 1.5rem;
+  }
+  .in-hero__lead {
+    color: var(--on-dark-body);
+    font-size: 1.0625rem;
+    margin-bottom: 2rem;
+  }
+
+  /* Status block. A hairline-separated definition list rather than a card —
+     it reads as instrument panel, not as a warning banner, which is the right
+     register: this is a fact about the change, not an alarm. */
+  .in-status {
+    margin: 0;
+    border-top: 1px solid var(--line-dark);
+  }
+  .in-status__row {
+    display: grid;
+    grid-template-columns: minmax(5.5rem, 8rem) 1fr;
+    gap: 0.75rem 1.25rem;
+    padding-block: 0.85rem;
+    border-bottom: 1px solid var(--line-dark);
+  }
+  .in-status__row dt {
+    color: var(--marker);
+    margin: 0;
+  }
+  .in-status__value {
+    margin: 0;
+    color: var(--on-dark);
+    font-size: 0.9375rem;
+    line-height: 1.6;
+  }
+  .in-status__review {
+    color: var(--on-dark-muted);
+  }
+
+  @media (max-width: 30rem) {
+    .in-status__row {
+      grid-template-columns: 1fr;
+      gap: 0.3rem;
+    }
+  }
+
+  /* ---- "What is actually proposed" ---- */
+  .in-changed {
+    margin-bottom: clamp(2rem, 4vw, 3rem);
+    padding: clamp(1.25rem, 3vw, 2rem);
+    background: var(--surface-light);
+    border: 1px solid var(--line-light);
+    border-radius: var(--radius-lg);
+  }
+  .in-changed__title {
+    font-size: 1.1875rem;
+    letter-spacing: -0.01em;
+    margin-bottom: 0.9rem;
+  }
+  .in-changed__list {
+    margin: 0 0 0 1.1rem;
+    display: grid;
+    gap: 0.6rem;
+  }
+  .in-changed__list li {
+    color: var(--body);
+    line-height: 1.7;
+    padding-left: 0.35rem;
+  }
+  .in-changed__list li::marker {
+    color: var(--action);
+  }
+
+  /* ---- Article ---- */
+  .in-prose :global(h2) {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    letter-spacing: -0.02em;
+    margin-top: 2.75rem;
+    margin-bottom: 0.9rem;
+    text-wrap: balance;
+  }
+  .in-prose :global(h2:first-child) {
+    margin-top: 0;
+  }
+  .in-prose :global(h3) {
+    font-size: 1.1875rem;
+    letter-spacing: -0.01em;
+    margin-top: 2rem;
+    margin-bottom: 0.6rem;
+  }
+  .in-prose :global(p) {
+    color: var(--body);
+    line-height: 1.7;
+    margin-bottom: 1.1rem;
+  }
+  .in-prose :global(ul),
+  .in-prose :global(ol) {
+    margin: 0 0 1.4rem 1.1rem;
+    display: grid;
+    gap: 0.6rem;
+  }
+  .in-prose :global(li) {
+    color: var(--body);
+    line-height: 1.7;
+    padding-left: 0.35rem;
+  }
+  .in-prose :global(li::marker) {
+    color: var(--action);
+  }
+  .in-prose :global(strong) {
+    color: var(--ink);
+    font-weight: 600;
+  }
+  .in-prose :global(a) {
+    color: var(--ink);
+    font-weight: 600;
+    text-decoration: underline;
+    text-decoration-color: var(--action);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
+  }
+  .in-prose :global(blockquote) {
+    margin: 1.75rem 0;
+    padding-left: 1.1rem;
+    border-left: 1px solid var(--action);
+    color: var(--muted);
+  }
+
+  .in-sources {
+    margin-top: clamp(2rem, 4vw, 3rem);
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--line-light);
+    max-width: 80ch;
+    color: var(--muted);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.04em;
+    line-height: 1.7;
+  }
+
+  /* ---- Cluster nav ---- */
+  .in-cluster__head {
+    max-width: 58ch;
+    margin-bottom: clamp(2rem, 4vw, 3rem);
+  }
+  .in-cluster__cap {
+    color: var(--marker);
+    margin-bottom: 0.85rem;
+  }
+  .in-cluster__title {
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    letter-spacing: -0.02em;
+  }
+  .in-cluster__all {
+    margin-top: 0.9rem;
+  }
+  .in-cluster__all a {
+    color: var(--on-dark-body);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    text-decoration: underline;
+    text-decoration-color: var(--action);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
+  }
+
+  .in-cluster__grid {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 290px), 1fr));
+    gap: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+  .in-cluster__item {
+    background: var(--surface-dark-2);
+    border: 1px solid var(--line-dark);
+    border-radius: var(--radius-lg);
+    padding: clamp(1.25rem, 2.5vw, 1.6rem);
+  }
+  .in-cluster__item--pillar {
+    grid-column: 1 / -1;
+    background: var(--surface-dark);
+  }
+  .in-cluster__tag {
+    color: var(--marker);
+    margin-bottom: 0.6rem;
+  }
+  .in-cluster__item-title {
+    font-size: 1.0625rem;
+    letter-spacing: -0.01em;
+    margin-bottom: 0.5rem;
+  }
+  .in-cluster__item-title a {
+    color: var(--on-dark);
+    text-decoration: none;
+    transition: color var(--dur-fast) var(--ease-out);
+  }
+  .in-cluster__item-title a:hover,
+  .in-cluster__item-title a:focus-visible {
+    color: var(--action);
+  }
+  .in-cluster__item-text {
+    color: var(--on-dark-body);
+    font-size: 0.9375rem;
+    line-height: 1.6;
+  }
+</style>

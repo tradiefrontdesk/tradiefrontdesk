@@ -110,7 +110,7 @@ const auFaqTail: [string, string][] = [
   ],
   [
     "What does it cost, and is that in Australian dollars?",
-    "Packages start from $1,500 setup plus $497 a month, and those figures are in New Zealand dollars, not Australian. We price in NZD because that is where we operate from, and we would rather say so than have you convert it yourself after the fact. Full packages are on the pricing page, and a free front desk audit is the fastest way to see what it would look like against your own calls and quotes.",
+    "Packages start from $1,500 setup plus $497 a month. Those figures are in New Zealand dollars, not Australian, and they exclude GST. We price in NZD because that is where we operate from, and we would rather say so than have you convert it yourself after the fact. Full packages are on the pricing page, and a free front desk audit is the fastest way to see what it would look like against your own calls and quotes.",
   ],
 ];
 
@@ -210,7 +210,7 @@ export const locationContent: Record<LocationKey, LocationContent> = {
       ],
       [
         "What does it cost?",
-        "Packages start from $1,500 setup plus $497 a month, in New Zealand dollars. Exact pricing depends on scope. The free audit is the fastest way to see what it would look like for your business.",
+        "Packages start from $1,500 setup plus $497 a month, in New Zealand dollars and excluding GST. Exact pricing depends on scope. The free audit is the fastest way to see what it would look like for your business.",
       ],
     ],
     close: {
@@ -314,7 +314,7 @@ export const locationContent: Record<LocationKey, LocationContent> = {
       ],
       [
         "What does it cost?",
-        "Packages start from $1,500 setup plus $497 a month in New Zealand dollars, depending on scope. The free audit is the fastest way to see what it would look like for your business.",
+        "Packages start from $1,500 setup plus $497 a month, in New Zealand dollars and excluding GST, depending on scope. The free audit is the fastest way to see what it would look like for your business.",
       ],
     ],
     close: {

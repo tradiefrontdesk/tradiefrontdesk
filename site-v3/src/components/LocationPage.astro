@@ -30,12 +30,24 @@ interface Props {
 
 const { contentKey } = Astro.props as Props;
 const page = locationContent[contentKey];
+
+// Sibling regions, for the cross-links at the foot of the page. Same audit
+// finding as the trade-page leg: these five pages were footer-orphans.
+const allRegions: { key: LocationKey; href: string; label: string }[] = [
+  { key: "auckland", href: "/auckland/", label: "Auckland" },
+  { key: "christchurch", href: "/christchurch/", label: "Christchurch and Canterbury" },
+  { key: "nsw", href: "/nsw/", label: "New South Wales" },
+  { key: "queensland", href: "/queensland/", label: "Queensland" },
+  { key: "victoria", href: "/victoria/", label: "Victoria" },
+];
+const siblings = allRegions.filter((r) => r.key !== contentKey);
 ---
 
 <BaseLayout
   title={page.metaTitle}
   description={page.metaDescription}
   serviceName={page.metaTitle}
+  serviceArea={page.eyebrow}
 >
   <section class="lp-hero band-dark blueprint-grid">
     <div class="container lp-hero__inner">
@@ -157,6 +169,14 @@ const page = locationContent[contentKey];
   <section class="lp-sources band-light">
     <div class="container">
       <p class="lp-sources__text">{page.sources}</p>
+      <p class="lp-siblings">
+        Other regions we cover:{" "}
+        {siblings.map((r, i) => (
+          <>
+            <a href={r.href}>{r.label}</a>{i < siblings.length - 1 ? ", " : "."}
+          </>
+        ))}
+      </p>
     </div>
   </section>
 
@@ -362,6 +382,21 @@ const page = locationContent[contentKey];
   .lp-sources {
     padding-block: clamp(1.5rem, 3vw, 2.25rem);
   }
+  .lp-siblings {
+    margin-top: 1rem;
+    color: var(--muted);
+    font-size: 0.9375rem;
+    line-height: 1.7;
+  }
+  .lp-siblings a {
+    color: var(--ink);
+    font-weight: 600;
+    text-decoration: underline;
+    text-decoration-color: var(--action);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
+  }
+
   .lp-sources__text {
     max-width: 80ch;
     color: var(--muted);

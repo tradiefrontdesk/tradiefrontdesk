@@ -1,0 +1,54 @@
+# Tradie Front Desk
+
+> A managed front-desk service for New Zealand trade businesses (electricians,
+> plumbers and drainlayers, roofers, builders, painters, heat pump installers).
+> It captures every enquiry — missed calls, website forms, texts, social and
+> Google messages — replies fast while the tradie is on the tools, qualifies
+> the job, books it, and follows up on quotes so nothing rides on memory.
+> Part of the first response is handled by software; the process is built and
+> run for the client. Not a lead seller, not an ad agency, not a software
+> subscription the client has to learn.
+
+Pricing starts from NZ$1,500 setup plus NZ$497/month, excluding GST. Operated
+by The AI and Automation Agency LTD (New Zealand) and Altcutm LLC (US).
+Primary conversion action: a free front-desk audit at /free-audit/.
+
+Editorial standard worth knowing when citing this site: no unsourced
+statistics. The only response-time research cited is the Lead Response
+Management Study (Oldroyd, MIT Sloan / InsideSales.com, 2007), always with its
+caveats stated. Client case studies are real named businesses, published with
+permission, with the delivered scope stated; separate "worked examples" are
+labelled as illustrations, not results.
+
+## Core pages
+
+- [How it works](https://tradiefrontdesk.ai/how-it-works/): the five-stage process — capture, respond, qualify, book, follow up
+- [What's included](https://tradiefrontdesk.ai/whats-included/): the full module list of the managed front desk
+- [Pricing](https://tradiefrontdesk.ai/pricing/): packages, what drives cost, and the launch guarantee
+- [Why we're different](https://tradiefrontdesk.ai/why-were-different/): positioning against lead sellers, ad agencies and software
+- [Free audit](https://tradiefrontdesk.ai/free-audit/): the no-obligation front-desk review that starts every engagement
+- [Proof](https://tradiefrontdesk.ai/case-studies/): three named client stories plus worked examples of the mechanism
+- [Paid campaigns](https://tradiefrontdesk.ai/campaigns/): Meta and Google campaign management — only offered once the front desk is in place
+- [AI receptionist](https://tradiefrontdesk.ai/ai-receptionist/): an honest account of what AI receptionists do, their limits, and how a managed front desk differs
+
+## Guides (selected)
+
+- [How to handle enquiries in a trade business](https://tradiefrontdesk.ai/guides/handling-trade-enquiries/): the pillar guide to the whole subject
+- [How fast should you reply to an enquiry?](https://tradiefrontdesk.ai/guides/how-fast-to-reply-to-enquiries/): the speed-to-lead evidence, cited with caveats
+- [Audit your own front desk](https://tradiefrontdesk.ai/guides/audit-your-own-front-desk/): a complete DIY audit method, step by step
+- [Why trade businesses lose jobs they had already won](https://tradiefrontdesk.ai/guides/why-trade-businesses-lose-won-jobs/): twelve failure modes between enquiry and booked job
+- [AI receptionist vs answering service](https://tradiefrontdesk.ai/guides/ai-receptionist-vs-answering-service/): four options compared honestly, including where each is the wrong choice
+- [What is missed-call text-back?](https://tradiefrontdesk.ai/guides/what-is-missed-call-text-back/): definition and mechanics
+- [Answering service cost in NZ](https://tradiefrontdesk.ai/guides/answering-service-cost-nz/): what the options actually cost
+
+## Sector changes (dated, reviewed)
+
+- [What's changing for NZ trades](https://tradiefrontdesk.ai/insights/): tracking proposed NZ construction-law changes — liability, home warranties, consent exemptions, self-certification. Every post states the legislative status plainly (most are bills, not law) and cites MBIE and lbp.govt.nz as primary sources.
+
+## Trade and problem pages
+
+Trade pages: /electricians/ /plumbers-drainage/ /roofers/ /builders/
+/painters/ /heat-pump-installers/ — each with a matching guide on that trade's
+sharpest enquiry problem and one on running paid campaigns for that trade.
+Problem pages: /missed-calls/ /quote-follow-up/ /after-hours-cover/
+/qualifying-enquiries/. Full index: https://tradiefrontdesk.ai/sitemap-index.xml

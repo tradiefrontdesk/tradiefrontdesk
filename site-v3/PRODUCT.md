@@ -38,7 +38,20 @@ Emotional goal for a visitor: recognize their own business in the problem within
 
 **Buyer-facing vocabulary rules (carries into every page and every CTA).**
 
-**Still banned outright:** CRM, automation, funnel, SaaS, workflow, GoHighLevel, bot. Sell the system and the outcome, not the tooling underneath it ("we build and manage the front-desk process that captures enquiries and follows up with customers," never "we install automations" or "we use GoHighLevel workflows"). GoHighLevel in particular is the vendor and never appears in buyer-facing copy.
+**Still banned outright:** CRM, automation, funnel, SaaS, workflow, bot. Sell the system and the outcome, not the tooling underneath it ("we build and manage the front-desk process that captures enquiries and follows up with customers," never "we install automations" or "we use workflows").
+
+*What the automation ban actually covers, since this was ambiguous and several pages had already drifted:* the ban is on the word as **a category label for what we sell**. "We install automations", "our automation platform", "automated lead nurturing as a service" — all out. It is not a ban on ordinary English. A sentence describing a quality to avoid ("a reply that sounds automatic"), or an FAQ question written in the buyer's own words ("do I need to worry about the legal side of automated messaging?"), is fine — the same latitude the table below gives "AI" in FAQ questions. The test is simple: if the word is naming our product, remove it; if it is describing behaviour, it can stay.
+
+**"GoHighLevel" — one named exception, client decision, 9 August 2026.** The phrase **"GoHighLevel award winner"** is permitted in the trust band, referring to the SaaSPRENEUR Gold Award received in 2025. Nowhere else.
+
+The client was advised against this and chose it twice, so it stands. The reasoning against, recorded so the trade-off is visible rather than forgotten: naming the platform tells a trade buyer they are paying a margin on a tool they could licence directly, which is the exact inference the ban exists to prevent — and the award is invisible to a tradie, who has never heard of SaaSPRENEUR or HighLevel.
+
+Two further uses are legitimate and must not be removed:
+
+- The `award` field of the Organization JSON-LD, which renders on every page. Structured data should carry an award's actual name, and a machine-readable metadata field is not buyer-facing prose.
+- The **privacy policy** (sub-processor disclosure) and **terms** (third-party dependency disclosure). These are legal disclosures, and the vocabulary ban has never applied to them — a privacy policy that hides which platform holds customer data is a worse document, not a better one. "CRM" and "automation" also appear on those two pages for the same reason.
+
+The scope is otherwise deliberately narrow. Do not extend it. GoHighLevel must not appear in any page describing how the service works, in any FAQ answer, in any guide, or anywhere a reader could take it as a description of the product rather than an award. If a future editor finds the word outside the trust band, it is a mistake and should be removed.
 
 **"AI" — restricted, not banned (client decision, 8 August 2026).** Search research found the term unavoidable for visibility: every close competitor leads with it (Call Catcher's H1 is "AI Missed-Call Service for NZ Tradies"; Sophiie, AnswR, Ring Jenny and TradieAssistance all build pages around it), and the "AI receptionist" query family is the fastest-growing in the category. Refusing the word entirely forfeits that traffic. The client has chosen to compete for it while keeping the brand's display copy problem-led.
 
@@ -55,6 +68,18 @@ The boundary, which is what stops it leaking everywhere:
 | Body copy on core pages | **Sparingly**, and only where a buyer would genuinely use the word |
 
 The positioning has not changed. Tradie Front Desk is a managed service, not a tool, and the reason for the restriction is commercial rather than cosmetic: ranking for "AI receptionist" attracts buyers shopping for software, who convert badly against a done-for-you offer. The term is a doorway, never the pitch. If a page's *display* copy reads as though it is selling AI software, the boundary has been crossed.
+
+**The dedicated AI section (client decision, 9 August 2026).** The row above allowing "a dedicated comparison/definition page" is now built out as a small named set. On these pages — and only these — "AI" may be used freely, including in headings:
+
+- `/ai-receptionist/`
+- `/guides/ai-receptionist-vs-answering-service/`
+- `/guides/ai-follow-up-for-trade-businesses/`
+
+Everywhere else the table above still governs. Adding a page to this list is a positioning decision, not an editorial one; do not extend it casually.
+
+**"Automation" was NOT unbanned, and that was deliberate.** The client was offered the option of lifting it to chase "AI automation" queries and declined. The word stays banned on every page including the AI set. This is the harder rule to keep, because these pages sit directly beside the banned term — write "the follow-up happens on a schedule instead of from memory", never "automated follow-up". The reasoning is unchanged: naming the category makes the offer sound like tooling a buyer rents rather than a service that gets run for them.
+
+**How the mechanism is described (client decision, 9 August 2026).** Plainly, as software. The agreed line is that *part of the first response is handled by software, and we are not going to pretend otherwise* — it works from wording the owner approves, it does not invent prices or make promises, and anything it cannot handle goes to the owner. Never imply a human is typing when software is. This wording already appears on `/campaigns/` and is consistent with the privacy policy and with the "Will a machine be talking to my customers?" FAQ. Keep all four in step: if one changes, they all change.
 
 **Claims-safe language (hard rule):** no guaranteed job counts, revenue, profit, rankings, review counts, or response rates. Use claims-safe framing throughout — "designed to help," "helps catch," "reported outcome," "results depend on" — matching `about-tradie-front-desk/terms_scope_and_guarantee.md`. Worked examples are labelled as illustrations of the process, not promises of what a visitor's business will experience.
 

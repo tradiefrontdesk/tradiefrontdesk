@@ -29,13 +29,18 @@ export default defineConfig({
         const path = url.replace("https://tradiefrontdesk.ai", "");
         // Money pages first, then supporting content, then the rest.
         if (path === "/") return { ...item, priority: 1.0, changefreq: "weekly" };
-        if (/^\/(free-audit|pricing|contact)\/$/.test(path))
+        if (/^\/(free-audit|pricing|contact|campaigns|ai-receptionist)\/$/.test(path))
           return { ...item, priority: 0.9, changefreq: "monthly" };
         if (/^\/(electricians|plumbers-drainage|roofers|heat-pump-installers|builders|painters)\/$/.test(path))
           return { ...item, priority: 0.8, changefreq: "monthly" };
         if (/^\/(missed-calls|quote-follow-up|after-hours-cover|qualifying-enquiries)\/$/.test(path))
           return { ...item, priority: 0.8, changefreq: "monthly" };
         if (path.startsWith("/guides/")) return { ...item, priority: 0.6, changefreq: "monthly" };
+        // Insights track live legislation, so they genuinely do change more
+        // often than the evergreen guides — this is one of the few places
+        // changefreq is an honest signal rather than a box being ticked.
+        if (path === "/insights/") return { ...item, priority: 0.7, changefreq: "weekly" };
+        if (path.startsWith("/insights/")) return { ...item, priority: 0.6, changefreq: "weekly" };
         if (path.startsWith("/case-studies/")) return { ...item, priority: 0.5, changefreq: "yearly" };
         return { ...item, priority: 0.7, changefreq: "monthly" };
       },

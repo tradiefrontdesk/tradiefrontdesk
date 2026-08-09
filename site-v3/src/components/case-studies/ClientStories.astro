@@ -1,0 +1,144 @@
+---
+// ClientStories.astro — the three real, named clients.
+//
+// Sits directly under the hero, above the worked examples, because it is the
+// only genuine proof on this site and a reader who bounces after one screen
+// should have seen it. The worked examples below it are illustrations of a
+// mechanism; these are things that actually happened to named businesses who
+// gave permission to say so.
+//
+// The `industry` line is doing real work, not decoration. Two of the three are
+// not trade businesses, and a skimming tradie must not come away thinking
+// otherwise. It renders in the annotation layer directly under the business
+// name, where it is read before the outcome rather than after it.
+import Reveal from "@/components/motion/Reveal.astro";
+import { clientStories } from "@/data/site";
+---
+
+<section class="cls band-light section">
+  <div class="container">
+    <header class="cls__head">
+      <p class="mono-label cls__cap">Fig. — real clients, named with permission</p>
+      <h2 class="cls__title">Three businesses, and what actually happened.</h2>
+      <p class="cls__lead max-measure">
+        Every one of these was a full custom build: a website built for search,
+        the front-desk system, and booking, working together. The packages on
+        our pricing page are the front desk on its own, which is one part of
+        what these businesses bought. We would rather say that up front than
+        have you discover it later — it is the same straightness we lay out in
+        <a class="cls__whylink" href="/why-were-different/">why we're different</a>.
+      </p>
+    </header>
+
+    <ol class="cls__list">
+      {
+        clientStories.map((story, i) => (
+          <Reveal as="li" variant="draft" delay={(i % 3) * 0.06} class="cls__item">
+            <p class="mono-label cls__no">{String(i + 1).padStart(2, "0")}</p>
+
+            <div class="cls__body">
+              <h3 class="cls__name">
+                <a href={`/case-studies/${story.slug}/`}>{story.business}</a>
+              </h3>
+              <p class="mono-label cls__industry">{story.industry}</p>
+              <p class="cls__result">{story.result}</p>
+              <p class="cls__reported">{story.reported}</p>
+            </div>
+          </Reveal>
+        ))
+      }
+    </ol>
+  </div>
+</section>
+
+<style>
+  .cls__head {
+    max-width: 62ch;
+    margin-bottom: clamp(2rem, 4vw, 3rem);
+  }
+  .cls__cap {
+    color: var(--muted);
+    margin-bottom: 0.85rem;
+  }
+  .cls__title {
+    font-size: clamp(1.75rem, 4vw, 2.75rem);
+    letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+  }
+  .cls__lead {
+    color: var(--body);
+    font-size: 1.0625rem;
+    line-height: 1.7;
+  }
+
+  .cls__whylink {
+    color: var(--ink);
+    font-weight: 600;
+    text-decoration: underline;
+    text-decoration-color: var(--action);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
+  }
+
+  /* Stacked rows on a hairline rule rather than cards. Three real outcomes
+     deserve reading in order, not scanning as equal tiles. */
+  .cls__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid var(--line-light);
+  }
+  .cls__item {
+    display: grid;
+    grid-template-columns: 3rem 1fr;
+    gap: clamp(0.75rem, 2vw, 1.5rem);
+    padding-block: clamp(1.5rem, 3vw, 2.25rem);
+    border-bottom: 1px solid var(--line-light);
+  }
+  .cls__no {
+    color: var(--muted);
+    padding-top: 0.35rem;
+  }
+  .cls__name {
+    font-size: clamp(1.25rem, 2.5vw, 1.5rem);
+    letter-spacing: -0.01em;
+    margin-bottom: 0.4rem;
+  }
+  .cls__name a {
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .cls__name a:hover,
+  .cls__name a:focus-visible {
+    text-decoration: underline;
+    text-decoration-color: var(--action);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
+  }
+  .cls__industry {
+    color: var(--muted);
+    margin-bottom: 0.9rem;
+  }
+  .cls__result {
+    color: var(--body);
+    font-size: 1.0625rem;
+    line-height: 1.7;
+    max-width: 68ch;
+    margin-bottom: 0.75rem;
+  }
+  /* The caveat is set at Body Small in muted, directly under the claim it
+     qualifies. Not hidden in a footnote, not styled as an alarm. */
+  .cls__reported {
+    color: var(--muted);
+    font-size: 0.9375rem;
+    line-height: 1.65;
+    max-width: 72ch;
+  }
+
+  @media (max-width: 30rem) {
+    .cls__item {
+      grid-template-columns: 1fr;
+      gap: 0.5rem;
+    }
+  }
+</style>

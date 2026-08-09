@@ -8,6 +8,7 @@ import AuditChecklist from "@/components/free-audit/AuditChecklist.astro";
 import WhatYouGet from "@/components/free-audit/WhatYouGet.astro";
 import BookAudit from "@/components/free-audit/BookAudit.astro";
 import FAQ from "@/components/FAQ.astro";
+import TrustBand from "@/components/shared/TrustBand.astro";
 import CTASection from "@/components/CTASection.astro";
 import { faqs, corePromise } from "@/data/site";
 
@@ -35,6 +36,7 @@ const auditFaqs = faqs.filter(([question]) => auditFaqQuestions.includes(questio
   <AuditChecklist />
   <WhatYouGet />
   <BookAudit />
+  <TrustBand />
   <FAQ items={auditFaqs} title="Audit questions" />
   <CTASection
     title="Ready to find your leaks?"

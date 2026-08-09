@@ -1,0 +1,542 @@
+---
+// ai-receptionist.astro — the page that carries the "AI receptionist" query.
+//
+// One of three pages where PRODUCT.md permits "AI" in headings. Everywhere
+// else on the site the restriction table still governs.
+//
+// WHAT THIS PAGE HAS TO DO, and why it is written against its own keyword:
+// Someone searching "AI receptionist NZ" is usually shopping for an app. Our
+// product is a managed service. The lazy version of this page pretends to be
+// what they searched for and disappoints them on the call; the useless version
+// refuses the term and never gets read. This page does the third thing — meets
+// the search honestly, explains what an AI receptionist actually is, says
+// plainly that software handles our first reply too, and then makes the case
+// for the difference that matters: what happens AFTER the call is answered.
+//
+// Vocabulary: "automation"/"automated" stay banned here as everywhere else,
+// and the client explicitly declined to lift that. Describe the mechanism.
+//
+// Claims: no statistics of any kind. Nothing about response rates or job
+// counts. See docs/speed-to-lead-factsheet.md for what was rejected and why.
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Reveal from "@/components/motion/Reveal.astro";
+import DraftPath from "@/components/motion/DraftPath.astro";
+import FAQ from "@/components/FAQ.astro";
+import CTASection from "@/components/CTASection.astro";
+import { corePromise } from "@/data/site";
+
+const doesDoesnt: { heading: string; items: string[] }[] = [
+  {
+    heading: "What software handles well",
+    items: [
+      "Answering the moment an enquiry arrives, at any hour, without getting tired at 11pm",
+      "Asking the same sensible questions every time — what the job is, where it is, how urgent",
+      "Never forgetting to check back on a quote that has gone quiet",
+      "Handling ten enquiries arriving at once as easily as one",
+    ],
+  },
+  {
+    heading: "What it should never be left to do",
+    items: [
+      "Quoting a job, or discussing price beyond what you have already published",
+      "Promising a time you have not agreed to",
+      "Anything that sounds like an emergency — that goes to a person immediately",
+      "Handling an unhappy customer, which needs a human and needs one quickly",
+    ],
+  },
+];
+
+const aiFaqs: [string, string][] = [
+  [
+    "Is Tradie Front Desk an AI receptionist?",
+    "Not exactly, and it is worth being precise. Part of the first response is handled by software — that is how an enquiry at 9pm on a Sunday gets an answer at 9pm on a Sunday. But the product is the managed process behind it: capturing every enquiry, qualifying it, booking it, and following it up. An AI receptionist app is a tool you set up and maintain. This is a front desk that gets built and run for you.",
+  ],
+  [
+    "Will my customers know they are talking to software?",
+    "The first reply is not pretending to be a person, and we would not set it up that way. In practice most customers care far more about getting a fast, accurate answer than about who typed it — a quick clear reply beats a slow human one. Anything the software cannot handle properly comes to you.",
+  ],
+  [
+    "Can it say something I would not want said?",
+    "It works from wording you approve before anything goes live, and it does not invent prices or make commitments on your behalf. You stay in control of what gets said in your name, the same as you do with anyone answering your phone.",
+  ],
+  [
+    "Would a cheap AI receptionist app do the same job?",
+    "For answering the phone and taking a message, honestly, it might — and if that is genuinely all you need, it will cost you a lot less than we will. The gap shows up afterwards. An app answers; it does not chase the quote you sent last Friday, and it does not notice that an enquiry from Tuesday never got a reply. That follow-up is where most trade businesses are actually losing work.",
+  ],
+  [
+    "What happens when someone rings and it is urgent?",
+    "It goes to you, fast. Urgency is the first thing established and the clearest reason to put a human in the loop straight away. Nobody with water coming through a ceiling should be having a conversation with software for long.",
+  ],
+  [
+    "Do I have to use the AI part at all?",
+    "No. Some clients want everything routed to a person and that is a legitimate way to run it — it just means enquiries land at human speed rather than instantly. We will tell you honestly which parts we think are worth it for your business.",
+  ],
+];
+---
+
+<BaseLayout
+  title="AI Receptionist for NZ Trade Businesses"
+  description="What an AI receptionist actually does for a trade business, where it helps, where it should never be left alone, and how a managed front desk differs."
+  serviceName="AI-assisted enquiry handling for trade businesses"
+>
+  <section class="ar-hero band-dark blueprint-grid">
+    <div class="container ar-hero__inner">
+      <p class="mono-label ar-hero__eyebrow">AI receptionist</p>
+      <Reveal as="h1" variant="draft" class="ar-hero__title">
+        An AI receptionist answers. Then what?
+      </Reveal>
+      <div class="ar-hero__rule" aria-hidden="true">
+        <DraftPath viewBox="0 0 320 8" d="M2 4 L318 4" stroke="var(--action)" strokeWidth={2} />
+      </div>
+      <p class="ar-hero__lead max-measure">
+        If you are looking for something to answer the phone while you are on
+        the tools, an AI receptionist will do it, and cheaply. This page is an
+        honest account of what that gets you, what it does not, and why we
+        built something different.
+      </p>
+    </div>
+  </section>
+
+  <section class="ar-what band-light section">
+    <div class="container">
+      <h2 class="ar-what__title">What an AI receptionist actually is</h2>
+      <div class="ar-what__body max-measure">
+        <p>
+          It is software that picks up when you cannot. It answers a call or a
+          message, asks a few questions, takes the details, and passes them on
+          to you. Some read out information you have given them. Some book
+          straight into a calendar. They do not get tired, they do not mind
+          being rung at 11pm, and they cost a fraction of a person.
+        </p>
+        <p>
+          That is genuinely useful, and we are not going to pretend otherwise
+          in order to sell you something bigger. If your problem is that the
+          phone rings out while you are under a house, an AI receptionist
+          solves that problem.
+        </p>
+        <p>
+          We will also say plainly that part of our own first response is
+          handled by software. It has to be — that is the only way an enquiry
+          at nine on a Sunday night gets an answer at nine on a Sunday night.
+          The difference is not whether software is involved. It is what
+          happens next.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="ar-split band-dark blueprint-grid section">
+    <div class="container">
+      <header class="ar-split__head">
+        <p class="mono-label ar-split__cap">Fig. — the honest division of labour</p>
+        <h2 class="ar-split__title">Where software helps, and where it must hand over.</h2>
+      </header>
+      <div class="ar-split__grid">
+        {
+          doesDoesnt.map((col, i) => (
+            <Reveal as="div" variant="draft" delay={i * 0.07} class="ar-split__col">
+              <h3 class="ar-split__col-title">{col.heading}</h3>
+              <ul class="ar-split__list">
+                {col.items.map((item) => (
+                  <li>{item}</li>
+                ))}
+              </ul>
+            </Reveal>
+          ))
+        }
+      </div>
+      <p class="ar-split__note max-measure">
+        A business that lets software run past what it is good at will damage a
+        customer relationship faster than a slow reply ever would. Knowing
+        where the handover sits is most of the job.
+      </p>
+    </div>
+  </section>
+
+  <section class="ar-gap band-light section">
+    <div class="container">
+      <p class="mono-label ar-gap__cap">Fig. — the part an app does not cover</p>
+      <h2 class="ar-gap__title">Answering is the easy half.</h2>
+      <div class="ar-gap__body max-measure">
+        <p>
+          Think about where your work actually goes missing. Some of it is the
+          call you could not take — an AI receptionist fixes that. But a good
+          share of it is quieter than that: the quote you sent on Friday that
+          nobody mentioned again, the enquiry that got one reply and then
+          nothing, the customer from March who would happily use you again if
+          anyone rang.
+        </p>
+        <p>
+          No app is going to notice any of that on your behalf. It answered the
+          phone, it did its job, and the rest is still sitting with you.
+        </p>
+        <p>
+          That is the part we run: the enquiry gets captured, qualified and
+          booked, and the follow-up happens on a schedule instead of from
+          anyone's memory. Software does the instant bits. The process around
+          it is the actual product, and it is built and managed for you rather
+          than handed over as another thing to configure.
+        </p>
+      </div>
+      <p class="ar-gap__links">
+        Worth reading next: the honest
+        <a href="/guides/ai-receptionist-vs-answering-service/"
+          >comparison of AI receptionists, answering services and hiring someone</a
+        >, and what
+        <a href="/guides/ai-follow-up-for-trade-businesses/">AI-assisted follow-up</a> does once
+        the call is over.
+      </p>
+    </div>
+  </section>
+
+  <section class="ar-diy band-dark blueprint-grid section">
+    <div class="container">
+      <p class="mono-label ar-diy__cap">Fig. — the part of the price that's your time</p>
+      <h2 class="ar-diy__title">What does setting one up yourself actually involve?</h2>
+      <div class="ar-diy__body max-measure">
+        <p>
+          Buying an AI receptionist app is the fast part. Ten minutes, a card
+          number, and it is answering your phone tonight. Running it well is a
+          different job, and it lands on you, not on the app.
+        </p>
+      </div>
+      <ul class="ar-diy__list max-measure">
+        <li>
+          Writing the greeting and the question flow — what it asks first,
+          second, third — in language that actually sounds like your
+          business, not a demo script
+        </li>
+        <li>
+          Keeping prices, service areas and availability current, and
+          remembering to update it the next time any of those change
+        </li>
+        <li>
+          Deciding the escalation rules — what counts as urgent enough to
+          interrupt you, and what can sit until morning
+        </li>
+        <li>
+          Testing what it actually says when someone asks something you did
+          not plan for, because someone always does
+        </li>
+        <li>
+          Checking transcripts often enough to catch it getting something
+          wrong before a customer does
+        </li>
+        <li>
+          Doing all of the above again next time your business changes — new
+          prices, a new service, a busy season
+        </li>
+      </ul>
+      <div class="ar-diy__body max-measure">
+        <p>
+          None of this is difficult, and it is not a knock on the apps or the
+          owners who run them well. Some tradies genuinely enjoy this kind of
+          work — building the flow, tightening the wording, watching it get
+          better over a few weeks. If that is you, an app can work fine, and
+          you should not pay someone else to do a job you like doing.
+        </p>
+        <p>
+          But it is real work, and it does not stop once the app is switched
+          on. A cheap price buys you the software. The setup, the testing and
+          the ongoing maintenance still have to be paid for somehow — usually
+          out of an evening you were not planning to spend on it.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="ar-cost band-light section">
+    <div class="container">
+      <p class="mono-label ar-cost__cap">Fig. — what you are actually paying for</p>
+      <h2 class="ar-cost__title">What does an AI receptionist cost in NZ?</h2>
+      <div class="ar-cost__body max-measure">
+        <p>
+          Pricing in this category comes in a few different shapes, and it is
+          worth knowing which one you are looking at before you compare
+          numbers. Per-call or per-minute apps charge for usage, so the bill
+          moves with how busy you are — cheap in a quiet month, less
+          predictable in a busy one. Flat monthly app subscriptions charge a
+          fixed fee regardless of volume, but the setup and upkeep described
+          above are still yours to do, every month, for the life of the
+          subscription. Per-seat human answering services charge for a
+          person's time, which tends to be the most expensive shape, and the
+          one where quality depends most on who happens to be rostered on
+          when your customer calls.
+        </p>
+        <p>
+          A managed front desk sits in a different place again, because you
+          are not buying software or a seat — you are buying the process
+          built and run around it. Our own packages start from
+          <strong>$1,500 setup plus $497 a month</strong>, in New Zealand
+          dollars and excluding GST. That covers the wording, the escalation
+          rules, the testing, and the ongoing follow-up on quotes and quiet
+          leads, run for you rather than left as another thing on your list.
+        </p>
+        <p>
+          The honest comparison: if all you need is something to answer the
+          phone and take a message, an app is cheaper, full stop, and we
+          would rather tell you that now than have you find it out later.
+          What you are paying us for is everything that happens after the
+          call is answered — the part an app was never built to do.
+        </p>
+      </div>
+      <p class="ar-cost__links">
+        See the full
+        <a href="/pricing/">pricing breakdown</a>, or
+        <a href="/guides/answering-service-cost-nz/"
+          >what an answering service actually costs in New Zealand</a
+        >
+        for published figures across every option, including ones cheaper
+        than ours.
+      </p>
+    </div>
+  </section>
+
+  {/* Dark band between ar-cost (light) and the FAQ (light) — closes the one
+      same-band seam this page shipped with, and carries the after-hours
+      story, which is the single most common reason a tradie searches this
+      term in the first place. */}
+  <section class="ar-night band-dark blueprint-grid section">
+    <div class="container">
+      <p class="mono-label ar-night__cap">Fig. — the 9:14pm enquiry, step by step</p>
+      <h2 class="ar-night__title">What actually happens to an after-hours call?</h2>
+      <div class="ar-night__body max-measure">
+        <p>
+          This is the moment most people are really asking about, so it is
+          worth walking through concretely. A homeowner rings at 9:14 on a
+          Tuesday night. You knocked off at six, and the phone is on the
+          charger in the hallway.
+        </p>
+        <p>
+          Without cover, the story is short: it rings out, some of them leave
+          a voicemail, most do not, and the determined ones ring the next name
+          on the list. You find the missed call at breakfast and have no way
+          of knowing whether it was a $90 washer or a $9,000 reroof.
+        </p>
+        <p>
+          With the front desk running, the call that rings out gets a text
+          back within moments, in wording you approved: who we are, that the
+          message reached a real business, and a couple of short questions —
+          what the job is, roughly where, how urgent. If the answers say
+          "water is coming through the ceiling", it escalates to you
+          immediately, because that is an emergency and no piece of software
+          should be having a long conversation with someone standing in it.
+          If the answers say "sometime in the next few weeks", the enquiry is
+          captured, tagged and sitting in tomorrow's list with everything the
+          caller said — and the caller has already had a better experience of
+          your business than the three competitors whose phones just rang out.
+        </p>
+        <p>
+          That is the whole trick, and we would rather describe it plainly
+          than dress it up: nothing clever, just a reply that arrives while
+          the customer is still holding their phone. The deeper version of
+          this — who decides what counts as urgent, and what the rules are
+          after knock-off — is covered on
+          <a href="/after-hours-cover/">after-hours cover</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <FAQ items={aiFaqs} title="Questions about the AI part" />
+
+  <CTASection
+    title="Not sure you need all of this?"
+    text={`${corePromise} Book a free audit and we'll tell you straight — including if a cheaper tool would do the job.`}
+  />
+</BaseLayout>
+
+<style>
+  .ar-hero {
+    padding-block: clamp(3.5rem, 8vw, 6rem);
+  }
+  .ar-hero__inner {
+    max-width: 62ch;
+  }
+  .ar-hero__eyebrow {
+    color: var(--marker);
+    margin-bottom: 1.25rem;
+  }
+  .ar-hero__title {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+  .ar-hero__rule {
+    width: min(320px, 60%);
+    margin-block: 1.5rem;
+  }
+  .ar-hero__lead {
+    color: var(--on-dark-body);
+    font-size: 1.0625rem;
+  }
+
+  .ar-what__title,
+  .ar-gap__title {
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    letter-spacing: -0.02em;
+    margin-bottom: 1.25rem;
+    max-width: 22ch;
+  }
+  .ar-what__body p,
+  .ar-gap__body p {
+    color: var(--body);
+    line-height: 1.7;
+    margin-bottom: 1.1rem;
+  }
+  .ar-gap__cap {
+    color: var(--muted);
+    margin-bottom: 0.85rem;
+  }
+  .ar-gap__links {
+    margin-top: 1.5rem;
+    max-width: 68ch;
+    color: var(--muted);
+    font-size: 0.9375rem;
+    line-height: 1.7;
+  }
+  .ar-gap__links a {
+    color: var(--ink);
+    font-weight: 600;
+    text-decoration: underline;
+    text-decoration-color: var(--action);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
+  }
+
+  .ar-split__head {
+    max-width: 58ch;
+    margin-bottom: clamp(2rem, 4vw, 3rem);
+  }
+  .ar-split__cap {
+    color: var(--marker);
+    margin-bottom: 0.85rem;
+  }
+  .ar-split__title {
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    letter-spacing: -0.02em;
+  }
+  .ar-split__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+    gap: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+  .ar-split__col {
+    background: var(--surface-dark-2);
+    border: 1px solid var(--line-dark);
+    border-radius: var(--radius-lg);
+    padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+  .ar-split__col-title {
+    font-size: 1.0625rem;
+    letter-spacing: -0.01em;
+    margin-bottom: 0.9rem;
+    color: var(--on-dark);
+  }
+  .ar-split__list {
+    margin: 0 0 0 1.1rem;
+    display: grid;
+    gap: 0.6rem;
+  }
+  .ar-split__list li {
+    color: var(--on-dark-body);
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    padding-left: 0.35rem;
+  }
+  .ar-split__list li::marker {
+    color: var(--action);
+  }
+  .ar-split__note {
+    margin-top: clamp(1.75rem, 3vw, 2.5rem);
+    color: var(--on-dark-muted);
+    font-size: 0.9375rem;
+    line-height: 1.7;
+  }
+
+  .ar-diy__cap {
+    color: var(--marker);
+    margin-bottom: 0.85rem;
+  }
+  .ar-diy__title {
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    letter-spacing: -0.02em;
+    margin-bottom: 1.25rem;
+    max-width: 26ch;
+  }
+  .ar-diy__body p {
+    color: var(--on-dark-body);
+    line-height: 1.7;
+    margin-bottom: 1.1rem;
+  }
+  .ar-diy__list {
+    margin: 1.5rem 0 1.75rem 1.1rem;
+    display: grid;
+    gap: 0.6rem;
+  }
+  .ar-diy__list li {
+    color: var(--on-dark-body);
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    padding-left: 0.35rem;
+  }
+  .ar-diy__list li::marker {
+    color: var(--action);
+  }
+
+  .ar-night__cap {
+    color: var(--marker);
+    margin-bottom: 0.85rem;
+  }
+  .ar-night__title {
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    letter-spacing: -0.02em;
+    margin-bottom: 1.25rem;
+    max-width: 26ch;
+  }
+  .ar-night__body p {
+    color: var(--on-dark-body);
+    line-height: 1.7;
+    margin-bottom: 1.1rem;
+  }
+  .ar-night__body a {
+    color: var(--on-dark);
+    font-weight: 600;
+    text-decoration: underline;
+    text-decoration-color: var(--action);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
+  }
+
+  .ar-cost__cap {
+    color: var(--muted);
+    margin-bottom: 0.85rem;
+  }
+  .ar-cost__title {
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    letter-spacing: -0.02em;
+    margin-bottom: 1.25rem;
+    max-width: 24ch;
+  }
+  .ar-cost__body p {
+    color: var(--body);
+    line-height: 1.7;
+    margin-bottom: 1.1rem;
+  }
+  .ar-cost__links {
+    margin-top: 1.5rem;
+    max-width: 68ch;
+    color: var(--muted);
+    font-size: 0.9375rem;
+    line-height: 1.7;
+  }
+  .ar-cost__links a {
+    color: var(--ink);
+    font-weight: 600;
+    text-decoration: underline;
+    text-decoration-color: var(--action);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
+  }
+</style>

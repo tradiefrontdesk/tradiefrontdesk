@@ -1,0 +1,202 @@
+---
+// /insights/ — the hub for the dated collection.
+//
+// The hub carries the caveat that individual posts also carry, because this is
+// the page most likely to be linked to and skimmed: nothing in this set is
+// settled law. Saying it once, prominently, at the entrance to the collection
+// is the honest version of a freshness signal.
+import { getCollection } from "astro:content";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Reveal from "@/components/motion/Reveal.astro";
+import DraftPath from "@/components/motion/DraftPath.astro";
+import CTASection from "@/components/CTASection.astro";
+import { corePromise } from "@/data/site";
+
+const all = await getCollection("insights");
+const pillar = all.find((p) => p.data.pillar);
+const supporting = all
+  .filter((p) => !p.data.pillar)
+  .sort((a, b) => a.data.order - b.data.order);
+
+const dateFmt = new Intl.DateTimeFormat("en-NZ", { dateStyle: "medium" });
+---
+
+<BaseLayout
+  title="What's Changing for NZ Trades"
+  description="Plain-English tracking of the proposed New Zealand construction changes — liability, home warranties, consent exemptions — and what each would mean day to day."
+>
+  <section class="ii-hero band-dark blueprint-grid">
+    <div class="container ii-hero__inner">
+      <p class="mono-label ii-hero__eyebrow">Insights</p>
+      <Reveal as="h1" variant="draft" class="ii-hero__title">
+        What's changing for New Zealand trade businesses.
+      </Reveal>
+      <div class="ii-hero__rule" aria-hidden="true">
+        <DraftPath viewBox="0 0 320 8" d="M2 4 L318 4" stroke="var(--action)" strokeWidth={2} />
+      </div>
+      <p class="ii-hero__lead max-measure">
+        The rules around liability, warranties and consents are being rewritten.
+        We track what is actually proposed, what stage it has reached, and what
+        each change would mean for the way enquiries, quotes and promises get
+        handled day to day.
+      </p>
+      <p class="ii-hero__caveat max-measure">
+        Nearly everything here is a bill, not law. We say so on every page, and
+        we are not qualified to advise you on compliance — for that, talk to
+        your licensing body or your lawyer.
+      </p>
+    </div>
+  </section>
+
+  <section class="ii-list band-light section">
+    <div class="container">
+      {
+        pillar && (
+          <a class="ii-pillar surface-light" href={`/insights/${pillar.id}/`}>
+            <p class="mono-label ii-pillar__tag">Start here</p>
+            <h2 class="ii-pillar__title">{pillar.data.heading}</h2>
+            <p class="ii-pillar__text">{pillar.data.lead}</p>
+          </a>
+        )
+      }
+
+      <ol class="ii-grid">
+        {
+          supporting.map((p, i) => (
+            <Reveal as="li" variant="draft" delay={(i % 3) * 0.05} class="ii-card">
+              <span class="mono-label ii-card__no">{String(i + 1).padStart(2, "0")}</span>
+              <h3 class="ii-card__title">
+                <a href={`/insights/${p.id}/`}>{p.data.heading}</a>
+              </h3>
+              <p class="ii-card__text">{p.data.lead}</p>
+              <p class="mono-label ii-card__meta">
+                Checked{" "}
+                <time datetime={(p.data.updatedDate ?? p.data.publishDate).toISOString()}>
+                  {dateFmt.format(p.data.updatedDate ?? p.data.publishDate)}
+                </time>
+              </p>
+            </Reveal>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <CTASection
+    title="Rather we just looked at your setup?"
+    text={`${corePromise} Book a free audit and we'll map where enquiries are slipping — no pressure, no lock-in.`}
+  />
+</BaseLayout>
+
+<style>
+  .ii-hero {
+    padding-block: clamp(3.5rem, 8vw, 6rem);
+  }
+  .ii-hero__inner {
+    max-width: 62ch;
+  }
+  .ii-hero__eyebrow {
+    color: var(--marker);
+    margin-bottom: 1.25rem;
+  }
+  .ii-hero__title {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+  .ii-hero__rule {
+    width: min(320px, 60%);
+    margin-block: 1.5rem;
+  }
+  .ii-hero__lead {
+    color: var(--on-dark-body);
+    font-size: 1.0625rem;
+    margin-bottom: 1.25rem;
+  }
+  /* The caveat is set apart by a hairline rather than a coloured accent — it
+     is a qualification of the lead, not a separate alarm. */
+  .ii-hero__caveat {
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--line-dark);
+    color: var(--on-dark-muted);
+    font-size: 0.9375rem;
+    line-height: 1.7;
+  }
+
+  .ii-pillar {
+    display: block;
+    padding: clamp(1.5rem, 3.5vw, 2.5rem);
+    margin-bottom: clamp(1.5rem, 3vw, 2.25rem);
+    text-decoration: none;
+    transition: border-color var(--dur-fast) var(--ease-out);
+  }
+  .ii-pillar:hover,
+  .ii-pillar:focus-visible {
+    border-color: var(--action);
+  }
+  .ii-pillar__tag {
+    color: var(--muted);
+    margin-bottom: 0.85rem;
+  }
+  .ii-pillar__title {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    letter-spacing: -0.02em;
+    margin-bottom: 0.75rem;
+    color: var(--ink);
+  }
+  .ii-pillar__text {
+    color: var(--muted);
+    max-width: 68ch;
+  }
+
+  .ii-grid {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 290px), 1fr));
+    gap: 1px;
+    background: var(--line-light);
+    border: 1px solid var(--line-light);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+  .ii-card {
+    background: var(--surface-light);
+    padding: clamp(1.25rem, 2.5vw, 1.75rem);
+    display: flex;
+    flex-direction: column;
+  }
+  .ii-card__no {
+    color: var(--muted);
+    display: block;
+    margin-bottom: 0.75rem;
+  }
+  .ii-card__title {
+    font-size: 1.0625rem;
+    letter-spacing: -0.01em;
+    margin-bottom: 0.5rem;
+  }
+  .ii-card__title a {
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .ii-card__title a:hover,
+  .ii-card__title a:focus-visible {
+    text-decoration: underline;
+    text-decoration-color: var(--action);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
+  }
+  .ii-card__text {
+    color: var(--muted);
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+  .ii-card__meta {
+    margin-top: auto;
+    color: var(--muted);
+  }
+</style>

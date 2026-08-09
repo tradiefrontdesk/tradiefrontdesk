@@ -128,7 +128,9 @@ A restrained-but-committed strategy: navy carries the dark bands, cool off-white
 - **Display** (700, `clamp(2.25rem, 5.5vw, 6rem)`, line-height 1.1): hero headlines only. Ceiling is a hard rule — never exceeds 6rem so the page states its claim, it doesn't shout it. `text-wrap: balance`, letter-spacing `-0.01em` (never tighter than `-0.04em`).
 - **Headline** (700, e.g. `clamp(1.75rem, 4vw, 2.75rem)` per `CTASection.astro`'s `h2`, line-height 1.1): section headings inside dark and light bands alike; same Archivo/wdth-125 treatment as Display, just a smaller ceiling.
 - **Title** (700, sized per-component, line-height 1.1): card/module headings, form section titles — same family and treatment as Headline at a tighter measure.
+- **Lead** (400, `1.0625rem`, line-height 1.6–1.7): the deck under a hero or section heading — `__lead`, `__sub`, `__intro`. One step above Body, which is what separates a deck from the paragraph after it without reaching for a heading weight. Used in 48 components; this is a real step, not a rounding error.
 - **Body** (400, 1rem base, line-height 1.55, max 65–75ch / `.prose`, `.max-measure` = 68ch): all running copy. Never drops toward light gray for "elegance" — Body and Muted are both independently contrast-checked against their band.
+- **Body Small** (400, `0.9375rem`, line-height 1.6): secondary prose that sits inside a dense module — card body text, list-item descriptions, status values, nav links. One step below Body, and the floor for running text: nothing readable goes smaller than this outside the mono Label layer.
 - **Label** (500, 0.8125rem / 0.75rem at ≥640px, uppercase, letter-spacing 0.08em, JetBrains Mono): the `.mono-label` annotation layer — form field labels, figure captions ("Fig. 01 — …"), badges, stats, nav phone numbers. This is the layer that makes the blueprint metaphor legible in the UI, not just in the hero art.
 
 ### Named Rules

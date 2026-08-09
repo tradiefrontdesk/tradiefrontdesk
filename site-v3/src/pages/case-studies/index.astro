@@ -9,6 +9,7 @@
 // study.slug against site.ts's caseStudies/proofExamples).
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import Hero from "@/components/case-studies/Hero.astro";
+import ClientStories from "@/components/case-studies/ClientStories.astro";
 import MetricsBand from "@/components/case-studies/MetricsBand.astro";
 import Dossier from "@/components/case-studies/Dossier.astro";
 import Disclaimer from "@/components/case-studies/Disclaimer.astro";
@@ -16,13 +17,20 @@ import CTASection from "@/components/CTASection.astro";
 ---
 
 <BaseLayout
-  title="Proof: Three Worked Examples"
-  description="Calls caught, replies sent, and follow-ups completed — worked examples of the Tradie Front Desk process, with reported outcomes labelled honestly."
+  title="Proof: Client Results and Examples"
+  description="Three named clients and what actually happened, plus worked examples of the front-desk process. Reported outcomes, labelled honestly, never guaranteed."
 >
+  {/* Order matters here. Real named clients come first, because they are the
+      only genuine proof on the site; the worked examples that follow are
+      illustrations of a mechanism and must not be mistaken for results.
+      Band alternation runs dark → light → dark → light → dark. */}
   <Hero />
-  <MetricsBand />
+  <ClientStories />
   <Dossier />
-  <Disclaimer />
+  <MetricsBand />
+  {/* Dark, so it does not merge into the light metrics band above it. Reads
+      as a deliberate serious close running into the dark CTA and footer. */}
+  <Disclaimer tone="dark" />
   <CTASection
     title="Want to find where your business is leaking enquiries?"
     text="Book a Free Front Desk Audit and we'll map your current enquiry process — no pressure, no lock-in."

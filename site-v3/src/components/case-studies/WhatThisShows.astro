@@ -6,17 +6,32 @@
 // it only restates the five-step mechanism and points back at the
 // disclaimer that follows, never a new promise.
 import { mechanism } from "@/data/site";
+
+interface Props {
+  /** True on a real client's page. Changes the framing from "this is an
+      illustration" to "this happened, and here is why it still is not a
+      prediction for you". Both are claims-safe; only one is accurate. */
+  isClient?: boolean;
+}
+
+const { isClient = false } = Astro.props;
 ---
 
 <section class="wts band-dark blueprint-grid section">
   <div class="container">
     <p class="mono-label wts__cap">What this shows</p>
-    <h2 class="wts__title">One example of the process. Not a preview of your numbers.</h2>
+    <h2 class="wts__title">
+      {isClient
+        ? "One business\u2019s result. Not a preview of your numbers."
+        : "One example of the process. Not a preview of your numbers."}
+    </h2>
     <p class="wts__text max-measure">
-      This is one worked example of the same process every client gets:{" "}
-      {mechanism.join(" → ")}. It shows how the system handles one specific
-      kind of enquiry from first contact to a tracked next step &mdash; it
-      doesn't predict what will happen in your business. Your results depend
+      {isClient
+        ? "This is one real business running the same process every client gets: "
+        : "This is one worked example of the same process every client gets: "}
+      {mechanism.join(" → ")}. It shows how the system handles enquiries from
+      first contact to a tracked next step &mdash; it doesn't predict what
+      will happen in your business. Your results depend
       on your market, your services, your response speed, and your
       follow-through, the same as anyone's.
     </p>

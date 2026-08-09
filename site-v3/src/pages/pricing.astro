@@ -6,6 +6,7 @@ import PricingPackages from "@/components/pricing/PricingPackages.astro";
 import ValueAnchor from "@/components/pricing/ValueAnchor.astro";
 import AuditToManaged from "@/components/pricing/AuditToManaged.astro";
 import GuaranteeBand from "@/components/pricing/GuaranteeBand.astro";
+import TrustBand from "@/components/shared/TrustBand.astro";
 import FAQ from "@/components/FAQ.astro";
 import CTASection from "@/components/CTASection.astro";
 import { faqs, corePromise } from "@/data/site";
@@ -36,6 +37,7 @@ const pricingFaqs = faqs.filter(([question]) => pricingFaqQuestions.includes(que
   <PricingPackages />
   <AuditToManaged />
   <GuaranteeBand />
+  <TrustBand />
   <FAQ items={pricingFaqs} title="Pricing questions" />
   <CTASection
     title="Not sure which package fits?"

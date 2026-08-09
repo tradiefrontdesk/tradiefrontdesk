@@ -28,3 +28,10 @@ pnpm-debug.log*
 
 # macOS AppleDouble junk files
 ._*
+
+# Local agent/editor tooling — machine-specific, never committed
+.claude/
+.codex/
+skills/
+skills-lock.json
+webgrowthteambundle.zip

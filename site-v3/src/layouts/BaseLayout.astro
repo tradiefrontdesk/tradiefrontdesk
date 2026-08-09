@@ -29,8 +29,36 @@ interface Props {
   breadcrumbs?: BreadcrumbCrumb[];
   /** Emits Service schema. Pass the service name for trade/problem/location pages. */
   serviceName?: string;
+  /**
+   * Overrides Service.areaServed with a named place ("Auckland") instead of
+   * the default country list. Location pages pass this; everywhere else the
+   * countries are the honest answer. Audit cluster 5: a location page whose
+   * Service claims to serve three countries is telling search engines nothing
+   * the page is actually about.
+   */
+  serviceArea?: string;
   /** Emits Article schema. Guides pass their dates. */
   article?: { published: Date; modified?: Date };
+  /**
+   * Emits HowTo schema for step-by-step guides.
+   *
+   * Google removed the HowTo rich result outright. It deleted the
+   * documentation on 14 September 2023, and the result appears on neither
+   * desktop nor mobile, so this markup produces no Google search feature.
+   * It is emitted anyway for three reasons: it is valid schema.org, it
+   * accurately describes a procedural page, and Bing and AI answer engines
+   * still read it.
+   *
+   * The FAQPage markup elsewhere on this site is in the same position.
+   * Google stopped surfacing it on 7 May 2026. Both are kept rather than
+   * stripped, because unused structured data is harmless and non-Google
+   * consumers still parse it.
+   */
+  howTo?: {
+    name: string;
+    totalTime?: string;
+    steps: { name: string; text: string }[];
+  };
 }
 
 const {
@@ -40,7 +68,9 @@ const {
   stickyCtaHref,
   breadcrumbs = [],
   serviceName,
+  serviceArea,
   article,
+  howTo,
 } = Astro.props;
 
 const siteName = brand.name;
@@ -61,6 +91,30 @@ const jsonLd = {
   "@type": "Organization",
   name: siteName,
   alternateName: brand.fullName,
+  legalName: "The AI and Automation Agency LTD",
+  logo: new URL(brand.logo, origin).toString(),
+  award: "GoHighLevel SaaSPRENEUR Gold Award, 2025",
+  // Entity disambiguation for search and answer engines. The profiles are the
+  // founder's, not the brand's, so they sit on a Person rather than as
+  // Organization.sameAs — the trust band already leans on the person's
+  // credentials, so this matches what the site publicly claims. URLs verified
+  // by search 9 Aug 2026 and to be confirmed by the client.
+  founder: {
+    "@type": "Person",
+    name: "Altus Snyman",
+    sameAs: [
+      "https://www.youtube.com/@AltusAI",
+      "https://www.skool.com/thevoiceaiagency",
+      "https://altussnyman.ai",
+    ],
+  },
+  knowsAbout: [
+    "Enquiry handling for trade businesses",
+    "Missed-call recovery",
+    "Quote follow-up",
+    "Linux system administration",
+    "IT security",
+  ],
   description: brand.trustLine,
   slogan: corePromise,
   url: origin.toString(),
@@ -95,9 +149,8 @@ const jsonLd = {
         "@type": "PriceSpecification",
         priceCurrency: "NZD",
         minPrice: Number(pkg.price.replace(/^From \$/, "").split(" ")[0].replace(/,/g, "")),
-        // valueAddedTaxIncluded is deliberately omitted. GST treatment has not
-        // been confirmed by the client, and asserting it in schema while
-        // refusing to state it in copy would be the same claim by another route.
+        // Confirmed by the client 9 Aug 2026: prices exclude GST.
+        valueAddedTaxIncluded: false,
       },
       itemOffered: {
         "@type": "Service",
@@ -138,10 +191,12 @@ const serviceLd = serviceName
       description,
       url: canonical.toString(),
       provider: { "@type": "Organization", name: siteName, url: origin.toString() },
-      areaServed: contactDetails.phones.map((phone) => ({
-        "@type": "Country",
-        name: phone.region,
-      })),
+      areaServed: serviceArea
+        ? { "@type": "Place", name: serviceArea }
+        : contactDetails.phones.map((phone) => ({
+            "@type": "Country",
+            name: phone.region,
+          })),
     }
   : null;
 
@@ -161,7 +216,27 @@ const articleLd = article
     }
   : null;
 
-const structuredData = [jsonLd, breadcrumbLd, serviceLd, articleLd].filter(Boolean);
+// HowTo, on the guides that are genuinely a numbered procedure. `position` is
+// set explicitly rather than relying on array order, because consumers are not
+// obliged to preserve it.
+const howToLd = howTo
+  ? {
+      "@context": "https://schema.org",
+      "@type": "HowTo",
+      name: howTo.name,
+      description,
+      ...(howTo.totalTime ? { totalTime: howTo.totalTime } : {}),
+      step: howTo.steps.map((s, i) => ({
+        "@type": "HowToStep",
+        position: i + 1,
+        name: s.name,
+        text: s.text,
+        url: `${canonical.toString()}#step-${i + 1}`,
+      })),
+    }
+  : null;
+
+const structuredData = [jsonLd, breadcrumbLd, serviceLd, articleLd, howToLd].filter(Boolean);
 ---
 
 <!doctype html>

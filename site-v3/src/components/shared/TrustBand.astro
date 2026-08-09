@@ -1,0 +1,110 @@
+---
+// TrustBand.astro — the credentials band.
+//
+// This closes guide item #19, which was the last real gap on the site and its
+// biggest conversion weakness: no certifications, no years trading, no team
+// size, no named human, no proof of any kind.
+//
+// Two things govern how this is written:
+//
+// 1. IT CREDENTIALS ARE NOT TRADE CREDENTIALS. Every certification here is
+//    infrastructure, security or systems. They answer "can this outfit build
+//    something that does not fall over" — a genuine objection — and they must
+//    never drift into "we understand your trade". The closing line says so
+//    outright, because a reader who works that out for themselves later trusts
+//    the page less than one who was told up front.
+//
+// 2. IT IS NOT CLIENT PROOF. Credentials answer "are you real and competent".
+//    They do not answer "has this worked for someone like me", which is the
+//    question that actually closes a sceptical tradie. The intro admits the
+//    absence of testimonials rather than papering over it — see PRODUCT.md on
+//    claims-safe framing, and docs/trust-signals-plan.md for what was
+//    deliberately left out.
+//
+// Placed on the four pages where a sceptic is deciding, not on all 36. A trust
+// band everywhere becomes wallpaper.
+import Reveal from "@/components/motion/Reveal.astro";
+import { trustSignals } from "@/data/site";
+---
+
+<section class="tb band-light section">
+  <div class="container">
+    <header class="tb__head">
+      <p class="mono-label tb__cap">{trustSignals.cap}</p>
+      <h2 class="tb__title">{trustSignals.title}</h2>
+      <p class="tb__lead max-measure">{trustSignals.intro}</p>
+    </header>
+
+    <ul class="tb__list">
+      {
+        trustSignals.items.map(([title, text], i) => (
+          <Reveal as="li" variant="draft" delay={(i % 3) * 0.05} class="tb__item">
+            <h3 class="tb__item-title">{title}</h3>
+            <p class="tb__item-text">{text}</p>
+          </Reveal>
+        ))
+      }
+    </ul>
+
+    <p class="tb__close max-measure">{trustSignals.close}</p>
+  </div>
+</section>
+
+<style>
+  .tb__head {
+    max-width: 58ch;
+    margin-bottom: clamp(2rem, 4vw, 3rem);
+  }
+  .tb__cap {
+    color: var(--muted);
+    margin-bottom: 0.85rem;
+  }
+  .tb__title {
+    font-size: clamp(1.75rem, 4vw, 2.75rem);
+    letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+  }
+  .tb__lead {
+    color: var(--body);
+    font-size: 1.0625rem;
+  }
+
+  /* Hairline grid via gap-on-background, matching th-inc__list and
+     pp-mech__list — the established pattern for a set of equal facts on a
+     light band. */
+  .tb__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+    gap: 1px;
+    background: var(--line-light);
+    border: 1px solid var(--line-light);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+  .tb__item {
+    background: var(--surface-light);
+    padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+  .tb__item-title {
+    font-size: 1.0625rem;
+    letter-spacing: -0.01em;
+    margin-bottom: 0.5rem;
+  }
+  .tb__item-text {
+    color: var(--muted);
+    font-size: 0.9375rem;
+    line-height: 1.6;
+  }
+
+  /* The honest caveat sits below the grid in body colour rather than muted —
+     it is a point being made, not a disclaimer being hidden. */
+  .tb__close {
+    margin-top: clamp(1.75rem, 3vw, 2.5rem);
+    color: var(--body);
+    font-size: 0.9375rem;
+    line-height: 1.7;
+  }
+</style>

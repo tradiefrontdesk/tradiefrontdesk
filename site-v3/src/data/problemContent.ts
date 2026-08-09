@@ -264,7 +264,7 @@ export const problemContent: Record<ProblemKey, ProblemContent> = {
       ],
       [
         "What does it cost, and what do you need from me?",
-        "Packages start from $1,500 setup plus $497 a month, in New Zealand dollars. From you: your business details, the wording you want used, and reasonably prompt feedback while it is set up and tested. The free audit is the fastest way to see what it would look like for your business.",
+        "Packages start from $1,500 setup plus $497 a month, in New Zealand dollars and excluding GST. From you: your business details, the wording you want used, and reasonably prompt feedback while it is set up and tested. The free audit is the fastest way to see what it would look like for your business.",
       ],
     ],
     close: {
@@ -642,7 +642,7 @@ export const problemContent: Record<ProblemKey, ProblemContent> = {
   qualifying: {
     metaTitle: "Qualifying Enquiries Before You Quote",
     metaDescription:
-      "How to tell which enquiries are worth a callout before you drive across town, and the questions worth asking early.",
+      "How NZ tradies tell which enquiries are worth a callout before driving across town — the questions worth asking early, and who should be asking them.",
     eyebrow: "Qualifying enquiries",
     title: "Not every enquiry deserves your afternoon.",
     lead: "You drove forty minutes for the measure-up. Wrote the quote at 9pm after the kids were down. Followed up twice. Then nothing. That job cost you half a day — not because you did anything wrong, but because nobody found out it was not a real job until you had already spent the time.",

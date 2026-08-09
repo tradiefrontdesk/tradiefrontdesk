@@ -1,0 +1,554 @@
+---
+// campaigns.astro — the paid-campaigns service.
+//
+// This page exists because the site sold this service only as a throwaway
+// line in an FAQ ("Campaigns can be added later"), which went nowhere. A
+// buyer ready for demand generation had no page to land on.
+//
+// POSITIONING, and why this does not contradict the rest of the site:
+// The belief ladder in PRODUCT.md opens with "the jobs I'm losing aren't a
+// demand problem, they're a missed-call/slow-reply/dead-quote problem." A
+// page selling more demand could read as a direct contradiction of that.
+// It does not, because of the gate: campaigns come SECOND, and we say no
+// until the front desk is in place. That sequence is already the site's
+// existing FAQ answer ("Ads are optional and usually only make sense once
+// your front desk can handle new enquiries fast"), and it is the thing that
+// separates this from an ad agency rather than an apology for being one.
+//
+// If a future editor removes the gate, this page becomes incoherent with
+// every other page on the site. The gate is the argument.
+//
+// VOCABULARY: "automation"/"automated" is banned by PRODUCT.md, so the
+// immediate-follow-up mechanism is described by what it does, never by that
+// label. "GoHighLevel" does not appear. "AI" appears only in an FAQ question
+// phrased the way a buyer would actually ask it, per the restriction table.
+//
+// PRICING: no monthly figure is published because the client has not set one.
+// The structure is stated honestly instead. Do not invent a number here.
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Reveal from "@/components/motion/Reveal.astro";
+import DraftPath from "@/components/motion/DraftPath.astro";
+import FAQ from "@/components/FAQ.astro";
+import CTASection from "@/components/CTASection.astro";
+import { corePromise } from "@/data/site";
+
+const included: [string, string][] = [
+  [
+    "Meta lead campaigns",
+    "Facebook and Instagram campaigns built to capture an enquiry in the feed, rather than sending someone to a website and hoping they fill something in.",
+  ],
+  [
+    "Google Search campaigns",
+    "For the people already typing your trade and your town into Google. Higher intent, usually higher cost per enquiry, and worth it when the work is worth it.",
+  ],
+  [
+    "Creative and copy",
+    "We write and produce the ads. You approve them before anything runs, and nothing goes live with a claim about your business that you have not signed off.",
+  ],
+  [
+    "Every new enquiry answered straight away",
+    "A campaign enquiry gets a reply within moments of arriving, at any hour, and is qualified and routed the same way every other enquiry to your business is. This is the part most campaign work skips, and it is the reason most campaign work disappoints.",
+  ],
+];
+
+const sequence: { time: string; text: string }[] = [
+  {
+    time: "First",
+    text: "The front desk goes in. Calls, forms, texts and messages all land in one place, get answered fast, and get followed up without depending on anyone's memory.",
+  },
+  {
+    time: "Then",
+    text: "We watch what your existing enquiries actually do for a while. Most trade businesses find more work in the enquiries they already had than they expected to.",
+  },
+  {
+    time: "Only then",
+    text: "If you still want more volume once the existing enquiries are handled properly, we build and run campaigns on top of a system that can catch what they bring in.",
+  },
+];
+
+const earlyWeeks: [string, string][] = [
+  [
+    "Audiences settle",
+    "The platform stops guessing broadly and narrows toward the people who actually enquire, which is most of why cost per enquiry tends to move over time — we just will not tell you when or by how much.",
+  ],
+  [
+    "Wording gets sharpened",
+    "Headlines and offers get adjusted against what real people click and reply to, not against what looked good in a meeting the week before.",
+  ],
+  [
+    "Weak ads get turned off",
+    "Anything that is not pulling its weight gets switched off rather than left running out of habit, because leaving it on does not make it work.",
+  ],
+];
+
+const campaignFaqs: [string, string][] = [
+  [
+    "Can I just buy the ads without the front desk?",
+    "No. It is the one thing we do not do. Campaigns multiply whatever your enquiry handling already does, in both directions — if a share of your enquiries currently go unanswered, campaigns mean paying good money to miss more of them. We would rather turn down the work than take money for that.",
+  ],
+  [
+    "Who pays for the ad spend?",
+    "You do, directly to Google or Meta, on your own account. It never passes through us, so you can see exactly what was spent without taking our word for it. Our monthly fee covers building, running and managing the campaigns, and it is separate from what you spend on the ads themselves.",
+  ],
+  [
+    "What will it cost?",
+    "The monthly management fee depends on which channels you run and how much is involved, so we quote it at the audit rather than publishing a number that would be wrong for most people. Ad spend is set by you and paid by you. Front desk packages start from $1,500 setup plus $497 a month, in New Zealand dollars and excluding GST.",
+  ],
+  [
+    "Is an AI going to be chasing my customers?",
+    "Part of the first response is handled by software, and we are not going to pretend otherwise — that is how a campaign enquiry gets an answer at 9pm on a Sunday instead of on Tuesday morning. It works from wording you approve, it does not make up prices or promises, and anything it cannot handle comes to you. You stay in control of what gets said in your name.",
+  ],
+  [
+    "How long before campaigns are worth it?",
+    "We will not put a timeframe on it, because it depends on your trade, your area, what you charge and how competitive the auction is where you work. What we can say is that campaigns started before the front desk is working almost always cost more per booked job than they should.",
+  ],
+  [
+    "Do I have to run campaigns at all?",
+    "No, and plenty of clients never do. The front desk is the product. Campaigns are for businesses that have handled their existing enquiries properly and genuinely want more volume on top.",
+  ],
+];
+---
+
+<BaseLayout
+  title="Paid Campaigns for Trade Businesses"
+  description="Meta and Google campaigns for NZ trade businesses — but only once your front desk can catch what they bring in. Here's why we work in that order."
+  serviceName="Paid campaign management for trade businesses"
+>
+  <section class="cp-hero band-dark blueprint-grid">
+    <div class="container cp-hero__inner">
+      <p class="mono-label cp-hero__eyebrow">Campaigns</p>
+      <Reveal as="h1" variant="draft" class="cp-hero__title">
+        More enquiries, once you can actually catch them.
+      </Reveal>
+      <div class="cp-hero__rule" aria-hidden="true">
+        <DraftPath viewBox="0 0 320 8" d="M2 4 L318 4" stroke="var(--action)" strokeWidth={2} />
+      </div>
+      <p class="cp-hero__lead max-measure">
+        We build and run Meta and Google campaigns for trade businesses. We
+        will not start until your front desk is in place, because paying for
+        enquiries you cannot answer is the most expensive mistake in this
+        trade.
+      </p>
+    </div>
+  </section>
+
+  <section class="cp-gate band-light section">
+    <div class="container">
+      <header class="cp-gate__head">
+        <p class="mono-label cp-gate__cap">Fig. — the rule we do not bend</p>
+        <h2 class="cp-gate__title">We say no to this work more often than we say yes.</h2>
+      </header>
+      <div class="cp-gate__body max-measure">
+        <p>
+          Most agencies will take your money on the first call. It is an easy
+          sale: you want more work, they sell more leads, and everybody feels
+          like something is happening.
+        </p>
+        <p>
+          The problem is that campaigns do not fix enquiry handling, they
+          expose it. If calls go to voicemail while you are on the tools, if
+          website forms sit unread until the weekend, if quotes go out and
+          nobody follows them up, then campaigns mean you are now paying, per
+          enquiry, for the same thing to happen to more people. The leak does
+          not close because the tap opened wider.
+        </p>
+        <p>
+          So we work in a fixed order, and we will tell you plainly if you are
+          not ready for the second part yet.
+        </p>
+      </div>
+
+      <ol class="cp-seq">
+        {
+          sequence.map((s, i) => (
+            <Reveal as="li" variant="draft" delay={i * 0.06} class="cp-seq__item">
+              <p class="mono-label cp-seq__time">{s.time}</p>
+              <p class="cp-seq__text">{s.text}</p>
+            </Reveal>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <section class="cp-inc band-dark blueprint-grid section">
+    <div class="container">
+      <header class="cp-inc__head">
+        <p class="mono-label cp-inc__cap">Fig. — what running campaigns includes</p>
+        <h2 class="cp-inc__title">What we actually do.</h2>
+      </header>
+      <ul class="cp-inc__list">
+        {
+          included.map(([title, text], i) => (
+            <Reveal as="li" variant="draft" delay={(i % 2) * 0.06} class="cp-inc__item">
+              <h3 class="cp-inc__item-title">{title}</h3>
+              <p class="cp-inc__item-text">{text}</p>
+            </Reveal>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="cp-money band-light section">
+    <div class="container">
+      <p class="mono-label cp-money__cap">Fig. — how the money works</p>
+      <h2 class="cp-money__title">You pay the platforms. We charge for the work.</h2>
+      <p class="cp-money__text max-measure">
+        Ad spend goes straight from you to Google or Meta, on an account in
+        your name. It does not pass through us, which means you can check
+        exactly what was spent without taking our word for it, and you keep the
+        account if you ever stop working with us. Our monthly fee is for
+        building, running and managing the campaigns, and we quote it at the
+        audit once we know which channels are worth running for your trade and
+        your area. We would rather give you a number that is right than one
+        that looks good on a page.
+      </p>
+      <p class="cp-money__proof max-measure">
+        Every business in our <a href="/case-studies/">client stories</a> runs
+        campaigns, and every one of them had the front desk built first. That
+        order is not a sales tactic. It is the only version of this we have
+        seen work.
+      </p>
+      <p class="cp-money__proof max-measure">
+        The instant-reply layer that catches what campaigns bring in is covered
+        honestly at <a href="/ai-receptionist/">what an AI receptionist does and
+        where it stops</a>. And if you would rather ask a person a question
+        before booking anything, <a href="/contact/">contact us directly</a> —
+        the numbers are real and get answered.
+      </p>
+    </div>
+  </section>
+
+  <section class="cp-early band-dark blueprint-grid section">
+    <div class="container">
+      <header class="cp-early__head">
+        <p class="mono-label cp-early__cap">Fig. — the first fortnight</p>
+        <h2 class="cp-early__title">
+          What do the first weeks of a campaign actually look like?
+        </h2>
+      </header>
+      <div class="cp-early__body max-measure">
+        <p>
+          Nobody selling campaigns likes to talk about the first two weeks,
+          because they are not the good part. A new campaign has to learn who
+          actually responds to it — which audiences, which wording, which
+          times of day — and that learning happens by testing against real
+          people, not by getting it right from a standing start.
+        </p>
+        <p>
+          In practice that means some ads get turned off in the first week
+          because they clearly are not working. Wording gets rewritten once we
+          can see what people actually respond to, not what we guessed they
+          would. Cost per enquiry starts high, on purpose. The platform has
+          not learned yet, an audience has not settled, and an expensive first
+          fortnight is expected, not a sign anything has gone wrong.
+        </p>
+      </div>
+      <ul class="cp-early__list">
+        {
+          earlyWeeks.map(([title, text], i) => (
+            <Reveal as="li" variant="draft" delay={i * 0.06} class="cp-early__item">
+              <h3 class="cp-early__item-title">{title}</h3>
+              <p class="cp-early__item-text">{text}</p>
+            </Reveal>
+          ))
+        }
+      </ul>
+      <div class="cp-early__body max-measure">
+        <p>
+          What you see while this is happening is real: enquiries landing in
+          the same front desk as every other call and form to your business,
+          answered and qualified the same way. If you want to see what a good
+          reply to one of these looks like this early, we have written it up
+          in <a href="/guides/replying-to-paid-enquiries/">replying to a paid
+          enquiry</a>.
+        </p>
+        <p>
+          Alongside that you get a straight report of what was spent and what
+          arrived — enquiries, not clicks, not impressions. We will not
+          invent momentum that is not there yet, and we will not tell you
+          when the early period ends or by how much things improve, because
+          that depends on your trade, your area, and what you charge. Early
+          is learning, not harvest.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cp-proof band-light section">
+    <div class="container">
+      <p class="mono-label cp-proof__cap">Fig. — what counts as working</p>
+      <h2 class="cp-proof__title">How do you know if the campaigns are working?</h2>
+      <div class="cp-proof__body max-measure">
+        <p>
+          Not clicks. Not impressions. Not reach. Those numbers describe how
+          an ad performed inside Meta or Google, and none of them tell you
+          whether a job got booked. What we track, and what we report back to
+          you, is enquiries: how many arrived, how many were answerable
+          straight away, how many got replied to, and how many turned into
+          booked work. That is the same measure we use for every enquiry your
+          business gets, campaign or not, because a lead that never gets
+          picked up is not worth counting as a result in the first place.
+        </p>
+        <p>
+          For a trade business the number that actually matters is not how
+          cheap an enquiry looked on a dashboard, it is whether that enquiry
+          turned into a job worth taking. A cheap enquiry that goes nowhere
+          costs you more than an expensive one that becomes real work, and a
+          report built around clicks will never tell you which is which. Ours
+          is built around what arrived and what happened to it after.
+        </p>
+        <p>
+          Attribution in this business is genuinely imperfect, and we would
+          rather say so than pretend otherwise. Someone sees your ad on a
+          Tuesday, mentions it to a mate, searches your business name three
+          days later, and rings the number on your website. Did the campaign
+          cause that job, or did it just happen alongside it? Plenty of
+          platforms will happily claim the credit either way, because the
+          credit makes the platform look good. We report what the ad platform
+          says it drove, we report the rise or fall in enquiries more
+          generally, and we let you draw your own conclusion rather than
+          dress up a guess as a certainty.
+        </p>
+        <p>
+          The other half of knowing it is working is the part covered above:
+          you can see the spend directly, in your own ad account, because it
+          never passes through us. Put the enquiry numbers next to the spend
+          numbers yourself, on your own terms, rather than taking a report we
+          wrote on faith. If you want to see where your own numbers stand
+          before committing to any of this, that is exactly what a
+          <a href="/free-audit/">free front desk audit</a> is for.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <FAQ items={campaignFaqs} title="Campaign questions" />
+
+  <CTASection
+    title="Start with the audit, not the ad account."
+    text={`${corePromise} Book a free audit and we'll show you what your existing enquiries are already worth — no pressure, no lock-in.`}
+  />
+</BaseLayout>
+
+<style>
+  .cp-hero {
+    padding-block: clamp(3.5rem, 8vw, 6rem);
+  }
+  .cp-hero__inner {
+    max-width: 62ch;
+  }
+  .cp-hero__eyebrow {
+    color: var(--marker);
+    margin-bottom: 1.25rem;
+  }
+  .cp-hero__title {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+  .cp-hero__rule {
+    width: min(320px, 60%);
+    margin-block: 1.5rem;
+  }
+  .cp-hero__lead {
+    color: var(--on-dark-body);
+    font-size: 1.0625rem;
+  }
+
+  .cp-gate__head {
+    max-width: 58ch;
+    margin-bottom: 1.5rem;
+  }
+  .cp-gate__cap {
+    color: var(--muted);
+    margin-bottom: 0.85rem;
+  }
+  .cp-gate__title {
+    font-size: clamp(1.75rem, 4vw, 2.75rem);
+    letter-spacing: -0.02em;
+  }
+  .cp-gate__body p {
+    color: var(--body);
+    line-height: 1.7;
+    margin-bottom: 1.1rem;
+  }
+
+  /* The sequence is a numbered rail rather than three cards: the order is the
+     entire point, and equal tiles would read as interchangeable options. */
+  .cp-seq {
+    list-style: none;
+    margin: clamp(2rem, 4vw, 3rem) 0 0;
+    padding: 0;
+    border-top: 1px solid var(--line-light);
+  }
+  .cp-seq__item {
+    display: grid;
+    grid-template-columns: minmax(5rem, 7rem) 1fr;
+    gap: 0.5rem 1.5rem;
+    padding-block: 1.25rem;
+    border-bottom: 1px solid var(--line-light);
+  }
+  .cp-seq__time {
+    color: var(--muted);
+    padding-top: 0.15rem;
+  }
+  .cp-seq__text {
+    color: var(--body);
+    line-height: 1.7;
+    max-width: 68ch;
+  }
+
+  .cp-inc__head {
+    max-width: 58ch;
+    margin-bottom: clamp(2rem, 4vw, 3rem);
+  }
+  .cp-inc__cap {
+    color: var(--marker);
+    margin-bottom: 0.85rem;
+  }
+  .cp-inc__title {
+    font-size: clamp(1.75rem, 4vw, 2.75rem);
+    letter-spacing: -0.02em;
+  }
+  .cp-inc__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+    gap: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+  .cp-inc__item {
+    background: var(--surface-dark-2);
+    border: 1px solid var(--line-dark);
+    border-radius: var(--radius-lg);
+    padding: clamp(1.25rem, 2.5vw, 1.6rem);
+  }
+  .cp-inc__item-title {
+    font-size: 1.0625rem;
+    letter-spacing: -0.01em;
+    margin-bottom: 0.5rem;
+    color: var(--on-dark);
+  }
+  .cp-inc__item-text {
+    color: var(--on-dark-body);
+    font-size: 0.9375rem;
+    line-height: 1.65;
+  }
+
+  .cp-money__cap {
+    color: var(--muted);
+    margin-bottom: 0.85rem;
+  }
+  .cp-money__title {
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    letter-spacing: -0.02em;
+    margin-bottom: 1.25rem;
+    max-width: 24ch;
+  }
+  .cp-money__text {
+    color: var(--body);
+    font-size: 1.0625rem;
+    line-height: 1.7;
+    margin-bottom: 1.25rem;
+  }
+  .cp-money__proof {
+    color: var(--muted);
+    font-size: 0.9375rem;
+    line-height: 1.7;
+  }
+  .cp-money__proof a {
+    color: var(--ink);
+    font-weight: 600;
+    text-decoration: underline;
+    text-decoration-color: var(--action);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
+  }
+
+  .cp-early__head {
+    max-width: 58ch;
+    margin-bottom: clamp(1.5rem, 3vw, 2rem);
+  }
+  .cp-early__cap {
+    color: var(--marker);
+    margin-bottom: 0.85rem;
+  }
+  .cp-early__title {
+    font-size: clamp(1.75rem, 4vw, 2.75rem);
+    letter-spacing: -0.02em;
+  }
+  .cp-early__body p {
+    color: var(--on-dark-body);
+    font-size: 1.0625rem;
+    line-height: 1.7;
+    margin-bottom: 1.1rem;
+  }
+  .cp-early__body p:last-child {
+    margin-bottom: 0;
+  }
+  .cp-early__body a {
+    color: var(--marker);
+    font-weight: 600;
+    text-decoration: underline;
+    text-decoration-color: var(--marker);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
+  }
+  .cp-early__list {
+    list-style: none;
+    margin: clamp(2rem, 4vw, 2.75rem) 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+    gap: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+  .cp-early__item {
+    background: var(--surface-dark-2);
+    border: 1px solid var(--line-dark);
+    border-radius: var(--radius-lg);
+    padding: clamp(1.25rem, 2.5vw, 1.6rem);
+  }
+  .cp-early__item-title {
+    font-size: 1.0625rem;
+    letter-spacing: -0.01em;
+    margin-bottom: 0.5rem;
+    color: var(--on-dark);
+  }
+  .cp-early__item-text {
+    color: var(--on-dark-body);
+    font-size: 0.9375rem;
+    line-height: 1.65;
+  }
+
+  .cp-proof__cap {
+    color: var(--muted);
+    margin-bottom: 0.85rem;
+  }
+  .cp-proof__title {
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    letter-spacing: -0.02em;
+    margin-bottom: clamp(1.5rem, 3vw, 2rem);
+    max-width: 28ch;
+  }
+  .cp-proof__body p {
+    color: var(--body);
+    font-size: 1.0625rem;
+    line-height: 1.7;
+    margin-bottom: 1.1rem;
+  }
+  .cp-proof__body p:last-child {
+    margin-bottom: 0;
+  }
+  .cp-proof__body a {
+    color: var(--ink);
+    font-weight: 600;
+    text-decoration: underline;
+    text-decoration-color: var(--action);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
+  }
+</style>

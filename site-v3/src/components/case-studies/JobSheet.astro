@@ -6,13 +6,14 @@
 // sits above three stacked fields: situation, what was installed (system[]
 // as a numbered mono list), and the reported outcome — kept visibly
 // labelled, never presented as a bare number.
-import type { proofExamples } from "@/data/site";
+import type { proofExamples, clientStories } from "@/data/site";
 
 interface Props {
-  study: (typeof proofExamples)[number];
+  study: (typeof proofExamples)[number] | (typeof clientStories)[number];
 }
 
 const { study } = Astro.props;
+const isClient = "isClient" in study && study.isClient === true;
 ---
 
 <section class="js band-light section">
@@ -21,7 +22,7 @@ const { study } = Astro.props;
       <p class="mono-label js__cap">Fig. &mdash; job sheet</p>
       <h2 class="js__title">The record, in full.</h2>
       <p class="js__lead max-measure">
-        Everything below is exactly what was tracked for this example &mdash;
+        Everything below is exactly what was {isClient ? "recorded for this client" : "tracked for this example"} &mdash;
         the situation, what got installed, and the outcome that was
         reported. Nothing is extrapolated past what's written here.
       </p>
@@ -30,7 +31,7 @@ const { study } = Astro.props;
     <div class="js__sheet surface-light">
       <div class="js__title-block">
         <div>
-          <p class="mono-label js__tb-label">Example</p>
+          <p class="mono-label js__tb-label">{isClient ? "Client" : "Example"}</p>
           <p class="js__tb-value">{study.business}</p>
         </div>
         <div>

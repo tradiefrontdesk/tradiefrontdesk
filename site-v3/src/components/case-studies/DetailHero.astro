@@ -6,19 +6,25 @@
 import HomeVideo from "@/components/home/HomeVideo.astro";
 import Reveal from "@/components/motion/Reveal.astro";
 import { brand } from "@/data/site";
-import type { proofExamples } from "@/data/site";
+import type { proofExamples, clientStories } from "@/data/site";
 
+// Accepts either collection. A real named client must never be labelled a
+// "worked example" — that reads as an invented scenario and throws away the
+// only genuine proof on the site.
 interface Props {
-  study: (typeof proofExamples)[number];
+  study: (typeof proofExamples)[number] | (typeof clientStories)[number];
 }
 
 const { study } = Astro.props;
+const isClient = "isClient" in study && study.isClient === true;
 ---
 
 <section class="dh band-dark blueprint-grid">
   <div class="container dh__inner">
     <div class="dh__copy">
-      <p class="mono-label dh__eyebrow">Worked example &mdash; {study.location}</p>
+      <p class="mono-label dh__eyebrow">
+        {isClient ? "Client story" : "Worked example"} &mdash; {study.location}
+      </p>
 
       <Reveal as="h1" variant="draft" class="dh__title">
         {study.headline}
@@ -30,7 +36,7 @@ const { study } = Astro.props;
         <a class="btn btn-primary" href="/free-audit/" data-hero-cta
           >Book a Free Front Desk Audit</a
         >
-        <a class="btn btn-ghost" href="/case-studies/">All worked examples</a>
+        <a class="btn btn-ghost" href="/case-studies/">See all proof</a>
       </div>
 
       <p class="dh__trust">{brand.trustLine}</p>

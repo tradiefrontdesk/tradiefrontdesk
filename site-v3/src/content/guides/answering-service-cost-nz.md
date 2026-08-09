@@ -56,7 +56,7 @@ For a trade business taking a moderate number of calls, this is the most predict
 
 This is where you stop paying for a line to be answered and start paying for the job to get booked — capture, respond, qualify, book, follow up, run as one process rather than a message-taking service you still have to chase.
 
-Our own pricing: **Front Desk Starter from $1,500 setup + $497/month**, **Booked Jobs System from $2,500 setup + $1,200/month**, and **Managed Growth System from $4,000 setup + $2,000/month** plus ad spend. Higher than a bare answering line, because it is doing considerably more than answering.
+Our own pricing: **Front Desk Starter from $1,500 setup + $497/month**, **Booked Jobs System from $2,500 setup + $1,200/month**, and **Managed Growth System from $4,000 setup + $2,000/month** plus ad spend. All in New Zealand dollars and excluding GST. Higher than a bare answering line, because it is doing considerably more than answering.
 
 ### Hiring someone
 

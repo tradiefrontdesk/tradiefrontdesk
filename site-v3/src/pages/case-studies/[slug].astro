@@ -14,16 +14,20 @@ import JobSheet from "@/components/case-studies/JobSheet.astro";
 import WhatThisShows from "@/components/case-studies/WhatThisShows.astro";
 import Disclaimer from "@/components/case-studies/Disclaimer.astro";
 import CTASection from "@/components/CTASection.astro";
-import { proofExamples } from "@/data/site";
+import { proofExamples, clientStories } from "@/data/site";
 
+// Both collections route through here, because they render as the same job
+// sheet. What differs is what they are allowed to claim, so every difference
+// below keys off `isClient` rather than being duplicated into a second route.
 export function getStaticPaths() {
-  return proofExamples.map((study) => ({
+  return [...clientStories, ...proofExamples].map((study) => ({
     params: { slug: study.slug },
     props: { study },
   }));
 }
 
 const { study } = Astro.props;
+const isClient = "isClient" in study && study.isClient === true;
 
 // Meta sweep fix: the previous suffix ("Reported outcome, labelled as
 // illustrative, not guaranteed.") pushed every one of the three studies
@@ -38,16 +42,52 @@ const description =
     : `${rawDescription.slice(0, 157).replace(/\s+\S*$/, "")}…`;
 ---
 
-<BaseLayout title={`${study.business} — Example`} description={description}>
+<BaseLayout
+  title={isClient ? `${study.business} — Client Story` : `${study.business} — Example`}
+  description={description}
+  breadcrumbs={[{ name: "Proof", href: "/case-studies/" }]}
+>
   <DetailHero study={study} />
+
+  {
+    /* What was actually delivered. This sits ABOVE the job sheet deliberately:
+       every client here bought a full custom build, and the packages on
+       /pricing/ are the front desk alone. A reader who reaches the outcome
+       before reading the scope has already formed the wrong expectation. */
+    isClient && "scope" in study && (
+      <section class="cs-scope band-light section">
+        <div class="container">
+          <p class="mono-label cs-scope__cap">Fig. — what was actually built</p>
+          <p class="cs-scope__text max-measure">{study.scope}</p>
+        </div>
+      </section>
+    )
+  }
+
   <JobSheet study={study} />
-  <WhatThisShows />
+  <WhatThisShows isClient={isClient} />
   <Disclaimer
     eyebrow="Before you read this as a promise"
-    heading="One reported outcome. Not a guarantee for your business."
+    heading={
+      isClient
+        ? "One client's reported result. Not a guarantee for your business."
+        : "One reported outcome. Not a guarantee for your business."
+    }
   />
   <CTASection
     title="Want to find where your business is leaking enquiries?"
     text="Book a Free Front Desk Audit and we'll map your current enquiry process — no pressure, no lock-in."
   />
 </BaseLayout>
+
+<style>
+  .cs-scope__cap {
+    color: var(--muted);
+    margin-bottom: 0.85rem;
+  }
+  .cs-scope__text {
+    color: var(--body);
+    font-size: 1.0625rem;
+    line-height: 1.7;
+  }
+</style>
