@@ -73,7 +73,9 @@ export const VideoShell = ({ label, cta = "Managed front desk system", children 
         <span style={{ width: 18, height: 18, border: "3px solid #0E2233", borderRadius: 99, background: colors.pink, boxShadow: "4px 4px 0 #0E2233" }} />
         {label}
       </div>
-      <div style={{ position: "absolute", inset: "112px 58px 102px" }}>{children}</div>
+      {/* Bottom inset clears the CTA chip (bottom:48 + ~50px tall). At 102 the
+          footer line of a composition collided with it. */}
+      <div style={{ position: "absolute", inset: "112px 58px 138px" }}>{children}</div>
       <div
         style={{
           position: "absolute",
@@ -91,7 +93,7 @@ export const VideoShell = ({ label, cta = "Managed front desk system", children 
           boxShadow: "6px 6px 0 #0E2233",
         }}
       >
-        <span style={{ color: colors.error }}>System Pros AI</span>
+        <span style={{ color: "#7A2E0E" }}>System Pros AI</span>
         <span>{cta}</span>
       </div>
     </AbsoluteFill>

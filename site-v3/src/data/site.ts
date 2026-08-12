@@ -438,7 +438,7 @@ export const tradePages = {
     ],
     // No Remotion composition for the Wave 4 trades. TradePage guards the
     // lookup with hasVideo, so an empty id degrades to no video band.
-    videoId: "",
+    videoId: "HeatPumpHeroVideo",
   },
   builders: {
     path: "/builders/",
@@ -452,7 +452,7 @@ export const tradePages = {
       "It sits alongside Buildxact, Fergus or whatever you already price and manage jobs in. The front desk only touches enquiry capture, replies, booking and follow-up — the part that usually happens on a notepad before a job gets that far.",
       "Every follow-up is wording you approved, on a cadence you set. Most people who go quiet have not said no; they are waiting on a partner, a bank, or another quote, and a short check-in is what keeps you in the running.",
     ],
-    videoId: "",
+    videoId: "BuildersHeroVideo",
   },
   painters: {
     path: "/painters/",
@@ -466,7 +466,7 @@ export const tradePages = {
       "Comparing quotes is normal on a job this size, and plenty of the people doing it hire the painter who actually followed up. The front desk keeps your quote in front of them on a schedule you set, so it is not down to memory.",
       "It never promises a start date or makes a weather call — that stays with you. When you tell it a job has moved, it sends the update in your own wording, so the customer hears it from you instead of chasing you for it.",
     ],
-    videoId: "",
+    videoId: "PaintersHeroVideo",
   },
   roofers: {
     path: "/roofers/",

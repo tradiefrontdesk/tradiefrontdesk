@@ -1,44 +1,68 @@
 ---
 // Hero.astro — What's Included, Section 1 (dark)
-// Compact interior hero (shorter than the homepage hero, no video required
-// per page-rules.md): blueprint grid, a single mono eyebrow, the h1 rising
-// in with Reveal(draft), a short DraftPath rule, one lead paragraph, and the
-// primary CTA carrying [data-hero-cta]. No fig caption here — there is
-// nothing on this band to genuinely annotate.
+// Compact interior hero, now carrying WhatsIncludedHeroClip as a supporting
+// figure (see hero-clip-plan) — 2-col grid matching TradePage's th-hero__grid
+// pattern, copy first in DOM order. Ratio (0.88/1.12) is unused elsewhere on
+// the site.
 import Reveal from "@/components/motion/Reveal.astro";
 import DraftPath from "@/components/motion/DraftPath.astro";
+import HomeVideo from "@/components/home/HomeVideo.astro";
 ---
 
 <section class="wi-hero band-dark blueprint-grid">
-  <div class="container wi-hero__inner">
-    <p class="mono-label wi-hero__eyebrow">The front desk system, module by module</p>
+  <div class="container wi-hero__grid">
+    <div class="wi-hero__inner">
+      <p class="mono-label wi-hero__eyebrow">The front desk system, module by module</p>
 
-    <Reveal as="h1" variant="draft" class="wi-hero__title">
-      What's included in your front desk system.
-    </Reveal>
+      <Reveal as="h1" variant="draft" class="wi-hero__title">
+        What's included in your front desk system.
+      </Reveal>
 
-    <div class="wi-hero__rule" aria-hidden="true">
-      <DraftPath viewBox="0 0 280 8" d="M2 4 L278 4" stroke="var(--action)" strokeWidth={2} />
+      <div class="wi-hero__rule" aria-hidden="true">
+        <DraftPath viewBox="0 0 280 8" d="M2 4 L278 4" stroke="var(--action)" strokeWidth={2} />
+      </div>
+
+      <p class="wi-hero__lead max-measure">
+        The system is built from modules, not a fixed bundle. Below is what
+        each one does, why it matters on a real job, and which ones stay
+        optional until you are ready for them.
+      </p>
+
+      <div class="wi-hero__cta">
+        <a class="btn btn-primary" href="/free-audit/" data-hero-cta
+          >Book a Free Front Desk Audit</a
+        >
+        <a class="btn btn-ghost" href="/pricing/">See package pricing</a>
+      </div>
     </div>
 
-    <p class="wi-hero__lead max-measure">
-      The system is built from modules, not a fixed bundle. Below is what
-      each one does, why it matters on a real job, and which ones stay
-      optional until you are ready for them.
-    </p>
-
-    <div class="wi-hero__cta">
-      <a class="btn btn-primary" href="/free-audit/" data-hero-cta
-        >Book a Free Front Desk Audit</a
-      >
-      <a class="btn btn-ghost" href="/pricing/">See package pricing</a>
-    </div>
+    <HomeVideo
+      id="WhatsIncludedHeroClip"
+      tone="dark"
+      class="wi-hero__figure"
+    />
   </div>
 </section>
 
 <style>
   .wi-hero {
     padding-block: clamp(2.75rem, 7vw, 5rem);
+  }
+
+  .wi-hero__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 0.88fr) minmax(0, 1.12fr);
+    gap: clamp(1.75rem, 4vw, 3.5rem);
+    align-items: center;
+  }
+  @media (max-width: 880px) {
+    .wi-hero__grid {
+      grid-template-columns: 1fr;
+    }
+    .wi-hero__figure {
+      order: 2;
+      max-width: 460px;
+    }
   }
 
   .wi-hero__inner {

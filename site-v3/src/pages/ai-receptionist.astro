@@ -23,6 +23,8 @@ import Reveal from "@/components/motion/Reveal.astro";
 import DraftPath from "@/components/motion/DraftPath.astro";
 import FAQ from "@/components/FAQ.astro";
 import CTASection from "@/components/CTASection.astro";
+import BlueprintFigure from "@/components/shared/BlueprintFigure.astro";
+import HomeVideo from "@/components/home/HomeVideo.astro";
 import { corePromise } from "@/data/site";
 
 const doesDoesnt: { heading: string; items: string[] }[] = [
@@ -80,20 +82,30 @@ const aiFaqs: [string, string][] = [
   serviceName="AI-assisted enquiry handling for trade businesses"
 >
   <section class="ar-hero band-dark blueprint-grid">
-    <div class="container ar-hero__inner">
-      <p class="mono-label ar-hero__eyebrow">AI receptionist</p>
-      <Reveal as="h1" variant="draft" class="ar-hero__title">
-        An AI receptionist answers. Then what?
-      </Reveal>
-      <div class="ar-hero__rule" aria-hidden="true">
-        <DraftPath viewBox="0 0 320 8" d="M2 4 L318 4" stroke="var(--action)" strokeWidth={2} />
+    {/* 2-col hero split, figure second in DOM order — same approach as
+        guides/[...slug].astro, with a ratio this page has to itself. */}
+    <div class="container ar-hero__grid">
+      <div class="ar-hero__inner">
+        <p class="mono-label ar-hero__eyebrow">AI receptionist</p>
+        <Reveal as="h1" variant="draft" class="ar-hero__title">
+          An AI receptionist answers. Then what?
+        </Reveal>
+        <div class="ar-hero__rule" aria-hidden="true">
+          <DraftPath viewBox="0 0 320 8" d="M2 4 L318 4" stroke="var(--action)" strokeWidth={2} />
+        </div>
+        <p class="ar-hero__lead max-measure">
+          If you are looking for something to answer the phone while you are
+          on the tools, an AI receptionist will do it, and cheaply. This page
+          is an honest account of what that gets you, what it does not, and
+          why we built something different.
+        </p>
       </div>
-      <p class="ar-hero__lead max-measure">
-        If you are looking for something to answer the phone while you are on
-        the tools, an AI receptionist will do it, and cheaply. This page is an
-        honest account of what that gets you, what it does not, and why we
-        built something different.
-      </p>
+
+      <HomeVideo
+        id="AiReceptionistHeroClip"
+        tone="dark"
+        class="ar-hero__figure"
+      />
     </div>
   </section>
 
@@ -335,6 +347,13 @@ const aiFaqs: [string, string][] = [
           <a href="/after-hours-cover/">after-hours cover</a>.
         </p>
       </div>
+
+      <HomeVideo
+        id="AiReceptionistVideo"
+        tone="dark"
+        caption="Fig. — the 9:14pm call, answered on the spot"
+        class="ar-night__media"
+      />
     </div>
   </section>
 
@@ -350,8 +369,25 @@ const aiFaqs: [string, string][] = [
   .ar-hero {
     padding-block: clamp(3.5rem, 8vw, 6rem);
   }
+  /* Ratio kept unique to this page — 0.75/1.25, not used by any other hero
+     split on the site. */
+  .ar-hero__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 0.75fr) minmax(0, 1.25fr);
+    gap: clamp(1.75rem, 4vw, 3.5rem);
+    align-items: center;
+  }
   .ar-hero__inner {
     max-width: 62ch;
+  }
+  @media (max-width: 880px) {
+    .ar-hero__grid {
+      grid-template-columns: 1fr;
+    }
+    .ar-hero__figure {
+      order: 2;
+      max-width: 460px;
+    }
   }
   .ar-hero__eyebrow {
     color: var(--marker);
@@ -507,6 +543,14 @@ const aiFaqs: [string, string][] = [
     text-decoration-color: var(--action);
     text-decoration-thickness: 2px;
     text-underline-offset: 3px;
+  }
+  /* Video closes the section as its figure — same idiom as Mechanism.astro
+     and ComparisonBlueprint.astro on the homepage. */
+  .ar-night__media {
+    width: 100%;
+    max-width: 460px;
+    margin-top: clamp(2.5rem, 5vw, 4rem);
+    margin-inline: auto;
   }
 
   .ar-cost__cap {

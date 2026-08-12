@@ -68,28 +68,55 @@ const FlowVisual = ({ story }: { story: StoryVideoConfig }) => {
   return (
     <SquareCard style={{ padding: 22 }}>
       <svg viewBox="0 0 820 390" style={{ display: "block", width: "100%", height: 390, overflow: "visible" }}>
-        <path d={linePath} fill="none" stroke="rgba(255,255,255,.12)" strokeWidth="12" strokeLinecap="round" />
+        {/* Base rail, then the travelled portion. The travelled stroke used to
+            be full accent orange at 12px with an 18px glow, which — combined
+            with cumulative node highlighting — meant that by the end of the
+            animation every node, the whole line and every label were orange.
+            Nothing stood out because everything did. Now the rail carries a
+            restrained tint and the accent belongs to one node at a time. */}
+        <path d={linePath} fill="none" stroke="rgba(255,255,255,.10)" strokeWidth="10" strokeLinecap="round" />
         <path
           d={linePath}
           fill="none"
-          stroke={colors.primary}
-          strokeWidth="12"
+          stroke="rgba(255,90,31,.42)"
+          strokeWidth="10"
           strokeLinecap="round"
           strokeDasharray="900"
           strokeDashoffset={900 - progress * 900}
-          style={{ filter: "drop-shadow(0 0 18px rgba(255,139,61,.65))" }}
         />
         {story.nodes.map((node, index) => {
           const { x, y } = points[index] ?? points[points.length - 1];
-          const isActive = index <= active;
-          const scale = isActive && index === active ? pulse : 1;
+          // Three states, not two. `index <= active` painted every completed
+          // stage in the accent; a stage that is already done is context, and
+          // only the stage happening NOW earns the orange.
+          const isDone = index < active;
+          const isCurrent = index === active;
+          const scale = isCurrent ? pulse : 1;
           return (
             <g key={node} transform={`translate(${x} ${y}) scale(${scale})`}>
-              <circle r={isActive ? 31 : 25} fill={isActive ? colors.primary : colors.surfaceCard} stroke={isActive ? colors.primary : "rgba(255,255,255,.18)"} strokeWidth="4" />
-              <text y="8" fill={isActive ? colors.canvas : colors.body} textAnchor="middle" fontSize="22" fontWeight="950">
+              <circle
+                r={isCurrent ? 31 : 25}
+                fill={isCurrent ? colors.primary : isDone ? colors.surfaceSoft : colors.surfaceCard}
+                stroke={isCurrent ? colors.primary : isDone ? "rgba(255,255,255,.28)" : "rgba(255,255,255,.14)"}
+                strokeWidth="4"
+                style={isCurrent ? { filter: "drop-shadow(0 0 14px rgba(255,90,31,.45))" } : undefined}
+              />
+              <text
+                y="8"
+                fill={isCurrent ? colors.canvas : isDone ? colors.body : colors.muted}
+                textAnchor="middle"
+                fontSize="22"
+                fontWeight="950"
+              >
                 {index + 1}
               </text>
-              <text y="66" fill={isActive ? colors.primary : colors.body} textAnchor="middle" fontSize="20" fontWeight="900">
+              <text
+                y="66"
+                fill={isCurrent ? colors.text : isDone ? colors.body : colors.muted}
+                textAnchor="middle"
+                fontSize="20"
+                fontWeight="900"
+              >
                 {node}
               </text>
             </g>
@@ -103,7 +130,10 @@ const FlowVisual = ({ story }: { story: StoryVideoConfig }) => {
 const ModulesVisual = ({ story }: { story: StoryVideoConfig }) => {
   const frame = useCurrentFrame();
   const pop = spring({ frame, fps: 30, config: { damping: 18, stiffness: 120 } });
-  const moduleNames = [...story.nodes, ...story.cards].slice(0, 6);
+  // Cards only. This previously spread nodes first and sliced 6, which meant
+  // any story with 5+ nodes rendered its node labels a second time in the
+  // card row and never showed its actual cards.
+  const moduleNames = story.cards.slice(0, 6);
   const positions = [
     [70, 70],
     [300, 38],
@@ -333,6 +363,197 @@ const LegalVisual = ({ story }: { story: StoryVideoConfig }) => {
   );
 };
 
+const GuideVisual = ({ story }: { story: StoryVideoConfig }) => {
+  const frame = useCurrentFrame();
+  const sheetLines = [92, 78, 86, 64, 90, 72];
+  const sheetFade = clamp(frame, [0, 46], [1, 0.22]);
+
+  return (
+    <SquareCard style={{ padding: 22 }}>
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 26, minHeight: 380, alignContent: "start" }}>
+        <div style={{ opacity: sheetFade, display: "grid", gap: 11, alignContent: "start", paddingTop: 6 }}>
+          <div style={{ color: colors.primary, fontSize: 16, fontWeight: 950, textTransform: "uppercase" }}>Guide</div>
+          {sheetLines.map((width, index) => (
+            <div
+              key={width + index}
+              style={{ height: 11, width: `${width}%`, borderRadius: 4, background: index === 0 ? colors.primary : "rgba(255,255,255,.16)" }}
+            />
+          ))}
+        </div>
+        <div style={{ display: "grid", gap: 13, alignContent: "start" }}>
+          <div style={{ color: colors.primary, fontSize: 16, fontWeight: 950, textTransform: "uppercase" }}>Checklist</div>
+          {story.nodes.map((node, index) => {
+            const reveal = clamp(frame - 22 - index * 20, [0, 22], [0, 1]);
+            return (
+              <div
+                key={node}
+                style={{ display: "flex", alignItems: "center", gap: 12, opacity: reveal, transform: `translateX(${(1 - reveal) * 18}px)` }}
+              >
+                <div style={{ width: 30, height: 30, borderRadius: 8, background: colors.primary, display: "grid", placeItems: "center", color: colors.canvas, fontSize: 16, fontWeight: 950 }}>
+                  {index + 1}
+                </div>
+                <div style={{ color: colors.text, fontSize: 21, fontWeight: 900 }}>{node}</div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </SquareCard>
+  );
+};
+
+const LegislationVisual = ({ story }: { story: StoryVideoConfig }) => {
+  const frame = useCurrentFrame();
+  const { durationInFrames } = useVideoConfig();
+  const progress = clamp(frame, [12, durationInFrames - 24], [0, 1]);
+  const active = Math.min(story.nodes.length - 1, Math.floor(progress * story.nodes.length));
+  // Later stations are always drawn as unconfirmed, regardless of playhead
+  // progress — a bill in this system never gets to look like settled law.
+  const unconfirmedFrom = Math.ceil(story.nodes.length / 2);
+  const points = [
+    { x: 80, y: 202 },
+    { x: 245, y: 146 },
+    { x: 410, y: 202 },
+    { x: 575, y: 146 },
+    { x: 742, y: 202 },
+  ];
+  const linePath = `M${points[0].x} ${points[0].y} C132 138 192 132 ${points[1].x} ${points[1].y} S346 268 ${points[2].x} ${points[2].y} S512 82 ${points[3].x} ${points[3].y} S684 270 ${points[4].x} ${points[4].y}`;
+
+  return (
+    <SquareCard style={{ padding: 22 }}>
+      <svg viewBox="0 0 820 400" style={{ display: "block", width: "100%", height: 400, overflow: "visible" }}>
+        <path d={linePath} fill="none" stroke="rgba(255,255,255,.12)" strokeWidth="12" strokeLinecap="round" />
+        <path
+          d={linePath}
+          fill="none"
+          stroke={colors.primary}
+          strokeWidth="12"
+          strokeLinecap="round"
+          strokeDasharray="900"
+          strokeDashoffset={900 - progress * 900}
+          style={{ filter: "drop-shadow(0 0 18px rgba(255,139,61,.65))" }}
+        />
+        {story.nodes.map((node, index) => {
+          const { x, y } = points[index] ?? points[points.length - 1];
+          const isReached = index <= active;
+          const isUnconfirmed = index >= unconfirmedFrom;
+          const stroke = isUnconfirmed ? colors.warning : isReached ? colors.primary : "rgba(255,255,255,.18)";
+          const fill = isUnconfirmed ? "transparent" : isReached ? colors.primary : colors.surfaceCard;
+          return (
+            <g key={node}>
+              <circle
+                cx={x}
+                cy={y}
+                r={isReached ? 31 : 25}
+                fill={fill}
+                stroke={stroke}
+                strokeWidth="4"
+                strokeDasharray={isUnconfirmed ? "6 6" : undefined}
+              />
+              <text y={y + 8} x={x} fill={isUnconfirmed ? colors.warning : isReached ? colors.canvas : colors.body} textAnchor="middle" fontSize="20" fontWeight="950">
+                {isUnconfirmed ? "?" : index + 1}
+              </text>
+              <text y={y + 66} x={x} fill={isUnconfirmed ? colors.warning : isReached ? colors.primary : colors.body} textAnchor="middle" fontSize="19" fontWeight="900">
+                {node}
+              </text>
+              {isUnconfirmed ? (
+                <text y={y + 90} x={x} fill={colors.warning} textAnchor="middle" fontSize="14" fontWeight="800" letterSpacing="1">
+                  NOT YET LAW
+                </text>
+              ) : null}
+            </g>
+          );
+        })}
+      </svg>
+    </SquareCard>
+  );
+};
+
+const AdsVisual = ({ story }: { story: StoryVideoConfig }) => {
+  const frame = useCurrentFrame();
+  const sources = story.nodes.slice(0, 4);
+  const positions: Array<[number, number]> = [
+    [46, 34],
+    [534, 34],
+    [46, 296],
+    [534, 296],
+  ];
+  const hub = { x: 380, y: 210 };
+
+  return (
+    <SquareCard style={{ padding: 20 }}>
+      <svg viewBox="0 0 760 430" style={{ display: "block", width: "100%", height: 430 }}>
+        <rect x="300" y="168" width="160" height="86" rx="14" fill="rgba(255,139,61,.12)" stroke={colors.primary} strokeWidth="3" />
+        <text x={hub.x} y="204" fill={colors.primary} textAnchor="middle" fontSize="19" fontWeight="950">
+          HANDLED
+        </text>
+        <text x={hub.x} y="230" fill={colors.text} textAnchor="middle" fontSize="19" fontWeight="950">
+          QUEUE
+        </text>
+        {positions.map(([x, y], index) => {
+          const reveal = clamp(frame - index * 16, [0, 22], [0, 1]);
+          const travel = clamp(frame - 34 - index * 18, [0, 46], [0, 1]);
+          const sx = x + 80;
+          const sy = y + 46;
+          const lx = sx + (hub.x - sx) * travel;
+          const ly = sy + (hub.y - sy) * travel;
+          const arrived = travel > 0.92;
+          return (
+            <g key={sources[index] ?? index}>
+              <line x1={sx} y1={sy} x2={hub.x} y2={hub.y} stroke="rgba(255,255,255,.12)" strokeWidth="4" opacity={reveal} />
+              <rect x={x} y={y} width="160" height="92" rx="14" fill={colors.surfaceCard} stroke={arrived ? colors.primary : "rgba(255,255,255,.16)"} strokeWidth="2" opacity={reveal} />
+              <circle cx={x + 24} cy={y + 26} r="8" fill={colors.primary} opacity={reveal} />
+              <text x={x + 44} y={y + 34} fill={colors.text} fontSize="17" fontWeight="900" opacity={reveal}>
+                {sources[index]}
+              </text>
+              <circle cx={lx} cy={ly} r="9" fill={colors.primary} opacity={reveal} style={{ filter: "drop-shadow(0 0 14px rgba(255,90,31,.72))" }} />
+            </g>
+          );
+        })}
+      </svg>
+    </SquareCard>
+  );
+};
+
+const RegionVisual = ({ story }: { story: StoryVideoConfig }) => {
+  const frame = useCurrentFrame();
+  const areas = story.nodes.slice(0, 5);
+  const positions: Array<[number, number]> = [
+    [140, 90],
+    [420, 56],
+    [648, 148],
+    [216, 262],
+    [512, 296],
+  ];
+
+  return (
+    <SquareCard style={{ padding: 20 }}>
+      <svg viewBox="0 0 760 380" style={{ display: "block", width: "100%", height: 380 }}>
+        <rect x="20" y="20" width="720" height="340" rx="18" fill="rgba(255,255,255,.03)" stroke="rgba(255,255,255,.14)" strokeWidth="2" />
+        {[1, 2, 3, 4].map((i) => (
+          <line key={`v${i}`} x1={20 + i * 144} y1="20" x2={20 + i * 144} y2="360" stroke="rgba(255,255,255,.07)" strokeWidth="1" />
+        ))}
+        {[1, 2].map((i) => (
+          <line key={`h${i}`} x1="20" y1={20 + i * 113} x2="740" y2={20 + i * 113} stroke="rgba(255,255,255,.07)" strokeWidth="1" />
+        ))}
+        {positions.map(([x, y], index) => {
+          const reveal = clamp(frame - index * 20, [0, 26], [0, 1]);
+          const pulse = 1 + Math.sin(frame / 10 + index) * 0.08;
+          return (
+            <g key={areas[index] ?? index} opacity={reveal} transform={`translate(${x} ${y}) scale(${reveal * pulse})`}>
+              <circle r="26" fill="none" stroke={colors.primary} strokeWidth="2" opacity="0.4" />
+              <circle r="14" fill={colors.primary} style={{ filter: "drop-shadow(0 0 16px rgba(255,90,31,.6))" }} />
+              <text y="46" fill={colors.text} textAnchor="middle" fontSize="18" fontWeight="900">
+                {areas[index]}
+              </text>
+            </g>
+          );
+        })}
+      </svg>
+    </SquareCard>
+  );
+};
+
 const VariantVisual = ({ story }: { story: StoryVideoConfig }) => {
   if (story.variant === "modules") return <ModulesVisual story={story} />;
   if (story.variant === "pricing") return <PricingVisual story={story} />;
@@ -341,6 +562,10 @@ const VariantVisual = ({ story }: { story: StoryVideoConfig }) => {
   if (story.variant === "contact") return <ContactVisual story={story} />;
   if (story.variant === "proof") return <ProofVisual story={story} />;
   if (story.variant === "legal") return <LegalVisual story={story} />;
+  if (story.variant === "guide") return <GuideVisual story={story} />;
+  if (story.variant === "legislation") return <LegislationVisual story={story} />;
+  if (story.variant === "ads") return <AdsVisual story={story} />;
+  if (story.variant === "region") return <RegionVisual story={story} />;
   return <FlowVisual story={story} />;
 };
 

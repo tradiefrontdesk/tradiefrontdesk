@@ -14,7 +14,11 @@ export const HomeReframeVideo = () => {
   const systemScale = spring({ frame: frame - 142, fps, config: { damping: 18, stiffness: 90 } });
   const pulse = interpolate(Math.sin(frame / 7), [-1, 1], [0.78, 1]);
   const flowProgress = interpolate(frame, [168, 300], [0, 1], clamp);
-  const leakFade = interpolate(frame, [128, 174], [1, 0.2], clamp);
+  // The leak labels must be gone BEFORE the front desk panel scales in at
+  // frame 142 — they occupy the same vertical band, so a 0.2 ghost sat
+  // directly behind opaque text and read as muddle rather than as depth.
+  // Fade earlier and further: clear by 140, and to 0.04 rather than 0.2.
+  const leakFade = interpolate(frame, [104, 140], [1, 0.04], clamp);
 
   const titles = [
     "You may not need more leads first.",

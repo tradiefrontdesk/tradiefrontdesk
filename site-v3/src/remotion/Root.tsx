@@ -1,4 +1,6 @@
 import { Composition, registerRoot } from "remotion";
+import { HeroClip } from "./compositions/HeroClip";
+import { heroClipIds } from "./data/heroClips";
 import { homeVideoSpecs, remotionVideoDefaults, storyVideoSpecs } from "./data/homeVideos";
 import { HomeAuditPackagesVideo } from "./compositions/HomeAuditPackagesVideo";
 import { HomeFiveStepVideo } from "./compositions/HomeFiveStepVideo";
@@ -39,6 +41,19 @@ export const RemotionRoot = () => (
         component={StoryVideo}
         defaultProps={{ id: video.id }}
         durationInFrames={video.durationInFrames}
+        fps={remotionVideoDefaults.fps}
+        width={remotionVideoDefaults.width}
+        height={remotionVideoDefaults.height}
+      />
+    ))}
+    {/* 8-second per-page hero clips. 240 frames at 30fps. */}
+    {heroClipIds.map((id) => (
+      <Composition
+        key={id}
+        id={id}
+        component={HeroClip}
+        defaultProps={{ id }}
+        durationInFrames={240}
         fps={remotionVideoDefaults.fps}
         width={remotionVideoDefaults.width}
         height={remotionVideoDefaults.height}

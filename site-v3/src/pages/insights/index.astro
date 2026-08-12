@@ -10,6 +10,8 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 import Reveal from "@/components/motion/Reveal.astro";
 import DraftPath from "@/components/motion/DraftPath.astro";
 import CTASection from "@/components/CTASection.astro";
+import BlueprintFigure from "@/components/shared/BlueprintFigure.astro";
+import HomeVideo from "@/components/home/HomeVideo.astro";
 import { corePromise } from "@/data/site";
 
 const all = await getCollection("insights");
@@ -26,25 +28,37 @@ const dateFmt = new Intl.DateTimeFormat("en-NZ", { dateStyle: "medium" });
   description="Plain-English tracking of the proposed New Zealand construction changes — liability, home warranties, consent exemptions — and what each would mean day to day."
 >
   <section class="ii-hero band-dark blueprint-grid">
-    <div class="container ii-hero__inner">
-      <p class="mono-label ii-hero__eyebrow">Insights</p>
-      <Reveal as="h1" variant="draft" class="ii-hero__title">
-        What's changing for New Zealand trade businesses.
-      </Reveal>
-      <div class="ii-hero__rule" aria-hidden="true">
-        <DraftPath viewBox="0 0 320 8" d="M2 4 L318 4" stroke="var(--action)" strokeWidth={2} />
+    {/* 2-col / 1-row split. Ratio deliberately unused elsewhere on the site,
+        so this hero doesn't stamp out a row already used by another page
+        type. Figure is drawn SVG, not a Remotion player: heroes are above
+        the fold and a player costs ~439KB before first paint. */}
+    <div class="container ii-hero__grid">
+      <div class="ii-hero__inner">
+        <p class="mono-label ii-hero__eyebrow">Insights</p>
+        <Reveal as="h1" variant="draft" class="ii-hero__title">
+          What's changing for New Zealand trade businesses.
+        </Reveal>
+        <div class="ii-hero__rule" aria-hidden="true">
+          <DraftPath viewBox="0 0 320 8" d="M2 4 L318 4" stroke="var(--action)" strokeWidth={2} />
+        </div>
+        <p class="ii-hero__lead max-measure">
+          The rules around liability, warranties and consents are being rewritten.
+          We track what is actually proposed, what stage it has reached, and what
+          each change would mean for the way enquiries, quotes and promises get
+          handled day to day.
+        </p>
+        <p class="ii-hero__caveat max-measure">
+          Nearly everything here is a bill, not law. We say so on every page, and
+          we are not qualified to advise you on compliance — for that, talk to
+          your licensing body or your lawyer.
+        </p>
       </div>
-      <p class="ii-hero__lead max-measure">
-        The rules around liability, warranties and consents are being rewritten.
-        We track what is actually proposed, what stage it has reached, and what
-        each change would mean for the way enquiries, quotes and promises get
-        handled day to day.
-      </p>
-      <p class="ii-hero__caveat max-measure">
-        Nearly everything here is a bill, not law. We say so on every page, and
-        we are not qualified to advise you on compliance — for that, talk to
-        your licensing body or your lawyer.
-      </p>
+
+      <HomeVideo
+        id="InsightsHeroClip"
+        tone="dark"
+        class="ii-hero__figure"
+      />
     </div>
   </section>
 
@@ -79,6 +93,13 @@ const dateFmt = new Intl.DateTimeFormat("en-NZ", { dateStyle: "medium" });
           ))
         }
       </ol>
+
+      <HomeVideo
+        id="InsightsHubVideo"
+        tone="light"
+        caption="Fig. — proposed changes, tracked by the stage each has reached"
+        class="ii-video"
+      />
     </div>
   </section>
 
@@ -92,8 +113,28 @@ const dateFmt = new Intl.DateTimeFormat("en-NZ", { dateStyle: "medium" });
   .ii-hero {
     padding-block: clamp(3.5rem, 8vw, 6rem);
   }
+  /* Ratio deliberately unused elsewhere on the site (existing splits include
+     1.15/0.85, 0.82/1.18, 1.2/0.8, 0.8/1.2, 1.25/0.75, 1.1/0.9, 0.95/1.05,
+     1.3/0.7) so no two page types stamp out an identical row. */
+  .ii-hero__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+    gap: clamp(1.75rem, 4vw, 3.5rem);
+    align-items: center;
+  }
   .ii-hero__inner {
     max-width: 62ch;
+  }
+  @media (max-width: 880px) {
+    .ii-hero__grid {
+      grid-template-columns: 1fr;
+    }
+    /* Figure drops below the copy on small screens — the headline and
+       caveat are what a reader came for, the drawing is support. */
+    .ii-hero__figure {
+      order: 2;
+      max-width: 460px;
+    }
   }
   .ii-hero__eyebrow {
     color: var(--marker);
@@ -198,5 +239,14 @@ const dateFmt = new Intl.DateTimeFormat("en-NZ", { dateStyle: "medium" });
   .ii-card__meta {
     margin-top: auto;
     color: var(--muted);
+  }
+
+  /* Below-fold video: deferred with client:visible inside HomeVideo/SectionVideo,
+     so its ~439KB Remotion cost never touches first paint. Sits inside the
+     existing light band, after the insight grid — no band change needed. */
+  .ii-video {
+    width: 100%;
+    max-width: 420px;
+    margin: clamp(2.5rem, 5vw, 3.5rem) auto 0;
   }
 </style>

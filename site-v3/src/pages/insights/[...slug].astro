@@ -17,6 +17,8 @@ import Reveal from "@/components/motion/Reveal.astro";
 import DraftPath from "@/components/motion/DraftPath.astro";
 import CTASection from "@/components/CTASection.astro";
 import FAQ from "@/components/FAQ.astro";
+import BlueprintFigure from "@/components/shared/BlueprintFigure.astro";
+import HomeVideo from "@/components/home/HomeVideo.astro";
 import { corePromise } from "@/data/site";
 
 export async function getStaticPaths() {
@@ -65,33 +67,45 @@ const dateFmt = new Intl.DateTimeFormat("en-NZ", { dateStyle: "long" });
   article={{ published: data.publishDate, modified: data.updatedDate }}
 >
   <section class="in-hero band-dark blueprint-grid">
-    <div class="container in-hero__inner">
-      <p class="mono-label in-hero__eyebrow">Sector change</p>
-      <Reveal as="h1" variant="draft" class="in-hero__title">{data.heading}</Reveal>
-      <div class="in-hero__rule" aria-hidden="true">
-        <DraftPath viewBox="0 0 320 8" d="M2 4 L318 4" stroke="var(--action)" strokeWidth={2} />
-      </div>
-      <p class="in-hero__lead max-measure">{data.lead}</p>
+    {/* 2-col / 1-row split. Ratio deliberately unused elsewhere on the site,
+        so this hero doesn't stamp out a row already used by another page
+        type. Figure is drawn SVG, not a Remotion player: heroes are above
+        the fold and a player costs ~439KB before first paint. */}
+    <div class="container in-hero__grid">
+      <div class="in-hero__inner">
+        <p class="mono-label in-hero__eyebrow">Sector change</p>
+        <Reveal as="h1" variant="draft" class="in-hero__title">{data.heading}</Reveal>
+        <div class="in-hero__rule" aria-hidden="true">
+          <DraftPath viewBox="0 0 320 8" d="M2 4 L318 4" stroke="var(--action)" strokeWidth={2} />
+        </div>
+        <p class="in-hero__lead max-measure">{data.lead}</p>
 
-      <dl class="in-status">
-        <div class="in-status__row">
-          <dt class="mono-label">Status</dt>
-          <dd class="in-status__value">{STATUS_LABEL[data.status]}</dd>
-        </div>
-        <div class="in-status__row">
-          <dt class="mono-label">Timing</dt>
-          <dd class="in-status__value">{data.effectiveFrom}</dd>
-        </div>
-        <div class="in-status__row">
-          <dt class="mono-label">Checked</dt>
-          <dd class="in-status__value">
-            <time datetime={updated.toISOString()}>{dateFmt.format(updated)}</time>
-            <span class="in-status__review">
-              — we review this page by {dateFmt.format(data.reviewBy)}
-            </span>
-          </dd>
-        </div>
-      </dl>
+        <dl class="in-status">
+          <div class="in-status__row">
+            <dt class="mono-label">Status</dt>
+            <dd class="in-status__value">{STATUS_LABEL[data.status]}</dd>
+          </div>
+          <div class="in-status__row">
+            <dt class="mono-label">Timing</dt>
+            <dd class="in-status__value">{data.effectiveFrom}</dd>
+          </div>
+          <div class="in-status__row">
+            <dt class="mono-label">Checked</dt>
+            <dd class="in-status__value">
+              <time datetime={updated.toISOString()}>{dateFmt.format(updated)}</time>
+              <span class="in-status__review">
+                — we review this page by {dateFmt.format(data.reviewBy)}
+              </span>
+            </dd>
+          </div>
+        </dl>
+      </div>
+
+      <HomeVideo
+        id="InsightDefaultHeroClip"
+        tone="dark"
+        class="in-hero__figure"
+      />
     </div>
   </section>
 
@@ -123,6 +137,13 @@ const dateFmt = new Intl.DateTimeFormat("en-NZ", { dateStyle: "long" });
           <a href="/insights/">Or see everything we are tracking</a>
         </p>
       </header>
+
+      <HomeVideo
+        id="InsightDefaultVideo"
+        tone="dark"
+        caption="Fig. — a proposed change tracked through its stages"
+        class="in-cluster__video"
+      />
 
       <ul class="in-cluster__grid">
         {
@@ -163,8 +184,28 @@ const dateFmt = new Intl.DateTimeFormat("en-NZ", { dateStyle: "long" });
   .in-hero {
     padding-block: clamp(3.5rem, 8vw, 6rem);
   }
+  /* Ratio deliberately unused elsewhere on the site (existing splits include
+     1.15/0.85, 0.82/1.18, 1.2/0.8, 0.8/1.2, 1.25/0.75, 1.1/0.9) so no two
+     page types stamp out an identical row. */
+  .in-hero__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+    gap: clamp(1.75rem, 4vw, 3.5rem);
+    align-items: center;
+  }
   .in-hero__inner {
     max-width: 62ch;
+  }
+  @media (max-width: 880px) {
+    .in-hero__grid {
+      grid-template-columns: 1fr;
+    }
+    /* Figure drops below the copy on small screens — the status block and
+       headline are what a reader came for, the drawing is support. */
+    .in-hero__figure {
+      order: 2;
+      max-width: 460px;
+    }
   }
   .in-hero__eyebrow {
     color: var(--marker);
@@ -339,6 +380,15 @@ const dateFmt = new Intl.DateTimeFormat("en-NZ", { dateStyle: "long" });
     text-decoration-color: var(--action);
     text-decoration-thickness: 2px;
     text-underline-offset: 3px;
+  }
+
+  /* Below-fold video: deferred with client:visible inside HomeVideo/SectionVideo,
+     so its ~439KB Remotion cost never touches first paint. Sits between the
+     cluster header and the link grid — mid-page, never in the hero. */
+  .in-cluster__video {
+    width: 100%;
+    max-width: 420px;
+    margin: 0 auto clamp(2.5rem, 5vw, 3.5rem);
   }
 
   .in-cluster__grid {

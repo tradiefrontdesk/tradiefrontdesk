@@ -1,43 +1,70 @@
 ---
 // ContactHero.astro — Section 1 (dark)
 // Compact interior hero, plain "talk to us" framing (this page is the
-// low-friction path for owners who are not ready to book the audit yet).
-// No video — the interior-hero convention keeps this short, and the split
-// section below is the page's main event. The primary action is scrolling
-// to the form; the audit link carries [data-hero-cta] since it is the
-// element that would otherwise duplicate StickyMobileCTA's own audit link.
+// low-friction path for owners who are not ready to book the audit yet), now
+// carrying ContactHeroClip as a supporting figure (see hero-clip-plan) — 2-col
+// grid matching TradePage's th-hero__grid pattern, copy first in DOM order.
+// The split section below remains the page's main event. The primary action
+// is scrolling to the form; the audit link carries [data-hero-cta] since it
+// is the element that would otherwise duplicate StickyMobileCTA's own audit
+// link. Ratio (1.06/0.94) is unused elsewhere on the site.
 import Reveal from "@/components/motion/Reveal.astro";
+import HomeVideo from "@/components/home/HomeVideo.astro";
 import { brand } from "@/data/site";
 ---
 
 <section class="ch band-dark blueprint-grid">
-  <div class="container ch__inner">
-    <p class="mono-label ch__eyebrow">Contact</p>
+  <div class="container ch__grid">
+    <div class="ch__inner">
+      <p class="mono-label ch__eyebrow">Contact</p>
 
-    <Reveal as="h1" variant="draft" class="ch__title">
-      Not ready for an audit? Talk to us first.
-    </Reveal>
+      <Reveal as="h1" variant="draft" class="ch__title">
+        Not ready for an audit? Talk to us first.
+      </Reveal>
 
-    <p class="ch__lead max-measure">
-      Tell us what's happening with your calls, quotes, and follow-up and
-      we'll reply with a straight answer. If you'd rather skip straight to a
-      full review, the free audit is the faster path.
-    </p>
+      <p class="ch__lead max-measure">
+        Tell us what's happening with your calls, quotes, and follow-up and
+        we'll reply with a straight answer. If you'd rather skip straight to a
+        full review, the free audit is the faster path.
+      </p>
 
-    <div class="ch__cta">
-      <a class="btn btn-primary" href="#contact-form">Send a message</a>
-      <a class="btn btn-ghost" href="/free-audit/" data-hero-cta
-        >Book a Free Front Desk Audit</a
-      >
+      <div class="ch__cta">
+        <a class="btn btn-primary" href="#contact-form">Send a message</a>
+        <a class="btn btn-ghost" href="/free-audit/" data-hero-cta
+          >Book a Free Front Desk Audit</a
+        >
+      </div>
+
+      <p class="ch__trust">{brand.trustLine}</p>
     </div>
 
-    <p class="ch__trust">{brand.trustLine}</p>
+    <HomeVideo
+      id="ContactHeroClip"
+      tone="dark"
+      class="ch__figure"
+    />
   </div>
 </section>
 
 <style>
   .ch {
     padding-block: clamp(2.5rem, 6vw, 4.25rem);
+  }
+
+  .ch__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.06fr) minmax(0, 0.94fr);
+    gap: clamp(1.75rem, 4vw, 3.5rem);
+    align-items: center;
+  }
+  @media (max-width: 880px) {
+    .ch__grid {
+      grid-template-columns: 1fr;
+    }
+    .ch__figure {
+      order: 2;
+      max-width: 460px;
+    }
   }
 
   .ch__inner {

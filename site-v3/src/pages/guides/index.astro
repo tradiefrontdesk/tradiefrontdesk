@@ -9,6 +9,8 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 import Reveal from "@/components/motion/Reveal.astro";
 import DraftPath from "@/components/motion/DraftPath.astro";
 import CTASection from "@/components/CTASection.astro";
+import BlueprintFigure from "@/components/shared/BlueprintFigure.astro";
+import HomeVideo from "@/components/home/HomeVideo.astro";
 import { corePromise } from "@/data/site";
 
 const all = await getCollection("guides");
@@ -23,22 +25,34 @@ const supporting = all
   description="Plain-English guides on handling trade enquiries — what an answering service costs in NZ, how fast to reply, and how it plays out trade by trade."
 >
   <section class="gi-hero band-dark blueprint-grid">
-    <div class="container gi-hero__inner">
-      <p class="mono-label gi-hero__eyebrow">Guides</p>
-      <Reveal as="h1" variant="draft" class="gi-hero__title">
-        How trade businesses handle enquiries.
-      </Reveal>
-      <div class="gi-hero__rule" aria-hidden="true">
-        <DraftPath viewBox="0 0 320 8" d="M2 4 L318 4" stroke="var(--action)" strokeWidth={2} />
+    {/* 2-col / 1-row split. Ratio deliberately unused elsewhere on the site,
+        so this hero doesn't stamp out a row already used by another page
+        type. Figure is drawn SVG, not a Remotion player: heroes are above
+        the fold and a player costs ~439KB before first paint. */}
+    <div class="container gi-hero__grid">
+      <div class="gi-hero__inner">
+        <p class="mono-label gi-hero__eyebrow">Guides</p>
+        <Reveal as="h1" variant="draft" class="gi-hero__title">
+          How trade businesses handle enquiries.
+        </Reveal>
+        <div class="gi-hero__rule" aria-hidden="true">
+          <DraftPath viewBox="0 0 320 8" d="M2 4 L318 4" stroke="var(--action)" strokeWidth={2} />
+        </div>
+        <p class="gi-hero__lead max-measure">
+          Straight answers on missed calls, quotes going quiet, what an answering
+          service actually costs in New Zealand, and when the honest answer is
+          that you do not need one. Plus how all of it looks from inside a
+          specific trade, because a roofer's bad week and a builder's bad week
+          are not the same week. Written to be useful whether or not you ever
+          talk to us.
+        </p>
       </div>
-      <p class="gi-hero__lead max-measure">
-        Straight answers on missed calls, quotes going quiet, what an answering
-        service actually costs in New Zealand, and when the honest answer is
-        that you do not need one. Plus how all of it looks from inside a
-        specific trade, because a roofer's bad week and a builder's bad week
-        are not the same week. Written to be useful whether or not you ever
-        talk to us.
-      </p>
+
+      <HomeVideo
+        id="GuidesHubHeroClip"
+        tone="dark"
+        class="gi-hero__figure"
+      />
     </div>
   </section>
 
@@ -67,6 +81,13 @@ const supporting = all
           ))
         }
       </ol>
+
+      <HomeVideo
+        id="GuidesHubVideo"
+        tone="light"
+        caption="Fig. — a guide's steps, becoming a checklist"
+        class="gi-video"
+      />
     </div>
   </section>
 
@@ -80,8 +101,28 @@ const supporting = all
   .gi-hero {
     padding-block: clamp(3.5rem, 8vw, 6rem);
   }
+  /* Ratio deliberately unused elsewhere on the site (existing splits include
+     1.15/0.85, 0.82/1.18, 1.2/0.8, 0.8/1.2, 1.25/0.75, 1.1/0.9, 0.95/1.05)
+     so no two page types stamp out an identical row. */
+  .gi-hero__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.7fr);
+    gap: clamp(1.75rem, 4vw, 3.5rem);
+    align-items: center;
+  }
   .gi-hero__inner {
     max-width: 62ch;
+  }
+  @media (max-width: 880px) {
+    .gi-hero__grid {
+      grid-template-columns: 1fr;
+    }
+    /* Figure drops below the copy on small screens — the headline is what a
+       reader came for, the drawing is support. */
+    .gi-hero__figure {
+      order: 2;
+      max-width: 460px;
+    }
   }
   .gi-hero__eyebrow {
     color: var(--marker);
@@ -170,5 +211,14 @@ const supporting = all
     color: var(--muted);
     font-size: 0.9375rem;
     line-height: 1.6;
+  }
+
+  /* Below-fold video: deferred with client:visible inside HomeVideo/SectionVideo,
+     so its ~439KB Remotion cost never touches first paint. Sits inside the
+     existing light band, after the guide grid — no band change needed. */
+  .gi-video {
+    width: 100%;
+    max-width: 420px;
+    margin: clamp(2.5rem, 5vw, 3.5rem) auto 0;
   }
 </style>

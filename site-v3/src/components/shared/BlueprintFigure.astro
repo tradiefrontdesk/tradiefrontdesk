@@ -1,0 +1,460 @@
+---
+// BlueprintFigure.astro — the zero-JS hero figure.
+//
+// WHY THIS EXISTS
+// 46 of the site's 63 pages shipped with no imagery at all. The obvious fix
+// was a Remotion player on every hero, but the numbers killed it: a page
+// going from zero videos to one costs ~439KB of JavaScript (ProductVideoPlayer
+// 247KB + React runtime 179KB + composition ~13KB), while a second and third
+// video on that same page cost ~13KB each. Putting a player above the fold on
+// 46 pages would have loaded 439KB before first paint for an audience of
+// tradies on phones, on a site whose weakest audit score was already
+// performance.
+//
+// So the hero is drawn instead of played. Pure inline SVG, animated by CSS
+// keyframes, no client script, no hydration, no network request. Remotion
+// still appears further down those pages via <SectionVideo client:visible>,
+// where it only loads if the reader scrolls to it.
+//
+// THE ANIMATION CONTRACT
+// Deliberately NOT the DraftPath/IntersectionObserver mechanism used
+// elsewhere. That primitive exists to reveal things below the fold, and it
+// handles exactly one path per SVG. A hero is visible immediately and needs
+// several strokes drawing in sequence, so this uses CSS `stroke-dashoffset`
+// keyframes with staggered `animation-delay`.
+//
+// The visibility contract still matches the rest of the site: the figure
+// renders COMPLETE by default. `stroke-dasharray` is applied only inside the
+// motion-safe media query, so reduced-motion users and any context where the
+// animation never runs see the finished drawing rather than an empty box.
+// Never move the dasharray declarations outside that query.
+//
+// ADDING A VARIANT
+// Add a key to `figures` below. Rules that keep the set coherent:
+//   - viewBox 0 0 400 260, so every figure crops identically in the frame
+//   - stroke `currentColor` for structure, `var(--action)` for the ONE thing
+//     the eye should land on, `var(--marker)` only ever on dark bands
+//   - class `bf__draw` on any path that should draw itself; order them in
+//     markup, the stagger follows automatically
+//   - keep it under ~14 elements — this is an annotation, not an illustration
+interface Props {
+  /** Which drawing to render. */
+  variant: "guide" | "insight" | "ads" | "region" | "problem" | "service";
+  /** Band the figure sits on — drives stroke and label colour. */
+  tone?: "dark" | "light";
+  /** Mono caption under the frame, in the annotation layer. */
+  caption?: string;
+  /** Accessible description. Falls back to a per-variant default. */
+  alt?: string;
+  class?: string;
+}
+
+const { variant, tone = "dark", caption, alt, class: className } = Astro.props;
+
+const defaultAlt: Record<Props["variant"], string> = {
+  guide: "A job sheet with annotated callout lines.",
+  insight: "A timeline of proposed changes, none of them yet in force.",
+  ads: "Paid enquiries arriving into a single handled queue.",
+  region: "A regional service area plotted on a blueprint grid.",
+  problem: "Enquiries leaking out of an unmanaged process.",
+  service: "The five-stage front desk, drawn as a process line.",
+};
+---
+
+<figure class:list={["bf", `bf--${tone}`, className]}>
+  <div class="bf__frame">
+    <span class="bf__reg bf__reg--tl" aria-hidden="true"></span>
+    <span class="bf__reg bf__reg--tr" aria-hidden="true"></span>
+    <span class="bf__reg bf__reg--bl" aria-hidden="true"></span>
+    <span class="bf__reg bf__reg--br" aria-hidden="true"></span>
+
+    <svg
+      class="bf__svg"
+      viewBox="0 0 400 260"
+      role="img"
+      aria-label={alt ?? defaultAlt[variant]}
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+    >
+      {
+        /* ---------------- guide: an annotated job sheet ---------------- */
+        variant === "guide" && (
+          <>
+            <text x="24" y="30" class="bf__tag">JOB SHEET</text>
+            <rect x="24" y="42" width="248" height="196" rx="4" class="bf__plate" />
+            <line x1="24" y1="72" x2="272" y2="72" class="bf__draw bf__rule" style="--i:0" />
+            <text x="36" y="64" class="bf__tag">ENQUIRY 04</text>
+            <line x1="40" y1="104" x2="250" y2="104" class="bf__draw bf__hair" style="--i:1" />
+            <line x1="40" y1="126" x2="228" y2="126" class="bf__draw bf__hair" style="--i:2" />
+            <line x1="40" y1="148" x2="256" y2="148" class="bf__draw bf__hair" style="--i:3" />
+            <line x1="40" y1="170" x2="204" y2="170" class="bf__draw bf__hair" style="--i:4" />
+            <line x1="24" y1="196" x2="272" y2="196" class="bf__draw bf__rule" style="--i:5" />
+            <text x="36" y="222" class="bf__lbl">NEXT ACTION</text>
+            <path d="M272 104 L332 104 L332 74" class="bf__draw bf__lead" style="--i:6" />
+            <circle cx="332" cy="64" r="7" class="bf__dot bf__pulse" />
+            <text x="300" y="44" class="bf__tag">NOTE</text>
+          </>
+        )
+      }
+      {
+        /* ------- insight: a bill's progress, most of it not yet law ------- */
+        variant === "insight" && (
+          <>
+            <text x="24" y="34" class="bf__tag">PROGRESS</text>
+            <line x1="34" y1="130" x2="366" y2="130" class="bf__draw bf__rule" style="--i:0" />
+            {[
+              { x: 52, label: "PROPOSED", done: true },
+              { x: 148, label: "1ST READING", done: true },
+              { x: 252, label: "COMMITTEE", done: false },
+              { x: 348, label: "IN FORCE", done: false },
+            ].map((st, i) => (
+              <>
+                <line x1={st.x} y1="112" x2={st.x} y2="148" class={`bf__draw ${st.done ? "bf__rule" : "bf__lead"}`} style={`--i:${i + 1}`} />
+                <circle cx={st.x} cy="130" r="7" class={st.done ? "bf__node" : "bf__node bf__node--open"} />
+                <text x={st.x} y="176" class="bf__lbl bf__lbl--mid">{st.label}</text>
+              </>
+            ))}
+            <line x1="148" y1="86" x2="148" y2="106" class="bf__draw bf__accent" style="--i:5" />
+            <text x="148" y="76" class="bf__tag bf__tag--mid bf__tag--accent">NOW</text>
+            <text x="200" y="220" class="bf__lbl bf__lbl--mid">NOT LAW YET</text>
+          </>
+        )
+      }
+      {
+        /* --------- ads: paid enquiries landing in one handled queue -------- */
+        variant === "ads" && (
+          <>
+            <text x="24" y="34" class="bf__tag">PAID ENQUIRIES</text>
+            {[
+              { y: 62, label: "SEARCH" },
+              { y: 100, label: "SOCIAL" },
+              { y: 138, label: "REFERRAL" },
+            ].map((src, i) => (
+              <>
+                <rect x="24" y={src.y - 14} width="96" height="28" rx="3" class="bf__plate" />
+                <text x="36" y={src.y + 5} class="bf__lbl">{src.label}</text>
+                <path d={`M120 ${src.y} L188 ${src.y} L188 130 L212 130`} class="bf__draw bf__hair" style={`--i:${i}`} />
+              </>
+            ))}
+            <rect x="212" y="102" width="120" height="56" rx="4" class="bf__draw bf__rule" style="--i:3" />
+            <text x="272" y="126" class="bf__lbl bf__lbl--mid">ONE QUEUE</text>
+            <text x="272" y="144" class="bf__tag bf__tag--mid">ANSWERED</text>
+            <line x1="272" y1="158" x2="272" y2="196" class="bf__draw bf__rule" style="--i:4" />
+            <circle cx="272" cy="204" r="7" class="bf__dot bf__pulse" />
+            <text x="272" y="228" class="bf__lbl bf__lbl--mid">BOOKED</text>
+          </>
+        )
+      }
+      {
+        /* ------------- region: a service area on a site plan ------------- */
+        variant === "region" && (
+          <>
+            <text x="24" y="34" class="bf__tag">SERVICE AREA</text>
+            <path d="M40 62 L300 54 L344 140 L286 214 L74 200 Z" class="bf__draw bf__plate" style="--i:0" />
+            <rect x="86" y="92" width="56" height="40" class="bf__draw bf__hair" style="--i:1" />
+            <rect x="164" y="80" width="44" height="34" class="bf__draw bf__hair" style="--i:2" />
+            <rect x="118" y="150" width="62" height="36" class="bf__draw bf__hair" style="--i:3" />
+            <rect x="228" y="118" width="52" height="44" class="bf__draw bf__rule" style="--i:4" />
+            <path d="M254 118 L254 84 L296 84" class="bf__draw bf__lead" style="--i:5" />
+            <text x="240" y="176" class="bf__tag">JOB</text>
+            <circle cx="254" cy="140" r="7" class="bf__dot bf__pulse" />
+            <text x="300" y="78" class="bf__lbl">ON SITE</text>
+            <text x="200" y="238" class="bf__lbl bf__lbl--mid">EVERY SUBURB, ONE PROCESS</text>
+          </>
+        )
+      }
+      {
+        /* -------- problem: enquiries leaking out before they book -------- */
+        variant === "problem" && (
+          <>
+            <text x="24" y="34" class="bf__tag">ENQUIRIES IN</text>
+            <line x1="24" y1="96" x2="376" y2="96" class="bf__draw bf__rule" style="--i:0" />
+            <line x1="24" y1="144" x2="112" y2="144" class="bf__draw bf__rule" style="--i:1" />
+            <line x1="160" y1="144" x2="216" y2="144" class="bf__draw bf__rule" style="--i:2" />
+            <line x1="264" y1="144" x2="376" y2="144" class="bf__draw bf__rule" style="--i:3" />
+            {[
+              { x: 136, label: "MISSED CALL" },
+              { x: 240, label: "SLOW REPLY" },
+            ].map((leak, i) => (
+              <>
+                <path d={`M${leak.x} 148 L${leak.x} 186`} class="bf__draw bf__lead" style={`--i:${i + 4}`} />
+                <circle cx={leak.x} cy="194" r="5" class="bf__leak" />
+                <text x={leak.x} y="216" class="bf__lbl bf__lbl--mid">{leak.label}</text>
+              </>
+            ))}
+            <line x1="24" y1="120" x2="376" y2="120" class="bf__draw bf__accent" style="--i:6" />
+            <text x="330" y="70" class="bf__tag">BOOKED</text>
+            <path d="M376 96 L376 144" class="bf__draw bf__hair" style="--i:7" />
+          </>
+        )
+      }
+      {
+        /* --------- service: the five stages, labelled end to end --------- */
+        variant === "service" && (
+          <>
+            <text x="24" y="34" class="bf__tag">FRONT DESK</text>
+            <rect x="24" y="52" width="352" height="150" rx="4" class="bf__plate" />
+            <line x1="58" y1="118" x2="342" y2="118" class="bf__draw bf__rule" style="--i:0" />
+            {[
+              { x: 58, n: "1", label: "CAPTURE" },
+              { x: 129, n: "2", label: "RESPOND" },
+              { x: 200, n: "3", label: "QUALIFY" },
+              { x: 271, n: "4", label: "BOOK" },
+              { x: 342, n: "5", label: "FOLLOW UP" },
+            ].map((st, i) => (
+              <>
+                <circle cx={st.x} cy="118" r="13" class={i === 4 ? "bf__node bf__node--accent bf__pulse" : "bf__node"} />
+                <text x={st.x} y="123" class="bf__num">{st.n}</text>
+                <text x={st.x} y="158" class="bf__lbl bf__lbl--mid">{st.label}</text>
+              </>
+            ))}
+            <text x="200" y="88" class="bf__tag bf__tag--mid">NOTHING RIDES ON MEMORY</text>
+            <text x="200" y="230" class="bf__lbl bf__lbl--mid">EVERY ENQUIRY, THE SAME WAY</text>
+          </>
+        )
+      }
+    </svg>
+  </div>
+  {caption && <figcaption class="mono-label bf__cap">{caption}</figcaption>}
+</figure>
+
+<style>
+  .bf {
+    margin: 0;
+    display: grid;
+    gap: 0.85rem;
+  }
+
+  /* Frame matches HomeVideo.astro exactly, so a drawn figure and a played
+     one read as the same object in the design system. */
+  .bf__frame {
+    position: relative;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background: var(--canvas-dark);
+    border: 1px solid var(--line-dark);
+    aspect-ratio: 400 / 260;
+  }
+
+  .bf--light .bf__frame {
+    background: var(--surface-light);
+    border-color: var(--line-light);
+    box-shadow: 0 24px 48px -28px oklch(0.22 0.04 245 / 0.28);
+  }
+
+  .bf__svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    /* currentColor drives every structural stroke, so tone is one property. */
+    color: var(--on-dark-muted);
+  }
+  .bf--light .bf__svg {
+    color: var(--muted);
+  }
+
+  .bf__cap {
+    color: var(--on-dark-muted);
+  }
+  .bf--light .bf__cap {
+    color: var(--muted);
+  }
+
+  /* Orange corner crop marks — identical geometry to HomeVideo.astro, so a
+     drawn figure and a played video are visibly the same kind of object. */
+  .bf__reg {
+    position: absolute;
+    width: 13px;
+    height: 13px;
+    z-index: 2;
+    pointer-events: none;
+    border: 0 solid var(--action);
+  }
+  .bf__reg--tl {
+    top: 9px;
+    left: 9px;
+    border-top-width: 2px;
+    border-left-width: 2px;
+  }
+  .bf__reg--tr {
+    top: 9px;
+    right: 9px;
+    border-top-width: 2px;
+    border-right-width: 2px;
+  }
+  .bf__reg--bl {
+    bottom: 9px;
+    left: 9px;
+    border-bottom-width: 2px;
+    border-left-width: 2px;
+  }
+  .bf__reg--br {
+    bottom: 9px;
+    right: 9px;
+    border-bottom-width: 2px;
+    border-right-width: 2px;
+  }
+
+  /* ---- stroke vocabulary ---- */
+  .bf__plate {
+    stroke: currentColor;
+    stroke-width: 1;
+    opacity: 0.45;
+  }
+  .bf__rule {
+    stroke: currentColor;
+    stroke-width: 1.5;
+    opacity: 0.75;
+  }
+  .bf__hair {
+    stroke: currentColor;
+    stroke-width: 1;
+    opacity: 0.4;
+  }
+  .bf__lead {
+    stroke: currentColor;
+    stroke-width: 1;
+    opacity: 0.55;
+    stroke-dasharray: 3 3;
+  }
+  /* The one-accent rule: exactly one orange mark per figure. */
+  .bf__accent {
+    stroke: var(--action);
+    stroke-width: 2.5;
+  }
+  .bf__dot {
+    fill: var(--action);
+  }
+  .bf__svg :global(line),
+  .bf__svg :global(path) {
+    stroke-linecap: round;
+  }
+
+  /* ---- annotation layer ----
+     These figures are technical drawings, and a drawing without callouts is
+     decoration. Labels are set in the site's mono face at sizes that survive
+     the ~0.86 downscale from the 400-unit viewBox to the rendered frame. */
+  .bf__svg :global(text) {
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    fill: currentColor;
+    stroke: none;
+  }
+  .bf__tag {
+    font-size: 12px;
+    opacity: 0.55;
+  }
+  .bf__lbl {
+    font-size: 13px;
+    opacity: 0.9;
+  }
+  .bf__lbl--mid,
+  .bf__tag--mid {
+    text-anchor: middle;
+  }
+  .bf__tag--accent {
+    fill: var(--action);
+    opacity: 1;
+  }
+  .bf__num {
+    font-size: 13px;
+    text-anchor: middle;
+    opacity: 0.95;
+  }
+
+  /* Node circles: filled outline by default, hollow when a stage has not
+     happened yet (the insight timeline leans on this to say "not law"). */
+  .bf__node {
+    stroke: currentColor;
+    stroke-width: 1.5;
+    fill: var(--canvas-dark);
+    opacity: 0.85;
+  }
+  .bf--light .bf__node {
+    fill: var(--surface-light);
+  }
+  .bf__node--open {
+    stroke-dasharray: 3 3;
+    opacity: 0.45;
+  }
+  .bf__node--accent {
+    stroke: var(--action);
+    stroke-width: 2.5;
+    opacity: 1;
+  }
+  /* Leak dots read as loss, so they stay muted — never the accent. */
+  .bf__leak {
+    fill: currentColor;
+    opacity: 0.35;
+  }
+
+  /* ---- the draw-in, motion-safe only ----
+     dasharray lives ONLY in here. Outside this query no dash properties are
+     ever set, so the figure renders finished — which is the no-motion, and
+     no-CSS-animation-support fallback. */
+  @media (prefers-reduced-motion: no-preference) {
+    .bf__draw {
+      /* 520 comfortably exceeds the longest path in a 400x260 viewBox. */
+      stroke-dasharray: 520;
+      stroke-dashoffset: 520;
+      animation: bf-draw 0.72s var(--ease-out) forwards;
+      animation-delay: calc(var(--i, 0) * 90ms);
+    }
+    /* The dashed leader line keeps its own dash pattern, so it fades
+       rather than draws — animating both would fight. */
+    .bf__lead.bf__draw {
+      stroke-dasharray: 3 3;
+      stroke-dashoffset: 0;
+      animation: bf-fade 0.5s var(--ease-out) forwards;
+      opacity: 0;
+    }
+    /* The accent dot lands last and lands solid — it is the one mark the
+       eye is meant to finish on, so it gets its own keyframe rather than
+       the leader line's 0.55 fade. */
+    .bf__dot {
+      opacity: 0;
+      animation: bf-pop 0.4s var(--ease-out) forwards;
+      animation-delay: 700ms;
+    }
+  }
+
+  @keyframes bf-draw {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+  @keyframes bf-fade {
+    to {
+      opacity: 0.55;
+    }
+  }
+  @keyframes bf-pop {
+    to {
+      opacity: 1;
+    }
+  }
+
+  /* A slow breath on the single accent mark. The draw-in is a one-shot, so
+     without this the figure is completely dead two seconds after load —
+     which is what made the first version read as a static placeholder.
+     Motion-safe only, and deliberately slow enough not to nag. */
+  @media (prefers-reduced-motion: no-preference) {
+    .bf__pulse {
+      animation: bf-breathe 3.2s var(--ease-out) 900ms infinite;
+      transform-box: fill-box;
+      transform-origin: center;
+    }
+  }
+  @keyframes bf-breathe {
+    0%,
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.65;
+      transform: scale(1.18);
+    }
+  }
+</style>

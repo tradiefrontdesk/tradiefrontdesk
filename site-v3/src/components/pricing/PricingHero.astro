@@ -1,42 +1,68 @@
 ---
 // PricingHero.astro — Section 1 (dark)
-// Compact interior hero — no video, no crosshairs (the homepage hero's full
-// ornament set is deliberately dialled back here per the interior-hero rule).
-// Blueprint grid backdrop carries the motif on its own; the primary CTA
-// carries [data-hero-cta] so StickyMobileCTA hides while it is on screen.
+// Compact interior hero, now carrying PricingHeroClip as a supporting figure
+// (see hero-clip-plan) — 2-col grid matching TradePage's th-hero__grid
+// pattern, copy first in DOM order. Blueprint grid backdrop still carries the
+// motif; the primary CTA carries [data-hero-cta] so StickyMobileCTA hides
+// while it is on screen. Ratio (1.22/0.78) is unused elsewhere on the site.
 import Reveal from "@/components/motion/Reveal.astro";
+import HomeVideo from "@/components/home/HomeVideo.astro";
 import { brand } from "@/data/site";
 ---
 
 <section class="ph band-dark blueprint-grid">
-  <div class="container ph__inner">
-    <p class="mono-label ph__eyebrow">Pricing</p>
+  <div class="container ph__grid">
+    <div class="ph__inner">
+      <p class="mono-label ph__eyebrow">Pricing</p>
 
-    <Reveal as="h1" variant="draft" class="ph__title">
-      Packages built around your enquiry process.
-    </Reveal>
+      <Reveal as="h1" variant="draft" class="ph__title">
+        Packages built around your enquiry process.
+      </Reveal>
 
-    <p class="ph__lead max-measure">
-      Every trade business handles enquiries differently. Your price depends
-      on how many channels we connect, how much follow-up you need, whether
-      campaigns are included, and whether phone answering or website upgrades
-      are part of the setup.
-    </p>
+      <p class="ph__lead max-measure">
+        Every trade business handles enquiries differently. Your price depends
+        on how many channels we connect, how much follow-up you need, whether
+        campaigns are included, and whether phone answering or website upgrades
+        are part of the setup.
+      </p>
 
-    <div class="ph__cta">
-      <a class="btn btn-primary" href="/free-audit/" data-hero-cta
-        >Book a Free Front Desk Audit</a
-      >
-      <a class="btn btn-ghost" href="#packages">See the three packages</a>
+      <div class="ph__cta">
+        <a class="btn btn-primary" href="/free-audit/" data-hero-cta
+          >Book a Free Front Desk Audit</a
+        >
+        <a class="btn btn-ghost" href="#packages">See the three packages</a>
+      </div>
+
+      <p class="ph__trust">{brand.trustLine}</p>
     </div>
 
-    <p class="ph__trust">{brand.trustLine}</p>
+    <HomeVideo
+      id="PricingHeroClip"
+      tone="dark"
+      class="ph__figure"
+    />
   </div>
 </section>
 
 <style>
   .ph {
     padding-block: clamp(2.75rem, 6vw, 4.75rem);
+  }
+
+  .ph__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.22fr) minmax(0, 0.78fr);
+    gap: clamp(1.75rem, 4vw, 3.5rem);
+    align-items: center;
+  }
+  @media (max-width: 880px) {
+    .ph__grid {
+      grid-template-columns: 1fr;
+    }
+    .ph__figure {
+      order: 2;
+      max-width: 460px;
+    }
   }
 
   .ph__inner {

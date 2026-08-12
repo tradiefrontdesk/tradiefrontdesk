@@ -11,6 +11,8 @@ import Reveal from "@/components/motion/Reveal.astro";
 import DraftPath from "@/components/motion/DraftPath.astro";
 import CTASection from "@/components/CTASection.astro";
 import FAQ from "@/components/FAQ.astro";
+import BlueprintFigure from "@/components/shared/BlueprintFigure.astro";
+import HomeVideo from "@/components/home/HomeVideo.astro";
 import { corePromise } from "@/data/site";
 
 export async function getStaticPaths() {
@@ -54,18 +56,29 @@ const dateFmt = new Intl.DateTimeFormat("en-NZ", { dateStyle: "long" });
   howTo={data.howTo}
 >
   <section class="gd-hero band-dark blueprint-grid">
-    <div class="container gd-hero__inner">
-      <p class="mono-label gd-hero__eyebrow">
-        {data.pillar ? "Guide — the complete rundown" : "Guide"}
-      </p>
-      <Reveal as="h1" variant="draft" class="gd-hero__title">{data.heading}</Reveal>
-      <div class="gd-hero__rule" aria-hidden="true">
-        <DraftPath viewBox="0 0 320 8" d="M2 4 L318 4" stroke="var(--action)" strokeWidth={2} />
+    {/* 2-col / 1-row, the site's established hero split. The figure is drawn
+        SVG rather than a Remotion player: heroes are above the fold and a
+        player would cost ~439KB before first paint. See BlueprintFigure. */}
+    <div class="container gd-hero__grid">
+      <div class="gd-hero__inner">
+        <p class="mono-label gd-hero__eyebrow">
+          {data.pillar ? "Guide — the complete rundown" : "Guide"}
+        </p>
+        <Reveal as="h1" variant="draft" class="gd-hero__title">{data.heading}</Reveal>
+        <div class="gd-hero__rule" aria-hidden="true">
+          <DraftPath viewBox="0 0 320 8" d="M2 4 L318 4" stroke="var(--action)" strokeWidth={2} />
+        </div>
+        <p class="gd-hero__lead max-measure">{data.lead}</p>
+        <p class="mono-label gd-hero__meta">
+          Updated <time datetime={updated.toISOString()}>{dateFmt.format(updated)}</time>
+        </p>
       </div>
-      <p class="gd-hero__lead max-measure">{data.lead}</p>
-      <p class="mono-label gd-hero__meta">
-        Updated <time datetime={updated.toISOString()}>{dateFmt.format(updated)}</time>
-      </p>
+
+      <HomeVideo
+        id="GuideDefaultHeroClip"
+        tone="dark"
+        class="gd-hero__figure"
+      />
     </div>
   </section>
 
@@ -119,6 +132,13 @@ const dateFmt = new Intl.DateTimeFormat("en-NZ", { dateStyle: "long" });
         </p>
       </header>
 
+      <HomeVideo
+        id="GuideDefaultVideo"
+        tone="dark"
+        caption="Fig. — a page of advice, becoming a checklist"
+        class="gd-cluster__video"
+      />
+
       <ul class="gd-cluster__grid">
         {
           !data.pillar && pillar && (
@@ -158,8 +178,28 @@ const dateFmt = new Intl.DateTimeFormat("en-NZ", { dateStyle: "long" });
   .gd-hero {
     padding-block: clamp(3.5rem, 8vw, 6rem);
   }
+  /* Ratio deliberately differs from the other hero splits on the site
+     (1.15/0.85, 0.82/1.18, 1.2/0.8 …) so no two page types stamp out an
+     identical row. */
+  .gd-hero__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    gap: clamp(1.75rem, 4vw, 3.5rem);
+    align-items: center;
+  }
   .gd-hero__inner {
     max-width: 62ch;
+  }
+  @media (max-width: 880px) {
+    .gd-hero__grid {
+      grid-template-columns: 1fr;
+    }
+    /* Figure drops below the copy on small screens — the headline is what a
+       reader came for, the drawing is support. */
+    .gd-hero__figure {
+      order: 2;
+      max-width: 460px;
+    }
   }
   .gd-hero__eyebrow {
     color: var(--marker);
@@ -325,6 +365,15 @@ const dateFmt = new Intl.DateTimeFormat("en-NZ", { dateStyle: "long" });
     text-decoration-color: var(--action);
     text-decoration-thickness: 2px;
     text-underline-offset: 3px;
+  }
+
+  /* Below-fold video: deferred with client:visible inside HomeVideo/SectionVideo,
+     so its ~439KB Remotion cost never touches first paint. Sits between the
+     cluster header and the link grid — mid-page, never in the hero. */
+  .gd-cluster__video {
+    width: 100%;
+    max-width: 420px;
+    margin: 0 auto clamp(2.5rem, 5vw, 3.5rem);
   }
 
   .gd-cluster__grid {

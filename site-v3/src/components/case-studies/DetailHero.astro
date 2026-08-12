@@ -7,6 +7,7 @@ import HomeVideo from "@/components/home/HomeVideo.astro";
 import Reveal from "@/components/motion/Reveal.astro";
 import { brand } from "@/data/site";
 import type { proofExamples, clientStories } from "@/data/site";
+import type { HeroClipId } from "@/remotion/data/heroClips";
 
 // Accepts either collection. A real named client must never be labelled a
 // "worked example" — that reads as an invented scenario and throws away the
@@ -17,6 +18,19 @@ interface Props {
 
 const { study } = Astro.props;
 const isClient = "isClient" in study && study.isClient === true;
+
+// One hero clip per study — never the shared placeholder. Real clients keep
+// their own reported-outcome framing; worked examples keep their own
+// illustration-only framing (see src/remotion/data/heroClips.ts).
+const videoIdBySlug: Record<string, HeroClipId> = {
+  "ka-plumbing": "KaPlumbingHeroClip",
+  "superior-taekwondo": "SuperiorTaekwondoHeroClip",
+  "hair-by-melissa": "HairByMelissaHeroClip",
+  "missed-call-flow": "MissedCallFlowHeroClip",
+  "quote-follow-up-flow": "QuoteFollowUpFlowHeroClip",
+  "old-lead-reactivation-flow": "OldLeadReactivationHeroClip",
+};
+const videoId = videoIdBySlug[study.slug] ?? "CaseStudyDetailVideo";
 ---
 
 <section class="dh band-dark blueprint-grid">
@@ -44,7 +58,7 @@ const isClient = "isClient" in study && study.isClient === true;
 
     <div class="dh__media">
       <HomeVideo
-        id="CaseStudyDetailVideo"
+        id={videoId}
         tone="dark"
         caption="Snapshot, system, and reported result — in that order."
       />

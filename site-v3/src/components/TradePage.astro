@@ -9,6 +9,7 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 import Reveal from "@/components/motion/Reveal.astro";
 import DraftPath from "@/components/motion/DraftPath.astro";
 import HomeVideo from "@/components/home/HomeVideo.astro";
+import BlueprintFigure from "@/components/shared/BlueprintFigure.astro";
 import CTASection from "@/components/CTASection.astro";
 import FAQ from "@/components/FAQ.astro";
 import JobLog from "@/components/shared/JobLog.astro";
@@ -102,6 +103,16 @@ const stepInset = Math.round(100 / (flowSteps.length * 2));
 // registered in remotion/data/homeVideos.ts.)
 const hasVideo = Object.prototype.hasOwnProperty.call(videoById, data.videoId);
 const videoId = data.videoId as unknown as VideoId;
+// Per-page hero clip. Each page family gets its own 8-second opener rather
+// than one shared clip, so no two pages open with an identical animation.
+const heroClipByTrade: Record<string, VideoId> = {
+  electricians: "ElectriciansHeroClip",
+  plumbersDrainage: "PlumbersHeroClip",
+  roofers: "RoofersHeroClip",
+  heatPumpInstallers: "HeatPumpHeroClip",
+  builders: "BuildersHeroClip",
+  painters: "PaintersHeroClip",
+};
 ---
 
 <BaseLayout
@@ -110,17 +121,29 @@ const videoId = data.videoId as unknown as VideoId;
   serviceName={`Managed front desk for ${tradeName}`}
 >
   <section class="th-hero band-dark blueprint-grid">
-    <div class="container th-hero__inner">
-      <p class="mono-label th-hero__eyebrow">{data.eyebrow}</p>
-      <Reveal as="h1" variant="draft" class="th-hero__title">{data.title}</Reveal>
-      <div class="th-hero__rule" aria-hidden="true">
-        <DraftPath viewBox="0 0 320 8" d="M2 4 L318 4" stroke="var(--action)" strokeWidth={2} />
+    {/* 2-col / 1-row. The trade pages were the last family still shipping a
+        text-only hero — the figure is drawn SVG, not a player, because heroes
+        are above the fold and a Remotion player costs ~439KB before first
+        paint. The trade's own animation still runs further down the page. */}
+    <div class="container th-hero__grid">
+      <div class="th-hero__inner">
+        <p class="mono-label th-hero__eyebrow">{data.eyebrow}</p>
+        <Reveal as="h1" variant="draft" class="th-hero__title">{data.title}</Reveal>
+        <div class="th-hero__rule" aria-hidden="true">
+          <DraftPath viewBox="0 0 320 8" d="M2 4 L318 4" stroke="var(--action)" strokeWidth={2} />
+        </div>
+        <p class="th-hero__lead max-measure">{data.text}</p>
+        <div class="th-hero__cta">
+          <a class="btn btn-primary" href="/free-audit/" data-hero-cta>{data.cta}</a>
+          <a class="btn btn-ghost" href="/how-it-works/">See how it works</a>
+        </div>
       </div>
-      <p class="th-hero__lead max-measure">{data.text}</p>
-      <div class="th-hero__cta">
-        <a class="btn btn-primary" href="/free-audit/" data-hero-cta>{data.cta}</a>
-        <a class="btn btn-ghost" href="/how-it-works/">See how it works</a>
-      </div>
+
+      <HomeVideo
+        id={heroClipByTrade[contentKey]}
+        tone="dark"
+        class="th-hero__figure"
+      />
     </div>
   </section>
 
@@ -310,6 +333,24 @@ const videoId = data.videoId as unknown as VideoId;
     position: relative;
     padding-block: clamp(2.75rem, 6vw, 4.5rem);
   }
+  /* Ratio unused elsewhere on the site, so no two page families stamp out an
+     identical row. */
+  .th-hero__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.18fr) minmax(0, 0.82fr);
+    gap: clamp(1.75rem, 4vw, 3.5rem);
+    align-items: center;
+  }
+  @media (max-width: 880px) {
+    .th-hero__grid {
+      grid-template-columns: 1fr;
+    }
+    .th-hero__figure {
+      order: 2;
+      max-width: 460px;
+    }
+  }
+
   .th-hero__inner {
     max-width: 62ch;
   }

@@ -1,3 +1,4 @@
+import { heroClipById, heroClipIds, type HeroClipId } from "./heroClips";
 export type HomeVideoId =
   | "HomeHeroVideo"
   | "HomeProblemVideo"
@@ -27,12 +28,30 @@ export type StoryVideoId =
   | "TermsVideo"
   | "ElectriciansHeroVideo"
   | "PlumbersHeroVideo"
-  | "RoofersHeroVideo";
+  | "RoofersHeroVideo"
+  | "BuildersHeroVideo"
+  | "PaintersHeroVideo"
+  | "HeatPumpHeroVideo"
+  | "GuidesHubVideo"
+  | "InsightsHubVideo"
+  | "CampaignsVideo"
+  | "AiReceptionistVideo"
+  | "MissedCallsVideo"
+  | "QuoteFollowUpVideo"
+  | "AfterHoursVideo"
+  | "QualifyingVideo"
+  | "AucklandVideo"
+  | "ChristchurchVideo"
+  | "NswVideo"
+  | "QueenslandVideo"
+  | "VictoriaVideo"
+  | "GuideDefaultVideo"
+  | "InsightDefaultVideo";
 
-export type VideoId = HomeVideoId | StoryVideoId;
+export type VideoId = HomeVideoId | StoryVideoId | HeroClipId;
 
 export type StoryVideoConfig = {
-  variant: "flow" | "modules" | "pricing" | "comparison" | "audit" | "contact" | "proof" | "legal";
+  variant: "flow" | "modules" | "pricing" | "comparison" | "audit" | "contact" | "proof" | "legal" | "guide" | "legislation" | "ads" | "region";
   label: string;
   cta: string;
   beats: string[];
@@ -203,7 +222,7 @@ export const storyVideoSpecs = [
   {
     id: "DifferentHeroVideo",
     title: "Why Different",
-    description: "A square comparison of lead sellers, ads, CRM software, and a managed front-desk system.",
+    description: "A square comparison of lead sellers, ads, software you run yourself, and a managed front-desk system.",
     durationInFrames: 900,
     story: {
       variant: "comparison",
@@ -434,6 +453,276 @@ export const storyVideoSpecs = [
       footer: "Designed to help roofers keep quotes moving.",
     },
   },
+  {
+    id: "BuildersHeroVideo",
+    title: "Front Desk For Builders",
+    description: "A build enquiry is caught, qualified, and quoted while the builder stays on site.",
+    durationInFrames: 360,
+    story: {
+      variant: "flow",
+      label: "Build enquiry",
+      cta: "Caught, qualified, quoted",
+      beats: ["A quote enquiry lands while you are running a site.", "The front desk replies, gathers the scope, and lines up the quote."],
+      nodes: ["Enquiry", "Reply", "Scope", "Quote", "Booked"],
+      cards: ["Fast first reply", "Job scope captured", "Site visit set", "Owner notified"],
+      footer: "Designed to help builders keep quote enquiries moving.",
+    },
+  },
+  {
+    id: "PaintersHeroVideo",
+    title: "Front Desk For Painters",
+    description: "A painting quote request is answered fast and moved toward a booked job while the painter stays on the roller.",
+    durationInFrames: 360,
+    story: {
+      variant: "flow",
+      label: "Painting enquiry",
+      cta: "Answered while you are on the job",
+      beats: ["A quote request comes in mid-coat.", "The front desk replies, captures the job details, and books the quote."],
+      nodes: ["Enquiry", "Reply", "Details", "Quote", "Booked"],
+      cards: ["Fast first reply", "Job details captured", "Quote visit set", "Owner notified"],
+      footer: "Designed to help painters keep quote requests moving.",
+    },
+  },
+  {
+    id: "HeatPumpHeroVideo",
+    title: "Front Desk For Heat Pump Installers",
+    description: "A heat pump enquiry is caught during the busy season and moved through to a booked install.",
+    durationInFrames: 360,
+    story: {
+      variant: "flow",
+      label: "Heat pump enquiry",
+      cta: "Caught, qualified, booked",
+      beats: ["Enquiries stack up during the busy season.", "The front desk replies straight away and lines up the install."],
+      nodes: ["Enquiry", "Reply", "Details", "Quote", "Install"],
+      cards: ["Fast first reply", "Property details captured", "Install window set", "Owner notified"],
+      footer: "Designed to help installers keep enquiries moving in peak season.",
+    },
+  },
+  {
+    id: "GuidesHubVideo",
+    title: "Guides For Trade Businesses",
+    description: "A guide's practical steps become a clear checklist a tradie can act on.",
+    durationInFrames: 360,
+    story: {
+      variant: "guide",
+      label: "Practical guides",
+      cta: "Read it, then act on it",
+      beats: ["Every guide is written for the tools, not the office.", "A page of advice becomes a short list of things to check."],
+      nodes: ["Read", "Check", "Fix", "Track", "Repeat"],
+      cards: ["Plain language", "No jargon", "Practical steps", "Written for tradies"],
+      footer: "Guides written to be read on a smoko break and used on the job.",
+    },
+  },
+  {
+    id: "InsightsHubVideo",
+    title: "Insights On Industry Changes",
+    description: "Proposed regulatory and industry changes tracked from first reading through to confirmation, with unconfirmed stages clearly marked.",
+    durationInFrames: 360,
+    story: {
+      variant: "legislation",
+      label: "Proposed changes",
+      cta: "Tracked, not assumed",
+      beats: ["Bills move through stages long before they become law.", "Each stage is marked clearly, so nothing proposed is read as confirmed."],
+      nodes: ["Reading", "Committee", "Debate", "Vote", "Law"],
+      cards: ["First reading", "Under review", "Not yet law", "Confirmed changes only"],
+      footer: "Proposed changes are marked as proposed until they pass.",
+    },
+  },
+  {
+    id: "CampaignsVideo",
+    title: "Paid Enquiries, Same Front Desk",
+    description: "Enquiries from paid channels arrive and are caught into the same handled queue as every other enquiry.",
+    durationInFrames: 360,
+    story: {
+      variant: "ads",
+      label: "Paid enquiry handling",
+      cta: "Every paid enquiry gets a reply",
+      beats: ["Paid enquiries are only useful if someone replies to them.", "Every channel feeds the same handled queue, so nothing sits waiting."],
+      nodes: ["Search ad", "Social ad", "Directory", "Referral"],
+      cards: ["Instant reply", "Job details captured", "Owner notified", "Follow-up runs"],
+      footer: "Spend on enquiries only pays off once they are answered.",
+    },
+  },
+  {
+    id: "AiReceptionistVideo",
+    title: "A Front Desk That Answers Every Time",
+    description: "Every call and message gets an instant reply, day or night, without anyone stuck at a desk.",
+    durationInFrames: 360,
+    story: {
+      variant: "flow",
+      label: "Always-on front desk",
+      cta: "Every enquiry gets a reply",
+      beats: ["Calls and messages do not wait for office hours.", "The front desk replies straight away and books in the follow-up."],
+      nodes: ["Call", "Reply", "Details", "Owner", "Follow"],
+      cards: ["Instant reply", "Job details captured", "Owner notified", "Follow-up runs"],
+      footer: "Built to answer every enquiry, not just the ones you catch in person.",
+    },
+  },
+  {
+    id: "MissedCallsVideo",
+    title: "Missed Calls, Caught",
+    description: "A missed call is caught with an instant text-back instead of going to the next tradie on the list.",
+    durationInFrames: 360,
+    story: {
+      variant: "flow",
+      label: "Missed call saver",
+      cta: "A missed call is not a lost job",
+      beats: ["A missed call usually means a lost job.", "An instant text-back keeps the enquiry alive until you can call back."],
+      nodes: ["Missed", "Text-back", "Details", "Callback", "Booked"],
+      cards: ["Instant text-back", "Job details captured", "Owner notified", "Callback logged"],
+      footer: "Every missed call gets a reply within seconds.",
+    },
+  },
+  {
+    id: "QuoteFollowUpVideo",
+    title: "Quotes That Get Followed Up",
+    description: "A sent quote is chased on a schedule instead of being forgotten in an inbox.",
+    durationInFrames: 360,
+    story: {
+      variant: "flow",
+      label: "Quote follow-up",
+      cta: "Sent is not the same as won",
+      beats: ["A quote that never gets followed up rarely gets won.", "The front desk chases it on a schedule until it gets an answer."],
+      nodes: ["Sent", "Reminder", "Check-in", "Answer", "Booked"],
+      cards: ["Follow-up schedule", "Owner reminders", "Customer nudges", "Pipeline updated"],
+      footer: "Quotes stay visible until they are accepted or declined.",
+    },
+  },
+  {
+    id: "AfterHoursVideo",
+    title: "After Hours, Still Answered",
+    description: "An enquiry that lands after hours still gets an instant reply instead of waiting until morning.",
+    durationInFrames: 360,
+    story: {
+      variant: "flow",
+      label: "After-hours enquiry",
+      cta: "Answered before the next call",
+      beats: ["Trouble does not wait for business hours.", "The front desk replies straight away and flags anything urgent."],
+      nodes: ["Call", "Reply", "Urgency", "Owner", "Booked"],
+      cards: ["After-hours reply", "Urgency flagged", "Owner alerted", "Booking set"],
+      footer: "Enquiries get answered whatever time they land.",
+    },
+  },
+  {
+    id: "QualifyingVideo",
+    title: "Qualifying The Job Before The Quote",
+    description: "The right questions get asked upfront so the quote and the site visit match the actual job.",
+    durationInFrames: 360,
+    story: {
+      variant: "flow",
+      label: "Job qualification",
+      cta: "The right questions, every time",
+      beats: ["A quote is only as good as the details behind it.", "The front desk asks the right questions before a visit gets booked."],
+      nodes: ["Enquiry", "Questions", "Scope", "Visit", "Quote"],
+      cards: ["Job type checked", "Site details captured", "Urgency confirmed", "Visit scheduled"],
+      footer: "Better questions upfront mean fewer wasted site visits.",
+    },
+  },
+  {
+    id: "AucklandVideo",
+    title: "Front Desk Coverage: Auckland",
+    description: "A map of Auckland service areas lighting up as the front desk covers enquiries across the region.",
+    durationInFrames: 360,
+    story: {
+      variant: "region",
+      label: "Auckland coverage",
+      cta: "One front desk, the whole region",
+      beats: ["Auckland jobs come from all over the region.", "The same front desk answers enquiries no matter which suburb they come from."],
+      nodes: ["City", "North Shore", "West", "South", "East"],
+      cards: ["Local enquiry handling", "Site details captured", "Owner notified", "Follow-up runs"],
+      footer: "Built for trade businesses working right across Auckland.",
+    },
+  },
+  {
+    id: "ChristchurchVideo",
+    title: "Front Desk Coverage: Christchurch",
+    description: "A map of Christchurch service areas lighting up as the front desk covers enquiries across the city.",
+    durationInFrames: 360,
+    story: {
+      variant: "region",
+      label: "Christchurch coverage",
+      cta: "One front desk, the whole city",
+      beats: ["Christchurch jobs come from right across the city.", "The same front desk answers enquiries wherever they come from."],
+      nodes: ["City", "Riccarton", "Halswell", "Papanui", "Hornby"],
+      cards: ["Local enquiry handling", "Site details captured", "Owner notified", "Follow-up runs"],
+      footer: "Built for trade businesses working right across Christchurch.",
+    },
+  },
+  {
+    id: "NswVideo",
+    title: "Front Desk Coverage: New South Wales",
+    description: "A map of New South Wales service areas lighting up as the front desk covers enquiries across the state.",
+    durationInFrames: 360,
+    story: {
+      variant: "region",
+      label: "NSW coverage",
+      cta: "One front desk, the whole state",
+      beats: ["Jobs come from right across the state.", "The same front desk answers enquiries wherever they land."],
+      nodes: ["Sydney", "Newcastle", "Wollongong", "Central Coast", "Western Sydney"],
+      cards: ["Local enquiry handling", "Site details captured", "Owner notified", "Follow-up runs"],
+      footer: "Built for trade businesses working right across New South Wales.",
+    },
+  },
+  {
+    id: "QueenslandVideo",
+    title: "Front Desk Coverage: Queensland",
+    description: "A map of Queensland service areas lighting up as the front desk covers enquiries across the state.",
+    durationInFrames: 360,
+    story: {
+      variant: "region",
+      label: "Queensland coverage",
+      cta: "One front desk, the whole state",
+      beats: ["Jobs come from right across the state.", "The same front desk answers enquiries wherever they land."],
+      nodes: ["Brisbane", "Gold Coast", "Sunshine Coast", "Townsville", "Cairns"],
+      cards: ["Local enquiry handling", "Site details captured", "Owner notified", "Follow-up runs"],
+      footer: "Built for trade businesses working right across Queensland.",
+    },
+  },
+  {
+    id: "VictoriaVideo",
+    title: "Front Desk Coverage: Victoria",
+    description: "A map of Victoria service areas lighting up as the front desk covers enquiries across the state.",
+    durationInFrames: 360,
+    story: {
+      variant: "region",
+      label: "Victoria coverage",
+      cta: "One front desk, the whole state",
+      beats: ["Jobs come from right across the state.", "The same front desk answers enquiries wherever they land."],
+      nodes: ["Melbourne", "Geelong", "Ballarat", "Bendigo", "Mornington Peninsula"],
+      cards: ["Local enquiry handling", "Site details captured", "Owner notified", "Follow-up runs"],
+      footer: "Built for trade businesses working right across Victoria.",
+    },
+  },
+  {
+    id: "GuideDefaultVideo",
+    title: "Guide Walkthrough",
+    description: "A shared guide animation showing a page of advice becoming a short practical checklist.",
+    durationInFrames: 360,
+    story: {
+      variant: "guide",
+      label: "Guide walkthrough",
+      cta: "Read it, then act on it",
+      beats: ["Every guide is written to be used, not just read.", "The advice becomes a short list you can check off on the job."],
+      nodes: ["Read", "Check", "Fix", "Track"],
+      cards: ["Plain language", "No jargon", "Practical steps", "Written for tradies"],
+      footer: "A default guide animation used across the guide articles.",
+    },
+  },
+  {
+    id: "InsightDefaultVideo",
+    title: "Insight Walkthrough",
+    description: "A shared insight animation tracking a proposed change through its stages, with unconfirmed stages clearly marked.",
+    durationInFrames: 360,
+    story: {
+      variant: "legislation",
+      label: "Proposed change",
+      cta: "Tracked, not assumed",
+      beats: ["Proposed changes move through stages before they become law.", "Nothing proposed is shown as confirmed until it actually passes."],
+      nodes: ["Reading", "Committee", "Debate", "Vote", "Law"],
+      cards: ["First reading", "Under review", "Not yet law", "Confirmed changes only"],
+      footer: "A default insight animation used across the insight articles.",
+    },
+  },
 ] as const satisfies readonly {
   id: StoryVideoId;
   title: string;
@@ -442,7 +731,18 @@ export const storyVideoSpecs = [
   story: StoryVideoConfig;
 }[];
 
-export const allVideoSpecs = [...homeVideoSpecs, ...storyVideoSpecs] as const;
+// Hero clips are a third family: their own composition (HeroClip), their own
+// 8-second duration, and their own config file. They are surfaced here so
+// ProductVideoPlayer can resolve a spec by id without knowing which family an
+// id belongs to.
+export const heroClipVideoSpecs = heroClipIds.map((id) => ({
+  id,
+  title: heroClipById[id].headline,
+  description: heroClipById[id].outcome,
+  durationInFrames: 240,
+}));
+
+export const allVideoSpecs = [...homeVideoSpecs, ...storyVideoSpecs, ...heroClipVideoSpecs] as const;
 
 export const homeVideoById = Object.fromEntries(homeVideoSpecs.map((video) => [video.id, video])) as Record<HomeVideoId, (typeof homeVideoSpecs)[number]>;
 

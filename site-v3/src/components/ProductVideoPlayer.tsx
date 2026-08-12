@@ -3,6 +3,7 @@ import type { PlayerRef } from "@remotion/player";
 import type { ComponentType } from "react";
 import { createRef, PureComponent } from "react";
 import { videoById, remotionVideoDefaults, type HomeVideoId, type StoryVideoId, type VideoId } from "@/remotion/data/homeVideos";
+import { heroClipById, type HeroClipId } from "@/remotion/data/heroClips";
 
 type ProductVideoPlayerProps = {
   id: VideoId;
@@ -41,6 +42,13 @@ const componentLoaders: Record<HomeVideoId, () => Promise<AnyVideoComponent>> = 
 const loadStoryVideo = () =>
   import("@/remotion/compositions/StoryVideo").then((m) => m.StoryVideo as AnyVideoComponent);
 
+// Hero clips are the 8-second per-page openers. Separate chunk from StoryVideo
+// so a page that only shows a hero never downloads the in-page figure system.
+const loadHeroClip = () =>
+  import("@/remotion/compositions/HeroClip").then((m) => m.HeroClip as AnyVideoComponent);
+
+const isHeroClip = (id: VideoId): id is HeroClipId => id in heroClipById;
+
 type ProductVideoPlayerState = {
   Component: AnyVideoComponent | null;
 };
@@ -62,7 +70,11 @@ export default class ProductVideoPlayer extends PureComponent<ProductVideoPlayer
     // means "at or near the viewport" — no second visibility gate needed
     // before fetching the composition chunk.
     const { id } = this.props;
-    const load = id in componentLoaders ? componentLoaders[id as HomeVideoId] : loadStoryVideo;
+    const load = isHeroClip(id)
+      ? loadHeroClip
+      : id in componentLoaders
+        ? componentLoaders[id as HomeVideoId]
+        : loadStoryVideo;
     load()
       .then((Component) => {
         if (!this.hasMounted) return;
@@ -134,7 +146,9 @@ export default class ProductVideoPlayer extends PureComponent<ProductVideoPlayer
     const spec = videoById[id];
     const isHomeVideo = id in componentLoaders;
     const Component = this.state.Component;
-    const inputProps = isHomeVideo ? undefined : { id: id as StoryVideoId };
+    // Home compositions take no props; story videos and hero clips both look
+    // their config up by id.
+    const inputProps = isHomeVideo ? undefined : { id: id as StoryVideoId | HeroClipId };
 
     return (
       <article
