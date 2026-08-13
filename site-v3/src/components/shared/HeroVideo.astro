@@ -1,0 +1,147 @@
+---
+// HeroVideo.astro — a pre-rendered hero clip, played as a plain video file.
+//
+// WHY THIS REPLACES THE REMOTION PLAYER ON HEROES
+// <HomeVideo> mounts @remotion/player as a hydrated React island. Measured
+// cost on a page that had no other island: ~439KB (ProductVideoPlayer 247KB +
+// React runtime 179KB + the composition chunk). On a hero that is above the
+// fold, every visitor pays it before first paint — and this site's audience
+// is tradies on phones, on cellular.
+//
+// The same composition rendered to a looping webm is ~170KB, needs no
+// JavaScript at all, streams progressively, and is cached by the CDN. The
+// visuals are identical because it is literally the same composition, rendered
+// by `npx remotion render` rather than played in the browser.
+//
+// The Remotion player is still the right tool for in-page figures further down
+// a page, where client:visible defers the cost and nothing loads unless the
+// reader scrolls to it. This component is for heroes only.
+//
+// REGENERATING: assets live in public/clips/, one .webm and one .jpg poster
+// per clip id, produced from src/remotion/data/heroClips.ts. If a clip's copy
+// changes, re-render it — editing the config alone will not change what ships.
+interface Props {
+  /** Clip id — must match a file at public/clips/<id>.webm */
+  id: string;
+  /** Mono caption under the frame, in the annotation layer. Optional. */
+  caption?: string;
+  /** Accessible description of what the animation shows. */
+  alt?: string;
+  class?: string;
+}
+
+const { id, caption, alt, class: className } = Astro.props;
+const src = `/clips/${id}.webm`;
+const poster = `/clips/${id}.jpg`;
+---
+
+<figure class:list={["hv", className]}>
+  <div class="hv__frame" style={`--hv-poster: url(${poster})`}>
+    <span class="hv__reg hv__reg--tl" aria-hidden="true"></span>
+    <span class="hv__reg hv__reg--tr" aria-hidden="true"></span>
+    <span class="hv__reg hv__reg--bl" aria-hidden="true"></span>
+    <span class="hv__reg hv__reg--br" aria-hidden="true"></span>
+
+    {/*
+      autoplay + muted + playsinline is the combination every mobile browser
+      requires for inline autoplay; without `muted` iOS refuses to start and
+      without `playsinline` it goes fullscreen. `preload="none"` would defeat
+      the point on a hero, so the poster carries the first paint and metadata
+      preloads only.
+
+      The poster is a rendered frame from late in the clip, so a visitor with
+      reduced-motion or a failed load still sees a composed image rather than
+      an empty box.
+    */}
+    <video
+      class="hv__video"
+      src={src}
+      poster={poster}
+      autoplay
+      loop
+      muted
+      playsinline
+      preload="metadata"
+      aria-label={alt ?? "Animated diagram of the front desk process"}
+    ></video>
+  </div>
+  {caption && <figcaption class="mono-label hv__cap">{caption}</figcaption>}
+</figure>
+
+<style>
+  .hv {
+    margin: 0;
+    display: grid;
+    gap: 0.85rem;
+  }
+
+  /* Frame geometry matches HomeVideo.astro and BlueprintFigure.astro exactly,
+     so a played clip, a drawn figure and a Remotion player all read as the
+     same object in the design system. */
+  .hv__frame {
+    position: relative;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background: var(--canvas-dark);
+    border: 1px solid var(--line-dark);
+    aspect-ratio: 1 / 1;
+  }
+
+  .hv__video {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* Reduced motion: hold the poster frame instead of looping. The poster is a
+     fully composed frame, so nothing is lost but the movement. */
+  @media (prefers-reduced-motion: reduce) {
+    .hv__video {
+      display: none;
+    }
+    .hv__frame {
+      background-image: var(--hv-poster);
+      background-size: cover;
+      background-position: center;
+    }
+  }
+
+  .hv__cap {
+    color: var(--on-dark-muted);
+  }
+
+  /* Orange crop marks, identical to the other framed media on the site. */
+  .hv__reg {
+    position: absolute;
+    width: 13px;
+    height: 13px;
+    z-index: 2;
+    pointer-events: none;
+    border: 0 solid var(--action);
+  }
+  .hv__reg--tl {
+    top: 9px;
+    left: 9px;
+    border-top-width: 2px;
+    border-left-width: 2px;
+  }
+  .hv__reg--tr {
+    top: 9px;
+    right: 9px;
+    border-top-width: 2px;
+    border-right-width: 2px;
+  }
+  .hv__reg--bl {
+    bottom: 9px;
+    left: 9px;
+    border-bottom-width: 2px;
+    border-left-width: 2px;
+  }
+  .hv__reg--br {
+    bottom: 9px;
+    right: 9px;
+    border-bottom-width: 2px;
+    border-right-width: 2px;
+  }
+</style>
