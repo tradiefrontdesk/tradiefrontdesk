@@ -23,6 +23,9 @@
 interface Props {
   /** Clip id — must match a file at public/clips/<id>.webm */
   id: string;
+  /** Band the figure sits on. Drives caption colour, matching HomeVideo's API
+      so a caller can swap between the two without changing its props. */
+  tone?: "dark" | "light";
   /** Mono caption under the frame, in the annotation layer. Optional. */
   caption?: string;
   /** Accessible description of what the animation shows. */
@@ -30,12 +33,12 @@ interface Props {
   class?: string;
 }
 
-const { id, caption, alt, class: className } = Astro.props;
+const { id, tone = "dark", caption, alt, class: className } = Astro.props;
 const src = `/clips/${id}.webm`;
 const poster = `/clips/${id}.jpg`;
 ---
 
-<figure class:list={["hv", className]}>
+<figure class:list={["hv", `hv--${tone}`, className]}>
   <div class="hv__frame" style={`--hv-poster: url(${poster})`}>
     <span class="hv__reg hv__reg--tl" aria-hidden="true"></span>
     <span class="hv__reg hv__reg--tr" aria-hidden="true"></span>
@@ -109,6 +112,9 @@ const poster = `/clips/${id}.jpg`;
 
   .hv__cap {
     color: var(--on-dark-muted);
+  }
+  .hv--light .hv__cap {
+    color: var(--muted);
   }
 
   /* Orange crop marks, identical to the other framed media on the site. */

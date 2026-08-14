@@ -24,6 +24,7 @@ import FAQ from "@/components/FAQ.astro";
 import ControlList from "@/components/shared/ControlList.astro";
 import BlueprintFigure from "@/components/shared/BlueprintFigure.astro";
 import HomeVideo from "@/components/home/HomeVideo.astro";
+import HeroVideo from "@/components/shared/HeroVideo.astro";
 import type { VideoId } from "@/remotion/data/homeVideos";
 import { locationContent, type LocationKey } from "@/data/locationContent";
 
@@ -104,7 +105,7 @@ const heroClipByRegion: Record<string, VideoId> = {
         </div>
       </div>
 
-      <HomeVideo
+      <HeroVideo
         id={heroClipByRegion[contentKey]}
         tone="dark"
         class="lp-hero__figure"

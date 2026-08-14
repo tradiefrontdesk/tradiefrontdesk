@@ -7,6 +7,7 @@
 // while it is on screen. Ratio (1.22/0.78) is unused elsewhere on the site.
 import Reveal from "@/components/motion/Reveal.astro";
 import HomeVideo from "@/components/home/HomeVideo.astro";
+import HeroVideo from "@/components/shared/HeroVideo.astro";
 import { brand } from "@/data/site";
 ---
 
@@ -36,7 +37,7 @@ import { brand } from "@/data/site";
       <p class="ph__trust">{brand.trustLine}</p>
     </div>
 
-    <HomeVideo
+    <HeroVideo
       id="PricingHeroClip"
       tone="dark"
       class="ph__figure"

@@ -12,6 +12,7 @@ import DraftPath from "@/components/motion/DraftPath.astro";
 import CTASection from "@/components/CTASection.astro";
 import BlueprintFigure from "@/components/shared/BlueprintFigure.astro";
 import HomeVideo from "@/components/home/HomeVideo.astro";
+import HeroVideo from "@/components/shared/HeroVideo.astro";
 import { corePromise } from "@/data/site";
 
 const all = await getCollection("insights");
@@ -54,7 +55,7 @@ const dateFmt = new Intl.DateTimeFormat("en-NZ", { dateStyle: "medium" });
         </p>
       </div>
 
-      <HomeVideo
+      <HeroVideo
         id="InsightsHeroClip"
         tone="dark"
         class="ii-hero__figure"

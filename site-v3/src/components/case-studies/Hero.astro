@@ -5,6 +5,7 @@
 // CTA, trust line, CaseStudiesHeroVideo as the supporting figure. States
 // the claims-safe framing up front so nothing below reads as a surprise.
 import HomeVideo from "@/components/home/HomeVideo.astro";
+import HeroVideo from "@/components/shared/HeroVideo.astro";
 import Reveal from "@/components/motion/Reveal.astro";
 import { brand } from "@/data/site";
 ---
@@ -36,7 +37,7 @@ import { brand } from "@/data/site";
     </div>
 
     <div class="cs-hero__media">
-      <HomeVideo
+      <HeroVideo
         id="CaseStudiesHeroClip"
         tone="dark"
         caption="Proof without hype — activity tracked, not promised."

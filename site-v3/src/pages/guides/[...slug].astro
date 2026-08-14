@@ -13,6 +13,7 @@ import CTASection from "@/components/CTASection.astro";
 import FAQ from "@/components/FAQ.astro";
 import BlueprintFigure from "@/components/shared/BlueprintFigure.astro";
 import HomeVideo from "@/components/home/HomeVideo.astro";
+import HeroVideo from "@/components/shared/HeroVideo.astro";
 import { corePromise } from "@/data/site";
 
 export async function getStaticPaths() {
@@ -74,7 +75,7 @@ const dateFmt = new Intl.DateTimeFormat("en-NZ", { dateStyle: "long" });
         </p>
       </div>
 
-      <HomeVideo
+      <HeroVideo
         id="GuideDefaultHeroClip"
         tone="dark"
         class="gd-hero__figure"

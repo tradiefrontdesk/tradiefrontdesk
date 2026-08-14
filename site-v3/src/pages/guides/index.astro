@@ -11,6 +11,7 @@ import DraftPath from "@/components/motion/DraftPath.astro";
 import CTASection from "@/components/CTASection.astro";
 import BlueprintFigure from "@/components/shared/BlueprintFigure.astro";
 import HomeVideo from "@/components/home/HomeVideo.astro";
+import HeroVideo from "@/components/shared/HeroVideo.astro";
 import { corePromise } from "@/data/site";
 
 const all = await getCollection("guides");
@@ -48,7 +49,7 @@ const supporting = all
         </p>
       </div>
 
-      <HomeVideo
+      <HeroVideo
         id="GuidesHubHeroClip"
         tone="dark"
         class="gi-hero__figure"

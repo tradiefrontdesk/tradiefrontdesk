@@ -10,6 +10,7 @@
 // link. Ratio (1.06/0.94) is unused elsewhere on the site.
 import Reveal from "@/components/motion/Reveal.astro";
 import HomeVideo from "@/components/home/HomeVideo.astro";
+import HeroVideo from "@/components/shared/HeroVideo.astro";
 import { brand } from "@/data/site";
 ---
 
@@ -38,7 +39,7 @@ import { brand } from "@/data/site";
       <p class="ch__trust">{brand.trustLine}</p>
     </div>
 
-    <HomeVideo
+    <HeroVideo
       id="ContactHeroClip"
       tone="dark"
       class="ch__figure"

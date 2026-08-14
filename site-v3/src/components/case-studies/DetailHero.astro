@@ -3,7 +3,7 @@
 // Compact interior hero for a single worked example. Same split pattern as
 // the index hero, but the copy is per-study: headline as h1, snapshot as
 // the lead, CaseStudyDetailVideo (shared across every slug) as the figure.
-import HomeVideo from "@/components/home/HomeVideo.astro";
+import HeroVideo from "@/components/shared/HeroVideo.astro";
 import Reveal from "@/components/motion/Reveal.astro";
 import { brand } from "@/data/site";
 import type { proofExamples, clientStories } from "@/data/site";
@@ -57,7 +57,7 @@ const videoId = videoIdBySlug[study.slug] ?? "CaseStudyDetailVideo";
     </div>
 
     <div class="dh__media">
-      <HomeVideo
+      <HeroVideo
         id={videoId}
         tone="dark"
         caption="Snapshot, system, and reported result — in that order."

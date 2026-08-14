@@ -25,6 +25,7 @@ import JobLog from "@/components/shared/JobLog.astro";
 import ControlList from "@/components/shared/ControlList.astro";
 import BlueprintFigure from "@/components/shared/BlueprintFigure.astro";
 import HomeVideo from "@/components/home/HomeVideo.astro";
+import HeroVideo from "@/components/shared/HeroVideo.astro";
 import type { VideoId } from "@/remotion/data/homeVideos";
 import { problemContent, type ProblemKey } from "@/data/problemContent";
 
@@ -89,7 +90,7 @@ const heroClipByProblem: Record<string, VideoId> = {
         </div>
       </div>
 
-      <HomeVideo
+      <HeroVideo
         id={heroClipByProblem[contentKey]}
         tone="dark"
         class="pp-hero__figure"
